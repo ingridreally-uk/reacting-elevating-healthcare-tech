@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -36,7 +36,6 @@ type SupplierMeta = {
   id: string;
   name: string;
   initials: string;
-  tint: string;
   delivery: string;
   minOrder: string;
   rating: number;
@@ -63,46 +62,10 @@ type Product = {
 };
 
 const suppliers: SupplierMeta[] = [
-  {
-    id: "henry",
-    name: "Henry Schein",
-    initials: "HS",
-    tint: "bg-slate-900 text-white",
-    delivery: "2 business days",
-    minOrder: "£150",
-    rating: 4.7,
-    quoteDate: "28 Jun 2026",
-  },
-  {
-    id: "dental-sky",
-    name: "Dental Sky",
-    initials: "DS",
-    tint: "bg-teal-700 text-white",
-    delivery: "1 business day",
-    minOrder: "£100",
-    rating: 4.6,
-    quoteDate: "29 Jun 2026",
-  },
-  {
-    id: "wright",
-    name: "Wright Health",
-    initials: "WH",
-    tint: "bg-slate-700 text-white",
-    delivery: "3 business days",
-    minOrder: "£200",
-    rating: 4.4,
-    quoteDate: "27 Jun 2026",
-  },
-  {
-    id: "kent",
-    name: "Kent Express",
-    initials: "KE",
-    tint: "bg-amber-700 text-white",
-    delivery: "2–4 business days",
-    minOrder: "£120",
-    rating: 4.3,
-    quoteDate: "28 Jun 2026",
-  },
+  { id: "henry", name: "Henry Schein", initials: "HS", delivery: "2 business days", minOrder: "£150", rating: 4.7, quoteDate: "28 Jun 2026" },
+  { id: "dental-sky", name: "Dental Sky", initials: "DS", delivery: "1 business day", minOrder: "£100", rating: 4.6, quoteDate: "29 Jun 2026" },
+  { id: "wright", name: "Wright Health", initials: "WH", delivery: "3 business days", minOrder: "£200", rating: 4.4, quoteDate: "27 Jun 2026" },
+  { id: "kent", name: "Kent Express", initials: "KE", delivery: "2–4 business days", minOrder: "£120", rating: 4.3, quoteDate: "28 Jun 2026" },
 ];
 
 const products: Product[] = [
@@ -196,60 +159,80 @@ const currency = (n: number) =>
 
 /* ---------------- primitives ---------------- */
 
-function Kpi({
+function useAnimatedNumber(value: number, duration = 450) {
+  const [display, setDisplay] = useState(value);
+  const fromRef = useRef(value);
+  const startRef = useRef<number | null>(null);
+  const rafRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    fromRef.current = display;
+    startRef.current = null;
+    const step = (t: number) => {
+      if (startRef.current === null) startRef.current = t;
+      const p = Math.min(1, (t - startRef.current) / duration);
+      const eased = 1 - Math.pow(1 - p, 3);
+      setDisplay(fromRef.current + (value - fromRef.current) * eased);
+      if (p < 1) rafRef.current = requestAnimationFrame(step);
+    };
+    rafRef.current = requestAnimationFrame(step);
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value]);
+
+  return display;
+}
+
+function Stat({
   label,
   value,
-  sub,
-  accent,
+  hint,
+  emphasis,
 }: {
   label: string;
   value: string;
-  sub?: string;
-  accent?: boolean;
+  hint?: string;
+  emphasis?: boolean;
 }) {
   return (
-    <div
-      className={`rounded-2xl border bg-white p-4 transition-all hover:-translate-y-0.5 ${
-        accent
-          ? "border-teal-200/80 bg-teal-50/40"
-          : "border-slate-200/80"
-      } shadow-[0_1px_2px_rgba(15,23,42,0.04),0_8px_24px_-12px_rgba(15,23,42,0.08)]`}
-    >
-      <p className="text-[10.5px] font-semibold uppercase tracking-wider text-slate-500">
+    <div className="rounded-2xl border border-slate-200/70 bg-white px-5 py-4 transition-shadow hover:shadow-[0_1px_2px_rgba(15,23,42,0.04),0_10px_24px_-16px_rgba(15,23,42,0.18)]">
+      <p className="text-[10.5px] font-medium uppercase tracking-[0.08em] text-slate-500">
         {label}
       </p>
       <p
-        className={`mt-1.5 text-[22px] font-semibold tracking-tight tabular-nums ${
-          accent ? "text-teal-700" : "text-slate-900"
+        className={`mt-2 text-[22px] font-semibold tracking-tight tabular-nums ${
+          emphasis ? "text-teal-700" : "text-slate-900"
         }`}
       >
         {value}
       </p>
-      {sub && <p className="mt-0.5 text-[11.5px] text-slate-500">{sub}</p>}
+      {hint && <p className="mt-1 text-[11.5px] text-slate-500">{hint}</p>}
     </div>
   );
 }
 
 function AvailabilityChip({ a }: { a: Availability }) {
   const map = {
-    in_stock: { label: "In stock", cls: "bg-emerald-50 text-emerald-700 ring-emerald-100" },
-    low: { label: "Low stock", cls: "bg-amber-50 text-amber-700 ring-amber-100" },
-    backorder: { label: "Backorder", cls: "bg-slate-100 text-slate-600 ring-slate-200" },
+    in_stock: { label: "In stock", dot: "bg-slate-400" },
+    low: { label: "Low stock", dot: "bg-slate-500" },
+    backorder: { label: "Backorder", dot: "bg-slate-300" },
   } as const;
   const v = map[a];
   return (
-    <span
-      className={`inline-flex items-center rounded-full px-1.5 py-0.5 text-[10px] font-medium ring-1 ring-inset ${v.cls}`}
-    >
+    <span className="inline-flex items-center gap-1.5 text-[11px] text-slate-500">
+      <span className={`h-1.5 w-1.5 rounded-full ${v.dot}`} />
       {v.label}
     </span>
   );
 }
 
-function SupplierBadge({ s }: { s: SupplierMeta }) {
+function SupplierBadge({ s, size = 28 }: { s: SupplierMeta; size?: number }) {
   return (
     <span
-      className={`grid h-7 w-7 place-items-center rounded-lg text-[10.5px] font-semibold ${s.tint}`}
+      style={{ width: size, height: size }}
+      className="grid shrink-0 place-items-center rounded-lg border border-slate-200 bg-white text-[10.5px] font-semibold tracking-tight text-slate-700"
     >
       {s.initials}
     </span>
@@ -259,7 +242,7 @@ function SupplierBadge({ s }: { s: SupplierMeta }) {
 function ProductThumb({ name }: { name: string }) {
   const ch = name.trim().slice(0, 1).toUpperCase();
   return (
-    <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg border border-slate-200 bg-slate-50 text-[12px] font-semibold text-slate-500">
+    <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl border border-slate-200 bg-slate-50 text-[13px] font-semibold text-slate-500">
       {ch}
     </span>
   );
@@ -268,7 +251,6 @@ function ProductThumb({ name }: { name: string }) {
 /* ---------------- page ---------------- */
 
 function RfqComparisonPage() {
-  // selection: productId -> supplierId
   const [selected, setSelected] = useState<Record<string, string>>(() => {
     const init: Record<string, string> = {};
     products.forEach((p) => {
@@ -285,7 +267,6 @@ function RfqComparisonPage() {
     const bySupplier: Record<string, number> = {};
     products.forEach((p) => {
       const sorted = [...p.quotes].sort((a, b) => a.unitPrice - b.unitPrice);
-      const cheapest = sorted[0].unitPrice;
       const worst = sorted[sorted.length - 1].unitPrice;
       const chosen = p.quotes.find((q) => q.supplierId === selected[p.id])!;
       total += chosen.unitPrice * p.qty;
@@ -296,6 +277,9 @@ function RfqComparisonPage() {
     return { total, savings, bySupplier };
   }, [selected]);
 
+  const animTotal = useAnimatedNumber(totals.total);
+  const animSavings = useAnimatedNumber(totals.savings);
+
   const productsQuoted = products.filter((p) => p.quotes.length > 0).length;
   const bestSavingPerProduct = products.reduce((acc, p) => {
     const sorted = [...p.quotes].sort((a, b) => a.unitPrice - b.unitPrice);
@@ -303,10 +287,10 @@ function RfqComparisonPage() {
   }, 0);
 
   return (
-    <div className="min-h-screen bg-slate-50/60 font-sans text-slate-900">
+    <div className="min-h-screen bg-[#FAFAF9] font-sans text-slate-900 antialiased [font-feature-settings:'ss01','cv11']">
       {/* Topbar */}
-      <header className="sticky top-0 z-30 border-b border-slate-200/80 bg-white/85 backdrop-blur">
-        <div className="mx-auto flex h-16 max-w-[1480px] items-center gap-4 px-6">
+      <header className="sticky top-0 z-30 border-b border-slate-200/70 bg-white/80 backdrop-blur-md">
+        <div className="mx-auto flex h-16 max-w-[1480px] items-center gap-5 px-8">
           <Link
             to="/"
             className="flex items-center gap-2 text-[13px] font-semibold tracking-tight text-slate-900"
@@ -319,8 +303,8 @@ function RfqComparisonPage() {
               Dental
             </span>
           </Link>
-          <nav className="ml-6 hidden items-center gap-1 text-[13px] text-slate-500 md:flex">
-            <Link to="/dashboard" className="rounded-md px-2.5 py-1.5 hover:bg-slate-50 hover:text-slate-900">
+          <nav className="ml-4 hidden items-center gap-1 text-[13px] text-slate-500 md:flex">
+            <Link to="/dashboard" className="rounded-md px-2.5 py-1.5 hover:bg-slate-100 hover:text-slate-900">
               Dashboard
             </Link>
             <span className="rounded-md bg-slate-100 px-2.5 py-1.5 font-medium text-slate-900">
@@ -331,53 +315,54 @@ function RfqComparisonPage() {
             <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
             <input
               placeholder="Search products, suppliers…"
-              className="w-full rounded-lg border border-slate-200 bg-slate-50/60 py-2 pl-9 pr-3 text-[13px] text-slate-700 placeholder:text-slate-400 focus:border-slate-300 focus:bg-white focus:outline-none"
+              className="w-full rounded-lg border border-slate-200 bg-white py-2 pl-9 pr-3 text-[13px] text-slate-700 placeholder:text-slate-400 focus:border-slate-300 focus:outline-none focus:ring-4 focus:ring-slate-100"
             />
           </div>
-          <button className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-[13px] font-medium text-slate-700 hover:border-slate-300 hover:bg-slate-50">
+          <button className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-[13px] font-medium text-slate-700 transition-colors hover:border-slate-300 hover:bg-slate-50">
             <Download className="h-3.5 w-3.5" /> Export PDF
           </button>
         </div>
       </header>
 
-      <main className="mx-auto max-w-[1480px] px-6 py-8 lg:py-10">
-        {/* Title row */}
-        <section className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-          <div>
-            <p className="text-[11px] font-semibold uppercase tracking-wider text-teal-700">
+      <main className="mx-auto max-w-[1480px] px-8 py-12 lg:py-16">
+        {/* Title */}
+        <section className="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
+          <div className="max-w-2xl">
+            <div className="flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.12em] text-slate-500">
+              <span className="inline-block h-1 w-1 rounded-full bg-teal-600" />
               RFQ · 2026-06-22
-            </p>
-            <h1 className="mt-2 text-[34px] font-semibold leading-[1.1] tracking-tight text-slate-900 md:text-[40px]">
+            </div>
+            <h1 className="mt-4 text-[40px] font-semibold leading-[1.05] tracking-[-0.02em] text-slate-900 md:text-[48px]">
               Compare supplier quotes
             </h1>
-            <p className="mt-3 max-w-2xl text-[14.5px] leading-relaxed text-slate-500">
+            <p className="mt-5 max-w-xl text-[15.5px] leading-[1.6] text-slate-500">
               Review supplier responses and select the best option for each product
               before creating your purchase order.
             </p>
           </div>
-          <div className="grid grid-cols-3 gap-3 lg:w-[520px]">
-            <Kpi label="Total estimated" value={currency(totals.total)} sub="across selected suppliers" />
-            <Kpi label="Potential savings" value={currency(totals.savings)} sub="vs highest quotes" accent />
-            <Kpi label="Suppliers responded" value={`${suppliers.length}/${suppliers.length}`} sub="all quotes received" />
+          <div className="grid grid-cols-3 gap-3 lg:w-[560px]">
+            <Stat label="Estimated spend" value={currency(animTotal)} hint="at current selection" />
+            <Stat label="Potential savings" value={currency(animSavings)} hint="vs highest quotes" emphasis />
+            <Stat label="Responses" value={`${suppliers.length}/${suppliers.length}`} hint="all quotes in" />
           </div>
         </section>
 
         {/* Summary bar */}
-        <section className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
-          <Kpi label="Products requested" value={`${products.length}`} />
-          <Kpi label="Products quoted" value={`${productsQuoted}`} sub="100% coverage" />
-          <Kpi label="Suppliers" value={`${suppliers.length}`} sub="comparing now" />
-          <Kpi label="Best saving" value={currency(bestSavingPerProduct)} sub="if all best picks chosen" />
-          <Kpi label="Total purchase value" value={currency(totals.total)} sub="at current selection" />
+        <section className="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+          <Stat label="Products requested" value={`${products.length}`} />
+          <Stat label="Products quoted" value={`${productsQuoted}`} hint="100% coverage" />
+          <Stat label="Suppliers" value={`${suppliers.length}`} hint="comparing now" />
+          <Stat label="Best possible saving" value={currency(bestSavingPerProduct)} hint="if all best picks chosen" />
+          <Stat label="Total purchase value" value={currency(animTotal)} hint="excl. VAT" />
         </section>
 
-        {/* Body: table + sticky sidebar */}
-        <section className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-[1fr_340px]">
+        {/* Body */}
+        <section className="mt-12 grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_360px]">
           {/* Comparison table */}
-          <div className="overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-[0_1px_2px_rgba(15,23,42,0.04),0_8px_24px_-12px_rgba(15,23,42,0.08)]">
-            <div className="flex items-center justify-between border-b border-slate-100 px-5 py-3.5">
-              <div className="flex items-center gap-2">
-                <FileText className="h-4 w-4 text-slate-500" />
+          <div className="overflow-hidden rounded-2xl border border-slate-200/70 bg-white shadow-[0_1px_2px_rgba(15,23,42,0.03),0_12px_32px_-20px_rgba(15,23,42,0.15)]">
+            <div className="flex items-center justify-between border-b border-slate-100 px-6 py-4">
+              <div className="flex items-center gap-2.5">
+                <FileText className="h-4 w-4 text-slate-400" />
                 <h2 className="text-[14px] font-semibold tracking-tight text-slate-900">
                   Quote comparison
                 </h2>
@@ -385,12 +370,12 @@ function RfqComparisonPage() {
                   {products.length} items
                 </span>
               </div>
-              <div className="hidden items-center gap-2 text-[12px] text-slate-500 md:flex">
+              <div className="hidden items-center gap-4 text-[11.5px] text-slate-500 md:flex">
                 <span className="inline-flex items-center gap-1.5">
-                  <span className="h-2 w-2 rounded-full bg-teal-500" /> Best value
+                  <span className="h-2 w-2 rounded-full bg-teal-500/80" /> Best value
                 </span>
                 <span className="inline-flex items-center gap-1.5">
-                  <span className="h-2 w-2 rounded-full bg-slate-300" /> Second best
+                  <span className="h-2 w-2 rounded-full bg-slate-300" /> Second
                 </span>
                 <span className="inline-flex items-center gap-1.5">
                   <span className="h-2 w-2 rounded-full bg-slate-200" /> Highest
@@ -398,31 +383,31 @@ function RfqComparisonPage() {
               </div>
             </div>
 
-            <div className="max-h-[720px] overflow-auto">
+            <div className="max-h-[760px] overflow-auto">
               <table className="w-full border-separate border-spacing-0 text-left text-[13px]">
                 <thead>
                   <tr>
-                    <th className="sticky left-0 top-0 z-20 w-[320px] border-b border-slate-200 bg-white px-5 py-4 align-bottom">
-                      <p className="text-[10.5px] font-semibold uppercase tracking-wider text-slate-500">
+                    <th className="sticky left-0 top-0 z-20 w-[340px] border-b border-slate-200 bg-white px-6 py-5 align-bottom">
+                      <p className="text-[10.5px] font-medium uppercase tracking-[0.08em] text-slate-500">
                         Product
                       </p>
                     </th>
                     {suppliers.map((s) => (
                       <th
                         key={s.id}
-                        className="sticky top-0 z-10 min-w-[200px] border-b border-l border-slate-100 bg-white px-4 py-4 align-top"
+                        className="sticky top-0 z-10 min-w-[210px] border-b border-l border-slate-100 bg-white px-5 py-5 align-top"
                       >
-                        <div className="flex items-start gap-2.5">
+                        <div className="flex items-start gap-3">
                           <SupplierBadge s={s} />
                           <div className="min-w-0">
-                            <p className="truncate text-[13px] font-semibold text-slate-900">
+                            <p className="truncate text-[13px] font-semibold tracking-tight text-slate-900">
                               {s.name}
                             </p>
-                            <p className="mt-0.5 flex items-center gap-1 text-[11px] text-slate-500">
+                            <p className="mt-1 flex items-center gap-1.5 text-[11px] text-slate-500">
                               <Truck className="h-3 w-3" /> {s.delivery}
                             </p>
                             <p className="text-[11px] text-slate-500">
-                              Min order {s.minOrder} · ★ {s.rating}
+                              Min {s.minOrder} · ★ {s.rating}
                             </p>
                             <p className="text-[10.5px] text-slate-400">
                               Quoted {s.quoteDate}
@@ -443,28 +428,31 @@ function RfqComparisonPage() {
                     const worst = sortedQuotes[sortedQuotes.length - 1];
                     const isOpen = expanded === p.id;
                     return (
-                      <>
-                        <tr key={p.id} className="group">
-                          <td className="sticky left-0 z-10 w-[320px] border-b border-slate-100 bg-white px-5 py-4 align-top group-hover:bg-slate-50/70">
-                            <div className="flex items-start gap-3">
+                      <Fragment key={p.id}>
+                        <tr className="group">
+                          <td className="sticky left-0 z-10 w-[340px] border-b border-slate-100 bg-white px-6 py-6 align-top group-hover:bg-slate-50/60">
+                            <div className="flex items-start gap-3.5">
                               <ProductThumb name={p.name} />
                               <div className="min-w-0">
-                                <p className="text-[13.5px] font-semibold text-slate-900">
+                                <p className="text-[13.5px] font-semibold tracking-tight text-slate-900">
                                   {p.name}
                                 </p>
-                                <p className="mt-0.5 text-[11.5px] text-slate-500">
+                                <p className="mt-1 text-[11.5px] text-slate-500">
                                   {p.pack} · {p.category}
                                 </p>
-                                <p className="mt-1 text-[11.5px] text-slate-600">
-                                  Required: <span className="font-medium text-slate-900">{p.qty}</span>
+                                <p className="mt-1.5 text-[11.5px] text-slate-600">
+                                  Required ·{" "}
+                                  <span className="font-medium text-slate-900 tabular-nums">
+                                    {p.qty}
+                                  </span>
                                 </p>
                                 <button
                                   onClick={() => setExpanded(isOpen ? null : p.id)}
-                                  className="mt-2 inline-flex items-center gap-1 text-[11.5px] font-medium text-slate-600 hover:text-slate-900"
+                                  className="mt-2.5 inline-flex items-center gap-1 text-[11.5px] font-medium text-slate-500 transition-colors hover:text-slate-900"
                                 >
                                   {isOpen ? "Hide details" : "View details"}
                                   <ChevronDown
-                                    className={`h-3 w-3 transition-transform ${isOpen ? "rotate-180" : ""}`}
+                                    className={`h-3 w-3 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
                                   />
                                 </button>
                               </div>
@@ -476,29 +464,31 @@ function RfqComparisonPage() {
                               return (
                                 <td
                                   key={s.id}
-                                  className="border-b border-l border-slate-100 bg-white px-4 py-4 align-top text-[12px] text-slate-400 group-hover:bg-slate-50/70"
+                                  className="border-b border-l border-slate-100 bg-white px-5 py-6 align-top text-[12px] text-slate-400 group-hover:bg-slate-50/60"
                                 >
                                   No quote
                                 </td>
                               );
                             }
                             const isBest = q.supplierId === cheapest.supplierId;
-                            const isSecond = second && q.supplierId === second.supplierId;
+                            const isSecond = !!second && q.supplierId === second.supplierId;
                             const isWorst = q.supplierId === worst.supplierId && !isBest;
                             const isSelected = selected[p.id] === s.id;
                             const diff = q.unitPrice - cheapest.unitPrice;
+
                             const cellBase =
-                              "relative border-b border-l border-slate-100 px-4 py-4 align-top transition-colors cursor-pointer group-hover:bg-slate-50/70";
+                              "relative border-b border-l border-slate-100 px-5 py-6 align-top transition-all duration-200 cursor-pointer group-hover:bg-slate-50/60";
                             const cellTone = isBest
-                              ? "bg-teal-50/60 ring-1 ring-inset ring-teal-200/70 hover:bg-teal-50"
+                              ? "bg-teal-50/50 ring-1 ring-inset ring-teal-200/60 hover:bg-teal-50/70"
                               : isSecond
-                                ? "bg-white ring-1 ring-inset ring-slate-200/60"
+                                ? "bg-white"
                                 : isWorst
-                                  ? "bg-slate-50/60 text-slate-500"
+                                  ? "bg-slate-50/40"
                                   : "bg-white";
                             const selectedRing = isSelected
-                              ? "outline outline-2 outline-offset-[-2px] outline-slate-900"
+                              ? "shadow-[inset_0_0_0_2px_#0f172a]"
                               : "";
+
                             return (
                               <td
                                 key={s.id}
@@ -508,25 +498,25 @@ function RfqComparisonPage() {
                                 className={`${cellBase} ${cellTone} ${selectedRing}`}
                               >
                                 {isBest && (
-                                  <span className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full bg-teal-600/95 px-1.5 py-0.5 text-[9.5px] font-semibold uppercase tracking-wide text-white">
+                                  <span className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full border border-teal-200/80 bg-white px-1.5 py-0.5 text-[9.5px] font-semibold uppercase tracking-[0.06em] text-teal-700">
                                     <Sparkles className="h-2.5 w-2.5" /> Best
                                   </span>
                                 )}
                                 <p
-                                  className={`text-[18px] font-semibold tabular-nums ${
+                                  className={`text-[20px] font-semibold tracking-tight tabular-nums ${
                                     isBest ? "text-teal-800" : isWorst ? "text-slate-500" : "text-slate-900"
                                   }`}
                                 >
                                   {currency(q.unitPrice)}
                                 </p>
-                                <p className="mt-0.5 text-[11px] text-slate-500">
+                                <p className="mt-1 text-[11px] text-slate-500 tabular-nums">
                                   per pack · {currency(q.unitPrice * p.qty)} total
                                 </p>
-                                <div className="mt-2 flex items-center gap-2">
+                                <div className="mt-3 flex items-center gap-3">
                                   <AvailabilityChip a={q.availability} />
                                   {diff > 0 ? (
-                                    <span className="text-[10.5px] text-slate-500">
-                                      +{currency(diff)} vs best
+                                    <span className="text-[10.5px] text-slate-500 tabular-nums">
+                                      +{currency(diff)}
                                     </span>
                                   ) : (
                                     <span className="text-[10.5px] font-medium text-teal-700">
@@ -535,13 +525,13 @@ function RfqComparisonPage() {
                                   )}
                                 </div>
                                 {q.note && (
-                                  <p className="mt-1.5 text-[10.5px] italic text-slate-500">
+                                  <p className="mt-2 text-[10.5px] italic text-slate-500">
                                     {q.note}
                                   </p>
                                 )}
-                                <div className="mt-2.5 flex items-center justify-between">
+                                <div className="mt-3 flex items-center justify-between">
                                   <span
-                                    className={`inline-flex h-4 w-4 items-center justify-center rounded-full border ${
+                                    className={`inline-flex h-4 w-4 items-center justify-center rounded-full border transition-colors ${
                                       isSelected
                                         ? "border-slate-900 bg-slate-900 text-white"
                                         : "border-slate-300 bg-white text-transparent"
@@ -549,7 +539,13 @@ function RfqComparisonPage() {
                                   >
                                     <Check className="h-2.5 w-2.5" />
                                   </span>
-                                  <span className="text-[10.5px] text-slate-400 group-hover:text-slate-600">
+                                  <span
+                                    className={`text-[10.5px] transition-colors ${
+                                      isSelected
+                                        ? "font-medium text-slate-900"
+                                        : "text-slate-400 group-hover:text-slate-600"
+                                    }`}
+                                  >
                                     {isSelected ? "Selected" : "Select"}
                                   </span>
                                 </div>
@@ -558,30 +554,30 @@ function RfqComparisonPage() {
                           })}
                         </tr>
                         {isOpen && (
-                          <tr key={`${p.id}-x`}>
+                          <tr>
                             <td
                               colSpan={suppliers.length + 1}
-                              className="border-b border-slate-100 bg-slate-50/60 px-5 py-5"
+                              className="border-b border-slate-100 bg-slate-50/50 px-6 py-6"
                             >
-                              <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+                              <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
                                 <div>
-                                  <p className="text-[10.5px] font-semibold uppercase tracking-wider text-slate-500">
+                                  <p className="text-[10.5px] font-medium uppercase tracking-[0.08em] text-slate-500">
                                     Notes
                                   </p>
-                                  <p className="mt-1 text-[12.5px] leading-relaxed text-slate-700">
+                                  <p className="mt-2 text-[12.5px] leading-relaxed text-slate-700">
                                     {p.notes || "—"}
                                   </p>
                                 </div>
                                 <div>
-                                  <p className="text-[10.5px] font-semibold uppercase tracking-wider text-slate-500">
+                                  <p className="text-[10.5px] font-medium uppercase tracking-[0.08em] text-slate-500">
                                     Alternatives
                                   </p>
                                   {p.alternatives.length === 0 ? (
-                                    <p className="mt-1 text-[12.5px] text-slate-500">
+                                    <p className="mt-2 text-[12.5px] text-slate-500">
                                       No alternatives suggested.
                                     </p>
                                   ) : (
-                                    <ul className="mt-1 space-y-1 text-[12.5px] text-slate-700">
+                                    <ul className="mt-2 space-y-1.5 text-[12.5px] text-slate-700">
                                       {p.alternatives.map((a) => (
                                         <li key={a} className="flex items-center gap-2">
                                           <Package className="h-3 w-3 text-slate-400" />
@@ -592,15 +588,15 @@ function RfqComparisonPage() {
                                   )}
                                 </div>
                                 <div>
-                                  <p className="text-[10.5px] font-semibold uppercase tracking-wider text-slate-500">
+                                  <p className="text-[10.5px] font-medium uppercase tracking-[0.08em] text-slate-500">
                                     Supplier comments
                                   </p>
                                   {p.comments.length === 0 ? (
-                                    <p className="mt-1 text-[12.5px] text-slate-500">
+                                    <p className="mt-2 text-[12.5px] text-slate-500">
                                       No comments from suppliers.
                                     </p>
                                   ) : (
-                                    <ul className="mt-1 space-y-1.5 text-[12.5px] text-slate-700">
+                                    <ul className="mt-2 space-y-2 text-[12.5px] text-slate-700">
                                       {p.comments.map((c, i) => {
                                         const s = suppliers.find((x) => x.id === c.supplierId)!;
                                         return (
@@ -616,15 +612,15 @@ function RfqComparisonPage() {
                                   )}
                                 </div>
                               </div>
-                              <div className="mt-4 flex items-center gap-2">
-                                <button className="inline-flex items-center gap-1.5 rounded-md border border-slate-200 bg-white px-2.5 py-1.5 text-[12px] font-medium text-slate-700 hover:border-slate-300 hover:bg-slate-50">
+                              <div className="mt-5 flex items-center gap-2">
+                                <button className="inline-flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-[12px] font-medium text-slate-500 transition-colors hover:bg-white hover:text-slate-900">
                                   <ExternalLink className="h-3 w-3" /> View original quote
                                 </button>
                               </div>
                             </td>
                           </tr>
                         )}
-                      </>
+                      </Fragment>
                     );
                   })}
                 </tbody>
@@ -634,42 +630,40 @@ function RfqComparisonPage() {
 
           {/* Sticky sidebar */}
           <aside className="lg:sticky lg:top-24 lg:self-start">
-            <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-[0_1px_2px_rgba(15,23,42,0.04),0_8px_24px_-12px_rgba(15,23,42,0.08)]">
+            <div className="rounded-2xl border border-slate-200/70 bg-white p-6 shadow-[0_1px_2px_rgba(15,23,42,0.03),0_12px_32px_-20px_rgba(15,23,42,0.15)]">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-[10.5px] font-semibold uppercase tracking-wider text-teal-700">
+                  <p className="text-[10.5px] font-medium uppercase tracking-[0.1em] text-teal-700">
                     Live order
                   </p>
-                  <h3 className="mt-1 text-[16px] font-semibold tracking-tight text-slate-900">
+                  <h3 className="mt-1.5 text-[17px] font-semibold tracking-tight text-slate-900">
                     Your selection
                   </h3>
                 </div>
                 <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[11px] font-medium text-slate-600">
-                  {products.length} items
+                  {Object.keys(selected).length}/{products.length}
                 </span>
               </div>
 
-              <div className="mt-5 space-y-2.5">
+              <div className="mt-6 space-y-2">
                 {suppliers.map((s) => {
                   const total = totals.bySupplier[s.id];
                   if (!total) return null;
                   return (
                     <div
                       key={s.id}
-                      className="flex items-center justify-between rounded-lg border border-slate-100 bg-slate-50/50 px-3 py-2"
+                      className="flex items-center justify-between rounded-xl border border-slate-100 bg-slate-50/60 px-3 py-2.5 transition-colors hover:bg-slate-50"
                     >
-                      <div className="flex items-center gap-2">
-                        <SupplierBadge s={s} />
+                      <div className="flex items-center gap-2.5">
+                        <SupplierBadge s={s} size={26} />
                         <div>
-                          <p className="text-[12.5px] font-medium text-slate-900">
+                          <p className="text-[12.5px] font-medium tracking-tight text-slate-900">
                             {s.name}
                           </p>
-                          <p className="text-[10.5px] text-slate-500">
-                            {s.delivery}
-                          </p>
+                          <p className="text-[10.5px] text-slate-500">{s.delivery}</p>
                         </div>
                       </div>
-                      <p className="text-[13px] font-semibold tabular-nums text-slate-900">
+                      <p className="text-[13px] font-semibold tabular-nums tracking-tight text-slate-900">
                         {currency(total)}
                       </p>
                     </div>
@@ -677,39 +671,39 @@ function RfqComparisonPage() {
                 })}
               </div>
 
-              <div className="mt-5 space-y-2 border-t border-slate-100 pt-4 text-[13px]">
+              <div className="mt-6 space-y-3 border-t border-slate-100 pt-5 text-[13px]">
                 <div className="flex items-center justify-between text-slate-500">
-                  <span>Items selected</span>
+                  <span>Items remaining</span>
                   <span className="tabular-nums text-slate-900">
-                    {Object.keys(selected).length}/{products.length}
+                    {products.length - Object.keys(selected).length}
                   </span>
                 </div>
                 <div className="flex items-center justify-between text-slate-500">
                   <span>Running total</span>
-                  <span className="text-[15px] font-semibold tabular-nums text-slate-900">
-                    {currency(totals.total)}
+                  <span className="text-[17px] font-semibold tabular-nums tracking-tight text-slate-900">
+                    {currency(animTotal)}
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-slate-500">Estimated savings</span>
-                  <span className="rounded-full bg-teal-50 px-2 py-0.5 text-[12px] font-semibold text-teal-700">
-                    {currency(totals.savings)}
+                  <span className="rounded-full bg-teal-50 px-2 py-0.5 text-[12px] font-semibold tabular-nums text-teal-700">
+                    {currency(animSavings)}
                   </span>
                 </div>
               </div>
 
-              <button className="mt-5 inline-flex w-full items-center justify-center gap-1.5 rounded-lg bg-slate-900 px-3.5 py-2.5 text-[13px] font-medium text-white transition-all hover:-translate-y-px hover:bg-slate-800">
+              <button className="mt-6 inline-flex w-full items-center justify-center gap-1.5 rounded-xl bg-slate-900 px-3.5 py-3 text-[13px] font-medium tracking-tight text-white transition-all hover:-translate-y-px hover:bg-slate-800 hover:shadow-[0_8px_20px_-8px_rgba(15,23,42,0.4)]">
                 Generate purchase order <ArrowRight className="h-3.5 w-3.5" />
               </button>
-              <button className="mt-2 inline-flex w-full items-center justify-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3.5 py-2 text-[13px] font-medium text-slate-700 hover:border-slate-300 hover:bg-slate-50">
+              <button className="mt-2 inline-flex w-full items-center justify-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-[13px] font-medium text-slate-700 transition-colors hover:border-slate-300 hover:bg-slate-50">
                 <Download className="h-3.5 w-3.5" /> Export PDF
               </button>
-              <button className="mt-1 w-full rounded-lg px-3.5 py-2 text-[12.5px] font-medium text-slate-500 hover:bg-slate-50 hover:text-slate-900">
+              <button className="mt-1 w-full rounded-xl px-3.5 py-2 text-[12.5px] font-medium text-slate-500 transition-colors hover:bg-slate-50 hover:text-slate-900">
                 View original quotes
               </button>
             </div>
 
-            <p className="mt-3 px-1 text-[11px] leading-relaxed text-slate-400">
+            <p className="mt-4 px-1 text-[11px] leading-relaxed text-slate-400">
               Selections update totals instantly. You can adjust suppliers per product
               before raising the PO.
             </p>
@@ -717,84 +711,82 @@ function RfqComparisonPage() {
         </section>
 
         {/* Bottom summary */}
-        <section className="mt-10 overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-[0_1px_2px_rgba(15,23,42,0.04),0_8px_24px_-12px_rgba(15,23,42,0.08)]">
+        <section className="mt-14 overflow-hidden rounded-2xl border border-slate-200/70 bg-white shadow-[0_1px_2px_rgba(15,23,42,0.03),0_12px_32px_-20px_rgba(15,23,42,0.15)]">
           <div className="grid grid-cols-1 gap-0 md:grid-cols-5">
-            <div className="border-b border-slate-100 p-6 md:border-b-0 md:border-r">
-              <p className="text-[10.5px] font-semibold uppercase tracking-wider text-slate-500">
+            <div className="border-b border-slate-100 p-7 md:border-b-0 md:border-r">
+              <p className="text-[10.5px] font-medium uppercase tracking-[0.08em] text-slate-500">
                 Selected suppliers
               </p>
-              <p className="mt-2 text-[20px] font-semibold tracking-tight text-slate-900">
+              <p className="mt-3 text-[22px] font-semibold tracking-tight text-slate-900 tabular-nums">
                 {Object.keys(totals.bySupplier).length}
               </p>
-              <p className="mt-0.5 text-[11.5px] text-slate-500">
+              <p className="mt-1 text-[11.5px] text-slate-500">
                 {Object.keys(totals.bySupplier)
                   .map((id) => suppliers.find((s) => s.id === id)?.name)
                   .filter(Boolean)
                   .join(" · ")}
               </p>
             </div>
-            <div className="border-b border-slate-100 p-6 md:border-b-0 md:border-r">
-              <p className="text-[10.5px] font-semibold uppercase tracking-wider text-slate-500">
+            <div className="border-b border-slate-100 p-7 md:border-b-0 md:border-r">
+              <p className="text-[10.5px] font-medium uppercase tracking-[0.08em] text-slate-500">
                 Total spend
               </p>
-              <p className="mt-2 text-[20px] font-semibold tracking-tight text-slate-900 tabular-nums">
-                {currency(totals.total)}
+              <p className="mt-3 text-[22px] font-semibold tracking-tight text-slate-900 tabular-nums">
+                {currency(animTotal)}
               </p>
-              <p className="mt-0.5 text-[11.5px] text-slate-500">excl. VAT</p>
+              <p className="mt-1 text-[11.5px] text-slate-500">excl. VAT</p>
             </div>
-            <div className="border-b border-slate-100 p-6 md:border-b-0 md:border-r">
-              <p className="text-[10.5px] font-semibold uppercase tracking-wider text-slate-500">
+            <div className="border-b border-slate-100 p-7 md:border-b-0 md:border-r">
+              <p className="text-[10.5px] font-medium uppercase tracking-[0.08em] text-slate-500">
                 Savings achieved
               </p>
-              <p className="mt-2 text-[20px] font-semibold tracking-tight text-teal-700 tabular-nums">
-                {currency(totals.savings)}
+              <p className="mt-3 text-[22px] font-semibold tracking-tight text-teal-700 tabular-nums">
+                {currency(animSavings)}
               </p>
-              <p className="mt-0.5 text-[11.5px] text-slate-500">
-                vs highest quoted price
-              </p>
+              <p className="mt-1 text-[11.5px] text-slate-500">vs highest quoted price</p>
             </div>
-            <div className="border-b border-slate-100 p-6 md:border-b-0 md:border-r">
-              <p className="text-[10.5px] font-semibold uppercase tracking-wider text-slate-500">
+            <div className="border-b border-slate-100 p-7 md:border-b-0 md:border-r">
+              <p className="text-[10.5px] font-medium uppercase tracking-[0.08em] text-slate-500">
                 Delivery split
               </p>
-              <p className="mt-2 text-[13px] text-slate-700">
+              <p className="mt-3 text-[14px] text-slate-700">
                 Fastest 1 day · Slowest 3 days
               </p>
-              <p className="mt-0.5 text-[11.5px] text-slate-500">
+              <p className="mt-1 text-[11.5px] text-slate-500">
                 Across {Object.keys(totals.bySupplier).length} shipments
               </p>
             </div>
-            <div className="p-6">
-              <p className="text-[10.5px] font-semibold uppercase tracking-wider text-slate-500">
+            <div className="p-7">
+              <p className="text-[10.5px] font-medium uppercase tracking-[0.08em] text-slate-500">
                 Estimated VAT (20%)
               </p>
-              <p className="mt-2 text-[20px] font-semibold tracking-tight text-slate-900 tabular-nums">
-                {currency(totals.total * 0.2)}
+              <p className="mt-3 text-[22px] font-semibold tracking-tight text-slate-900 tabular-nums">
+                {currency(animTotal * 0.2)}
               </p>
-              <p className="mt-0.5 text-[11.5px] text-slate-500">
-                Inc. VAT {currency(totals.total * 1.2)}
+              <p className="mt-1 text-[11.5px] text-slate-500">
+                Inc. VAT {currency(animTotal * 1.2)}
               </p>
             </div>
           </div>
-          <div className="flex flex-col items-stretch justify-between gap-3 border-t border-slate-100 bg-slate-50/40 px-6 py-4 md:flex-row md:items-center">
+          <div className="flex flex-col items-stretch justify-between gap-3 border-t border-slate-100 bg-slate-50/50 px-7 py-5 md:flex-row md:items-center">
             <p className="text-[12.5px] text-slate-500">
               Review your selection — you can edit before raising the purchase order.
             </p>
             <div className="flex flex-col gap-2 sm:flex-row">
-              <button className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3.5 py-2 text-[13px] font-medium text-slate-700 hover:border-slate-300 hover:bg-slate-50">
+              <button className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3.5 py-2 text-[13px] font-medium text-slate-700 transition-colors hover:border-slate-300 hover:bg-slate-50">
                 <Download className="h-3.5 w-3.5" /> Export PDF
               </button>
-              <button className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-slate-900 px-4 py-2 text-[13px] font-medium text-white hover:bg-slate-800">
+              <button className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-slate-900 px-4 py-2 text-[13px] font-medium tracking-tight text-white transition-all hover:-translate-y-px hover:bg-slate-800 hover:shadow-[0_8px_20px_-8px_rgba(15,23,42,0.4)]">
                 Generate purchase order <ArrowUpRight className="h-3.5 w-3.5" />
               </button>
             </div>
           </div>
         </section>
 
-        <div className="mt-10 text-center">
+        <div className="mt-12 text-center">
           <Link
             to="/"
-            className="text-[12px] font-medium text-slate-500 hover:text-slate-900"
+            className="text-[12px] font-medium text-slate-500 transition-colors hover:text-slate-900"
           >
             ← Back to website
           </Link>

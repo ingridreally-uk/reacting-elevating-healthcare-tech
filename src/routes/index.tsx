@@ -12,21 +12,11 @@ import {
   BarChart3,
   LineChart,
   Check,
-  Cloud,
-  ShieldCheck,
-  RefreshCw,
-  MessageCircle,
   Plus,
   Minus,
   Search,
   Bell,
   ChevronRight,
-  Clock,
-  TrendingDown,
-  AlertTriangle,
-  Sparkles,
-  Heart,
-  Zap,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -54,7 +44,6 @@ const navLinks = [
   { label: "Product", href: "#product" },
   { label: "Features", href: "#features" },
   { label: "Resources", href: "#resources" },
-  { label: "Pricing", href: "#pricing" },
   { label: "About", href: "#about" },
 ];
 
@@ -64,14 +53,10 @@ const navLinks = [
 
 function Logo() {
   return (
-    <a href="#top" className="flex items-center gap-2.5" aria-label="Reacting home">
+    <a href="#top" className="flex items-center gap-2" aria-label="Reacting home">
       <span
         aria-hidden
-        className="inline-block h-6 w-6 rounded-[7px] bg-primary"
-        style={{
-          background:
-            "conic-gradient(from 210deg, var(--primary) 0 60%, var(--accent) 60% 100%)",
-        }}
+        className="inline-block h-2 w-2 rounded-full bg-foreground"
       />
       <span className="text-[15px] font-semibold tracking-tight text-foreground">
         Reacting
@@ -83,31 +68,24 @@ function Logo() {
 function Nav() {
   const [open, setOpen] = useState(false);
   return (
-    <header className="sticky top-0 z-50 border-b border-border/70 bg-background/80 backdrop-blur-md">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 lg:px-8">
+    <header className="sticky top-0 z-50 border-b border-border/60 bg-background/85 backdrop-blur-md">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 lg:px-10">
         <Logo />
-        <nav
-          aria-label="Primary"
-          className="hidden items-center gap-8 md:flex"
-        >
+        <nav aria-label="Primary" className="hidden items-center gap-9 md:flex">
           {navLinks.map((l) => (
             <a
               key={l.label}
               href={l.href}
-              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+              className="text-[13.5px] text-muted-foreground transition-colors hover:text-foreground"
             >
               {l.label}
             </a>
           ))}
         </nav>
-        <div className="hidden items-center gap-3 md:flex">
-          <a
-            href="#signin"
-            className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-          >
-            Sign in
-          </a>
-          <Button className="h-9 rounded-full px-4 text-sm">Book Demo</Button>
+        <div className="hidden items-center gap-2 md:flex">
+          <Button className="h-9 rounded-full px-4 text-[13px] font-medium">
+            Book Demo
+          </Button>
         </div>
         <button
           aria-label={open ? "Close menu" : "Open menu"}
@@ -120,7 +98,7 @@ function Nav() {
       </div>
       {open && (
         <div className="border-t border-border/70 bg-background md:hidden">
-          <div className="mx-auto flex max-w-6xl flex-col gap-1 px-5 py-4">
+          <div className="mx-auto flex max-w-7xl flex-col gap-1 px-6 py-4">
             {navLinks.map((l) => (
               <a
                 key={l.label}
@@ -140,43 +118,38 @@ function Nav() {
 }
 
 /* ------------------------------------------------------------------ */
-/*  Dashboard mock (used in hero + product section)                    */
+/*  Dashboard mock                                                     */
 /* ------------------------------------------------------------------ */
 
-function DashboardMock({ compact = false }: { compact?: boolean }) {
+function DashboardPreview() {
   return (
     <div className="relative">
-      <div
-        aria-hidden
-        className="absolute -inset-8 -z-10 rounded-[2.5rem] bg-accent/10 blur-3xl"
-      />
-      <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-[0_30px_80px_-30px_rgb(15_23_42/0.25)]">
-        {/* Top chrome */}
-        <div className="flex items-center gap-2 border-b border-border/70 bg-secondary/70 px-4 py-2.5">
+      {/* Window frame */}
+      <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-[0_40px_80px_-40px_rgb(15_23_42/0.22),0_2px_4px_-2px_rgb(15_23_42/0.06)]">
+        {/* Window chrome */}
+        <div className="flex items-center gap-2 border-b border-border/70 bg-[#F8FAFC] px-4 py-2.5">
           <span className="h-2.5 w-2.5 rounded-full bg-border" />
           <span className="h-2.5 w-2.5 rounded-full bg-border" />
           <span className="h-2.5 w-2.5 rounded-full bg-border" />
-          <div className="ml-3 flex h-6 max-w-xs flex-1 items-center gap-2 rounded-md bg-background px-2.5 text-[11px] text-muted-foreground">
+          <div className="ml-3 hidden h-6 max-w-xs flex-1 items-center gap-2 rounded-md border border-border/70 bg-background px-2.5 text-[11px] text-muted-foreground sm:flex">
             <Search className="h-3 w-3" />
             app.dentalassist.com / inventory
           </div>
-          <Bell className="ml-auto h-3.5 w-3.5 text-muted-foreground" />
         </div>
-        <div className="grid grid-cols-[170px_minmax(0,1fr)]">
+
+        <div className="grid grid-cols-[180px_minmax(0,1fr)]">
           {/* Sidebar */}
-          <aside className="hidden border-r border-border/70 bg-secondary/50 p-4 sm:block">
-            <div className="mb-4 flex items-center gap-2">
-              <span
-                aria-hidden
-                className="inline-block h-5 w-5 rounded-md"
-                style={{
-                  background:
-                    "conic-gradient(from 210deg, var(--primary) 0 60%, var(--accent) 60% 100%)",
-                }}
-              />
-              <span className="text-[13px] font-semibold">Dental Assist</span>
+          <aside className="hidden border-r border-border/70 bg-[#F8FAFC] p-4 sm:block">
+            <div className="mb-5 flex items-center gap-2">
+              <span className="h-2 w-2 rounded-full bg-foreground" />
+              <span className="text-[12px] font-semibold tracking-tight">
+                Dental Assist
+              </span>
             </div>
-            <ul className="space-y-0.5 text-[13px]">
+            <div className="mb-2 px-2 text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
+              Workspace
+            </div>
+            <ul className="space-y-0.5 text-[12.5px]">
               {[
                 "Overview",
                 "Inventory",
@@ -184,33 +157,35 @@ function DashboardMock({ compact = false }: { compact?: boolean }) {
                 "Suppliers",
                 "RFQs",
                 "Reports",
+                "Analytics",
               ].map((item, i) => (
                 <li
                   key={item}
-                  className={`flex items-center gap-2 rounded-md px-2.5 py-1.5 ${
+                  className={`flex items-center justify-between rounded-md px-2.5 py-1.5 ${
                     i === 1
-                      ? "bg-background font-medium text-foreground shadow-sm"
+                      ? "bg-background font-medium text-foreground shadow-[0_1px_2px_rgb(15_23_42/0.06)]"
                       : "text-muted-foreground"
                   }`}
                 >
-                  <span
-                    className={`h-1.5 w-1.5 rounded-full ${
-                      i === 1 ? "bg-accent" : "bg-border"
-                    }`}
-                  />
-                  {item}
+                  <span>{item}</span>
+                  {i === 1 && (
+                    <span className="rounded-full bg-accent/15 px-1.5 text-[10px] font-medium text-accent">
+                      12
+                    </span>
+                  )}
                 </li>
               ))}
             </ul>
           </aside>
+
           {/* Main */}
-          <div className="p-5">
-            <div className="mb-5 flex items-center justify-between">
-              <div>
-                <div className="text-[11px] uppercase tracking-wider text-muted-foreground">
+          <div className="p-5 sm:p-6">
+            <div className="mb-6 flex items-start justify-between gap-3">
+              <div className="min-w-0">
+                <div className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
                   Inventory
                 </div>
-                <div className="mt-0.5 text-base font-semibold tracking-tight">
+                <div className="mt-1 text-[15px] font-semibold tracking-tight">
                   Practice overview
                 </div>
               </div>
@@ -218,103 +193,76 @@ function DashboardMock({ compact = false }: { compact?: boolean }) {
                 <span className="rounded-full border border-border bg-background px-2.5 py-1 text-[11px] text-muted-foreground">
                   Last 30 days
                 </span>
-                <span className="rounded-full bg-primary px-2.5 py-1 text-[11px] font-medium text-primary-foreground">
+                <span className="rounded-full bg-foreground px-2.5 py-1 text-[11px] font-medium text-background">
                   + New order
                 </span>
               </div>
             </div>
+
             <div className="grid grid-cols-3 gap-3">
               {[
-                { k: "Items tracked", v: "1,284", d: "+24 this week" },
-                { k: "Low stock", v: "12", d: "Action needed", warn: true },
-                { k: "Open POs", v: "7", d: "3 awaiting delivery" },
+                { k: "Items tracked", v: "1,284" },
+                { k: "Low stock", v: "12", accent: true },
+                { k: "Open POs", v: "7" },
               ].map((s) => (
                 <div
                   key={s.k}
-                  className="rounded-xl border border-border bg-background p-3.5"
+                  className="rounded-xl border border-border bg-background p-4"
                 >
-                  <div className="text-[10px] uppercase tracking-wider text-muted-foreground">
+                  <div className="text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
                     {s.k}
                   </div>
-                  <div className="mt-1 text-lg font-semibold tracking-tight">
-                    {s.v}
-                  </div>
-                  <div
-                    className={`mt-1 text-[11px] ${
-                      s.warn ? "text-[color:var(--warning)]" : "text-muted-foreground"
-                    }`}
-                  >
-                    {s.d}
+                  <div className="mt-2 flex items-baseline gap-2">
+                    <div className="text-[20px] font-semibold tracking-tight">
+                      {s.v}
+                    </div>
+                    {s.accent && (
+                      <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+                    )}
                   </div>
                 </div>
               ))}
             </div>
-            {!compact && (
-              <div className="mt-4 rounded-xl border border-border bg-background p-4">
-                <div className="mb-3 flex items-center justify-between">
-                  <div className="text-sm font-medium">Spend by category</div>
-                  <div className="text-[11px] text-muted-foreground">
-                    Last 30 days
-                  </div>
-                </div>
-                <div className="flex h-28 items-end gap-1.5">
-                  {[40, 65, 50, 80, 55, 72, 48, 90, 60, 75, 58, 84].map(
-                    (h, i) => (
-                      <div key={i} className="flex flex-1 flex-col gap-1">
-                        <div
-                          style={{ height: `${h}%` }}
-                          className={`w-full rounded-sm ${
-                            i % 4 === 0 ? "bg-primary" : "bg-primary/20"
-                          }`}
-                        />
-                      </div>
-                    ),
-                  )}
+
+            <div className="mt-4 rounded-xl border border-border bg-background p-4">
+              <div className="mb-3 flex items-center justify-between">
+                <div className="text-[13px] font-medium">Spend by category</div>
+                <div className="text-[11px] text-muted-foreground">
+                  Last 30 days
                 </div>
               </div>
-            )}
+              <div className="flex h-24 items-end gap-1.5">
+                {[40, 65, 50, 80, 55, 72, 48, 90, 60, 75, 58, 84].map((h, i) => (
+                  <div
+                    key={i}
+                    style={{ height: `${h}%` }}
+                    className={`flex-1 rounded-sm ${
+                      i === 7 ? "bg-foreground" : "bg-foreground/10"
+                    }`}
+                  />
+                ))}
+              </div>
+            </div>
+
             <div className="mt-4 overflow-hidden rounded-xl border border-border bg-background">
               {[
-                {
-                  n: "Composite refills · A2",
-                  s: "Henry Schein",
-                  t: "Delivered",
-                  c: "success",
-                },
-                {
-                  n: "Nitrile gloves · Medium",
-                  s: "Wright Cottrell",
-                  t: "In transit",
-                  c: "muted",
-                },
-                {
-                  n: "Endo files · 25mm",
-                  s: "Dentsply Sirona",
-                  t: "Approved",
-                  c: "accent",
-                },
+                { n: "Composite refills · A2", s: "Henry Schein", t: "Delivered" },
+                { n: "Nitrile gloves · Medium", s: "Wright Cottrell", t: "In transit" },
+                { n: "Endo files · 25mm", s: "Dentsply Sirona", t: "Approved" },
               ].map((r, i) => (
                 <div
                   key={r.n}
-                  className={`flex items-center justify-between px-4 py-3 text-sm ${
+                  className={`flex items-center justify-between px-4 py-3 text-[13px] ${
                     i > 0 ? "border-t border-border" : ""
                   }`}
                 >
                   <div className="min-w-0">
                     <div className="truncate font-medium">{r.n}</div>
-                    <div className="truncate text-xs text-muted-foreground">
+                    <div className="truncate text-[11px] text-muted-foreground">
                       {r.s}
                     </div>
                   </div>
-                  <span
-                    className={`shrink-0 rounded-full px-2.5 py-1 text-[11px] font-medium ${
-                      r.c === "success"
-                        ? "bg-[color:var(--success)]/12 text-[color:var(--success)]"
-                        : r.c === "accent"
-                          ? "bg-accent/15 text-accent"
-                          : "bg-secondary text-muted-foreground"
-                    }`}
-                  >
+                  <span className="shrink-0 text-[11px] text-muted-foreground">
                     {r.t}
                   </span>
                 </div>
@@ -334,71 +282,35 @@ function DashboardMock({ compact = false }: { compact?: boolean }) {
 function Hero() {
   return (
     <section id="product" className="relative">
-      <div className="mx-auto max-w-6xl px-5 pb-20 pt-16 sm:pt-24 lg:px-8 lg:pb-28 lg:pt-28">
-        <div className="grid items-center gap-14 lg:grid-cols-[1.05fr_1fr] lg:gap-16">
+      <div className="mx-auto max-w-7xl px-6 pb-24 pt-20 sm:pt-28 lg:px-10 lg:pb-32 lg:pt-36">
+        <div className="grid items-center gap-16 lg:grid-cols-[1.05fr_1fr] lg:gap-20">
           <div>
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-xs text-muted-foreground">
-              <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-              Reacting · Dental Assist
+            <div className="mb-5 text-[12px] font-medium uppercase tracking-[0.18em] text-accent">
+              Dental Assist
             </div>
-            <h1 className="text-[40px] font-semibold leading-[1.04] tracking-[-0.02em] text-foreground sm:text-[56px] lg:text-[64px]">
+            <h1 className="text-[44px] font-semibold leading-[1.05] tracking-[-0.025em] text-foreground sm:text-[56px] lg:text-[64px]">
               Spend less time managing your practice.
             </h1>
-            <p className="mt-6 max-w-xl text-[17px] leading-relaxed text-muted-foreground sm:text-[18px]">
-              Dental Assist helps dental practices manage inventory, purchasing,
-              suppliers and daily operations through one simple cloud platform.
+            <p className="mt-7 max-w-[620px] text-[17px] leading-[1.6] text-muted-foreground sm:text-[18px]">
+              Manage inventory, purchasing, suppliers and day-to-day operations
+              through one simple cloud platform built for modern dental practices.
             </p>
-            <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <Button size="lg" className="h-11 rounded-full px-6 text-sm">
+            <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <Button size="lg" className="h-11 rounded-full px-6 text-[13.5px] font-medium">
                 Book a Demo
                 <ArrowRight className="h-4 w-4" />
               </Button>
               <Button
                 size="lg"
                 variant="ghost"
-                className="h-11 rounded-full px-5 text-sm text-foreground hover:bg-secondary"
+                className="h-11 rounded-full px-5 text-[13.5px] font-medium text-foreground hover:bg-secondary"
               >
                 <Play className="h-4 w-4" />
-                Watch 2-minute Overview
+                Watch Overview
               </Button>
             </div>
           </div>
-          <DashboardMock />
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/*  Trust strip                                                        */
-/* ------------------------------------------------------------------ */
-
-function TrustStrip() {
-  const items = [
-    { icon: Cloud, label: "Cloud based" },
-    { icon: ShieldCheck, label: "Secure" },
-    { icon: RefreshCw, label: "Continuous updates" },
-    { icon: MessageCircle, label: "Friendly support" },
-  ];
-  return (
-    <section aria-label="Trust" className="border-y border-border/70 bg-card">
-      <div className="mx-auto max-w-6xl px-5 py-7 lg:px-8">
-        <div className="flex flex-col items-start justify-between gap-5 md:flex-row md:items-center">
-          <p className="text-sm font-medium text-foreground">
-            Built and used daily in a real dental practice.
-          </p>
-          <ul className="flex flex-wrap items-center gap-x-7 gap-y-3">
-            {items.map((i) => (
-              <li
-                key={i.label}
-                className="flex items-center gap-2 text-sm text-muted-foreground"
-              >
-                <i.icon className="h-4 w-4 text-accent" />
-                {i.label}
-              </li>
-            ))}
-          </ul>
+          <DashboardPreview />
         </div>
       </div>
     </section>
@@ -413,7 +325,7 @@ function SectionHeading({
   eyebrow,
   title,
   body,
-  align = "center",
+  align = "left",
 }: {
   eyebrow?: string;
   title: string;
@@ -424,19 +336,62 @@ function SectionHeading({
   return (
     <div className={`max-w-2xl ${cls}`}>
       {eyebrow && (
-        <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
+        <div className="mb-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
           {eyebrow}
         </div>
       )}
-      <h2 className="text-[30px] font-semibold leading-[1.1] tracking-[-0.02em] text-foreground sm:text-[36px]">
+      <h2 className="text-[32px] font-semibold leading-[1.1] tracking-[-0.025em] text-foreground sm:text-[40px]">
         {title}
       </h2>
       {body && (
-        <p className="mt-4 text-[17px] leading-relaxed text-muted-foreground">
+        <p className="mt-5 text-[16.5px] leading-[1.6] text-muted-foreground">
           {body}
         </p>
       )}
     </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Benefits                                                           */
+/* ------------------------------------------------------------------ */
+
+const benefits = [
+  "Stop using spreadsheets.",
+  "Know exactly what is in stock.",
+  "Compare supplier prices faster.",
+  "Reduce expired materials.",
+  "Give your whole team one simple workflow.",
+];
+
+function Benefits() {
+  return (
+    <section id="features" className="border-t border-border/60 bg-background">
+      <div className="mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
+        <SectionHeading
+          eyebrow="Why Dental Assist"
+          title="Why practices choose Dental Assist."
+        />
+        <ul className="mt-14 divide-y divide-border border-y border-border">
+          {benefits.map((b, i) => (
+            <li
+              key={b}
+              className="group flex items-center justify-between gap-6 py-6 transition-colors hover:bg-secondary/40 sm:py-7"
+            >
+              <div className="flex items-center gap-6">
+                <span className="w-6 text-[12px] font-medium tabular-nums text-muted-foreground">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span className="text-[18px] font-medium tracking-tight text-foreground sm:text-[20px]">
+                  {b}
+                </span>
+              </div>
+              <ArrowRight className="hidden h-4 w-4 shrink-0 text-muted-foreground transition-all group-hover:translate-x-0.5 group-hover:text-foreground sm:block" />
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
   );
 }
 
@@ -447,51 +402,44 @@ function SectionHeading({
 const audiences = [
   {
     title: "Practice Owners",
-    points: ["Reduce costs.", "Improve visibility.", "Control purchasing."],
+    body: "Control costs, monitor spending and improve visibility.",
   },
   {
     title: "Practice Managers",
-    points: [
-      "Simplify inventory.",
-      "Manage suppliers.",
-      "Save hours every week.",
-    ],
+    body: "Simplify purchasing, suppliers and stock management.",
   },
   {
     title: "Dental Teams",
-    points: [
-      "Easy stock counts.",
-      "Simple deliveries.",
-      "Quick product search.",
-    ],
+    body: "Easy stock counts, simple deliveries and quick product search.",
   },
 ];
 
 function Audiences() {
   return (
-    <section className="bg-background">
-      <div className="mx-auto max-w-6xl px-5 py-24 lg:px-8 lg:py-32">
-        <SectionHeading eyebrow="Built for Every Role" title="Made for your whole practice." />
+    <section className="border-t border-border/60 bg-[#F8FAFC]">
+      <div className="mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
+        <SectionHeading title="Built for your whole practice." />
         <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {audiences.map((a) => (
+          {audiences.map((a, i) => (
             <div
               key={a.title}
-              className="group rounded-2xl border border-border bg-card p-7 shadow-[0_1px_2px_rgb(15_23_42/0.04)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_24px_60px_-30px_rgb(15_23_42/0.18)]"
+              className="group flex h-full flex-col justify-between rounded-2xl border border-border bg-card p-8 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_24px_60px_-30px_rgb(15_23_42/0.15)]"
             >
-              <div className="text-lg font-semibold tracking-tight text-foreground">
-                {a.title}
+              <div>
+                <div className="text-[11px] font-medium uppercase tracking-[0.16em] text-muted-foreground">
+                  0{i + 1}
+                </div>
+                <div className="mt-4 text-[20px] font-semibold tracking-tight text-foreground">
+                  {a.title}
+                </div>
+                <p className="mt-3 text-[15px] leading-[1.6] text-muted-foreground">
+                  {a.body}
+                </p>
               </div>
-              <ul className="mt-4 space-y-2.5">
-                {a.points.map((p) => (
-                  <li
-                    key={p}
-                    className="flex items-start gap-2.5 text-[15px] text-muted-foreground"
-                  >
-                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
-                    {p}
-                  </li>
-                ))}
-              </ul>
+              <div className="mt-10 inline-flex items-center gap-1.5 text-[13px] font-medium text-foreground/70 transition-colors group-hover:text-foreground">
+                Learn more
+                <ChevronRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+              </div>
             </div>
           ))}
         </div>
@@ -501,186 +449,127 @@ function Audiences() {
 }
 
 /* ------------------------------------------------------------------ */
-/*  Features                                                           */
+/*  Core modules (bento with hierarchy)                                */
 /* ------------------------------------------------------------------ */
 
-const features = [
+const modules = [
   {
-    icon: Package,
     title: "Inventory",
-    body: "Live stock levels across every room, with low-stock alerts and expiry tracking.",
+    body: "Track every item, every location, in real time. Set par levels and get alerts before you run out.",
+    icon: Package,
   },
   {
-    icon: ShoppingCart,
     title: "Purchasing",
-    body: "Approve, send and track every order from one tidy queue.",
+    body: "Raise, approve and track orders in one place. No more paper trails.",
+    icon: ShoppingCart,
   },
   {
-    icon: Truck,
     title: "Supplier Management",
-    body: "Keep contacts, pricing and lead times in one organised place.",
+    body: "All your suppliers, contacts and price lists in one tidy directory.",
+    icon: Truck,
   },
   {
-    icon: FileText,
     title: "RFQs",
-    body: "Send requests for quotes to multiple suppliers and compare side by side.",
+    body: "Request quotes from multiple suppliers and compare side by side.",
+    icon: FileText,
   },
   {
+    title: "Reports",
+    body: "Understand spend, usage and waste across the practice.",
     icon: BarChart3,
-    title: "Reporting",
-    body: "Clear monthly reports on spend, usage and supplier performance.",
   },
   {
-    icon: LineChart,
     title: "Analytics",
-    body: "Spot trends, forecast demand and find savings across the practice.",
+    body: "Spot trends and make confident decisions about your operations.",
+    icon: LineChart,
   },
 ];
 
-function Features() {
+function Modules() {
   return (
-    <section id="features" className="border-t border-border/70 bg-secondary/40">
-      <div className="mx-auto max-w-6xl px-5 py-24 lg:px-8 lg:py-32">
+    <section id="resources" className="border-t border-border/60 bg-background">
+      <div className="mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
         <SectionHeading
           eyebrow="Core Modules"
-          title="Everything a modern practice needs."
-          body="Six focused modules that cover the day-to-day work of running a practice."
+          title="Everything your practice needs, in one platform."
         />
-        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {features.map((f) => (
-            <div
-              key={f.title}
-              className="group flex flex-col rounded-2xl border border-border bg-card p-7 shadow-[0_1px_2px_rgb(15_23_42/0.04)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_24px_60px_-30px_rgb(15_23_42/0.18)]"
-            >
-              <div className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-secondary text-foreground ring-1 ring-inset ring-border">
-                <f.icon className="h-5 w-5" />
-              </div>
-              <div className="mt-5 text-[17px] font-semibold tracking-tight text-foreground">
-                {f.title}
-              </div>
-              <p className="mt-2 flex-1 text-[15px] leading-relaxed text-muted-foreground">
-                {f.body}
-              </p>
-              <a
-                href="#"
-                className="mt-5 inline-flex items-center gap-1 text-sm font-medium text-accent transition-colors hover:text-foreground"
-              >
-                Learn more
-                <ChevronRight className="h-3.5 w-3.5" />
-              </a>
+
+        <div className="mt-14 grid gap-5 lg:grid-cols-3">
+          {/* Featured */}
+          <div className="group relative overflow-hidden rounded-2xl border border-border bg-card p-8 transition-all hover:-translate-y-0.5 hover:shadow-[0_24px_60px_-30px_rgb(15_23_42/0.15)] lg:col-span-2 lg:row-span-2 lg:p-10">
+            <Package className="h-5 w-5 text-foreground" strokeWidth={1.5} />
+            <div className="mt-8 text-[24px] font-semibold tracking-tight sm:text-[28px]">
+              Inventory
             </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
+            <p className="mt-3 max-w-md text-[15.5px] leading-[1.6] text-muted-foreground">
+              {modules[0].body}
+            </p>
 
-/* ------------------------------------------------------------------ */
-/*  Product screenshot section                                         */
-/* ------------------------------------------------------------------ */
-
-function ProductShowcase() {
-  return (
-    <section className="border-t border-border/70 bg-background">
-      <div className="mx-auto max-w-6xl px-5 py-24 lg:px-8 lg:py-32">
-        <div className="mx-auto max-w-2xl text-center">
-          <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
-            The Product
-          </div>
-          <h2 className="text-[30px] font-semibold leading-[1.1] tracking-[-0.02em] text-foreground sm:text-[36px]">
-            Designed for busy practices.
-          </h2>
-          <p className="mt-4 text-[17px] leading-relaxed text-muted-foreground">
-            Simple enough for every member of the team — from the front desk to
-            the surgery.
-          </p>
-        </div>
-        <div className="mt-14">
-          <DashboardMock />
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/*  Built in practice                                                  */
-/* ------------------------------------------------------------------ */
-
-function BuiltInPractice() {
-  return (
-    <section id="about" className="border-t border-border/70 bg-secondary/40">
-      <div className="mx-auto max-w-6xl px-5 py-24 lg:px-8 lg:py-32">
-        <div className="grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
-          <div>
-            <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
-              Our Approach
-            </div>
-            <h2 className="text-[30px] font-semibold leading-[1.1] tracking-[-0.02em] text-foreground sm:text-[36px]">
-              Built inside a real dental practice.
-            </h2>
-            <div className="mt-6 space-y-4 text-[17px] leading-relaxed text-muted-foreground">
-              <p>
-                Dental Assist wasn't imagined in a meeting room. It was
-                developed and refined inside a working dental practice to solve
-                real operational problems.
-              </p>
-              <p>Every feature has been shaped by day-to-day use.</p>
-            </div>
-            <div className="mt-8 grid gap-3 sm:grid-cols-3">
+            {/* Mini visual */}
+            <div className="mt-10 overflow-hidden rounded-xl border border-border bg-[#F8FAFC]">
               {[
-                { k: "Chairside", v: "Tested" },
-                { k: "Iterations", v: "Weekly" },
-                { k: "Workflows", v: "Real" },
-              ].map((s) => (
+                { n: "Composite refills · A2", q: "24", s: "in stock" },
+                { n: "Nitrile gloves · M", q: "6", s: "low", accent: true },
+                { n: "Endo files · 25mm", q: "48", s: "in stock" },
+                { n: "Anaesthetic · 2%", q: "12", s: "in stock" },
+              ].map((r, i) => (
                 <div
-                  key={s.k}
-                  className="rounded-xl border border-border bg-card px-4 py-3"
+                  key={r.n}
+                  className={`flex items-center justify-between px-4 py-3 text-[13px] ${
+                    i > 0 ? "border-t border-border" : ""
+                  }`}
                 >
-                  <div className="text-[11px] uppercase tracking-wider text-muted-foreground">
-                    {s.k}
-                  </div>
-                  <div className="mt-1 text-base font-semibold tracking-tight">
-                    {s.v}
-                  </div>
+                  <span className="truncate font-medium text-foreground">
+                    {r.n}
+                  </span>
+                  <span className="flex items-center gap-2">
+                    <span className="tabular-nums text-muted-foreground">
+                      {r.q}
+                    </span>
+                    <span
+                      className={`text-[11px] ${
+                        r.accent ? "text-accent" : "text-muted-foreground"
+                      }`}
+                    >
+                      {r.s}
+                    </span>
+                  </span>
                 </div>
               ))}
             </div>
           </div>
-          {/* Authentic imagery placeholder — abstract, not stock */}
-          <div className="relative">
+
+          {/* Smaller */}
+          {modules.slice(1, 3).map((m) => (
             <div
-              aria-hidden
-              className="absolute -inset-6 -z-10 rounded-[2rem] bg-accent/10 blur-2xl"
-            />
-            <div
-              aria-hidden
-              role="img"
-              aria-label="Workspace inside a dental practice"
-              className="aspect-[4/5] w-full overflow-hidden rounded-2xl border border-border shadow-[0_30px_80px_-40px_rgb(15_23_42/0.25)]"
-              style={{
-                background:
-                  "linear-gradient(135deg, oklch(0.21 0.034 264) 0%, oklch(0.34 0.13 268) 60%, oklch(0.7 0.105 192) 100%)",
-              }}
+              key={m.title}
+              className="group rounded-2xl border border-border bg-card p-7 transition-all hover:-translate-y-0.5 hover:shadow-[0_24px_60px_-30px_rgb(15_23_42/0.15)]"
             >
-              <div className="flex h-full w-full flex-col justify-between p-8 text-primary-foreground">
-                <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.22em] opacity-80">
-                  <span className="h-1.5 w-1.5 rounded-full bg-primary-foreground" />
-                  From the practice
-                </div>
-                <div>
-                  <div className="text-[24px] font-medium leading-snug tracking-tight">
-                    "We built the tool we wished we had — then we kept refining
-                    it, day after day, in the practice."
-                  </div>
-                  <div className="mt-5 text-sm opacity-80">
-                    The Reacting team
-                  </div>
-                </div>
+              <m.icon className="h-5 w-5 text-foreground" strokeWidth={1.5} />
+              <div className="mt-6 text-[17px] font-semibold tracking-tight">
+                {m.title}
               </div>
+              <p className="mt-2 text-[14px] leading-[1.6] text-muted-foreground">
+                {m.body}
+              </p>
             </div>
-          </div>
+          ))}
+
+          {/* Bottom row */}
+          {modules.slice(3).map((m) => (
+            <div
+              key={m.title}
+              className="group rounded-2xl border border-border bg-card p-7 transition-all hover:-translate-y-0.5 hover:shadow-[0_24px_60px_-30px_rgb(15_23_42/0.15)]"
+            >
+              <m.icon className="h-5 w-5 text-foreground" strokeWidth={1.5} />
+              <div className="mt-6 text-[17px] font-semibold tracking-tight">
+                {m.title}
+              </div>
+              <p className="mt-2 text-[14px] leading-[1.6] text-muted-foreground">
+                {m.body}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </section>
@@ -688,53 +577,47 @@ function BuiltInPractice() {
 }
 
 /* ------------------------------------------------------------------ */
-/*  Videos                                                             */
+/*  Built inside a real practice                                       */
 /* ------------------------------------------------------------------ */
 
-const videos = [
-  { title: "Inventory", desc: "Counts, alerts and expiry tracking." },
-  { title: "Purchasing", desc: "Approve and send orders in seconds." },
-  { title: "RFQs", desc: "Compare supplier quotes side by side." },
-  { title: "Reports", desc: "Monthly spend and usage at a glance." },
-];
-
-function Videos() {
+function BuiltInPractice() {
   return (
-    <section id="resources" className="border-t border-border/70 bg-background">
-      <div className="mx-auto max-w-6xl px-5 py-24 lg:px-8 lg:py-32">
-        <SectionHeading title="See Dental Assist in action." />
-        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {videos.map((v) => (
-            <button
-              key={v.title}
-              type="button"
-              className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-card text-left shadow-[0_1px_2px_rgb(15_23_42/0.04)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_24px_60px_-30px_rgb(15_23_42/0.18)]"
-              aria-label={`Play ${v.title} overview`}
-            >
-              <div
-                className="relative aspect-[4/3] w-full overflow-hidden"
-                style={{
-                  background:
-                    "linear-gradient(140deg, oklch(0.21 0.034 264) 0%, oklch(0.34 0.13 268) 100%)",
-                }}
-              >
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="flex h-12 w-12 items-center justify-center rounded-full bg-background/95 text-foreground shadow-[0_8px_24px_-8px_rgb(15_23_42/0.4)] transition-transform group-hover:scale-105">
-                    <Play className="ml-0.5 h-4 w-4 fill-current" />
-                  </span>
+    <section id="about" className="border-t border-border/60 bg-[#F8FAFC]">
+      <div className="mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
+        <div className="grid items-start gap-16 lg:grid-cols-[1fr_1.1fr] lg:gap-24">
+          <div>
+            <div className="mb-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
+              The story
+            </div>
+            <h2 className="text-[32px] font-semibold leading-[1.1] tracking-[-0.025em] text-foreground sm:text-[40px]">
+              Built inside a real dental practice.
+            </h2>
+          </div>
+          <div>
+            <p className="text-[18px] leading-[1.7] text-foreground/85">
+              Dental Assist was developed and refined inside a working dental
+              practice to solve real daily operational problems. Every feature is
+              shaped by real workflows, not assumptions.
+            </p>
+            <div className="mt-10 grid grid-cols-2 gap-10 border-t border-border pt-10">
+              <div>
+                <div className="text-[28px] font-semibold tracking-tight">
+                  Real practice
                 </div>
-                <div className="absolute bottom-3 left-3 rounded-full bg-background/90 px-2 py-0.5 text-[11px] font-medium text-foreground">
-                  2:14
-                </div>
+                <p className="mt-1 text-[13.5px] text-muted-foreground">
+                  Built where it&apos;s used.
+                </p>
               </div>
-              <div className="p-5">
-                <div className="text-[15px] font-semibold tracking-tight text-foreground">
-                  {v.title}
+              <div>
+                <div className="text-[28px] font-semibold tracking-tight">
+                  Real workflows
                 </div>
-                <p className="mt-1 text-sm text-muted-foreground">{v.desc}</p>
+                <p className="mt-1 text-[13.5px] text-muted-foreground">
+                  Not assumptions.
+                </p>
               </div>
-            </button>
-          ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -747,81 +630,73 @@ function Videos() {
 
 const faqs = [
   {
-    q: "How long does setup take?",
-    a: "Most practices are up and running within a day. We help you import your existing stock list and set up your team accounts on a guided onboarding call.",
+    q: "Who is Dental Assist for?",
+    a: "Independent dental practices and small groups that want to replace spreadsheets and paper with one simple platform for inventory, purchasing and supplier management.",
   },
   {
-    q: "Can we import our stock?",
-    a: "Yes. We accept CSV exports from most existing systems and our team will help you map fields and clean up data before going live.",
+    q: "How long does it take to get started?",
+    a: "Most practices are up and running within a week. We help you import existing stock lists and connect your suppliers so the team can start on day one.",
   },
   {
-    q: "Is training included?",
-    a: "Every plan includes onboarding and live training for your team, plus a library of short how-to videos you can come back to anytime.",
+    q: "Does Dental Assist work with our existing suppliers?",
+    a: "Yes. You can manage every supplier you already work with, store their price lists and send RFQs from inside the platform.",
   },
   {
-    q: "How secure is the platform?",
-    a: "Data is encrypted in transit and at rest, hosted in UK and EU data centres, with role-based access controls and full audit logs.",
+    q: "Is our data secure?",
+    a: "Dental Assist runs on a secure cloud infrastructure with encryption in transit and at rest, role-based access and regular backups.",
   },
   {
-    q: "Can multiple practices use it?",
-    a: "Yes. Groups can manage multiple sites from a single account, with per-site permissions, shared supplier catalogues and consolidated reporting.",
+    q: "Can the whole team use it?",
+    a: "Yes. Roles are designed for owners, managers and dental teams so each person sees exactly what they need.",
   },
 ];
 
-function FAQItem({ q, a, defaultOpen = false }: { q: string; a: string; defaultOpen?: boolean }) {
-  const [open, setOpen] = useState(defaultOpen);
-  return (
-    <div className="border-b border-border last:border-b-0">
-      <button
-        type="button"
-        onClick={() => setOpen((v) => !v)}
-        aria-expanded={open}
-        className="flex w-full items-center justify-between gap-6 py-5 text-left"
-      >
-        <span className="text-[16px] font-medium tracking-tight text-foreground">
-          {q}
-        </span>
-        <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-border bg-card text-muted-foreground transition-colors">
-          {open ? <Minus className="h-3.5 w-3.5" /> : <Plus className="h-3.5 w-3.5" />}
-        </span>
-      </button>
-      <div
-        className={`grid transition-all duration-300 ease-out ${
-          open ? "grid-rows-[1fr] pb-5 opacity-100" : "grid-rows-[0fr] opacity-0"
-        }`}
-      >
-        <div className="overflow-hidden">
-          <p className="max-w-2xl pr-10 text-[15px] leading-relaxed text-muted-foreground">
-            {a}
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 function FAQ() {
+  const [open, setOpen] = useState<number | null>(0);
   return (
-    <section className="border-t border-border/70 bg-secondary/40">
-      <div className="mx-auto max-w-6xl px-5 py-24 lg:px-8 lg:py-32">
-        <div className="grid gap-14 lg:grid-cols-[1fr_1.4fr] lg:gap-20">
+    <section className="border-t border-border/60 bg-background">
+      <div className="mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
+        <div className="grid gap-16 lg:grid-cols-[1fr_1.4fr] lg:gap-24">
           <div>
-            <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
+            <div className="mb-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
               FAQ
             </div>
-            <h2 className="text-[30px] font-semibold leading-[1.1] tracking-[-0.02em] text-foreground sm:text-[36px]">
+            <h2 className="text-[32px] font-semibold leading-[1.1] tracking-[-0.025em] text-foreground sm:text-[40px]">
               Questions, answered.
             </h2>
-            <p className="mt-4 text-[16px] leading-relaxed text-muted-foreground">
-              Can't find what you're looking for? Get in touch — we reply
-              personally within a working day.
+            <p className="mt-5 text-[15.5px] leading-[1.6] text-muted-foreground">
+              Can&apos;t find what you&apos;re looking for? Get in touch and we&apos;ll
+              walk you through it.
             </p>
           </div>
-          <div className="rounded-2xl border border-border bg-card px-6 sm:px-8">
-            {faqs.map((f, i) => (
-              <FAQItem key={f.q} q={f.q} a={f.a} defaultOpen={i === 0} />
-            ))}
-          </div>
+          <ul className="divide-y divide-border border-y border-border">
+            {faqs.map((f, i) => {
+              const isOpen = open === i;
+              return (
+                <li key={f.q}>
+                  <button
+                    onClick={() => setOpen(isOpen ? null : i)}
+                    className="flex w-full items-center justify-between gap-6 py-6 text-left"
+                    aria-expanded={isOpen}
+                  >
+                    <span className="text-[16.5px] font-medium tracking-tight text-foreground">
+                      {f.q}
+                    </span>
+                    {isOpen ? (
+                      <Minus className="h-4 w-4 shrink-0 text-muted-foreground" />
+                    ) : (
+                      <Plus className="h-4 w-4 shrink-0 text-muted-foreground" />
+                    )}
+                  </button>
+                  {isOpen && (
+                    <p className="pb-7 pr-10 text-[15px] leading-[1.7] text-muted-foreground">
+                      {f.a}
+                    </p>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
         </div>
       </div>
     </section>
@@ -834,27 +709,29 @@ function FAQ() {
 
 function FinalCTA() {
   return (
-    <section className="border-t border-border/70 bg-background">
-      <div className="mx-auto max-w-4xl px-5 py-24 text-center lg:px-8 lg:py-32">
-        <h2 className="text-[34px] font-semibold leading-[1.05] tracking-[-0.02em] text-foreground sm:text-[44px]">
-          Ready to simplify your practice?
-        </h2>
-        <p className="mx-auto mt-5 max-w-xl text-[17px] leading-relaxed text-muted-foreground">
-          See Dental Assist in a short, tailored walkthrough — or send us a
-          question and we'll get back to you.
-        </p>
-        <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
-          <Button size="lg" className="h-11 rounded-full px-6">
-            Book a Demo
-            <ArrowRight className="h-4 w-4" />
-          </Button>
-          <Button
-            size="lg"
-            variant="outline"
-            className="h-11 rounded-full border-border bg-card px-6 hover:bg-secondary"
-          >
-            Contact Us
-          </Button>
+    <section className="border-t border-border/60 bg-background">
+      <div className="mx-auto max-w-7xl px-6 py-28 lg:px-10 lg:py-36">
+        <div className="mx-auto max-w-3xl text-center">
+          <h2 className="text-[36px] font-semibold leading-[1.05] tracking-[-0.025em] text-foreground sm:text-[52px]">
+            Ready to simplify your practice?
+          </h2>
+          <p className="mx-auto mt-6 max-w-xl text-[17px] leading-[1.6] text-muted-foreground">
+            See how Dental Assist replaces spreadsheets and paper with one calm,
+            connected platform.
+          </p>
+          <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <Button size="lg" className="h-11 rounded-full px-6 text-[13.5px] font-medium">
+              Book Demo
+              <ArrowRight className="h-4 w-4" />
+            </Button>
+            <Button
+              size="lg"
+              variant="ghost"
+              className="h-11 rounded-full px-6 text-[13.5px] font-medium text-foreground hover:bg-secondary"
+            >
+              Contact Us
+            </Button>
+          </div>
         </div>
       </div>
     </section>
@@ -869,177 +746,58 @@ function Footer() {
   const cols = [
     {
       title: "Product",
-      links: ["Dental Assist", "Features", "Roadmap", "Changelog"],
-    },
-    {
-      title: "Resources",
-      links: ["Help centre", "Guides", "Videos", "Status"],
+      links: ["Overview", "Features", "Modules", "Roadmap"],
     },
     {
       title: "Company",
-      links: ["About", "Contact", "LinkedIn", "Careers"],
+      links: ["About", "Story", "Contact"],
     },
     {
-      title: "Legal",
-      links: ["Privacy", "Terms", "Security", "DPA"],
+      title: "Resources",
+      links: ["Help center", "Guides", "Security"],
     },
   ];
   return (
-    <footer id="pricing" className="border-t border-border/70 bg-background">
-      <div className="mx-auto max-w-6xl px-5 py-16 lg:px-8">
-        <div className="grid gap-12 lg:grid-cols-[1.4fr_3fr]">
+    <footer className="border-t border-border/60 bg-background">
+      <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10">
+        <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
             <Logo />
-            <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
-              Intelligent cloud software for healthcare businesses. Dental
-              Assist is the first product in the Reacting family.
+            <p className="mt-4 max-w-xs text-[13.5px] leading-[1.6] text-muted-foreground">
+              Reacting builds intelligent cloud software for healthcare
+              businesses. Dental Assist is the first product.
             </p>
           </div>
-          <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
-            {cols.map((c) => (
-              <div key={c.title}>
-                <div className="text-[13px] font-semibold tracking-tight text-foreground">
-                  {c.title}
-                </div>
-                <ul className="mt-4 space-y-2.5">
-                  {c.links.map((l) => (
-                    <li key={l}>
-                      <a
-                        href="#"
-                        className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-                      >
-                        {l}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
+          {cols.map((c) => (
+            <div key={c.title}>
+              <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-foreground">
+                {c.title}
               </div>
-            ))}
-          </div>
+              <ul className="mt-4 space-y-2.5">
+                {c.links.map((l) => (
+                  <li key={l}>
+                    <a
+                      href="#"
+                      className="text-[13.5px] text-muted-foreground transition-colors hover:text-foreground"
+                    >
+                      {l}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
-        <div className="mt-14 flex flex-col items-start justify-between gap-3 border-t border-border pt-6 sm:flex-row sm:items-center">
-          <div className="text-xs text-muted-foreground">
+        <div className="mt-14 flex flex-col items-start justify-between gap-3 border-t border-border pt-7 sm:flex-row sm:items-center">
+          <p className="text-[12.5px] text-muted-foreground">
             © {new Date().getFullYear()} Reacting. All rights reserved.
-          </div>
-          <div className="text-xs text-muted-foreground">
-            Coming next: Vet Assist · Medical Assist · Optical Assist
-          </div>
+          </p>
+          <p className="text-[12.5px] text-muted-foreground">
+            Dental Assist · A Reacting product
+          </p>
         </div>
       </div>
     </footer>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/*  Problem                                                            */
-/* ------------------------------------------------------------------ */
-
-const problems = [
-  {
-    icon: Clock,
-    title: "Hours lost to spreadsheets.",
-    body: "Manual stock counts and order tracking eat into clinical time every single week.",
-  },
-  {
-    icon: TrendingDown,
-    title: "Money leaking quietly.",
-    body: "Over-ordering, expired stock and missed discounts add up to thousands a year.",
-  },
-  {
-    icon: AlertTriangle,
-    title: "Surprises at the chair.",
-    body: "Running out of a key item mid-treatment is stressful — and entirely avoidable.",
-  },
-];
-
-function Problem() {
-  return (
-    <section className="border-t border-border/70 bg-background">
-      <div className="mx-auto max-w-6xl px-5 py-24 lg:px-8 lg:py-32">
-        <SectionHeading
-          eyebrow="The Problem"
-          title="Running a practice shouldn't feel like running a warehouse."
-          body="Most practices still juggle stock, suppliers and orders across spreadsheets, paper notes and memory."
-        />
-        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {problems.map((p) => (
-            <div
-              key={p.title}
-              className="rounded-2xl border border-border bg-card p-7 shadow-[0_1px_2px_rgb(15_23_42/0.04)]"
-            >
-              <div className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-secondary text-foreground ring-1 ring-inset ring-border">
-                <p.icon className="h-5 w-5" />
-              </div>
-              <div className="mt-5 text-[17px] font-semibold tracking-tight text-foreground">
-                {p.title}
-              </div>
-              <p className="mt-2 text-[15px] leading-relaxed text-muted-foreground">
-                {p.body}
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/*  Why Dental Assist                                                  */
-/* ------------------------------------------------------------------ */
-
-const whys = [
-  {
-    icon: Sparkles,
-    title: "Simple by design.",
-    body: "Every screen is built for busy clinical teams — not for IT departments.",
-  },
-  {
-    icon: Zap,
-    title: "Fast to set up.",
-    body: "Most practices are live within a day, with their stock list imported and team onboarded.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Secure and reliable.",
-    body: "Encrypted data, UK and EU hosting, role-based access and full audit history.",
-  },
-  {
-    icon: Heart,
-    title: "Built with practices.",
-    body: "Shaped by daily use in a real dental practice, refined continuously with our customers.",
-  },
-];
-
-function WhyDentalAssist() {
-  return (
-    <section className="border-t border-border/70 bg-secondary/40">
-      <div className="mx-auto max-w-6xl px-5 py-24 lg:px-8 lg:py-32">
-        <SectionHeading
-          eyebrow="Why Dental Assist"
-          title="A calmer, clearer way to run the practice."
-          body="One platform that brings inventory, purchasing and reporting into a single, trustworthy view."
-        />
-        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {whys.map((w) => (
-            <div
-              key={w.title}
-              className="rounded-2xl border border-border bg-card p-7 shadow-[0_1px_2px_rgb(15_23_42/0.04)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_24px_60px_-30px_rgb(15_23_42/0.18)]"
-            >
-              <div className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-accent/10 text-accent ring-1 ring-inset ring-accent/20">
-                <w.icon className="h-5 w-5" />
-              </div>
-              <div className="mt-5 text-[16px] font-semibold tracking-tight text-foreground">
-                {w.title}
-              </div>
-              <p className="mt-2 text-[14.5px] leading-relaxed text-muted-foreground">
-                {w.body}
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
   );
 }
 
@@ -1049,18 +807,14 @@ function WhyDentalAssist() {
 
 function Landing() {
   return (
-    <div id="top" className="min-h-dvh bg-background text-foreground">
+    <div id="top" className="min-h-screen bg-background text-foreground">
       <Nav />
       <main>
         <Hero />
-        <TrustStrip />
-        <Problem />
-        <WhyDentalAssist />
-        <ProductShowcase />
-        <Features />
+        <Benefits />
         <Audiences />
+        <Modules />
         <BuiltInPractice />
-        <Videos />
         <FAQ />
         <FinalCTA />
       </main>
@@ -1068,4 +822,3 @@ function Landing() {
     </div>
   );
 }
-

@@ -542,9 +542,9 @@ function Features() {
     <section id="features" className="border-t border-border/70 bg-secondary/40">
       <div className="mx-auto max-w-6xl px-5 py-24 lg:px-8 lg:py-32">
         <SectionHeading
-          eyebrow="Core Features"
+          eyebrow="Core Modules"
           title="Everything a modern practice needs."
-          body="One platform for the day-to-day work that keeps the practice running smoothly."
+          body="Six focused modules that cover the day-to-day work of running a practice."
         />
         <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {features.map((f) => (

@@ -21,6 +21,12 @@ import {
   Search,
   Bell,
   ChevronRight,
+  Clock,
+  TrendingDown,
+  AlertTriangle,
+  Sparkles,
+  Heart,
+  Zap,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -465,7 +471,7 @@ function Audiences() {
   return (
     <section className="bg-background">
       <div className="mx-auto max-w-6xl px-5 py-24 lg:px-8 lg:py-32">
-        <SectionHeading title="Built for your whole practice." />
+        <SectionHeading eyebrow="Built for Every Role" title="Made for your whole practice." />
         <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {audiences.map((a) => (
             <div
@@ -536,9 +542,9 @@ function Features() {
     <section id="features" className="border-t border-border/70 bg-secondary/40">
       <div className="mx-auto max-w-6xl px-5 py-24 lg:px-8 lg:py-32">
         <SectionHeading
-          eyebrow="Core Features"
+          eyebrow="Core Modules"
           title="Everything a modern practice needs."
-          body="One platform for the day-to-day work that keeps the practice running smoothly."
+          body="Six focused modules that cover the day-to-day work of running a practice."
         />
         <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {features.map((f) => (
@@ -925,6 +931,119 @@ function Footer() {
 }
 
 /* ------------------------------------------------------------------ */
+/*  Problem                                                            */
+/* ------------------------------------------------------------------ */
+
+const problems = [
+  {
+    icon: Clock,
+    title: "Hours lost to spreadsheets.",
+    body: "Manual stock counts and order tracking eat into clinical time every single week.",
+  },
+  {
+    icon: TrendingDown,
+    title: "Money leaking quietly.",
+    body: "Over-ordering, expired stock and missed discounts add up to thousands a year.",
+  },
+  {
+    icon: AlertTriangle,
+    title: "Surprises at the chair.",
+    body: "Running out of a key item mid-treatment is stressful — and entirely avoidable.",
+  },
+];
+
+function Problem() {
+  return (
+    <section className="border-t border-border/70 bg-background">
+      <div className="mx-auto max-w-6xl px-5 py-24 lg:px-8 lg:py-32">
+        <SectionHeading
+          eyebrow="The Problem"
+          title="Running a practice shouldn't feel like running a warehouse."
+          body="Most practices still juggle stock, suppliers and orders across spreadsheets, paper notes and memory."
+        />
+        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {problems.map((p) => (
+            <div
+              key={p.title}
+              className="rounded-2xl border border-border bg-card p-7 shadow-[0_1px_2px_rgb(15_23_42/0.04)]"
+            >
+              <div className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-secondary text-foreground ring-1 ring-inset ring-border">
+                <p.icon className="h-5 w-5" />
+              </div>
+              <div className="mt-5 text-[17px] font-semibold tracking-tight text-foreground">
+                {p.title}
+              </div>
+              <p className="mt-2 text-[15px] leading-relaxed text-muted-foreground">
+                {p.body}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Why Dental Assist                                                  */
+/* ------------------------------------------------------------------ */
+
+const whys = [
+  {
+    icon: Sparkles,
+    title: "Simple by design.",
+    body: "Every screen is built for busy clinical teams — not for IT departments.",
+  },
+  {
+    icon: Zap,
+    title: "Fast to set up.",
+    body: "Most practices are live within a day, with their stock list imported and team onboarded.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Secure and reliable.",
+    body: "Encrypted data, UK and EU hosting, role-based access and full audit history.",
+  },
+  {
+    icon: Heart,
+    title: "Built with practices.",
+    body: "Shaped by daily use in a real dental practice, refined continuously with our customers.",
+  },
+];
+
+function WhyDentalAssist() {
+  return (
+    <section className="border-t border-border/70 bg-secondary/40">
+      <div className="mx-auto max-w-6xl px-5 py-24 lg:px-8 lg:py-32">
+        <SectionHeading
+          eyebrow="Why Dental Assist"
+          title="A calmer, clearer way to run the practice."
+          body="One platform that brings inventory, purchasing and reporting into a single, trustworthy view."
+        />
+        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {whys.map((w) => (
+            <div
+              key={w.title}
+              className="rounded-2xl border border-border bg-card p-7 shadow-[0_1px_2px_rgb(15_23_42/0.04)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_24px_60px_-30px_rgb(15_23_42/0.18)]"
+            >
+              <div className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-accent/10 text-accent ring-1 ring-inset ring-accent/20">
+                <w.icon className="h-5 w-5" />
+              </div>
+              <div className="mt-5 text-[16px] font-semibold tracking-tight text-foreground">
+                {w.title}
+              </div>
+              <p className="mt-2 text-[14.5px] leading-relaxed text-muted-foreground">
+                {w.body}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
 /*  Page                                                               */
 /* ------------------------------------------------------------------ */
 
@@ -935,9 +1054,11 @@ function Landing() {
       <main>
         <Hero />
         <TrustStrip />
-        <Audiences />
-        <Features />
+        <Problem />
+        <WhyDentalAssist />
         <ProductShowcase />
+        <Features />
+        <Audiences />
         <BuiltInPractice />
         <Videos />
         <FAQ />
@@ -947,3 +1068,4 @@ function Landing() {
     </div>
   );
 }
+

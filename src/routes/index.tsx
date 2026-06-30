@@ -471,7 +471,7 @@ function Audiences() {
   return (
     <section className="bg-background">
       <div className="mx-auto max-w-6xl px-5 py-24 lg:px-8 lg:py-32">
-        <SectionHeading title="Built for your whole practice." />
+        <SectionHeading eyebrow="Built for Every Role" title="Made for your whole practice." />
         <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {audiences.map((a) => (
             <div

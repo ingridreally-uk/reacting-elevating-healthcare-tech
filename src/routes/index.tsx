@@ -21,6 +21,12 @@ import {
   Search,
   Bell,
   ChevronRight,
+  Clock,
+  TrendingDown,
+  AlertTriangle,
+  Sparkles,
+  Heart,
+  Zap,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 

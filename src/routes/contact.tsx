@@ -34,7 +34,7 @@ function ContactPage() {
       />
 
       <section>
-        <div className="mx-auto grid max-w-7xl gap-16 px-6 py-14 lg:grid-cols-[1fr_1.2fr] lg:gap-16 lg:px-10 lg:py-20">
+        <div className="mx-auto grid max-w-7xl gap-16 px-6 py-14 lg:grid-cols-[1fr_1.2fr] lg:gap-12 lg:px-10 lg:py-20">
           <div className="space-y-6">
             <ContactCard
               icon={Mail}

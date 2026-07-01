@@ -37,7 +37,7 @@ function BookDemoPage() {
   return (
     <SiteShell>
       <section className="border-b border-border/60">
-        <div className="mx-auto grid max-w-7xl gap-16 px-6 pb-20 pt-20 lg:grid-cols-[1fr_1.05fr] lg:gap-10 lg:px-10 lg:pb-20 lg:pt-28">
+        <div className="mx-auto grid max-w-7xl gap-12 px-6 pb-14 pt-12 lg:grid-cols-[1fr_1.05fr] lg:gap-10 lg:px-10 lg:pb-16 lg:pt-20">
           {/* Left: value */}
           <div>
             <div className="mb-5 text-[12px] font-medium uppercase tracking-[0.18em] text-accent">

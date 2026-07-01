@@ -130,7 +130,7 @@ export function SiteFooter() {
   ];
   return (
     <footer className="border-t border-border/60 bg-background">
-      <div className="mx-auto max-w-[1280px] px-6 pb-12 pt-24 lg:px-10 lg:pb-16 lg:pt-28">
+      <div className="mx-auto max-w-[1280px] px-6 pb-10 pt-16 lg:px-10 lg:pb-12 lg:pt-20">
         <div className="grid gap-10 lg:grid-cols-[1.6fr_1fr_1fr_1fr_1fr] lg:gap-10">
           <div>
             <Logo />

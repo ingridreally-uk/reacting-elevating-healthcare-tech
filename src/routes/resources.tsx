@@ -60,7 +60,7 @@ function ResourcesPage() {
       />
 
       <section className="border-b border-border/60">
-        <div className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
+        <div className="mx-auto max-w-7xl px-6 py-14 lg:px-10 lg:py-20">
           <div className="grid gap-5 sm:grid-cols-2">
             {resources.map((r) => (
               <div

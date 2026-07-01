@@ -524,7 +524,7 @@ const benefits: {
   title: string;
   body: string;
   benefit: string;
-  Preview: () => JSX.Element;
+  Preview: () => React.ReactElement;
 }[] = [
   {
     title: "Stop using spreadsheets.",

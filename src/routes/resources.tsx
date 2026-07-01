@@ -1,9 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { GraduationCap, PlaySquare, LifeBuoy, Newspaper, ArrowRight } from "lucide-react";
-import {
-  SiteShell,
-  PageHero,
-} from "@/components/site/SiteChrome";
+import { SiteShell, PageHero } from "@/components/site/SiteChrome";
+import { TrustBar } from "@/components/site/ProductMock";
 
 export const Route = createFileRoute("/resources")({
   head: () => ({
@@ -86,6 +84,8 @@ function ResourcesPage() {
           </div>
         </div>
       </section>
+
+      <TrustBar />
 
       <section>
         <div className="mx-auto max-w-7xl px-6 py-24 text-center lg:px-10 lg:py-32">

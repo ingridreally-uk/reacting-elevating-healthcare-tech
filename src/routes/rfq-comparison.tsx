@@ -289,8 +289,8 @@ function RfqComparisonPage() {
   return (
     <div className="min-h-screen bg-[#FAFAF9] font-sans text-slate-900 antialiased [font-feature-settings:'ss01','cv11']">
       {/* Topbar */}
-      <header className="sticky top-0 z-30 border-b border-slate-200/70 bg-white/80 backdrop-blur-md">
-        <div className="mx-auto flex h-16 max-w-[1480px] items-center gap-5 px-8">
+      <header className="sticky top-0 z-30 border-b border-slate-200/80 bg-white/85 backdrop-blur-md">
+        <div className="mx-auto flex h-16 max-w-[1280px] items-center gap-5 px-6 lg:px-10">
           <Link
             to="/"
             className="flex items-center gap-2 text-[13px] font-semibold tracking-tight text-slate-900"
@@ -324,7 +324,7 @@ function RfqComparisonPage() {
         </div>
       </header>
 
-      <main className="mx-auto max-w-[1480px] px-8 py-12 lg:py-16">
+      <main className="mx-auto max-w-[1280px] px-6 py-12 lg:px-10 lg:py-16">
         {/* Title */}
         <section className="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-2xl">

@@ -49,7 +49,7 @@ function AboutPage() {
       />
 
       <section className="border-b border-border/60">
-        <div className="mx-auto max-w-[1280px] px-6 py-20 lg:px-10 lg:py-28">
+        <div className="mx-auto max-w-[1280px] px-6 py-14 lg:px-10 lg:py-20">
           <div className="grid gap-12 lg:grid-cols-[1fr_1.15fr] lg:gap-20">
             {/* Practice photography — 2-image mosaic */}
             <div className="grid grid-cols-5 grid-rows-5 gap-3">
@@ -136,8 +136,8 @@ function AboutPage() {
       <TrustBar />
 
       <section className="border-b border-border/60 bg-[#F8FAFC]">
-        <div className="mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
-          <div className="mb-14 max-w-2xl">
+        <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10 lg:py-24">
+          <div className="mb-10 max-w-2xl">
             <div className="mb-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
               Principles
             </div>
@@ -165,7 +165,7 @@ function AboutPage() {
       </section>
 
       <section>
-        <div className="mx-auto max-w-7xl px-6 py-24 text-center lg:px-10 lg:py-32">
+        <div className="mx-auto max-w-7xl px-6 py-16 text-center lg:px-10 lg:py-24">
           <h2 className="mx-auto max-w-2xl text-[32px] font-semibold leading-[1.1] tracking-[-0.025em] sm:text-[44px]">
             Interested in early access?
           </h2>
@@ -173,7 +173,7 @@ function AboutPage() {
             We&apos;re working with a small number of beta practices. Get in
             touch to see if Dental Assist is the right fit for yours.
           </p>
-          <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Button asChild size="lg" className="h-11 rounded-full px-6 text-[13.5px] font-medium">
               <Link to="/book-demo">
                 Book Your Demo

@@ -60,7 +60,7 @@ function ResourcesPage() {
       />
 
       <section className="border-b border-border/60">
-        <div className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
+        <div className="mx-auto max-w-7xl px-6 py-14 lg:px-10 lg:py-20">
           <div className="grid gap-5 sm:grid-cols-2">
             {resources.map((r) => (
               <div
@@ -88,7 +88,7 @@ function ResourcesPage() {
       <TrustBar />
 
       <section>
-        <div className="mx-auto max-w-7xl px-6 py-24 text-center lg:px-10 lg:py-32">
+        <div className="mx-auto max-w-7xl px-6 py-16 text-center lg:px-10 lg:py-24">
           <h2 className="mx-auto max-w-2xl text-[30px] font-semibold leading-[1.1] tracking-[-0.025em] sm:text-[40px]">
             Prefer a guided walkthrough?
           </h2>
@@ -96,7 +96,7 @@ function ResourcesPage() {
             Book a 30-minute call with our team and we&apos;ll show you Dental
             Assist for your practice.
           </p>
-          <div className="mt-10 flex justify-center">
+          <div className="mt-8 flex justify-center">
             <Link
               to="/book-demo"
               className="inline-flex h-11 items-center gap-2 rounded-full bg-primary px-6 text-[13.5px] font-medium text-primary-foreground transition-colors hover:bg-primary/90"

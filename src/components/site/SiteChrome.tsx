@@ -168,7 +168,7 @@ export function SiteFooter() {
             </div>
           ))}
         </div>
-        <div className="mt-20 flex flex-col items-start justify-between gap-3 border-t border-border pt-8 sm:flex-row sm:items-center">
+        <div className="mt-14 flex flex-col items-start justify-between gap-3 border-t border-border pt-8 sm:flex-row sm:items-center">
           <p className="text-[12.5px] text-muted-foreground">
             © {new Date().getFullYear()} Reacting Ltd. All rights reserved.
           </p>
@@ -207,7 +207,7 @@ export function PageHero({
 }) {
   return (
     <section className="border-b border-border/60">
-      <div className="mx-auto max-w-[1280px] px-6 pb-20 pt-24 lg:px-10 lg:pb-28 lg:pt-32">
+      <div className="mx-auto max-w-[1280px] px-6 pb-12 pt-16 lg:px-10 lg:pb-16 lg:pt-20">
         <div className="max-w-3xl">
           {eyebrow && (
             <div className="mb-5 text-[12px] font-medium uppercase tracking-[0.18em] text-accent">

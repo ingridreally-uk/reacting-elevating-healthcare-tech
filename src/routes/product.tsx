@@ -76,7 +76,7 @@ function ProductPage() {
       <TrustBar />
 
       <section className="border-b border-border/60">
-        <div className="mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
+        <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10 lg:py-24">
           <div className="grid gap-14 lg:grid-cols-3 lg:gap-10">
             {pillars.map((p, i) => (
               <div key={p.title}>
@@ -96,7 +96,7 @@ function ProductPage() {
       </section>
 
       <section className="border-b border-border/60 bg-[#F8FAFC]">
-        <div className="mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
+        <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10 lg:py-24">
           <div className="grid gap-14 lg:grid-cols-[1fr_1.2fr] lg:gap-24">
             <div>
               <div className="mb-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
@@ -128,11 +128,11 @@ function ProductPage() {
       </section>
 
       <section>
-        <div className="mx-auto max-w-7xl px-6 py-24 text-center lg:px-10 lg:py-32">
+        <div className="mx-auto max-w-7xl px-6 py-16 text-center lg:px-10 lg:py-24">
           <h2 className="mx-auto max-w-2xl text-[32px] font-semibold leading-[1.1] tracking-[-0.025em] sm:text-[44px]">
             See Dental Assist in your practice.
           </h2>
-          <div className="mt-10 flex justify-center">
+          <div className="mt-8 flex justify-center">
             <Button asChild size="lg" className="h-11 rounded-full px-6 text-[13.5px] font-medium">
               <Link to="/book-demo">
                 Book Your Demo

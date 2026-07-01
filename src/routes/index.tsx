@@ -49,7 +49,7 @@ export const Route = createFileRoute("/")({
   component: Landing,
 });
 
-const SECTION = "py-24 lg:py-40";
+const SECTION = "py-16 lg:py-24";
 const CONTAINER = "mx-auto max-w-[1280px] px-6 lg:px-10";
 
 /* ------------------------------------------------------------------ */
@@ -573,7 +573,7 @@ function Benefits() {
         </Reveal>
 
         <Reveal delay={120}>
-          <ul className="mt-16 divide-y divide-border border-y border-border">
+          <ul className="mt-10 divide-y divide-border border-y border-border">
             {benefits.map((b, i) => {
               const isOpen = open === i;
               const Preview = b.Preview;
@@ -681,7 +681,7 @@ function Audiences() {
         <Reveal>
           <SectionHeading title="Built for your whole practice." />
         </Reveal>
-        <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {audiences.map((a, i) => (
             <Reveal key={a.title} delay={i * 80}>
               <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_30px_70px_-30px_rgb(15_23_42/0.18)]">
@@ -839,7 +839,7 @@ function Modules() {
           />
         </Reveal>
 
-        <div className="mt-16 grid gap-6 lg:grid-cols-3">
+        <div className="mt-10 grid gap-6 lg:grid-cols-3">
           {modules.map((m, i) => (
             <Reveal key={m.title} delay={(i % 3) * 80}>
               <ModuleCard m={m} large={m.large} />
@@ -1070,7 +1070,7 @@ function FAQ() {
 function FinalCTA() {
   return (
     <section className="border-t border-border/60 bg-[#111827] text-white">
-      <div className={`${CONTAINER} py-24 lg:py-40`}>
+      <div className={`${CONTAINER} py-16 lg:py-24`}>
         <Reveal>
           <div className="mx-auto max-w-3xl text-center">
             <h2 className="text-[36px] font-semibold leading-[1.05] tracking-[-0.025em] sm:text-[54px]">

@@ -1,11 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Check, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  SiteShell,
-  PageHero,
-  ScreenshotPlaceholder,
-} from "@/components/site/SiteChrome";
+import { SiteShell, PageHero } from "@/components/site/SiteChrome";
+import { BrowserFrame, DashboardMock, TrustBar } from "@/components/site/ProductMock";
 
 export const Route = createFileRoute("/product")({
   head: () => ({
@@ -64,14 +61,19 @@ function ProductPage() {
         secondaryCta={{ label: "See Features", to: "/features" }}
       />
 
-      <section className="border-b border-border/60">
-        <div className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
-          <ScreenshotPlaceholder
-            label="Dental Assist — Overview"
-            caption="Live inventory, purchasing queue, supplier activity and spend, all in one workspace."
-          />
+      <section className="border-b border-border/60 bg-[linear-gradient(180deg,oklch(0.988_0.002_247)_0%,oklch(0.972_0.005_247)_100%)]">
+        <div className="mx-auto max-w-[1280px] px-6 py-16 lg:px-10 lg:py-20">
+          <BrowserFrame>
+            <DashboardMock />
+          </BrowserFrame>
+          <p className="mt-4 text-center text-[12px] text-muted-foreground">
+            Live inventory, purchasing queue, supplier activity and spend — all
+            in one workspace.
+          </p>
         </div>
       </section>
+
+      <TrustBar />
 
       <section className="border-b border-border/60">
         <div className="mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">

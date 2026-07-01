@@ -496,7 +496,7 @@ export function RFQMock() {
               {cell("wc", r.wc)}
               <div>
                 <span className={chip("green")}>
-                  {b === "hs" ? "HS" : b === "dd" ? "DD" : "WC"}
+                  {(b as string) === "hs" ? "HS" : (b as string) === "dd" ? "DD" : "WC"}
                 </span>
               </div>
             </div>

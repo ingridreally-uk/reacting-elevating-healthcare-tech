@@ -116,7 +116,7 @@ function FeaturesPage() {
           <section
             key={f.id}
             id={f.id}
-            className="grid gap-12 py-14 lg:grid-cols-2 lg:gap-16 lg:py-20"
+            className="grid gap-10 py-12 lg:grid-cols-2 lg:gap-16 lg:py-20"
           >
             <div className={i % 2 === 1 ? "lg:order-2" : ""}>
               <f.icon className="h-5 w-5 text-foreground" strokeWidth={1.5} />

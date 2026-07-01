@@ -131,7 +131,7 @@ export function SiteFooter() {
   return (
     <footer className="border-t border-border/60 bg-background">
       <div className="mx-auto max-w-[1280px] px-6 pb-12 pt-24 lg:px-10 lg:pb-16 lg:pt-28">
-        <div className="grid gap-16 lg:grid-cols-[1.6fr_1fr_1fr_1fr_1fr] lg:gap-14">
+        <div className="grid gap-10 lg:grid-cols-[1.6fr_1fr_1fr_1fr_1fr] lg:gap-14">
           <div>
             <Logo />
             <p className="mt-5 max-w-xs text-[13.5px] leading-[1.65] text-muted-foreground">
@@ -223,7 +223,7 @@ export function PageHero({
             </p>
           )}
           {(primaryCta || secondaryCta) && (
-            <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
               {primaryCta && (
                 <Button asChild size="lg" className="h-11 rounded-full px-6 text-[13.5px] font-medium">
                   <Link to={primaryCta.to}>

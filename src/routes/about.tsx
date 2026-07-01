@@ -50,7 +50,7 @@ function AboutPage() {
 
       <section className="border-b border-border/60">
         <div className="mx-auto max-w-[1280px] px-6 py-14 lg:px-10 lg:py-20">
-          <div className="grid gap-12 lg:grid-cols-[1fr_1.15fr] lg:gap-20">
+          <div className="grid gap-12 lg:grid-cols-[1fr_1.15fr] lg:gap-14">
             {/* Practice photography — 2-image mosaic */}
             <div className="grid grid-cols-5 grid-rows-5 gap-3">
               <div className="col-span-3 row-span-3 overflow-hidden rounded-2xl border border-border/70 shadow-[0_20px_50px_-30px_oklch(0.17_0.05_265/0.28)]">
@@ -137,7 +137,7 @@ function AboutPage() {
 
       <section className="border-b border-border/60 bg-[#F8FAFC]">
         <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10 lg:py-24">
-          <div className="mb-10 max-w-2xl">
+          <div className="mb-8 max-w-2xl">
             <div className="mb-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
               Principles
             </div>

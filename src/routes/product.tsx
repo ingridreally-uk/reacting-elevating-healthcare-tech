@@ -77,7 +77,7 @@ function ProductPage() {
 
       <section className="border-b border-border/60">
         <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10 lg:py-24">
-          <div className="grid gap-14 lg:grid-cols-3 lg:gap-10">
+          <div className="grid gap-10 lg:grid-cols-3 lg:gap-10">
             {pillars.map((p, i) => (
               <div key={p.title}>
                 <div className="text-[11px] font-medium uppercase tracking-[0.16em] text-muted-foreground">
@@ -97,7 +97,7 @@ function ProductPage() {
 
       <section className="border-b border-border/60 bg-[#F8FAFC]">
         <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10 lg:py-24">
-          <div className="grid gap-14 lg:grid-cols-[1fr_1.2fr] lg:gap-24">
+          <div className="grid gap-10 lg:grid-cols-[1fr_1.2fr] lg:gap-16">
             <div>
               <div className="mb-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
                 What&apos;s included

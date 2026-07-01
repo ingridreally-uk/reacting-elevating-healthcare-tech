@@ -37,7 +37,7 @@ function BookDemoPage() {
   return (
     <SiteShell>
       <section className="border-b border-border/60">
-        <div className="mx-auto grid max-w-7xl gap-16 px-6 pb-20 pt-20 lg:grid-cols-[1fr_1.05fr] lg:gap-20 lg:px-10 lg:pb-20 lg:pt-28">
+        <div className="mx-auto grid max-w-7xl gap-16 px-6 pb-20 pt-20 lg:grid-cols-[1fr_1.05fr] lg:gap-14 lg:px-10 lg:pb-20 lg:pt-28">
           {/* Left: value */}
           <div>
             <div className="mb-5 text-[12px] font-medium uppercase tracking-[0.18em] text-accent">
@@ -73,7 +73,7 @@ function BookDemoPage() {
 
           {/* Right: form */}
           <div className="lg:sticky lg:top-24 lg:self-start">
-            <div className="rounded-2xl border border-border bg-card p-7 shadow-[0_40px_80px_-40px_rgb(15_23_42/0.18)] sm:p-9">
+            <div className="rounded-2xl border border-border bg-card p-6 shadow-[0_40px_80px_-40px_rgb(15_23_42/0.18)] sm:p-7">
               {submitted ? (
                 <div className="py-8 text-center">
                   <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-accent/10">

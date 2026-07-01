@@ -670,7 +670,7 @@ export function TrustBar() {
   return (
     <section className="border-y border-border/70 bg-[oklch(0.988_0.002_247)]">
       <div className="mx-auto max-w-[1280px] px-6 py-12 lg:px-10 lg:py-14">
-        <div className="grid grid-cols-2 gap-x-8 gap-y-8 md:grid-cols-4">
+        <div className="grid grid-cols-2 gap-x-8 gap-y-6 md:grid-cols-4">
           {items.map((i) => (
             <div key={i.k} className="min-w-0">
               <div className="flex items-center gap-2">

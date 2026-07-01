@@ -49,8 +49,9 @@ export const Route = createFileRoute("/")({
   component: Landing,
 });
 
-const SECTION = "py-16 lg:py-24";
+const SECTION = "py-14 lg:py-20";
 const CONTAINER = "mx-auto max-w-[1280px] px-6 lg:px-10";
+const HEADING_GAP = "mt-8";
 
 /* ------------------------------------------------------------------ */
 /*  Browser frame                                                     */
@@ -410,8 +411,8 @@ function PreviewTeam() {
 function Hero() {
   return (
     <section className="relative overflow-hidden">
-      <div className={`${CONTAINER} pb-28 pt-20 sm:pt-28 lg:pb-40 lg:pt-36`}>
-        <div className="grid items-center gap-16 lg:grid-cols-[1.02fr_1fr] lg:gap-24">
+      <div className={`${CONTAINER} pb-16 pt-14 sm:pt-20 lg:pb-24 lg:pt-24`}>
+        <div className="grid items-center gap-10 lg:grid-cols-[1.02fr_1fr] lg:gap-16">
           <div>
             <Reveal>
               <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1.5 text-[12px] text-muted-foreground">
@@ -432,7 +433,7 @@ function Hero() {
               </p>
             </Reveal>
             <Reveal delay={240}>
-              <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
                 <Button
                   asChild
                   size="lg"
@@ -457,7 +458,7 @@ function Hero() {
               </div>
             </Reveal>
             <Reveal delay={320}>
-              <ul className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 text-[13px] text-muted-foreground">
+              <ul className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-[13px] text-muted-foreground">
                 {[
                   { label: "Built in Practice", icon: Hammer },
                   { label: "Secure Cloud", icon: ShieldCheck },
@@ -573,7 +574,7 @@ function Benefits() {
         </Reveal>
 
         <Reveal delay={120}>
-          <ul className="mt-10 divide-y divide-border border-y border-border">
+          <ul className="mt-8 divide-y divide-border border-y border-border">
             {benefits.map((b, i) => {
               const isOpen = open === i;
               const Preview = b.Preview;
@@ -681,7 +682,7 @@ function Audiences() {
         <Reveal>
           <SectionHeading title="Built for your whole practice." />
         </Reveal>
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {audiences.map((a, i) => (
             <Reveal key={a.title} delay={i * 80}>
               <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_30px_70px_-30px_rgb(15_23_42/0.18)]">
@@ -839,7 +840,7 @@ function Modules() {
           />
         </Reveal>
 
-        <div className="mt-10 grid gap-6 lg:grid-cols-3">
+        <div className="mt-8 grid gap-6 lg:grid-cols-3">
           {modules.map((m, i) => (
             <Reveal key={m.title} delay={(i % 3) * 80}>
               <ModuleCard m={m} large={m.large} />
@@ -905,7 +906,7 @@ function OurStory() {
   return (
     <section className={`border-t border-border/60 bg-secondary/60 ${SECTION}`}>
       <div className={CONTAINER}>
-        <div className="grid items-start gap-14 lg:grid-cols-[0.9fr_1.2fr] lg:gap-20">
+        <div className="grid items-start gap-10 lg:grid-cols-[0.9fr_1.2fr] lg:gap-14">
           <Reveal>
             <StoryImagePlaceholder />
           </Reveal>
@@ -925,7 +926,7 @@ function OurStory() {
             </Reveal>
 
             <Reveal delay={120}>
-              <ol className="mt-12 space-y-6 border-l border-border pl-8">
+              <ol className="mt-8 space-y-5 border-l border-border pl-8">
                 {timeline.map((t, i) => (
                   <li key={t.label} className="relative">
                     <span
@@ -988,7 +989,7 @@ function FAQ() {
   return (
     <section className={`border-t border-border/60 bg-background ${SECTION}`}>
       <div className={CONTAINER}>
-        <div className="grid gap-16 lg:grid-cols-[1fr_1.4fr] lg:gap-24">
+        <div className="grid gap-10 lg:grid-cols-[1fr_1.4fr] lg:gap-16">
           <Reveal>
             <div>
               <div className="mb-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
@@ -1002,7 +1003,7 @@ function FAQ() {
                 we&apos;ll walk you through it.
               </p>
 
-              <div className="mt-10 rounded-2xl border border-border bg-secondary/60 p-6">
+              <div className="mt-8 rounded-2xl border border-border bg-secondary/60 p-6">
                 <MessageSquare className="h-5 w-5 text-foreground" strokeWidth={1.5} />
                 <div className="mt-4 text-[15px] font-semibold tracking-tight">
                   Still have questions?
@@ -1070,7 +1071,7 @@ function FAQ() {
 function FinalCTA() {
   return (
     <section className="border-t border-border/60 bg-[#111827] text-white">
-      <div className={`${CONTAINER} py-16 lg:py-24`}>
+      <div className={`${CONTAINER} py-14 lg:py-20`}>
         <Reveal>
           <div className="mx-auto max-w-3xl text-center">
             <h2 className="text-[36px] font-semibold leading-[1.05] tracking-[-0.025em] sm:text-[54px]">
@@ -1080,7 +1081,7 @@ function FinalCTA() {
               See how Dental Assist replaces spreadsheets and paper with one
               calm, connected platform.
             </p>
-            <div className="mt-12 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
+            <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
               <Button
                 asChild
                 size="lg"

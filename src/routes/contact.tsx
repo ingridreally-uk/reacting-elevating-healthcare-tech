@@ -34,8 +34,8 @@ function ContactPage() {
       />
 
       <section>
-        <div className="mx-auto grid max-w-7xl gap-16 px-6 py-14 lg:grid-cols-[1fr_1.2fr] lg:gap-24 lg:px-10 lg:py-20">
-          <div className="space-y-8">
+        <div className="mx-auto grid max-w-7xl gap-16 px-6 py-14 lg:grid-cols-[1fr_1.2fr] lg:gap-16 lg:px-10 lg:py-20">
+          <div className="space-y-6">
             <ContactCard
               icon={Mail}
               title="Email"
@@ -50,7 +50,7 @@ function ContactPage() {
             />
           </div>
 
-          <div className="rounded-2xl border border-border bg-card p-7 shadow-[0_40px_80px_-40px_rgb(15_23_42/0.18)] sm:p-9">
+          <div className="rounded-2xl border border-border bg-card p-6 shadow-[0_40px_80px_-40px_rgb(15_23_42/0.18)] sm:p-7">
             {submitted ? (
               <div className="py-8 text-center">
                 <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-accent/10">

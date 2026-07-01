@@ -49,8 +49,9 @@ export const Route = createFileRoute("/")({
   component: Landing,
 });
 
-const SECTION = "py-16 lg:py-24";
+const SECTION = "py-14 lg:py-20";
 const CONTAINER = "mx-auto max-w-[1280px] px-6 lg:px-10";
+const HEADING_GAP = "mt-8";
 
 /* ------------------------------------------------------------------ */
 /*  Browser frame                                                     */
@@ -410,8 +411,8 @@ function PreviewTeam() {
 function Hero() {
   return (
     <section className="relative overflow-hidden">
-      <div className={`${CONTAINER} pb-28 pt-20 sm:pt-28 lg:pb-40 lg:pt-36`}>
-        <div className="grid items-center gap-16 lg:grid-cols-[1.02fr_1fr] lg:gap-24">
+      <div className={`${CONTAINER} pb-16 pt-14 sm:pt-20 lg:pb-24 lg:pt-24`}>
+        <div className="grid items-center gap-10 lg:grid-cols-[1.02fr_1fr] lg:gap-16">
           <div>
             <Reveal>
               <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1.5 text-[12px] text-muted-foreground">

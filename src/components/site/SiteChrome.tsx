@@ -168,7 +168,7 @@ export function SiteFooter() {
             </div>
           ))}
         </div>
-        <div className="mt-20 flex flex-col items-start justify-between gap-3 border-t border-border pt-8 sm:flex-row sm:items-center">
+        <div className="mt-14 flex flex-col items-start justify-between gap-3 border-t border-border pt-8 sm:flex-row sm:items-center">
           <p className="text-[12.5px] text-muted-foreground">
             © {new Date().getFullYear()} Reacting Ltd. All rights reserved.
           </p>

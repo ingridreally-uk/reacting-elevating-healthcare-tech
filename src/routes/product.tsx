@@ -128,7 +128,7 @@ function ProductPage() {
       </section>
 
       <section>
-        <div className="mx-auto max-w-7xl px-6 py-24 text-center lg:px-10 lg:py-32">
+        <div className="mx-auto max-w-7xl px-6 py-16 text-center lg:px-10 lg:py-24">
           <h2 className="mx-auto max-w-2xl text-[32px] font-semibold leading-[1.1] tracking-[-0.025em] sm:text-[44px]">
             See Dental Assist in your practice.
           </h2>

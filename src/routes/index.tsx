@@ -43,85 +43,10 @@ export const Route = createFileRoute("/")({
 });
 
 const navLinks = [
-  { label: "Product", href: "#product" },
-  { label: "Features", href: "#features" },
-  { label: "Resources", href: "#resources" },
-  { label: "About", href: "#about" },
-];
-
-/* ------------------------------------------------------------------ */
-/*  Nav                                                                */
-/* ------------------------------------------------------------------ */
-
-function Logo() {
-  return (
-    <a href="#top" className="flex items-center gap-2" aria-label="Reacting home">
-      <span
-        aria-hidden
-        className="inline-block h-2 w-2 rounded-full bg-foreground"
-      />
-      <span className="text-[15px] font-semibold tracking-tight text-foreground">
-        Reacting
-      </span>
-    </a>
-  );
-}
-
-function Nav() {
-  const [open, setOpen] = useState(false);
-  return (
-    <header className="sticky top-0 z-50 border-b border-border/60 bg-background/85 backdrop-blur-md">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 lg:px-10">
-        <Logo />
-        <nav aria-label="Primary" className="hidden items-center gap-9 md:flex">
-          {navLinks.map((l) => (
-            <a
-              key={l.label}
-              href={l.href}
-              className="text-[13.5px] text-muted-foreground transition-colors hover:text-foreground"
-            >
-              {l.label}
-            </a>
-          ))}
-        </nav>
-        <div className="hidden items-center gap-2 md:flex">
-          <Button className="h-9 rounded-full px-4 text-[13px] font-medium">
-            Book Demo
-          </Button>
-        </div>
-        <button
-          aria-label={open ? "Close menu" : "Open menu"}
-          aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
-          className="inline-flex h-10 w-10 items-center justify-center rounded-md text-foreground md:hidden"
-        >
-          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
-      </div>
-      {open && (
-        <div className="border-t border-border/70 bg-background md:hidden">
-          <div className="mx-auto flex max-w-7xl flex-col gap-1 px-6 py-4">
-            {navLinks.map((l) => (
-              <a
-                key={l.label}
-                href={l.href}
-                onClick={() => setOpen(false)}
-                className="rounded-md px-2 py-2.5 text-sm text-foreground/80 hover:bg-secondary"
-              >
-                {l.label}
-              </a>
-            ))}
-            <Button className="mt-2 w-full rounded-full">Book Demo</Button>
-          </div>
-        </div>
-      )}
-    </header>
-  );
-}
-
 /* ------------------------------------------------------------------ */
 /*  Dashboard mock                                                     */
 /* ------------------------------------------------------------------ */
+
 
 function DashboardPreview() {
   return (

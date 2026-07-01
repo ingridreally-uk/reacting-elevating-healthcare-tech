@@ -654,16 +654,19 @@ function FinalCTA() {
             connected platform.
           </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Button size="lg" className="h-11 rounded-full px-6 text-[13.5px] font-medium">
-              Book Demo
-              <ArrowRight className="h-4 w-4" />
+            <Button asChild size="lg" className="h-11 rounded-full px-6 text-[13.5px] font-medium">
+              <Link to="/book-demo">
+                Book Demo
+                <ArrowRight className="h-4 w-4" />
+              </Link>
             </Button>
             <Button
+              asChild
               size="lg"
               variant="ghost"
               className="h-11 rounded-full px-6 text-[13.5px] font-medium text-foreground hover:bg-secondary"
             >
-              Contact Us
+              <Link to="/contact">Contact Us</Link>
             </Button>
           </div>
         </div>

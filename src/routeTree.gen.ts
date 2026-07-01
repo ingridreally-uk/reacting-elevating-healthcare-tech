@@ -10,12 +10,18 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as RfqComparisonRouteImport } from './routes/rfq-comparison'
+import { Route as ProductRouteImport } from './routes/product'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as IndexRouteImport } from './routes/index'
 
 const RfqComparisonRoute = RfqComparisonRouteImport.update({
   id: '/rfq-comparison',
   path: '/rfq-comparison',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProductRoute = ProductRouteImport.update({
+  id: '/product',
+  path: '/product',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardRoute = DashboardRouteImport.update({
@@ -32,30 +38,34 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
+  '/product': typeof ProductRoute
   '/rfq-comparison': typeof RfqComparisonRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
+  '/product': typeof ProductRoute
   '/rfq-comparison': typeof RfqComparisonRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
+  '/product': typeof ProductRoute
   '/rfq-comparison': typeof RfqComparisonRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/rfq-comparison'
+  fullPaths: '/' | '/dashboard' | '/product' | '/rfq-comparison'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/rfq-comparison'
-  id: '__root__' | '/' | '/dashboard' | '/rfq-comparison'
+  to: '/' | '/dashboard' | '/product' | '/rfq-comparison'
+  id: '__root__' | '/' | '/dashboard' | '/product' | '/rfq-comparison'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DashboardRoute: typeof DashboardRoute
+  ProductRoute: typeof ProductRoute
   RfqComparisonRoute: typeof RfqComparisonRoute
 }
 
@@ -66,6 +76,13 @@ declare module '@tanstack/react-router' {
       path: '/rfq-comparison'
       fullPath: '/rfq-comparison'
       preLoaderRoute: typeof RfqComparisonRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/product': {
+      id: '/product'
+      path: '/product'
+      fullPath: '/product'
+      preLoaderRoute: typeof ProductRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard': {
@@ -88,6 +105,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DashboardRoute: DashboardRoute,
+  ProductRoute: ProductRoute,
   RfqComparisonRoute: RfqComparisonRoute,
 }
 export const routeTree = rootRouteImport

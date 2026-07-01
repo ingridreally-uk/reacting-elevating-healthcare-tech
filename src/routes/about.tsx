@@ -50,7 +50,7 @@ function AboutPage() {
 
       <section className="border-b border-border/60">
         <div className="mx-auto max-w-[1280px] px-6 py-14 lg:px-10 lg:py-20">
-          <div className="grid gap-12 lg:grid-cols-[1fr_1.15fr] lg:gap-14">
+          <div className="grid gap-12 lg:grid-cols-[1fr_1.15fr] lg:gap-10">
             {/* Practice photography — 2-image mosaic */}
             <div className="grid grid-cols-5 grid-rows-5 gap-3">
               <div className="col-span-3 row-span-3 overflow-hidden rounded-2xl border border-border/70 shadow-[0_20px_50px_-30px_oklch(0.17_0.05_265/0.28)]">
@@ -108,7 +108,7 @@ function AboutPage() {
                 </p>
               </div>
 
-              <dl className="mt-8 grid grid-cols-3 gap-6 border-t border-border/70 pt-6">
+              <dl className="mt-6 grid grid-cols-3 gap-6 border-t border-border/70 pt-6">
                 {[
                   { icon: MapPin, k: "Based", v: "United Kingdom" },
                   { icon: Building2, k: "Founded", v: "2023" },
@@ -173,7 +173,7 @@ function AboutPage() {
             We&apos;re working with a small number of beta practices. Get in
             touch to see if Dental Assist is the right fit for yours.
           </p>
-          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Button asChild size="lg" className="h-11 rounded-full px-6 text-[13.5px] font-medium">
               <Link to="/book-demo">
                 Book Your Demo

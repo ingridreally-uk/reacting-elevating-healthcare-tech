@@ -131,7 +131,7 @@ export function SiteFooter() {
   return (
     <footer className="border-t border-border/60 bg-background">
       <div className="mx-auto max-w-[1280px] px-6 pb-12 pt-24 lg:px-10 lg:pb-16 lg:pt-28">
-        <div className="grid gap-10 lg:grid-cols-[1.6fr_1fr_1fr_1fr_1fr] lg:gap-14">
+        <div className="grid gap-10 lg:grid-cols-[1.6fr_1fr_1fr_1fr_1fr] lg:gap-10">
           <div>
             <Logo />
             <p className="mt-5 max-w-xs text-[13.5px] leading-[1.65] text-muted-foreground">
@@ -168,7 +168,7 @@ export function SiteFooter() {
             </div>
           ))}
         </div>
-        <div className="mt-14 flex flex-col items-start justify-between gap-3 border-t border-border pt-8 sm:flex-row sm:items-center">
+        <div className="mt-10 flex flex-col items-start justify-between gap-3 border-t border-border pt-8 sm:flex-row sm:items-center">
           <p className="text-[12.5px] text-muted-foreground">
             © {new Date().getFullYear()} Reacting Ltd. All rights reserved.
           </p>

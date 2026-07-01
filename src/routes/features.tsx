@@ -116,7 +116,7 @@ function FeaturesPage() {
           <section
             key={f.id}
             id={f.id}
-            className="grid gap-10 py-12 lg:grid-cols-2 lg:gap-16 lg:py-20"
+            className="grid gap-10 py-12 lg:grid-cols-2 lg:gap-12 lg:py-20"
           >
             <div className={i % 2 === 1 ? "lg:order-2" : ""}>
               <f.icon className="h-5 w-5 text-foreground" strokeWidth={1.5} />
@@ -129,7 +129,7 @@ function FeaturesPage() {
               <p className="mt-5 max-w-lg text-[16.5px] leading-[1.65] text-muted-foreground">
                 {f.body}
               </p>
-              <ul className="mt-8 space-y-3">
+              <ul className="mt-6 space-y-3">
                 {f.bullets.map((b) => (
                   <li key={b} className="flex items-start gap-3 text-[14.5px] text-foreground">
                     <span className="mt-2 inline-block h-1 w-1 rounded-full bg-foreground/60" />
@@ -154,7 +154,7 @@ function FeaturesPage() {
           <h2 className="mx-auto max-w-2xl text-[32px] font-semibold leading-[1.1] tracking-[-0.025em] sm:text-[44px]">
             Ready to see it in your practice?
           </h2>
-          <div className="mt-8 flex justify-center">
+          <div className="mt-6 flex justify-center">
             <Button asChild size="lg" className="h-11 rounded-full px-6 text-[13.5px] font-medium">
               <Link to="/book-demo">
                 Book Your Demo

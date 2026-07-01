@@ -270,7 +270,7 @@ export function ScreenshotPlaceholder({
         </div>
       </div>
       <div
-        className={`${aspect} flex flex-col items-center justify-center gap-2 bg-[linear-gradient(135deg,#F8FAFC_0%,#EEF2F7_100%)] p-8 text-center`}
+        className={`${aspect} flex flex-col items-center justify-center gap-2 bg-secondary p-8 text-center`}
       >
         <div className="text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
           Product screenshot

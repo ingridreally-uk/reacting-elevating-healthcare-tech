@@ -96,7 +96,7 @@ function ResourcesPage() {
             Book a 30-minute call with our team and we&apos;ll show you Dental
             Assist for your practice.
           </p>
-          <div className="mt-10 flex justify-center">
+          <div className="mt-8 flex justify-center">
             <Link
               to="/book-demo"
               className="inline-flex h-11 items-center gap-2 rounded-full bg-primary px-6 text-[13.5px] font-medium text-primary-foreground transition-colors hover:bg-primary/90"

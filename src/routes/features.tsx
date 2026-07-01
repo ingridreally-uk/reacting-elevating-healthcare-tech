@@ -154,7 +154,7 @@ function FeaturesPage() {
           <h2 className="mx-auto max-w-2xl text-[32px] font-semibold leading-[1.1] tracking-[-0.025em] sm:text-[44px]">
             Ready to see it in your practice?
           </h2>
-          <div className="mt-10 flex justify-center">
+          <div className="mt-8 flex justify-center">
             <Button asChild size="lg" className="h-11 rounded-full px-6 text-[13.5px] font-medium">
               <Link to="/book-demo">
                 Book Your Demo

@@ -173,7 +173,7 @@ function AboutPage() {
             We&apos;re working with a small number of beta practices. Get in
             touch to see if Dental Assist is the right fit for yours.
           </p>
-          <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Button asChild size="lg" className="h-11 rounded-full px-6 text-[13.5px] font-medium">
               <Link to="/book-demo">
                 Book Your Demo

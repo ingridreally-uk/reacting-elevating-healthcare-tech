@@ -216,24 +216,30 @@ function Hero() {
               Dental Assist
             </div>
             <h1 className="text-[44px] font-semibold leading-[1.05] tracking-[-0.025em] text-foreground sm:text-[56px] lg:text-[64px]">
-              Spend less time managing your practice.
+              Everything your practice needs to stay organised.
             </h1>
             <p className="mt-7 max-w-[620px] text-[17px] leading-[1.6] text-muted-foreground sm:text-[18px]">
-              Manage inventory, purchasing, suppliers and day-to-day operations
-              through one simple cloud platform built for modern dental practices.
+              Dental Assist helps dental practices manage purchasing, inventory,
+              suppliers and daily operations through one simple cloud platform
+              built around real dental workflows.
             </p>
             <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <Button size="lg" className="h-11 rounded-full px-6 text-[13.5px] font-medium">
-                Book a Demo
-                <ArrowRight className="h-4 w-4" />
+              <Button asChild size="lg" className="h-11 rounded-full px-6 text-[13.5px] font-medium">
+                <Link to="/book-demo">
+                  Book Your Demo
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
               </Button>
               <Button
+                asChild
                 size="lg"
                 variant="ghost"
                 className="h-11 rounded-full px-5 text-[13.5px] font-medium text-foreground hover:bg-secondary"
               >
-                <Play className="h-4 w-4" />
-                Watch Overview
+                <Link to="/product">
+                  <Play className="h-4 w-4" />
+                  Watch Overview
+                </Link>
               </Button>
             </div>
           </div>

@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as RfqComparisonRouteImport } from './routes/rfq-comparison'
+import { Route as ResourcesRouteImport } from './routes/resources'
 import { Route as ProductRouteImport } from './routes/product'
 import { Route as FeaturesRouteImport } from './routes/features'
 import { Route as DashboardRouteImport } from './routes/dashboard'
@@ -18,6 +19,11 @@ import { Route as IndexRouteImport } from './routes/index'
 const RfqComparisonRoute = RfqComparisonRouteImport.update({
   id: '/rfq-comparison',
   path: '/rfq-comparison',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResourcesRoute = ResourcesRouteImport.update({
+  id: '/resources',
+  path: '/resources',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProductRoute = ProductRouteImport.update({
@@ -46,6 +52,7 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof DashboardRoute
   '/features': typeof FeaturesRoute
   '/product': typeof ProductRoute
+  '/resources': typeof ResourcesRoute
   '/rfq-comparison': typeof RfqComparisonRoute
 }
 export interface FileRoutesByTo {
@@ -53,6 +60,7 @@ export interface FileRoutesByTo {
   '/dashboard': typeof DashboardRoute
   '/features': typeof FeaturesRoute
   '/product': typeof ProductRoute
+  '/resources': typeof ResourcesRoute
   '/rfq-comparison': typeof RfqComparisonRoute
 }
 export interface FileRoutesById {
@@ -61,19 +69,33 @@ export interface FileRoutesById {
   '/dashboard': typeof DashboardRoute
   '/features': typeof FeaturesRoute
   '/product': typeof ProductRoute
+  '/resources': typeof ResourcesRoute
   '/rfq-comparison': typeof RfqComparisonRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/features' | '/product' | '/rfq-comparison'
+  fullPaths:
+    | '/'
+    | '/dashboard'
+    | '/features'
+    | '/product'
+    | '/resources'
+    | '/rfq-comparison'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/features' | '/product' | '/rfq-comparison'
+  to:
+    | '/'
+    | '/dashboard'
+    | '/features'
+    | '/product'
+    | '/resources'
+    | '/rfq-comparison'
   id:
     | '__root__'
     | '/'
     | '/dashboard'
     | '/features'
     | '/product'
+    | '/resources'
     | '/rfq-comparison'
   fileRoutesById: FileRoutesById
 }
@@ -82,6 +104,7 @@ export interface RootRouteChildren {
   DashboardRoute: typeof DashboardRoute
   FeaturesRoute: typeof FeaturesRoute
   ProductRoute: typeof ProductRoute
+  ResourcesRoute: typeof ResourcesRoute
   RfqComparisonRoute: typeof RfqComparisonRoute
 }
 
@@ -92,6 +115,13 @@ declare module '@tanstack/react-router' {
       path: '/rfq-comparison'
       fullPath: '/rfq-comparison'
       preLoaderRoute: typeof RfqComparisonRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/resources': {
+      id: '/resources'
+      path: '/resources'
+      fullPath: '/resources'
+      preLoaderRoute: typeof ResourcesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/product': {
@@ -130,6 +160,7 @@ const rootRouteChildren: RootRouteChildren = {
   DashboardRoute: DashboardRoute,
   FeaturesRoute: FeaturesRoute,
   ProductRoute: ProductRoute,
+  ResourcesRoute: ResourcesRoute,
   RfqComparisonRoute: RfqComparisonRoute,
 }
 export const routeTree = rootRouteImport

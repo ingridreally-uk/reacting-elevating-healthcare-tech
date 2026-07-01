@@ -158,7 +158,7 @@ function Sidebar() {
 
 function Topbar() {
   return (
-    <header className="sticky top-0 z-10 flex h-16 items-center gap-3 border-b border-slate-200/80 bg-white/85 px-6 backdrop-blur">
+    <header className="sticky top-0 z-10 flex h-16 items-center gap-3 border-b border-slate-200/80 bg-white/85 px-6 backdrop-blur-md lg:px-10">
       <div>
         <h1 className="text-[15px] font-semibold tracking-tight text-slate-900">
           Today

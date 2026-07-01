@@ -119,24 +119,41 @@ export function SiteFooter() {
         { label: "Blog", to: "/resources" },
       ],
     },
+    {
+      title: "Legal",
+      links: [
+        { label: "Privacy Policy", to: "/privacy" },
+        { label: "Terms", to: "/terms" },
+        { label: "Cookies", to: "/cookies" },
+      ],
+    },
   ];
   return (
     <footer className="border-t border-border/60 bg-background">
-      <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10">
-        <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
+      <div className="mx-auto max-w-[1280px] px-6 pb-12 pt-24 lg:px-10 lg:pb-16 lg:pt-28">
+        <div className="grid gap-16 lg:grid-cols-[1.6fr_1fr_1fr_1fr_1fr] lg:gap-14">
           <div>
             <Logo />
-            <p className="mt-4 max-w-xs text-[13.5px] leading-[1.6] text-muted-foreground">
+            <p className="mt-5 max-w-xs text-[13.5px] leading-[1.65] text-muted-foreground">
               Reacting builds intelligent cloud software for healthcare
-              businesses. Dental Assist is the first product.
+              businesses. Dental Assist is our first product.
             </p>
+            <a
+              href="https://www.linkedin.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Reacting on LinkedIn"
+              className="mt-6 inline-flex h-9 w-9 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:border-foreground/30 hover:text-foreground"
+            >
+              <Linkedin className="h-4 w-4" strokeWidth={1.75} />
+            </a>
           </div>
           {cols.map((c) => (
             <div key={c.title}>
-              <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-foreground">
+              <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-foreground/90">
                 {c.title}
               </div>
-              <ul className="mt-4 space-y-2.5">
+              <ul className="mt-5 space-y-3">
                 {c.links.map((l) => (
                   <li key={l.label}>
                     <Link
@@ -151,12 +168,12 @@ export function SiteFooter() {
             </div>
           ))}
         </div>
-        <div className="mt-14 flex flex-col items-start justify-between gap-3 border-t border-border pt-7 sm:flex-row sm:items-center">
+        <div className="mt-20 flex flex-col items-start justify-between gap-3 border-t border-border pt-8 sm:flex-row sm:items-center">
           <p className="text-[12.5px] text-muted-foreground">
-            © {new Date().getFullYear()} Reacting. All rights reserved.
+            © {new Date().getFullYear()} Reacting Ltd. All rights reserved.
           </p>
           <p className="text-[12.5px] text-muted-foreground">
-            Dental Assist · A Reacting product
+            Dental Assist · A Reacting product · Made in the UK
           </p>
         </div>
       </div>
@@ -173,6 +190,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
     </div>
   );
 }
+
 
 export function PageHero({
   eyebrow,

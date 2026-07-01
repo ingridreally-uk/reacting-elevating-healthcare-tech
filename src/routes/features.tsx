@@ -10,11 +10,8 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  SiteShell,
-  PageHero,
-  ScreenshotPlaceholder,
-} from "@/components/site/SiteChrome";
+import { SiteShell, PageHero } from "@/components/site/SiteChrome";
+import { BrowserFrame, ProductMock, TrustBar } from "@/components/site/ProductMock";
 
 export const Route = createFileRoute("/features")({
   head: () => ({
@@ -142,7 +139,9 @@ function FeaturesPage() {
               </ul>
             </div>
             <div className={i % 2 === 1 ? "lg:order-1" : ""}>
-              <ScreenshotPlaceholder label={f.title} />
+              <BrowserFrame>
+                <ProductMock variant={f.id} />
+              </BrowserFrame>
             </div>
           </section>
         ))}

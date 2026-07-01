@@ -18,7 +18,10 @@ import {
   Bell,
   ChevronRight,
 } from "lucide-react";
+
+import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
+import { SiteShell } from "@/components/site/SiteChrome";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -40,86 +43,11 @@ export const Route = createFileRoute("/")({
   component: Landing,
 });
 
-const navLinks = [
-  { label: "Product", href: "#product" },
-  { label: "Features", href: "#features" },
-  { label: "Resources", href: "#resources" },
-  { label: "About", href: "#about" },
-];
-
-/* ------------------------------------------------------------------ */
-/*  Nav                                                                */
-/* ------------------------------------------------------------------ */
-
-function Logo() {
-  return (
-    <a href="#top" className="flex items-center gap-2" aria-label="Reacting home">
-      <span
-        aria-hidden
-        className="inline-block h-2 w-2 rounded-full bg-foreground"
-      />
-      <span className="text-[15px] font-semibold tracking-tight text-foreground">
-        Reacting
-      </span>
-    </a>
-  );
-}
-
-function Nav() {
-  const [open, setOpen] = useState(false);
-  return (
-    <header className="sticky top-0 z-50 border-b border-border/60 bg-background/85 backdrop-blur-md">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 lg:px-10">
-        <Logo />
-        <nav aria-label="Primary" className="hidden items-center gap-9 md:flex">
-          {navLinks.map((l) => (
-            <a
-              key={l.label}
-              href={l.href}
-              className="text-[13.5px] text-muted-foreground transition-colors hover:text-foreground"
-            >
-              {l.label}
-            </a>
-          ))}
-        </nav>
-        <div className="hidden items-center gap-2 md:flex">
-          <Button className="h-9 rounded-full px-4 text-[13px] font-medium">
-            Book Demo
-          </Button>
-        </div>
-        <button
-          aria-label={open ? "Close menu" : "Open menu"}
-          aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
-          className="inline-flex h-10 w-10 items-center justify-center rounded-md text-foreground md:hidden"
-        >
-          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
-      </div>
-      {open && (
-        <div className="border-t border-border/70 bg-background md:hidden">
-          <div className="mx-auto flex max-w-7xl flex-col gap-1 px-6 py-4">
-            {navLinks.map((l) => (
-              <a
-                key={l.label}
-                href={l.href}
-                onClick={() => setOpen(false)}
-                className="rounded-md px-2 py-2.5 text-sm text-foreground/80 hover:bg-secondary"
-              >
-                {l.label}
-              </a>
-            ))}
-            <Button className="mt-2 w-full rounded-full">Book Demo</Button>
-          </div>
-        </div>
-      )}
-    </header>
-  );
-}
 
 /* ------------------------------------------------------------------ */
 /*  Dashboard mock                                                     */
 /* ------------------------------------------------------------------ */
+
 
 function DashboardPreview() {
   return (
@@ -289,24 +217,30 @@ function Hero() {
               Dental Assist
             </div>
             <h1 className="text-[44px] font-semibold leading-[1.05] tracking-[-0.025em] text-foreground sm:text-[56px] lg:text-[64px]">
-              Spend less time managing your practice.
+              Everything your practice needs to stay organised.
             </h1>
             <p className="mt-7 max-w-[620px] text-[17px] leading-[1.6] text-muted-foreground sm:text-[18px]">
-              Manage inventory, purchasing, suppliers and day-to-day operations
-              through one simple cloud platform built for modern dental practices.
+              Dental Assist helps dental practices manage purchasing, inventory,
+              suppliers and daily operations through one simple cloud platform
+              built around real dental workflows.
             </p>
             <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <Button size="lg" className="h-11 rounded-full px-6 text-[13.5px] font-medium">
-                Book a Demo
-                <ArrowRight className="h-4 w-4" />
+              <Button asChild size="lg" className="h-11 rounded-full px-6 text-[13.5px] font-medium">
+                <Link to="/book-demo">
+                  Book Your Demo
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
               </Button>
               <Button
+                asChild
                 size="lg"
                 variant="ghost"
                 className="h-11 rounded-full px-5 text-[13.5px] font-medium text-foreground hover:bg-secondary"
               >
-                <Play className="h-4 w-4" />
-                Watch Overview
+                <Link to="/product">
+                  <Play className="h-4 w-4" />
+                  Watch Overview
+                </Link>
               </Button>
             </div>
           </div>
@@ -720,16 +654,19 @@ function FinalCTA() {
             connected platform.
           </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Button size="lg" className="h-11 rounded-full px-6 text-[13.5px] font-medium">
-              Book Demo
-              <ArrowRight className="h-4 w-4" />
+            <Button asChild size="lg" className="h-11 rounded-full px-6 text-[13.5px] font-medium">
+              <Link to="/book-demo">
+                Book Demo
+                <ArrowRight className="h-4 w-4" />
+              </Link>
             </Button>
             <Button
+              asChild
               size="lg"
               variant="ghost"
               className="h-11 rounded-full px-6 text-[13.5px] font-medium text-foreground hover:bg-secondary"
             >
-              Contact Us
+              <Link to="/contact">Contact Us</Link>
             </Button>
           </div>
         </div>
@@ -742,83 +679,17 @@ function FinalCTA() {
 /*  Footer                                                             */
 /* ------------------------------------------------------------------ */
 
-function Footer() {
-  const cols = [
-    {
-      title: "Product",
-      links: ["Overview", "Features", "Modules", "Roadmap"],
-    },
-    {
-      title: "Company",
-      links: ["About", "Story", "Contact"],
-    },
-    {
-      title: "Resources",
-      links: ["Help center", "Guides", "Security"],
-    },
-  ];
-  return (
-    <footer className="border-t border-border/60 bg-background">
-      <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10">
-        <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
-          <div>
-            <Logo />
-            <p className="mt-4 max-w-xs text-[13.5px] leading-[1.6] text-muted-foreground">
-              Reacting builds intelligent cloud software for healthcare
-              businesses. Dental Assist is the first product.
-            </p>
-          </div>
-          {cols.map((c) => (
-            <div key={c.title}>
-              <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-foreground">
-                {c.title}
-              </div>
-              <ul className="mt-4 space-y-2.5">
-                {c.links.map((l) => (
-                  <li key={l}>
-                    <a
-                      href="#"
-                      className="text-[13.5px] text-muted-foreground transition-colors hover:text-foreground"
-                    >
-                      {l}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-        <div className="mt-14 flex flex-col items-start justify-between gap-3 border-t border-border pt-7 sm:flex-row sm:items-center">
-          <p className="text-[12.5px] text-muted-foreground">
-            © {new Date().getFullYear()} Reacting. All rights reserved.
-          </p>
-          <p className="text-[12.5px] text-muted-foreground">
-            Dental Assist · A Reacting product
-          </p>
-        </div>
-      </div>
-    </footer>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/*  Page                                                               */
-/* ------------------------------------------------------------------ */
-
 function Landing() {
   return (
-    <div id="top" className="min-h-screen bg-background text-foreground">
-      <Nav />
-      <main>
-        <Hero />
-        <Benefits />
-        <Audiences />
-        <Modules />
-        <BuiltInPractice />
-        <FAQ />
-        <FinalCTA />
-      </main>
-      <Footer />
-    </div>
+    <SiteShell>
+      <Hero />
+      <Benefits />
+      <Audiences />
+      <Modules />
+      <BuiltInPractice />
+      <FAQ />
+      <FinalCTA />
+    </SiteShell>
   );
 }
+

@@ -669,83 +669,17 @@ function FinalCTA() {
 /*  Footer                                                             */
 /* ------------------------------------------------------------------ */
 
-function Footer() {
-  const cols = [
-    {
-      title: "Product",
-      links: ["Overview", "Features", "Modules", "Roadmap"],
-    },
-    {
-      title: "Company",
-      links: ["About", "Story", "Contact"],
-    },
-    {
-      title: "Resources",
-      links: ["Help center", "Guides", "Security"],
-    },
-  ];
-  return (
-    <footer className="border-t border-border/60 bg-background">
-      <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10">
-        <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
-          <div>
-            <Logo />
-            <p className="mt-4 max-w-xs text-[13.5px] leading-[1.6] text-muted-foreground">
-              Reacting builds intelligent cloud software for healthcare
-              businesses. Dental Assist is the first product.
-            </p>
-          </div>
-          {cols.map((c) => (
-            <div key={c.title}>
-              <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-foreground">
-                {c.title}
-              </div>
-              <ul className="mt-4 space-y-2.5">
-                {c.links.map((l) => (
-                  <li key={l}>
-                    <a
-                      href="#"
-                      className="text-[13.5px] text-muted-foreground transition-colors hover:text-foreground"
-                    >
-                      {l}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-        <div className="mt-14 flex flex-col items-start justify-between gap-3 border-t border-border pt-7 sm:flex-row sm:items-center">
-          <p className="text-[12.5px] text-muted-foreground">
-            © {new Date().getFullYear()} Reacting. All rights reserved.
-          </p>
-          <p className="text-[12.5px] text-muted-foreground">
-            Dental Assist · A Reacting product
-          </p>
-        </div>
-      </div>
-    </footer>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/*  Page                                                               */
-/* ------------------------------------------------------------------ */
-
 function Landing() {
   return (
-    <div id="top" className="min-h-screen bg-background text-foreground">
-      <Nav />
-      <main>
-        <Hero />
-        <Benefits />
-        <Audiences />
-        <Modules />
-        <BuiltInPractice />
-        <FAQ />
-        <FinalCTA />
-      </main>
-      <Footer />
-    </div>
+    <SiteShell>
+      <Hero />
+      <Benefits />
+      <Audiences />
+      <Modules />
+      <BuiltInPractice />
+      <FAQ />
+      <FinalCTA />
+    </SiteShell>
   );
 }
+

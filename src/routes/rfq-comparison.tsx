@@ -324,7 +324,7 @@ function RfqComparisonPage() {
         </div>
       </header>
 
-      <main className="mx-auto max-w-[1480px] px-8 py-12 lg:py-16">
+      <main className="mx-auto max-w-[1280px] px-6 py-12 lg:px-10 lg:py-16">
         {/* Title */}
         <section className="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-2xl">

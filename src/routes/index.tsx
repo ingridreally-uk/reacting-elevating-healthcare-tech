@@ -31,18 +31,18 @@ import { Reveal } from "@/components/site/Reveal";
 import { AppScreenshot, BrowserFrame as RealBrowserFrame } from "@/components/site/ProductMock";
 
 const SCREEN = {
-  dashboard: "/product-screens/screen-02.png",
-  inventory: "/product-screens/screen-25.png",
-  lowStock: "/product-screens/screen-08.png",
-  expiring: "/product-screens/screen-09.png",
-  purchasing: "/product-screens/screen-11.png",
-  suppliers: "/product-screens/screen-21.png",
+  dashboard: "/product-screens/screen-10.png",
+  inventory: "/product-screens/screen-22.png",
+  lowStock: "/product-screens/screen-21.png",
+  expiring: "/product-screens/screen-24.png",
+  purchasing: "/product-screens/screen-06.png",
+  suppliers: "/product-screens/screen-17.png",
   rfq: "/product-screens/screen-15.png",
-  rfqCompare: "/product-screens/screen-17.png",
+  rfqCompare: "/product-screens/screen-19.png",
   deliveries: "/product-screens/screen-12.png",
-  reporting: "/product-screens/screen-01.png",
+  reporting: "/product-screens/screen-28.png",
   savings: "/product-screens/screen-03.png",
-  audit: "/product-screens/screen-28.png",
+  audit: "/product-screens/screen-27.png",
   team: "/product-screens/screen-14.png",
 };
 

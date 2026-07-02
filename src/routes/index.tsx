@@ -558,7 +558,7 @@ const timeline = [
   },
   {
     label: "Daily Use",
-    body: "Used every day inside a working UK practice by owners, managers and nurses.",
+    body: "Used every day inside a working practice by owners, managers and nurses.",
     icon: Users,
   },
   {

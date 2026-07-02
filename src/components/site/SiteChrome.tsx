@@ -149,7 +149,7 @@ export function SiteFooter() {
       <div className="mx-auto max-w-[1280px] px-6 pb-10 pt-16 lg:px-10 lg:pb-12 lg:pt-20">
         <div className="grid gap-10 lg:grid-cols-[1.6fr_1fr_1fr_1fr_1fr] lg:gap-10">
           <div>
-            <Logo />
+            <Logo height={40} />
             <p className="mt-5 max-w-xs text-[13.5px] leading-[1.65] text-muted-foreground">
               Reacting builds intelligent cloud software for healthcare
               businesses. Dental Assist is our first product.

@@ -196,7 +196,7 @@ export function SiteFooter() {
             © {new Date().getFullYear()} Reacting Ltd. All rights reserved.
           </p>
           <p className="text-[12.5px] text-muted-foreground">
-            Dental Assist · A Reacting product · Built in the UK
+            Dental Assist · A Reacting product · Built in practice
           </p>
         </div>
       </div>

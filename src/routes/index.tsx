@@ -13,7 +13,7 @@ import {
   Check,
   Plus,
   Minus,
-  Search,
+  
   ShieldCheck,
   RefreshCw,
   Sparkles,

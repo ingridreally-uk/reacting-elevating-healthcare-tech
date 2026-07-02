@@ -1065,6 +1065,67 @@ function FAQ() {
 }
 
 /* ------------------------------------------------------------------ */
+/*  Reacting ecosystem                                                */
+/* ------------------------------------------------------------------ */
+
+function Ecosystem() {
+  const products: {
+    name: string;
+    status: "Current" | "Coming Soon" | "Future";
+    body: string;
+  }[] = [
+    { name: "Dental Assist", status: "Current", body: "Purchasing and inventory for dental practices." },
+    { name: "Vet Assist", status: "Coming Soon", body: "Operational software for veterinary clinics." },
+    { name: "Medical Assist", status: "Future", body: "Practice operations for private medical clinics." },
+    { name: "Optical Assist", status: "Future", body: "Inventory and purchasing for optical practices." },
+  ];
+  return (
+    <section className="border-t border-border/60 bg-secondary/50">
+      <div className={`${CONTAINER} ${SECTION}`}>
+        <Reveal>
+          <div className="mx-auto max-w-2xl text-center">
+            <div className="text-[11px] font-medium uppercase tracking-[0.18em] text-accent">
+              The Reacting ecosystem
+            </div>
+            <h2 className="mt-4 text-[32px] font-semibold leading-[1.1] tracking-[-0.025em] sm:text-[40px]">
+              Intelligent software for healthcare businesses.
+            </h2>
+            <p className="mt-4 text-[16px] leading-[1.65] text-muted-foreground">
+              Dental Assist is the first product built by Reacting. More are on the way.
+            </p>
+          </div>
+        </Reveal>
+        <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {products.map((p) => (
+            <Reveal key={p.name}>
+              <div className="flex h-full flex-col justify-between rounded-2xl border border-border bg-background p-6">
+                <div>
+                  <div className="text-[15px] font-semibold tracking-tight text-foreground">
+                    {p.name}
+                  </div>
+                  <p className="mt-2 text-[13.5px] leading-[1.55] text-muted-foreground">
+                    {p.body}
+                  </p>
+                </div>
+                <div
+                  className={`mt-6 inline-flex w-fit items-center rounded-full px-2.5 py-1 text-[11px] font-medium ${
+                    p.status === "Current"
+                      ? "bg-accent/10 text-accent"
+                      : "border border-border text-muted-foreground"
+                  }`}
+                >
+                  {p.status}
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
 /*  Final CTA — dark navy                                             */
 /* ------------------------------------------------------------------ */
 

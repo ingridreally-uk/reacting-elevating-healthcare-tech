@@ -511,7 +511,7 @@ function ModuleCard({
         </div>
       </div>
       <div className="mx-7 mb-7 mt-auto overflow-hidden rounded-xl border border-border bg-background lg:mx-9 lg:mb-9">
-        <AppScreenshot src={m.screen} alt={`Dental Assist — ${m.title}`} />
+        <CardScreenshot src={m.screen} alt={`Dental Assist — ${m.title}`} />
       </div>
     </Link>
   );

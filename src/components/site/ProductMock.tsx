@@ -13,32 +13,33 @@ const screenMap: Record<string, string> = {
   // Dashboard / overview — real Dashboard screen
   dashboard: "/product-screens/screen-10.png",
   overview: "/product-screens/screen-10.png",
-  // Inventory / stock
+  // Inventory / stock — Stock page with folders and items
   inventory: "/product-screens/screen-22.png",
   stock: "/product-screens/screen-22.png",
   "stock-folders": "/product-screens/screen-25.png",
   // Low stock
   "low-stock": "/product-screens/screen-21.png",
-  // Expiring stock — stock item detail with expiry & audit
-  expiring: "/product-screens/screen-24.png",
-  // Purchasing / orders
-  purchasing: "/product-screens/screen-06.png",
-  orders: "/product-screens/screen-06.png",
-  "order-detail": "/product-screens/screen-16.png",
+  // Expiring stock — Stock Audit with expiry date column
+  expiring: "/product-screens/screen-29.png",
+  // Purchasing — Purchase Orders list
+  purchasing: "/product-screens/screen-05.png",
+  orders: "/product-screens/screen-05.png",
+  "order-detail": "/product-screens/screen-09.png",
   // Suppliers / vendors
   suppliers: "/product-screens/screen-17.png",
   vendors: "/product-screens/screen-17.png",
-  // RFQs
-  rfq: "/product-screens/screen-15.png",
+  // RFQs — comparison used for the feature card, list for generic
+  rfq: "/product-screens/screen-19.png",
   "rfq-compare": "/product-screens/screen-19.png",
+  "rfq-list": "/product-screens/screen-15.png",
   // Deliveries — receive order modal
   deliveries: "/product-screens/screen-12.png",
   // Reporting
   reporting: "/product-screens/screen-28.png",
   savings: "/product-screens/screen-03.png",
-  // Audit / team
+  // Audit / team workflow
   audit: "/product-screens/screen-27.png",
-  team: "/product-screens/screen-14.png",
+  team: "/product-screens/screen-15.png",
 };
 
 export function BrowserFrame({
@@ -96,6 +97,38 @@ export function AppScreenshot({
         className="absolute inset-0 h-full w-full select-none object-cover"
         style={{ objectPosition: focus === "center" ? "center" : "top" }}
         draggable={false}
+      />
+    </div>
+  );
+}
+
+/**
+ * Tighter, zoomed crop of a real screenshot for use inside small cards.
+ * Uses a taller aspect ratio and scales the image toward the top-left so
+ * the sidebar + header + first content row are legible instead of a
+ * shrunken full-page capture.
+ */
+export function CardScreenshot({
+  src,
+  alt,
+  className = "",
+}: {
+  src: string;
+  alt: string;
+  className?: string;
+}) {
+  return (
+    <div
+      className={`relative w-full overflow-hidden bg-background ${className}`}
+      style={{ aspectRatio: "16 / 10" }}
+    >
+      <img
+        src={src}
+        alt={alt}
+        loading="lazy"
+        draggable={false}
+        className="absolute left-0 top-0 h-auto w-full max-w-none origin-top-left select-none"
+        style={{ transform: "scale(1.35)" }}
       />
     </div>
   );

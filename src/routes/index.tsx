@@ -28,14 +28,14 @@ import {
 import { Button } from "@/components/ui/button";
 import { SiteShell } from "@/components/site/SiteChrome";
 import { Reveal } from "@/components/site/Reveal";
-import { AppScreenshot, BrowserFrame as RealBrowserFrame } from "@/components/site/ProductMock";
+import { AppScreenshot, BrowserFrame as RealBrowserFrame, CardScreenshot } from "@/components/site/ProductMock";
 
 const SCREEN = {
   dashboard: "/product-screens/screen-10.png",
   inventory: "/product-screens/screen-22.png",
   lowStock: "/product-screens/screen-21.png",
-  expiring: "/product-screens/screen-24.png",
-  purchasing: "/product-screens/screen-06.png",
+  expiring: "/product-screens/screen-29.png",
+  purchasing: "/product-screens/screen-05.png",
   suppliers: "/product-screens/screen-17.png",
   rfq: "/product-screens/screen-15.png",
   rfqCompare: "/product-screens/screen-19.png",
@@ -43,7 +43,7 @@ const SCREEN = {
   reporting: "/product-screens/screen-28.png",
   savings: "/product-screens/screen-03.png",
   audit: "/product-screens/screen-27.png",
-  team: "/product-screens/screen-14.png",
+  team: "/product-screens/screen-15.png",
 };
 
 export const Route = createFileRoute("/")({
@@ -102,7 +102,7 @@ function Hero() {
             <Reveal>
               <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1.5 text-[12px] text-muted-foreground">
                 <span className="inline-block h-1.5 w-1.5 rounded-full bg-accent" />
-                Built and used every day in a real UK dental practice
+                Built and used every day in a real dental practice
               </div>
             </Reveal>
             <Reveal delay={80}>
@@ -246,8 +246,8 @@ const benefits: {
     title: "Give your whole team one simple workflow.",
     body: "Roles for owners, managers and dental nurses mean each person sees exactly what they need — nothing more.",
     benefit: "Everyone aligned. One source of truth.",
-    screen: SCREEN.purchasing,
-    url: "app.dentalassist.com / purchase-orders",
+    screen: SCREEN.rfq,
+    url: "app.dentalassist.com / rfqs",
   },
 ];
 
@@ -477,7 +477,7 @@ const modules = [
     icon: LineChart,
     href: "/features",
     hash: "dashboard",
-    screen: SCREEN.savings,
+    screen: SCREEN.dashboard,
     large: false,
   },
 ];
@@ -511,7 +511,7 @@ function ModuleCard({
         </div>
       </div>
       <div className="mx-7 mb-7 mt-auto overflow-hidden rounded-xl border border-border bg-background lg:mx-9 lg:mb-9">
-        <AppScreenshot src={m.screen} alt={`Dental Assist — ${m.title}`} />
+        <CardScreenshot src={m.screen} alt={`Dental Assist — ${m.title}`} />
       </div>
     </Link>
   );
@@ -558,7 +558,7 @@ const timeline = [
   },
   {
     label: "Daily Use",
-    body: "Used every day inside a working UK practice by owners, managers and nurses.",
+    body: "Used every day inside a working practice by owners, managers and nurses.",
     icon: Users,
   },
   {
@@ -608,9 +608,9 @@ function OurStory() {
                 Built inside a real dental practice.
               </h2>
               <p className="mt-6 max-w-xl text-[17px] leading-[1.7] text-foreground/85">
-                Dental Assist was developed and refined inside a working UK
-                dental practice to solve real daily operational problems. Every
-                feature is shaped by real workflows, not assumptions.
+                Dental Assist was developed and refined inside a working dental
+                practice to solve real daily operational problems. Every feature
+                is shaped by real workflows, not assumptions.
               </p>
             </Reveal>
 

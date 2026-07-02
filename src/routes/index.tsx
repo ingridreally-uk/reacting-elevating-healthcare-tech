@@ -43,7 +43,7 @@ const SCREEN = {
   reporting: "/product-screens/screen-28.png",
   savings: "/product-screens/screen-03.png",
   audit: "/product-screens/screen-27.png",
-  team: "/product-screens/screen-15.png",
+  team: "/product-screens/screen-27.png",
 };
 
 export const Route = createFileRoute("/")({

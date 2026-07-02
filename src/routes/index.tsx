@@ -105,319 +105,19 @@ function BrowserFrame({
 /*  Dashboard mock (hero)                                             */
 /* ------------------------------------------------------------------ */
 
-function DashboardPreview() {
-  return (
-    <BrowserFrame url="app.dentalassist.com / inventory">
-      <div className="grid grid-cols-[180px_minmax(0,1fr)]">
-        <aside className="hidden border-r border-border/70 bg-secondary p-4 sm:block">
-          <div className="mb-5 flex items-center gap-2">
-            <span className="h-2 w-2 rounded-full bg-foreground" />
-            <span className="text-[12px] font-semibold tracking-tight">
-              Dental Assist
-            </span>
-          </div>
-          <div className="mb-2 px-2 text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
-            Workspace
-          </div>
-          <ul className="space-y-0.5 text-[12.5px]">
-            {[
-              "Overview",
-              "Inventory",
-              "Purchasing",
-              "Suppliers",
-              "RFQs",
-              "Reports",
-              "Analytics",
-            ].map((item, i) => (
-              <li
-                key={item}
-                className={`flex items-center justify-between rounded-md px-2.5 py-1.5 ${
-                  i === 1
-                    ? "bg-background font-medium text-foreground shadow-[0_1px_2px_rgb(15_23_42/0.06)]"
-                    : "text-muted-foreground"
-                }`}
-              >
-                <span>{item}</span>
-                {i === 1 && (
-                  <span className="rounded-full bg-accent/15 px-1.5 text-[10px] font-medium text-accent">
-                    12
-                  </span>
-                )}
-              </li>
-            ))}
-          </ul>
-        </aside>
-
-        <div className="p-5 sm:p-6">
-          <div className="mb-6 flex items-start justify-between gap-3">
-            <div className="min-w-0">
-              <div className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
-                Inventory
-              </div>
-              <div className="mt-1 text-[15px] font-semibold tracking-tight">
-                Practice overview
-              </div>
-            </div>
-            <div className="hidden items-center gap-2 sm:flex">
-              <span className="rounded-full border border-border bg-background px-2.5 py-1 text-[11px] text-muted-foreground">
-                Last 30 days
-              </span>
-              <span className="rounded-full bg-foreground px-2.5 py-1 text-[11px] font-medium text-background">
-                + New order
-              </span>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-3 gap-3">
-            {[
-              { k: "Items tracked", v: "1,284" },
-              { k: "Low stock", v: "12", accent: true },
-              { k: "Open POs", v: "7" },
-            ].map((s) => (
-              <div
-                key={s.k}
-                className="rounded-xl border border-border bg-background p-4"
-              >
-                <div className="text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
-                  {s.k}
-                </div>
-                <div className="mt-2 flex items-baseline gap-2">
-                  <div className="text-[20px] font-semibold tracking-tight">
-                    {s.v}
-                  </div>
-                  {s.accent && (
-                    <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-4 rounded-xl border border-border bg-background p-4">
-            <div className="mb-3 flex items-center justify-between">
-              <div className="text-[13px] font-medium">Spend by category</div>
-              <div className="text-[11px] text-muted-foreground">
-                Last 30 days
-              </div>
-            </div>
-            <div className="flex h-24 items-end gap-1.5">
-              {[40, 65, 50, 80, 55, 72, 48, 90, 60, 75, 58, 84].map((h, i) => (
-                <div
-                  key={i}
-                  style={{ height: `${h}%` }}
-                  className={`flex-1 rounded-sm ${
-                    i === 7 ? "bg-foreground" : "bg-foreground/10"
-                  }`}
-                />
-              ))}
-            </div>
-          </div>
-
-          <div className="mt-4 overflow-hidden rounded-xl border border-border bg-background">
-            {[
-              { n: "Composite refills · A2", s: "Henry Schein", t: "Delivered" },
-              { n: "Nitrile gloves · Medium", s: "Wright Cottrell", t: "In transit" },
-              { n: "Endo files · 25mm", s: "Dentsply Sirona", t: "Approved" },
-            ].map((r, i) => (
-              <div
-                key={r.n}
-                className={`flex items-center justify-between px-4 py-3 text-[13px] ${
-                  i > 0 ? "border-t border-border" : ""
-                }`}
-              >
-                <div className="min-w-0">
-                  <div className="truncate font-medium">{r.n}</div>
-                  <div className="truncate text-[11px] text-muted-foreground">
-                    {r.s}
-                  </div>
-                </div>
-                <span className="shrink-0 text-[11px] text-muted-foreground">
-                  {r.t}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </BrowserFrame>
-  );
-}
-
 /* ------------------------------------------------------------------ */
-/*  Mini previews used inside benefit accordion                       */
+/*  Real product screenshot preview                                   */
 /* ------------------------------------------------------------------ */
 
-function PreviewInventory() {
-  return (
-    <div className="p-5 sm:p-6">
-      <div className="mb-4 flex items-center justify-between">
-        <div className="text-[13px] font-semibold tracking-tight">Inventory</div>
-        <span className="rounded-full border border-border bg-background px-2.5 py-0.5 text-[11px] text-muted-foreground">
-          1,284 items
-        </span>
-      </div>
-      <div className="overflow-hidden rounded-xl border border-border bg-background">
-        {[
-          { n: "Composite refills · A2", q: 24, s: "in stock" },
-          { n: "Nitrile gloves · M", q: 6, s: "low", warn: true },
-          { n: "Endo files · 25mm", q: 48, s: "in stock" },
-          { n: "Anaesthetic · 2%", q: 12, s: "in stock" },
-        ].map((r, i) => (
-          <div
-            key={r.n}
-            className={`flex items-center justify-between px-4 py-3 text-[13px] ${
-              i > 0 ? "border-t border-border" : ""
-            }`}
-          >
-            <span className="truncate font-medium">{r.n}</span>
-            <span className="flex items-center gap-2">
-              <span className="tabular-nums text-muted-foreground">{r.q}</span>
-              <span
-                className={`text-[11px] ${
-                  r.warn ? "text-accent" : "text-muted-foreground"
-                }`}
-              >
-                {r.s}
-              </span>
-            </span>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+function RealPreview({ src, alt }: { src: string; alt: string }) {
+  return <AppScreenshot src={src} alt={alt} />;
 }
 
-function PreviewRFQ() {
+function HeroDashboard() {
   return (
-    <div className="p-5 sm:p-6">
-      <div className="mb-4 flex items-center justify-between">
-        <div className="text-[13px] font-semibold tracking-tight">
-          RFQ · 3 suppliers
-        </div>
-        <span className="rounded-full bg-accent/15 px-2.5 py-0.5 text-[11px] font-medium text-accent">
-          Save £84
-        </span>
-      </div>
-      <div className="grid grid-cols-3 gap-2">
-        {[
-          { s: "Henry Schein", p: "£412", best: false },
-          { s: "Wright Cottrell", p: "£328", best: true },
-          { s: "Dentsply", p: "£401", best: false },
-        ].map((c) => (
-          <div
-            key={c.s}
-            className={`rounded-xl border p-3 ${
-              c.best
-                ? "border-foreground bg-foreground/[0.03]"
-                : "border-border bg-background"
-            }`}
-          >
-            <div className="text-[11px] text-muted-foreground">{c.s}</div>
-            <div className="mt-1 text-[16px] font-semibold tracking-tight tabular-nums">
-              {c.p}
-            </div>
-            {c.best && (
-              <div className="mt-2 inline-flex items-center gap-1 text-[10px] font-medium text-accent">
-                <Check className="h-3 w-3" /> Best price
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function PreviewSpend() {
-  return (
-    <div className="p-5 sm:p-6">
-      <div className="mb-4 flex items-center justify-between">
-        <div className="text-[13px] font-semibold tracking-tight">
-          Monthly spend
-        </div>
-        <span className="text-[11px] text-muted-foreground">Last 6 months</span>
-      </div>
-      <div className="flex h-24 items-end gap-2">
-        {[45, 62, 58, 74, 66, 52].map((h, i) => (
-          <div
-            key={i}
-            style={{ height: `${h}%` }}
-            className={`flex-1 rounded-sm ${
-              i === 5 ? "bg-foreground" : "bg-foreground/15"
-            }`}
-          />
-        ))}
-      </div>
-      <div className="mt-3 flex items-center justify-between text-[11px] text-muted-foreground">
-        <span>Materials · Consumables · PPE</span>
-        <span className="tabular-nums text-foreground">−12.4%</span>
-      </div>
-    </div>
-  );
-}
-
-function PreviewExpiry() {
-  return (
-    <div className="p-5 sm:p-6">
-      <div className="mb-4 flex items-center justify-between">
-        <div className="text-[13px] font-semibold tracking-tight">
-          Expiring soon
-        </div>
-        <span className="rounded-full border border-border bg-background px-2.5 py-0.5 text-[11px] text-muted-foreground">
-          Next 30 days
-        </span>
-      </div>
-      <div className="overflow-hidden rounded-xl border border-border bg-background">
-        {[
-          { n: "Anaesthetic · Batch A24", d: "12 Jul" },
-          { n: "Composite · Batch B11", d: "18 Jul" },
-          { n: "Dental cement · Batch C08", d: "27 Jul" },
-        ].map((r, i) => (
-          <div
-            key={r.n}
-            className={`flex items-center justify-between px-4 py-3 text-[13px] ${
-              i > 0 ? "border-t border-border" : ""
-            }`}
-          >
-            <span className="truncate font-medium">{r.n}</span>
-            <span className="tabular-nums text-muted-foreground">{r.d}</span>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function PreviewTeam() {
-  return (
-    <div className="p-5 sm:p-6">
-      <div className="mb-4 flex items-center justify-between">
-        <div className="text-[13px] font-semibold tracking-tight">
-          Team activity
-        </div>
-        <span className="text-[11px] text-muted-foreground">Today</span>
-      </div>
-      <ul className="space-y-2">
-        {[
-          { u: "Sarah", a: "raised PO #1284", t: "9:12" },
-          { u: "James", a: "approved £412 order", t: "9:48" },
-          { u: "Priya", a: "logged delivery · Schein", t: "11:03" },
-        ].map((r) => (
-          <li
-            key={r.a}
-            className="flex items-center justify-between rounded-lg border border-border bg-background px-3 py-2.5 text-[12.5px]"
-          >
-            <span>
-              <span className="font-medium">{r.u}</span>{" "}
-              <span className="text-muted-foreground">{r.a}</span>
-            </span>
-            <span className="text-[11px] tabular-nums text-muted-foreground">
-              {r.t}
-            </span>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <RealBrowserFrame url="app.dentalassist.com / dashboard">
+      <AppScreenshot src={SCREEN.dashboard} alt="Dental Assist dashboard — real product screen" />
+    </RealBrowserFrame>
   );
 }
 
@@ -426,6 +126,82 @@ function PreviewTeam() {
 /* ------------------------------------------------------------------ */
 
 function Hero() {
+  return (
+    <section className="relative overflow-hidden">
+      <div className={`${CONTAINER} pb-10 pt-8 sm:pt-12 lg:pb-12 lg:pt-14`}>
+        <div className="grid items-center gap-10 lg:grid-cols-[1.02fr_1fr] lg:gap-12">
+          <div>
+            <Reveal>
+              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1.5 text-[12px] text-muted-foreground">
+                <span className="inline-block h-1.5 w-1.5 rounded-full bg-accent" />
+                Built and used every day in a real UK dental practice
+              </div>
+            </Reveal>
+            <Reveal delay={80}>
+              <h1 className="text-[46px] font-semibold leading-[1.02] tracking-[-0.028em] text-foreground sm:text-[60px] lg:text-[72px]">
+                Everything your practice needs to stay organised.
+              </h1>
+            </Reveal>
+            <Reveal delay={160}>
+              <p className="mt-8 max-w-[540px] text-[17px] leading-[1.65] text-muted-foreground sm:text-[18px]">
+                Dental Assist helps dental practices manage purchasing,
+                inventory, suppliers and daily operations through one simple
+                cloud platform built around real dental workflows.
+              </p>
+            </Reveal>
+            <Reveal delay={240}>
+              <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
+                <Button
+                  asChild
+                  size="lg"
+                  className="h-11 w-full rounded-full px-6 text-[13.5px] font-medium sm:w-auto"
+                >
+                  <Link to="/book-demo">
+                    Book Your Demo
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </Button>
+                <Button
+                  asChild
+                  size="lg"
+                  variant="ghost"
+                  className="h-11 w-full rounded-full px-5 text-[13.5px] font-medium text-foreground hover:bg-secondary sm:w-auto"
+                >
+                  <Link to="/product">
+                    <Play className="h-4 w-4" />
+                    Watch Overview
+                  </Link>
+                </Button>
+              </div>
+            </Reveal>
+            <Reveal delay={320}>
+              <ul className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3 text-[13px] text-muted-foreground">
+                {[
+                  { label: "Built in Practice", icon: Hammer },
+                  { label: "Secure Cloud", icon: ShieldCheck },
+                  { label: "Continuous Updates", icon: RefreshCw },
+                ].map((t) => (
+                  <li key={t.label} className="inline-flex items-center gap-2">
+                    <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-accent/10">
+                      <Check className="h-3 w-3 text-accent" strokeWidth={3} />
+                    </span>
+                    {t.label}
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
+          </div>
+
+          <Reveal delay={200}>
+            <div className="animate-float will-change-transform">
+              <HeroDashboard />
+            </div>
+          </Reveal>
+        </div>
+      </div>
+    </section>
+  );
+}
   return (
     <section className="relative overflow-hidden">
       <div className={`${CONTAINER} pb-10 pt-8 sm:pt-12 lg:pb-12 lg:pt-14`}>

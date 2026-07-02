@@ -43,7 +43,7 @@ const SCREEN = {
   reporting: "/product-screens/screen-28.png",
   savings: "/product-screens/screen-03.png",
   audit: "/product-screens/screen-27.png",
-  team: "/product-screens/screen-15.png",
+  team: "/product-screens/screen-27.png",
 };
 
 export const Route = createFileRoute("/")({
@@ -246,8 +246,8 @@ const benefits: {
     title: "Give your whole team one simple workflow.",
     body: "Roles for owners, managers and dental nurses mean each person sees exactly what they need — nothing more.",
     benefit: "Everyone aligned. One source of truth.",
-    screen: SCREEN.rfq,
-    url: "app.dentalassist.com / rfqs",
+    screen: SCREEN.team,
+    url: "app.dentalassist.com / team",
   },
 ];
 
@@ -867,11 +867,8 @@ function Landing() {
     <SiteShell>
       <Hero />
       <Benefits />
-      <Audiences />
       <Modules />
       <OurStory />
-      <FAQ />
-      <Ecosystem />
       <FinalCTA />
     </SiteShell>
   );

@@ -102,6 +102,38 @@ export function AppScreenshot({
   );
 }
 
+/**
+ * Tighter, zoomed crop of a real screenshot for use inside small cards.
+ * Uses a taller aspect ratio and scales the image toward the top-left so
+ * the sidebar + header + first content row are legible instead of a
+ * shrunken full-page capture.
+ */
+export function CardScreenshot({
+  src,
+  alt,
+  className = "",
+}: {
+  src: string;
+  alt: string;
+  className?: string;
+}) {
+  return (
+    <div
+      className={`relative w-full overflow-hidden bg-background ${className}`}
+      style={{ aspectRatio: "16 / 10" }}
+    >
+      <img
+        src={src}
+        alt={alt}
+        loading="lazy"
+        draggable={false}
+        className="absolute left-0 top-0 h-auto w-full max-w-none origin-top-left select-none"
+        style={{ transform: "scale(1.35)" }}
+      />
+    </div>
+  );
+}
+
 function RealScreen({ variant = "dashboard" }: { variant?: string }) {
   const src = screenMap[variant] ?? screenMap.dashboard;
   return <AppScreenshot src={src} alt={`Dental Assist — ${variant}`} />;

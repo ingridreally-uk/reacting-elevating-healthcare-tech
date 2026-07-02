@@ -246,8 +246,8 @@ const benefits: {
     title: "Give your whole team one simple workflow.",
     body: "Roles for owners, managers and dental nurses mean each person sees exactly what they need — nothing more.",
     benefit: "Everyone aligned. One source of truth.",
-    screen: SCREEN.purchasing,
-    url: "app.dentalassist.com / purchase-orders",
+    screen: SCREEN.rfq,
+    url: "app.dentalassist.com / rfqs",
   },
 ];
 

@@ -28,7 +28,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { SiteShell } from "@/components/site/SiteChrome";
 import { Reveal } from "@/components/site/Reveal";
-import { AppScreenshot, BrowserFrame as RealBrowserFrame } from "@/components/site/ProductMock";
+import { AppScreenshot, BrowserFrame as RealBrowserFrame, CardScreenshot } from "@/components/site/ProductMock";
 
 const SCREEN = {
   dashboard: "/product-screens/screen-10.png",

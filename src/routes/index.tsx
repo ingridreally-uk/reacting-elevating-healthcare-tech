@@ -867,11 +867,8 @@ function Landing() {
     <SiteShell>
       <Hero />
       <Benefits />
-      <Audiences />
       <Modules />
       <OurStory />
-      <FAQ />
-      <Ecosystem />
       <FinalCTA />
     </SiteShell>
   );

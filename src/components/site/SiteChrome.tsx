@@ -31,7 +31,7 @@ function HeaderLogo() {
         src="/brand/reacting-logo-horizontal.png"
         alt="Reacting"
         draggable={false}
-        className="h-9 w-auto select-none md:h-[42px]"
+        className="h-auto w-[130px] select-none md:w-[150px]"
       />
     </Link>
   );

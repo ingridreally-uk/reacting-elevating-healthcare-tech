@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { Menu, X, ArrowRight, Linkedin } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
+import { ReactingMark } from "@/components/site/ReactingMark";
 
 const navLinks = [
   { label: "Product", to: "/product" as const },
@@ -10,10 +11,10 @@ const navLinks = [
   { label: "About", to: "/about" as const },
 ];
 
-export function Logo() {
+export function Logo({ size = 22 }: { size?: number } = {}) {
   return (
-    <Link to="/" className="flex items-center gap-2" aria-label="Reacting home">
-      <span aria-hidden className="inline-block h-2 w-2 rounded-full bg-foreground" />
+    <Link to="/" className="flex items-center gap-2.5" aria-label="Reacting home">
+      <ReactingMark size={size} />
       <span className="text-[15px] font-semibold tracking-tight text-foreground">
         Reacting
       </span>

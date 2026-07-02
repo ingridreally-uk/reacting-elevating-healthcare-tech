@@ -464,7 +464,7 @@ const modules = [
     icon: Package,
     href: "/features",
     hash: "inventory",
-    Preview: PreviewInventory,
+    screen: SCREEN.inventory,
     large: true,
   },
   {
@@ -473,7 +473,7 @@ const modules = [
     icon: ShoppingCart,
     href: "/features",
     hash: "purchasing",
-    Preview: PreviewTeam,
+    screen: SCREEN.purchasing,
     large: false,
   },
   {
@@ -482,7 +482,7 @@ const modules = [
     icon: Truck,
     href: "/features",
     hash: "suppliers",
-    Preview: PreviewSpend,
+    screen: SCREEN.suppliers,
     large: false,
   },
   {
@@ -491,7 +491,7 @@ const modules = [
     icon: FileText,
     href: "/features",
     hash: "rfq",
-    Preview: PreviewRFQ,
+    screen: SCREEN.rfqCompare,
     large: true,
   },
   {
@@ -500,7 +500,7 @@ const modules = [
     icon: BarChart3,
     href: "/features",
     hash: "reporting",
-    Preview: PreviewSpend,
+    screen: SCREEN.reporting,
     large: false,
   },
   {
@@ -509,7 +509,7 @@ const modules = [
     icon: LineChart,
     href: "/features",
     hash: "dashboard",
-    Preview: PreviewSpend,
+    screen: SCREEN.savings,
     large: false,
   },
 ];
@@ -521,7 +521,6 @@ function ModuleCard({
   m: (typeof modules)[number];
   large: boolean;
 }) {
-  const Preview = m.Preview;
   return (
     <Link
       to={m.href}
@@ -544,7 +543,7 @@ function ModuleCard({
         </div>
       </div>
       <div className="mx-7 mb-7 mt-auto overflow-hidden rounded-xl border border-border bg-background lg:mx-9 lg:mb-9">
-        <Preview />
+        <AppScreenshot src={m.screen} alt={`Dental Assist — ${m.title}`} />
       </div>
     </Link>
   );

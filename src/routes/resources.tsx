@@ -88,7 +88,7 @@ function ResourcesPage() {
       <TrustBar />
 
       <section>
-        <div className="mx-auto max-w-7xl px-6 py-16 text-center lg:px-10 lg:py-24">
+        <div className="mx-auto max-w-7xl px-6 py-10 text-center lg:px-10 lg:py-14">
           <h2 className="mx-auto max-w-2xl text-[30px] font-semibold leading-[1.1] tracking-[-0.025em] sm:text-[40px]">
             Prefer a guided walkthrough?
           </h2>

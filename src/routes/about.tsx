@@ -136,7 +136,7 @@ function AboutPage() {
       <TrustBar />
 
       <section className="border-b border-border/60 bg-[#F8FAFC]">
-        <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10 lg:py-24">
+        <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10 lg:py-14">
           <div className="mb-8 max-w-2xl">
             <div className="mb-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
               Principles
@@ -165,7 +165,7 @@ function AboutPage() {
       </section>
 
       <section>
-        <div className="mx-auto max-w-7xl px-6 py-16 text-center lg:px-10 lg:py-24">
+        <div className="mx-auto max-w-7xl px-6 py-10 text-center lg:px-10 lg:py-14">
           <h2 className="mx-auto max-w-2xl text-[32px] font-semibold leading-[1.1] tracking-[-0.025em] sm:text-[44px]">
             Interested in early access?
           </h2>

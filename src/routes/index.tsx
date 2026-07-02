@@ -411,7 +411,7 @@ function PreviewTeam() {
 function Hero() {
   return (
     <section className="relative overflow-hidden">
-      <div className={`${CONTAINER} pb-12 pt-10 sm:pt-16 lg:pb-16 lg:pt-20`}>
+      <div className={`${CONTAINER} pb-10 pt-8 sm:pt-12 lg:pb-12 lg:pt-14`}>
         <div className="grid items-center gap-10 lg:grid-cols-[1.02fr_1fr] lg:gap-12">
           <div>
             <Reveal>

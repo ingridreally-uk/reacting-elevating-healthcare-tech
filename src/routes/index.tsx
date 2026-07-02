@@ -71,39 +71,7 @@ const CONTAINER = "mx-auto max-w-[1280px] px-6 lg:px-10";
 const HEADING_GAP = "mt-8";
 
 /* ------------------------------------------------------------------ */
-/*  Browser frame                                                     */
-/* ------------------------------------------------------------------ */
 
-function BrowserFrame({
-  url = "app.dentalassist.com",
-  children,
-  className = "",
-}: {
-  url?: string;
-  children: React.ReactNode;
-  className?: string;
-}) {
-  return (
-    <div
-      className={`overflow-hidden rounded-2xl border border-border bg-card shadow-[0_50px_100px_-40px_rgb(15_23_42/0.28),0_2px_4px_-2px_rgb(15_23_42/0.06)] ${className}`}
-    >
-      <div className="flex items-center gap-2 border-b border-border/70 bg-secondary px-4 py-2.5">
-        <span className="h-2.5 w-2.5 rounded-full bg-border" />
-        <span className="h-2.5 w-2.5 rounded-full bg-border" />
-        <span className="h-2.5 w-2.5 rounded-full bg-border" />
-        <div className="ml-3 hidden h-6 max-w-xs flex-1 items-center gap-2 rounded-md border border-border/70 bg-background px-2.5 text-[11px] text-muted-foreground sm:flex">
-          <Search className="h-3 w-3" />
-          {url}
-        </div>
-      </div>
-      {children}
-    </div>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/*  Dashboard mock (hero)                                             */
-/* ------------------------------------------------------------------ */
 
 /* ------------------------------------------------------------------ */
 /*  Real product screenshot preview                                   */

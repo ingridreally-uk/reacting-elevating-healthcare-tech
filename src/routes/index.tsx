@@ -477,7 +477,7 @@ const modules = [
     icon: LineChart,
     href: "/features",
     hash: "dashboard",
-    screen: SCREEN.savings,
+    screen: SCREEN.dashboard,
     large: false,
   },
 ];

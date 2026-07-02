@@ -13,7 +13,7 @@ import {
   Check,
   Plus,
   Minus,
-  Search,
+  
   ShieldCheck,
   RefreshCw,
   Sparkles,
@@ -28,6 +28,23 @@ import {
 import { Button } from "@/components/ui/button";
 import { SiteShell } from "@/components/site/SiteChrome";
 import { Reveal } from "@/components/site/Reveal";
+import { AppScreenshot, BrowserFrame as RealBrowserFrame } from "@/components/site/ProductMock";
+
+const SCREEN = {
+  dashboard: "/product-screens/screen-02.png",
+  inventory: "/product-screens/screen-25.png",
+  lowStock: "/product-screens/screen-08.png",
+  expiring: "/product-screens/screen-09.png",
+  purchasing: "/product-screens/screen-11.png",
+  suppliers: "/product-screens/screen-21.png",
+  rfq: "/product-screens/screen-15.png",
+  rfqCompare: "/product-screens/screen-17.png",
+  deliveries: "/product-screens/screen-12.png",
+  reporting: "/product-screens/screen-01.png",
+  savings: "/product-screens/screen-03.png",
+  audit: "/product-screens/screen-28.png",
+  team: "/product-screens/screen-14.png",
+};
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -54,353 +71,21 @@ const CONTAINER = "mx-auto max-w-[1280px] px-6 lg:px-10";
 const HEADING_GAP = "mt-8";
 
 /* ------------------------------------------------------------------ */
-/*  Browser frame                                                     */
-/* ------------------------------------------------------------------ */
 
-function BrowserFrame({
-  url = "app.dentalassist.com",
-  children,
-  className = "",
-}: {
-  url?: string;
-  children: React.ReactNode;
-  className?: string;
-}) {
-  return (
-    <div
-      className={`overflow-hidden rounded-2xl border border-border bg-card shadow-[0_50px_100px_-40px_rgb(15_23_42/0.28),0_2px_4px_-2px_rgb(15_23_42/0.06)] ${className}`}
-    >
-      <div className="flex items-center gap-2 border-b border-border/70 bg-secondary px-4 py-2.5">
-        <span className="h-2.5 w-2.5 rounded-full bg-border" />
-        <span className="h-2.5 w-2.5 rounded-full bg-border" />
-        <span className="h-2.5 w-2.5 rounded-full bg-border" />
-        <div className="ml-3 hidden h-6 max-w-xs flex-1 items-center gap-2 rounded-md border border-border/70 bg-background px-2.5 text-[11px] text-muted-foreground sm:flex">
-          <Search className="h-3 w-3" />
-          {url}
-        </div>
-      </div>
-      {children}
-    </div>
-  );
-}
 
 /* ------------------------------------------------------------------ */
-/*  Dashboard mock (hero)                                             */
+/*  Real product screenshot preview                                   */
 /* ------------------------------------------------------------------ */
 
-function DashboardPreview() {
-  return (
-    <BrowserFrame url="app.dentalassist.com / inventory">
-      <div className="grid grid-cols-[180px_minmax(0,1fr)]">
-        <aside className="hidden border-r border-border/70 bg-secondary p-4 sm:block">
-          <div className="mb-5 flex items-center gap-2">
-            <span className="h-2 w-2 rounded-full bg-foreground" />
-            <span className="text-[12px] font-semibold tracking-tight">
-              Dental Assist
-            </span>
-          </div>
-          <div className="mb-2 px-2 text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
-            Workspace
-          </div>
-          <ul className="space-y-0.5 text-[12.5px]">
-            {[
-              "Overview",
-              "Inventory",
-              "Purchasing",
-              "Suppliers",
-              "RFQs",
-              "Reports",
-              "Analytics",
-            ].map((item, i) => (
-              <li
-                key={item}
-                className={`flex items-center justify-between rounded-md px-2.5 py-1.5 ${
-                  i === 1
-                    ? "bg-background font-medium text-foreground shadow-[0_1px_2px_rgb(15_23_42/0.06)]"
-                    : "text-muted-foreground"
-                }`}
-              >
-                <span>{item}</span>
-                {i === 1 && (
-                  <span className="rounded-full bg-accent/15 px-1.5 text-[10px] font-medium text-accent">
-                    12
-                  </span>
-                )}
-              </li>
-            ))}
-          </ul>
-        </aside>
-
-        <div className="p-5 sm:p-6">
-          <div className="mb-6 flex items-start justify-between gap-3">
-            <div className="min-w-0">
-              <div className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
-                Inventory
-              </div>
-              <div className="mt-1 text-[15px] font-semibold tracking-tight">
-                Practice overview
-              </div>
-            </div>
-            <div className="hidden items-center gap-2 sm:flex">
-              <span className="rounded-full border border-border bg-background px-2.5 py-1 text-[11px] text-muted-foreground">
-                Last 30 days
-              </span>
-              <span className="rounded-full bg-foreground px-2.5 py-1 text-[11px] font-medium text-background">
-                + New order
-              </span>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-3 gap-3">
-            {[
-              { k: "Items tracked", v: "1,284" },
-              { k: "Low stock", v: "12", accent: true },
-              { k: "Open POs", v: "7" },
-            ].map((s) => (
-              <div
-                key={s.k}
-                className="rounded-xl border border-border bg-background p-4"
-              >
-                <div className="text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
-                  {s.k}
-                </div>
-                <div className="mt-2 flex items-baseline gap-2">
-                  <div className="text-[20px] font-semibold tracking-tight">
-                    {s.v}
-                  </div>
-                  {s.accent && (
-                    <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-4 rounded-xl border border-border bg-background p-4">
-            <div className="mb-3 flex items-center justify-between">
-              <div className="text-[13px] font-medium">Spend by category</div>
-              <div className="text-[11px] text-muted-foreground">
-                Last 30 days
-              </div>
-            </div>
-            <div className="flex h-24 items-end gap-1.5">
-              {[40, 65, 50, 80, 55, 72, 48, 90, 60, 75, 58, 84].map((h, i) => (
-                <div
-                  key={i}
-                  style={{ height: `${h}%` }}
-                  className={`flex-1 rounded-sm ${
-                    i === 7 ? "bg-foreground" : "bg-foreground/10"
-                  }`}
-                />
-              ))}
-            </div>
-          </div>
-
-          <div className="mt-4 overflow-hidden rounded-xl border border-border bg-background">
-            {[
-              { n: "Composite refills · A2", s: "Henry Schein", t: "Delivered" },
-              { n: "Nitrile gloves · Medium", s: "Wright Cottrell", t: "In transit" },
-              { n: "Endo files · 25mm", s: "Dentsply Sirona", t: "Approved" },
-            ].map((r, i) => (
-              <div
-                key={r.n}
-                className={`flex items-center justify-between px-4 py-3 text-[13px] ${
-                  i > 0 ? "border-t border-border" : ""
-                }`}
-              >
-                <div className="min-w-0">
-                  <div className="truncate font-medium">{r.n}</div>
-                  <div className="truncate text-[11px] text-muted-foreground">
-                    {r.s}
-                  </div>
-                </div>
-                <span className="shrink-0 text-[11px] text-muted-foreground">
-                  {r.t}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </BrowserFrame>
-  );
+function RealPreview({ src, alt }: { src: string; alt: string }) {
+  return <AppScreenshot src={src} alt={alt} />;
 }
 
-/* ------------------------------------------------------------------ */
-/*  Mini previews used inside benefit accordion                       */
-/* ------------------------------------------------------------------ */
-
-function PreviewInventory() {
+function HeroDashboard() {
   return (
-    <div className="p-5 sm:p-6">
-      <div className="mb-4 flex items-center justify-between">
-        <div className="text-[13px] font-semibold tracking-tight">Inventory</div>
-        <span className="rounded-full border border-border bg-background px-2.5 py-0.5 text-[11px] text-muted-foreground">
-          1,284 items
-        </span>
-      </div>
-      <div className="overflow-hidden rounded-xl border border-border bg-background">
-        {[
-          { n: "Composite refills · A2", q: 24, s: "in stock" },
-          { n: "Nitrile gloves · M", q: 6, s: "low", warn: true },
-          { n: "Endo files · 25mm", q: 48, s: "in stock" },
-          { n: "Anaesthetic · 2%", q: 12, s: "in stock" },
-        ].map((r, i) => (
-          <div
-            key={r.n}
-            className={`flex items-center justify-between px-4 py-3 text-[13px] ${
-              i > 0 ? "border-t border-border" : ""
-            }`}
-          >
-            <span className="truncate font-medium">{r.n}</span>
-            <span className="flex items-center gap-2">
-              <span className="tabular-nums text-muted-foreground">{r.q}</span>
-              <span
-                className={`text-[11px] ${
-                  r.warn ? "text-accent" : "text-muted-foreground"
-                }`}
-              >
-                {r.s}
-              </span>
-            </span>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function PreviewRFQ() {
-  return (
-    <div className="p-5 sm:p-6">
-      <div className="mb-4 flex items-center justify-between">
-        <div className="text-[13px] font-semibold tracking-tight">
-          RFQ · 3 suppliers
-        </div>
-        <span className="rounded-full bg-accent/15 px-2.5 py-0.5 text-[11px] font-medium text-accent">
-          Save £84
-        </span>
-      </div>
-      <div className="grid grid-cols-3 gap-2">
-        {[
-          { s: "Henry Schein", p: "£412", best: false },
-          { s: "Wright Cottrell", p: "£328", best: true },
-          { s: "Dentsply", p: "£401", best: false },
-        ].map((c) => (
-          <div
-            key={c.s}
-            className={`rounded-xl border p-3 ${
-              c.best
-                ? "border-foreground bg-foreground/[0.03]"
-                : "border-border bg-background"
-            }`}
-          >
-            <div className="text-[11px] text-muted-foreground">{c.s}</div>
-            <div className="mt-1 text-[16px] font-semibold tracking-tight tabular-nums">
-              {c.p}
-            </div>
-            {c.best && (
-              <div className="mt-2 inline-flex items-center gap-1 text-[10px] font-medium text-accent">
-                <Check className="h-3 w-3" /> Best price
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function PreviewSpend() {
-  return (
-    <div className="p-5 sm:p-6">
-      <div className="mb-4 flex items-center justify-between">
-        <div className="text-[13px] font-semibold tracking-tight">
-          Monthly spend
-        </div>
-        <span className="text-[11px] text-muted-foreground">Last 6 months</span>
-      </div>
-      <div className="flex h-24 items-end gap-2">
-        {[45, 62, 58, 74, 66, 52].map((h, i) => (
-          <div
-            key={i}
-            style={{ height: `${h}%` }}
-            className={`flex-1 rounded-sm ${
-              i === 5 ? "bg-foreground" : "bg-foreground/15"
-            }`}
-          />
-        ))}
-      </div>
-      <div className="mt-3 flex items-center justify-between text-[11px] text-muted-foreground">
-        <span>Materials · Consumables · PPE</span>
-        <span className="tabular-nums text-foreground">−12.4%</span>
-      </div>
-    </div>
-  );
-}
-
-function PreviewExpiry() {
-  return (
-    <div className="p-5 sm:p-6">
-      <div className="mb-4 flex items-center justify-between">
-        <div className="text-[13px] font-semibold tracking-tight">
-          Expiring soon
-        </div>
-        <span className="rounded-full border border-border bg-background px-2.5 py-0.5 text-[11px] text-muted-foreground">
-          Next 30 days
-        </span>
-      </div>
-      <div className="overflow-hidden rounded-xl border border-border bg-background">
-        {[
-          { n: "Anaesthetic · Batch A24", d: "12 Jul" },
-          { n: "Composite · Batch B11", d: "18 Jul" },
-          { n: "Dental cement · Batch C08", d: "27 Jul" },
-        ].map((r, i) => (
-          <div
-            key={r.n}
-            className={`flex items-center justify-between px-4 py-3 text-[13px] ${
-              i > 0 ? "border-t border-border" : ""
-            }`}
-          >
-            <span className="truncate font-medium">{r.n}</span>
-            <span className="tabular-nums text-muted-foreground">{r.d}</span>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function PreviewTeam() {
-  return (
-    <div className="p-5 sm:p-6">
-      <div className="mb-4 flex items-center justify-between">
-        <div className="text-[13px] font-semibold tracking-tight">
-          Team activity
-        </div>
-        <span className="text-[11px] text-muted-foreground">Today</span>
-      </div>
-      <ul className="space-y-2">
-        {[
-          { u: "Sarah", a: "raised PO #1284", t: "9:12" },
-          { u: "James", a: "approved £412 order", t: "9:48" },
-          { u: "Priya", a: "logged delivery · Schein", t: "11:03" },
-        ].map((r) => (
-          <li
-            key={r.a}
-            className="flex items-center justify-between rounded-lg border border-border bg-background px-3 py-2.5 text-[12.5px]"
-          >
-            <span>
-              <span className="font-medium">{r.u}</span>{" "}
-              <span className="text-muted-foreground">{r.a}</span>
-            </span>
-            <span className="text-[11px] tabular-nums text-muted-foreground">
-              {r.t}
-            </span>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <RealBrowserFrame url="app.dentalassist.com / dashboard">
+      <AppScreenshot src={SCREEN.dashboard} alt="Dental Assist dashboard — real product screen" />
+    </RealBrowserFrame>
   );
 }
 
@@ -477,7 +162,7 @@ function Hero() {
 
           <Reveal delay={200}>
             <div className="animate-float will-change-transform">
-              <DashboardPreview />
+              <HeroDashboard />
             </div>
           </Reveal>
         </div>
@@ -526,37 +211,43 @@ const benefits: {
   title: string;
   body: string;
   benefit: string;
-  Preview: () => React.ReactElement;
+  screen: string;
+  url: string;
 }[] = [
   {
     title: "Stop using spreadsheets.",
     body: "Move every stock list, order log and supplier price sheet into one calm workspace the whole team can trust.",
     benefit: "Save hours a week previously lost to admin.",
-    Preview: PreviewInventory,
+    screen: SCREEN.dashboard,
+    url: "app.dentalassist.com / dashboard",
   },
   {
     title: "Know exactly what is in stock.",
     body: "Live counts across every surgery and store room, with automatic alerts before you run out mid-procedure.",
     benefit: "Never cancel a treatment because of missing materials.",
-    Preview: PreviewInventory,
+    screen: SCREEN.inventory,
+    url: "app.dentalassist.com / stock",
   },
   {
     title: "Compare supplier prices faster.",
     body: "Send one RFQ to multiple suppliers and see every response side by side. Pick the best price per item, not per basket.",
     benefit: "Typical practices save 8–15% on materials.",
-    Preview: PreviewRFQ,
+    screen: SCREEN.rfqCompare,
+    url: "app.dentalassist.com / rfqs / compare",
   },
   {
     title: "Reduce expired materials.",
     body: "Batch and expiry tracking flags items before they go out of date so nothing is written off.",
     benefit: "Cut waste and keep clinical governance clean.",
-    Preview: PreviewExpiry,
+    screen: SCREEN.expiring,
+    url: "app.dentalassist.com / expiring-stock",
   },
   {
     title: "Give your whole team one simple workflow.",
     body: "Roles for owners, managers and dental nurses mean each person sees exactly what they need — nothing more.",
     benefit: "Everyone aligned. One source of truth.",
-    Preview: PreviewTeam,
+    screen: SCREEN.purchasing,
+    url: "app.dentalassist.com / purchase-orders",
   },
 ];
 
@@ -577,7 +268,6 @@ function Benefits() {
           <ul className="mt-6 divide-y divide-border border-y border-border">
             {benefits.map((b, i) => {
               const isOpen = open === i;
-              const Preview = b.Preview;
               return (
                 <li key={b.title}>
                   <button
@@ -619,9 +309,9 @@ function Benefits() {
                             </div>
                           </div>
                         </div>
-                        <BrowserFrame>
-                          <Preview />
-                        </BrowserFrame>
+                        <RealBrowserFrame url={b.url}>
+                          <AppScreenshot src={b.screen} alt={`Dental Assist — ${b.title}`} />
+                        </RealBrowserFrame>
                       </div>
                     </div>
                   </div>
@@ -742,7 +432,7 @@ const modules = [
     icon: Package,
     href: "/features",
     hash: "inventory",
-    Preview: PreviewInventory,
+    screen: SCREEN.inventory,
     large: true,
   },
   {
@@ -751,7 +441,7 @@ const modules = [
     icon: ShoppingCart,
     href: "/features",
     hash: "purchasing",
-    Preview: PreviewTeam,
+    screen: SCREEN.purchasing,
     large: false,
   },
   {
@@ -760,7 +450,7 @@ const modules = [
     icon: Truck,
     href: "/features",
     hash: "suppliers",
-    Preview: PreviewSpend,
+    screen: SCREEN.suppliers,
     large: false,
   },
   {
@@ -769,7 +459,7 @@ const modules = [
     icon: FileText,
     href: "/features",
     hash: "rfq",
-    Preview: PreviewRFQ,
+    screen: SCREEN.rfqCompare,
     large: true,
   },
   {
@@ -778,7 +468,7 @@ const modules = [
     icon: BarChart3,
     href: "/features",
     hash: "reporting",
-    Preview: PreviewSpend,
+    screen: SCREEN.reporting,
     large: false,
   },
   {
@@ -787,7 +477,7 @@ const modules = [
     icon: LineChart,
     href: "/features",
     hash: "dashboard",
-    Preview: PreviewSpend,
+    screen: SCREEN.savings,
     large: false,
   },
 ];
@@ -799,7 +489,6 @@ function ModuleCard({
   m: (typeof modules)[number];
   large: boolean;
 }) {
-  const Preview = m.Preview;
   return (
     <Link
       to={m.href}
@@ -822,7 +511,7 @@ function ModuleCard({
         </div>
       </div>
       <div className="mx-7 mb-7 mt-auto overflow-hidden rounded-xl border border-border bg-background lg:mx-9 lg:mb-9">
-        <Preview />
+        <AppScreenshot src={m.screen} alt={`Dental Assist — ${m.title}`} />
       </div>
     </Link>
   );

@@ -10,16 +10,28 @@ const navLinks = [
   { label: "About", to: "/about" as const },
 ];
 
-export function Logo({ height = 28 }: { height?: number } = {}) {
+export function Logo({ height }: { height?: number } = {}) {
   return (
     <Link to="/" className="inline-flex items-center" aria-label="Reacting home">
       <img
         src="/brand/reacting-logo-horizontal.png"
         alt="Reacting"
-        height={height}
-        style={{ height }}
-        className="w-auto select-none"
         draggable={false}
+        className="w-auto select-none"
+        style={height ? { height } : undefined}
+      />
+    </Link>
+  );
+}
+
+function HeaderLogo() {
+  return (
+    <Link to="/" className="inline-flex items-center" aria-label="Reacting home">
+      <img
+        src="/brand/reacting-logo-horizontal.png"
+        alt="Reacting"
+        draggable={false}
+        className="h-9 w-auto select-none md:h-[42px]"
       />
     </Link>
   );
@@ -45,7 +57,7 @@ export function SiteHeader() {
       }`}
     >
       <div className="mx-auto flex h-16 max-w-[1280px] items-center justify-between px-6 lg:px-10">
-        <Logo />
+        <HeaderLogo />
         <nav aria-label="Primary" className="hidden items-center gap-9 md:flex">
           {navLinks.map((l) => (
             <Link
@@ -137,7 +149,7 @@ export function SiteFooter() {
       <div className="mx-auto max-w-[1280px] px-6 pb-10 pt-16 lg:px-10 lg:pb-12 lg:pt-20">
         <div className="grid gap-10 lg:grid-cols-[1.6fr_1fr_1fr_1fr_1fr] lg:gap-10">
           <div>
-            <Logo />
+            <Logo height={40} />
             <p className="mt-5 max-w-xs text-[13.5px] leading-[1.65] text-muted-foreground">
               Reacting builds intelligent cloud software for healthcare
               businesses. Dental Assist is our first product.

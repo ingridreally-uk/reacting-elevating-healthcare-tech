@@ -54,7 +54,7 @@ function ProductPage() {
   return (
     <SiteShell>
       <PageHero
-        eyebrow="Product"
+        eyebrow="Dental Assist · A Reacting product"
         title="A complete purchasing and inventory platform for dental practices."
         body="Dental Assist replaces spreadsheets, paper orders and scattered emails with one calm, connected workspace built around real dental workflows."
         primaryCta={{ label: "Book Your Demo", to: "/book-demo" }}

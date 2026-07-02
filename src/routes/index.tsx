@@ -102,7 +102,7 @@ function Hero() {
             <Reveal>
               <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1.5 text-[12px] text-muted-foreground">
                 <span className="inline-block h-1.5 w-1.5 rounded-full bg-accent" />
-                Built and used every day in a real UK dental practice
+                Built and used every day in a real dental practice
               </div>
             </Reveal>
             <Reveal delay={80}>

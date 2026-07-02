@@ -4,28 +4,39 @@ type Props = {
   title?: string;
 };
 
-/**
- * Reacting brand symbol.
- * Rounded midnight-navy square with a stylised "R" and a small teal
- * accent dot — used across nav, footer, favicon and product surfaces.
- */
-export function ReactingMark({ size = 24, className = "", title = "Reacting" }: Props) {
+/** Approved Reacting brand mark: abstract R with midnight navy/blue/teal gradient. */
+export function ReactingMark({ size = 32, className = "", title = "Reacting" }: Props) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 32 32"
+      viewBox="0 0 96 96"
       width={size}
       height={size}
       role="img"
       aria-label={title}
       className={className}
     >
-      <rect width="32" height="32" rx="8" fill="#0B1730" />
+      <defs>
+        <linearGradient id="reactingTop" x1="12" y1="12" x2="82" y2="48" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stopColor="#06153B" />
+          <stop offset="0.55" stopColor="#0B1730" />
+          <stop offset="1" stopColor="#123A78" />
+        </linearGradient>
+        <linearGradient id="reactingCut" x1="20" y1="70" x2="74" y2="30" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stopColor="#1FA7B8" />
+          <stop offset="0.5" stopColor="#0B75D1" />
+          <stop offset="1" stopColor="#071640" />
+        </linearGradient>
+      </defs>
       <path
-        d="M10 8.75h7.35c2.9 0 4.9 1.85 4.9 4.55 0 2.05-1.2 3.6-3.1 4.25l3.35 5.7h-3.2l-3.05-5.35H12.8v5.35H10V8.75Zm7 6.9c1.55 0 2.55-.9 2.55-2.3 0-1.4-1-2.25-2.55-2.25H12.8v4.55H17Z"
-        fill="#FFFFFF"
+        d="M19 21c0-6.6 5.4-12 12-12h31c18.2 0 31 12.1 31 30.1 0 18.1-12.8 30.2-31 30.2H49L19 39V21Z"
+        fill="url(#reactingTop)"
       />
-      <circle cx="24.5" cy="9.5" r="2" fill="#1FA7B8" />
+      <path
+        d="M19 51.5c0-6.6 5.4-12 12-12h14.3l31.1 31.2c3.7 3.7 1.1 10-4.2 10H31c-6.6 0-12-5.4-12-12V51.5Z"
+        fill="url(#reactingCut)"
+      />
+      <path d="M30 40h18.5L68 60H49.5L30 40Z" fill="#FFFFFF" />
     </svg>
   );
 }

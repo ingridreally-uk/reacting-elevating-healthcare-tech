@@ -608,9 +608,9 @@ function OurStory() {
                 Built inside a real dental practice.
               </h2>
               <p className="mt-6 max-w-xl text-[17px] leading-[1.7] text-foreground/85">
-                Dental Assist was developed and refined inside a working UK
-                dental practice to solve real daily operational problems. Every
-                feature is shaped by real workflows, not assumptions.
+                Dental Assist was developed and refined inside a working dental
+                practice to solve real daily operational problems. Every feature
+                is shaped by real workflows, not assumptions.
               </p>
             </Reveal>
 

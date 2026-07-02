@@ -2,33 +2,42 @@ import { ShieldCheck, RefreshCw, Clock } from "lucide-react";
 
 /**
  * Real Dental Assist product screenshots.
- * Files live in /public/product-screens/ as 1920x1080 browser captures.
- * The AppScreenshot component crops the browser chrome + Windows taskbar
- * so only the actual app UI is visible inside the frame.
+ * PNGs in /public/product-screens/ have been pre-cropped to remove
+ * browser chrome (tabs, URL bar, bookmarks) and the Windows taskbar,
+ * so they are pure app UI at 1920x890.
  */
 
-// Source: 1920x1080 desktop capture.
-// Browser chrome top ~150px, taskbar bottom ~60px, app area ~150..1020.
-const CROP_TOP_PERCENT = 13.9; // 150 / 1080
-const APP_ASPECT = "1920 / 870"; // width / app-area height
+const APP_ASPECT = "1920 / 890";
 
 const screenMap: Record<string, string> = {
-  dashboard: "/product-screens/screen-02.png",
-  overview: "/product-screens/screen-02.png",
-  inventory: "/product-screens/screen-25.png",
-  stock: "/product-screens/screen-25.png",
-  "low-stock": "/product-screens/screen-08.png",
-  expiring: "/product-screens/screen-09.png",
-  purchasing: "/product-screens/screen-11.png",
-  orders: "/product-screens/screen-11.png",
-  suppliers: "/product-screens/screen-21.png",
-  vendors: "/product-screens/screen-21.png",
+  // Dashboard / overview — real Dashboard screen
+  dashboard: "/product-screens/screen-10.png",
+  overview: "/product-screens/screen-10.png",
+  // Inventory / stock
+  inventory: "/product-screens/screen-22.png",
+  stock: "/product-screens/screen-22.png",
+  "stock-folders": "/product-screens/screen-25.png",
+  // Low stock
+  "low-stock": "/product-screens/screen-21.png",
+  // Expiring stock — stock item detail with expiry & audit
+  expiring: "/product-screens/screen-24.png",
+  // Purchasing / orders
+  purchasing: "/product-screens/screen-06.png",
+  orders: "/product-screens/screen-06.png",
+  "order-detail": "/product-screens/screen-16.png",
+  // Suppliers / vendors
+  suppliers: "/product-screens/screen-17.png",
+  vendors: "/product-screens/screen-17.png",
+  // RFQs
   rfq: "/product-screens/screen-15.png",
-  "rfq-compare": "/product-screens/screen-17.png",
+  "rfq-compare": "/product-screens/screen-19.png",
+  // Deliveries — receive order modal
   deliveries: "/product-screens/screen-12.png",
-  reporting: "/product-screens/screen-01.png",
+  // Reporting
+  reporting: "/product-screens/screen-28.png",
   savings: "/product-screens/screen-03.png",
-  audit: "/product-screens/screen-28.png",
+  // Audit / team
+  audit: "/product-screens/screen-27.png",
   team: "/product-screens/screen-14.png",
 };
 
@@ -60,17 +69,20 @@ export function BrowserFrame({
 }
 
 /**
- * Displays a real product screenshot with the browser chrome and taskbar
- * cropped out. Only the actual Dental Assist app UI is visible.
+ * Displays a pre-cropped Dental Assist screenshot at its native app aspect
+ * ratio. Images are already chrome-free, so no transform is needed.
+ * `focus` optionally shifts object-position to zoom to a region of the image.
  */
 export function AppScreenshot({
   src,
   alt,
   className = "",
+  focus = "top",
 }: {
   src: string;
   alt: string;
   className?: string;
+  focus?: "top" | "center";
 }) {
   return (
     <div
@@ -81,8 +93,8 @@ export function AppScreenshot({
         src={src}
         alt={alt}
         loading="lazy"
-        className="absolute inset-x-0 top-0 block w-full select-none"
-        style={{ transform: `translateY(-${CROP_TOP_PERCENT}%)` }}
+        className="absolute inset-0 h-full w-full select-none object-cover"
+        style={{ objectPosition: focus === "center" ? "center" : "top" }}
         draggable={false}
       />
     </div>

@@ -116,7 +116,7 @@ function FeaturesPage() {
           <section
             key={f.id}
             id={f.id}
-            className="grid gap-10 py-12 lg:grid-cols-2 lg:gap-12 lg:py-20"
+            className="grid gap-10 py-10 lg:grid-cols-2 lg:gap-10 lg:py-14"
           >
             <div className={i % 2 === 1 ? "lg:order-2" : ""}>
               <f.icon className="h-5 w-5 text-foreground" strokeWidth={1.5} />
@@ -150,7 +150,7 @@ function FeaturesPage() {
       <TrustBar />
 
       <section>
-        <div className="mx-auto max-w-7xl px-6 py-16 text-center lg:px-10 lg:py-24">
+        <div className="mx-auto max-w-7xl px-6 py-10 text-center lg:px-10 lg:py-14">
           <h2 className="mx-auto max-w-2xl text-[32px] font-semibold leading-[1.1] tracking-[-0.025em] sm:text-[44px]">
             Ready to see it in your practice?
           </h2>

@@ -76,7 +76,7 @@ function ProductPage() {
       <TrustBar />
 
       <section className="border-b border-border/60">
-        <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10 lg:py-24">
+        <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10 lg:py-14">
           <div className="grid gap-10 lg:grid-cols-3 lg:gap-10">
             {pillars.map((p, i) => (
               <div key={p.title}>
@@ -96,7 +96,7 @@ function ProductPage() {
       </section>
 
       <section className="border-b border-border/60 bg-[#F8FAFC]">
-        <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10 lg:py-24">
+        <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10 lg:py-14">
           <div className="grid gap-10 lg:grid-cols-[1fr_1.2fr] lg:gap-12">
             <div>
               <div className="mb-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
@@ -128,7 +128,7 @@ function ProductPage() {
       </section>
 
       <section>
-        <div className="mx-auto max-w-7xl px-6 py-16 text-center lg:px-10 lg:py-24">
+        <div className="mx-auto max-w-7xl px-6 py-10 text-center lg:px-10 lg:py-14">
           <h2 className="mx-auto max-w-2xl text-[32px] font-semibold leading-[1.1] tracking-[-0.025em] sm:text-[44px]">
             See Dental Assist in your practice.
           </h2>

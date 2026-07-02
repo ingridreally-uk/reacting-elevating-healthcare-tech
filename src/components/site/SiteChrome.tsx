@@ -57,7 +57,7 @@ export function SiteHeader() {
       }`}
     >
       <div className="mx-auto flex h-16 max-w-[1280px] items-center justify-between px-6 lg:px-10">
-        <Logo />
+        <HeaderLogo />
         <nav aria-label="Primary" className="hidden items-center gap-9 md:flex">
           {navLinks.map((l) => (
             <Link

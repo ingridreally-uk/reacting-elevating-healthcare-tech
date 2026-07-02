@@ -10,16 +10,28 @@ const navLinks = [
   { label: "About", to: "/about" as const },
 ];
 
-export function Logo({ height = 28 }: { height?: number } = {}) {
+export function Logo({ height }: { height?: number } = {}) {
   return (
     <Link to="/" className="inline-flex items-center" aria-label="Reacting home">
       <img
         src="/brand/reacting-logo-horizontal.png"
         alt="Reacting"
-        height={height}
-        style={{ height }}
-        className="w-auto select-none"
         draggable={false}
+        className="w-auto select-none"
+        style={height ? { height } : undefined}
+      />
+    </Link>
+  );
+}
+
+function HeaderLogo() {
+  return (
+    <Link to="/" className="inline-flex items-center" aria-label="Reacting home">
+      <img
+        src="/brand/reacting-logo-horizontal.png"
+        alt="Reacting"
+        draggable={false}
+        className="h-9 w-auto select-none md:h-[42px]"
       />
     </Link>
   );

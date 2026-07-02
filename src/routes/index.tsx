@@ -243,37 +243,43 @@ const benefits: {
   title: string;
   body: string;
   benefit: string;
-  Preview: () => React.ReactElement;
+  screen: string;
+  url: string;
 }[] = [
   {
     title: "Stop using spreadsheets.",
     body: "Move every stock list, order log and supplier price sheet into one calm workspace the whole team can trust.",
     benefit: "Save hours a week previously lost to admin.",
-    Preview: PreviewInventory,
+    screen: SCREEN.dashboard,
+    url: "app.dentalassist.com / dashboard",
   },
   {
     title: "Know exactly what is in stock.",
     body: "Live counts across every surgery and store room, with automatic alerts before you run out mid-procedure.",
     benefit: "Never cancel a treatment because of missing materials.",
-    Preview: PreviewInventory,
+    screen: SCREEN.inventory,
+    url: "app.dentalassist.com / stock",
   },
   {
     title: "Compare supplier prices faster.",
     body: "Send one RFQ to multiple suppliers and see every response side by side. Pick the best price per item, not per basket.",
     benefit: "Typical practices save 8–15% on materials.",
-    Preview: PreviewRFQ,
+    screen: SCREEN.rfqCompare,
+    url: "app.dentalassist.com / rfqs / compare",
   },
   {
     title: "Reduce expired materials.",
     body: "Batch and expiry tracking flags items before they go out of date so nothing is written off.",
     benefit: "Cut waste and keep clinical governance clean.",
-    Preview: PreviewExpiry,
+    screen: SCREEN.expiring,
+    url: "app.dentalassist.com / expiring-stock",
   },
   {
     title: "Give your whole team one simple workflow.",
     body: "Roles for owners, managers and dental nurses mean each person sees exactly what they need — nothing more.",
     benefit: "Everyone aligned. One source of truth.",
-    Preview: PreviewTeam,
+    screen: SCREEN.purchasing,
+    url: "app.dentalassist.com / purchase-orders",
   },
 ];
 

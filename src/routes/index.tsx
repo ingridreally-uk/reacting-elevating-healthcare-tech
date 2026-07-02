@@ -300,7 +300,6 @@ function Benefits() {
           <ul className="mt-6 divide-y divide-border border-y border-border">
             {benefits.map((b, i) => {
               const isOpen = open === i;
-              const Preview = b.Preview;
               return (
                 <li key={b.title}>
                   <button
@@ -342,9 +341,9 @@ function Benefits() {
                             </div>
                           </div>
                         </div>
-                        <BrowserFrame>
-                          <Preview />
-                        </BrowserFrame>
+                        <RealBrowserFrame url={b.url}>
+                          <AppScreenshot src={b.screen} alt={`Dental Assist — ${b.title}`} />
+                        </RealBrowserFrame>
                       </div>
                     </div>
                   </div>

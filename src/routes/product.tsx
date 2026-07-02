@@ -62,7 +62,7 @@ function ProductPage() {
       />
 
       <section className="border-b border-border/60 bg-[linear-gradient(180deg,oklch(0.988_0.002_247)_0%,oklch(0.972_0.005_247)_100%)]">
-        <div className="mx-auto max-w-[1280px] px-6 py-16 lg:px-10 lg:py-20">
+        <div className="mx-auto max-w-[1280px] px-6 pb-14 pt-6 lg:px-10 lg:pb-16 lg:pt-8">
           <BrowserFrame>
             <DashboardMock />
           </BrowserFrame>

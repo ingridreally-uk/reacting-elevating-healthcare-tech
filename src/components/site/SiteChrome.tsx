@@ -31,7 +31,7 @@ function HeaderLogo() {
         src="/brand/reacting-logo-horizontal.png"
         alt="Reacting"
         draggable={false}
-        className="h-9 w-auto select-none md:h-[42px]"
+        className="h-auto w-[130px] select-none md:w-[150px]"
       />
     </Link>
   );
@@ -149,7 +149,14 @@ export function SiteFooter() {
       <div className="mx-auto max-w-[1280px] px-6 pb-10 pt-16 lg:px-10 lg:pb-12 lg:pt-20">
         <div className="grid gap-10 lg:grid-cols-[1.6fr_1fr_1fr_1fr_1fr] lg:gap-10">
           <div>
-            <Logo height={40} />
+            <Link to="/" className="inline-flex items-center" aria-label="Reacting home">
+              <img
+                src="/brand/reacting-logo-horizontal.png"
+                alt="Reacting"
+                draggable={false}
+                className="h-auto w-[140px] select-none"
+              />
+            </Link>
             <p className="mt-5 max-w-xs text-[13.5px] leading-[1.65] text-muted-foreground">
               Reacting builds intelligent cloud software for healthcare
               businesses. Dental Assist is our first product.

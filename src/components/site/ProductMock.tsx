@@ -7,8 +7,6 @@ import { ShieldCheck, RefreshCw, Clock } from "lucide-react";
  * so they are pure app UI at 1920x890.
  */
 
-const APP_ASPECT = "1920 / 890";
-
 const screenMap: Record<string, string> = {
   // Dashboard / overview — real Dashboard screen
   dashboard: "/product-screens/screen-10.png",
@@ -19,8 +17,8 @@ const screenMap: Record<string, string> = {
   "stock-folders": "/product-screens/screen-25.png",
   // Low stock
   "low-stock": "/product-screens/screen-21.png",
-  // Expiring stock — Stock Audit with expiry date column
-  expiring: "/product-screens/screen-29.png",
+  // Expiring stock — Expiring Stock page with expired/expiring cards
+  expiring: "/product-screens/expiring-stock.webp",
   // Purchasing — Purchase Orders list
   purchasing: "/product-screens/screen-05.png",
   orders: "/product-screens/screen-05.png",
@@ -35,7 +33,7 @@ const screenMap: Record<string, string> = {
   // Deliveries — receive order modal
   deliveries: "/product-screens/screen-12.png",
   // Reporting
-  reporting: "/product-screens/screen-28.png",
+  reporting: "/product-screens/screen-28.webp",
   savings: "/product-screens/screen-03.png",
   // Audit / team workflow
   audit: "/product-screens/screen-27.png",
@@ -43,7 +41,7 @@ const screenMap: Record<string, string> = {
 };
 
 export function BrowserFrame({
-  url = "app.dentalassist.com",
+  url = "app.reacting.io",
   children,
   className = "",
 }: {
@@ -70,33 +68,38 @@ export function BrowserFrame({
 }
 
 /**
- * Displays a pre-cropped Dental Assist screenshot at its native app aspect
- * ratio. Images are already chrome-free, so no transform is needed.
- * `focus` optionally shifts object-position to zoom to a region of the image.
+ * Displays a pre-cropped Dental Assist screenshot.
+ * Desktop keeps the native 1920×890 app aspect.
+ * Mobile uses a taller frame and zooms the top-left UI so the
+ * screenshot stays legible instead of shrinking into a thin strip.
  */
 export function AppScreenshot({
   src,
   alt,
   className = "",
   focus = "top",
+  loading = "lazy",
+  fetchPriority,
 }: {
   src: string;
   alt: string;
   className?: string;
   focus?: "top" | "center";
+  loading?: "lazy" | "eager";
+  fetchPriority?: "high" | "low" | "auto";
 }) {
   return (
     <div
-      className={`relative w-full overflow-hidden bg-background ${className}`}
-      style={{ aspectRatio: APP_ASPECT }}
+      className={`relative w-full overflow-hidden bg-background aspect-[16/10] sm:aspect-[1920/890] ${className}`}
     >
       <img
         src={src}
         alt={alt}
-        loading="lazy"
-        className="absolute inset-0 h-full w-full select-none object-cover"
-        style={{ objectPosition: focus === "center" ? "center" : "top" }}
+        loading={loading}
+        fetchPriority={fetchPriority}
         draggable={false}
+        className="absolute left-0 top-0 h-auto w-full max-w-none origin-top-left scale-[1.45] select-none sm:inset-0 sm:h-full sm:w-full sm:origin-center sm:scale-100 sm:object-cover"
+        style={{ objectPosition: focus === "center" ? "center" : "top" }}
       />
     </div>
   );
@@ -129,6 +132,36 @@ export function CardScreenshot({
         draggable={false}
         className="absolute left-0 top-0 h-auto w-full max-w-none origin-top-left select-none"
         style={{ transform: "scale(1.35)" }}
+      />
+    </div>
+  );
+}
+
+/**
+ * Light crop for product feature showcases — keeps context while
+ * focusing the primary workflow. Smaller visual weight than hero shots.
+ */
+export function ShowcaseScreenshot({
+  src,
+  alt,
+  className = "",
+}: {
+  src: string;
+  alt: string;
+  className?: string;
+}) {
+  return (
+    <div
+      className={`relative w-full overflow-hidden bg-background ${className}`}
+      style={{ aspectRatio: "16 / 9" }}
+    >
+      <img
+        src={src}
+        alt={alt}
+        loading="lazy"
+        draggable={false}
+        className="absolute left-0 top-0 h-auto w-full max-w-none origin-top-left select-none"
+        style={{ transform: "scale(1.2)" }}
       />
     </div>
   );
@@ -193,18 +226,20 @@ export function TrustBar() {
     { icon: Clock, title: "Daily Use", body: "Designed around repeatable, practical tasks used by practice teams." },
   ];
   return (
-    <div className="grid gap-3 border-y border-border/70 py-6 sm:grid-cols-3">
-      {items.map((item) => (
-        <div key={item.title} className="flex gap-3">
-          <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent/10 text-accent">
-            <item.icon className="h-4 w-4" strokeWidth={1.8} />
+    <div className="border-y border-border/70">
+      <div className="mx-auto grid max-w-[1280px] gap-3 px-6 py-6 sm:grid-cols-3 lg:px-10">
+        {items.map((item) => (
+          <div key={item.title} className="flex gap-3">
+            <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent/10 text-accent">
+              <item.icon className="h-4 w-4" strokeWidth={1.8} />
+            </div>
+            <div>
+              <div className="text-sm font-semibold text-foreground">{item.title}</div>
+              <p className="mt-1 text-[13px] leading-6 text-muted-foreground">{item.body}</p>
+            </div>
           </div>
-          <div>
-            <div className="text-sm font-semibold text-foreground">{item.title}</div>
-            <p className="mt-1 text-[13px] leading-6 text-muted-foreground">{item.body}</p>
-          </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 }

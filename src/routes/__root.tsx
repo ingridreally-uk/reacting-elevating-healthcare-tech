@@ -94,22 +94,71 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "Cloud software that helps dental practices manage inventory, purchasing, suppliers and daily operations.",
       },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
+      { property: "og:url", content: "https://www.reacting.io/" },
+      { property: "og:site_name", content: "Reacting" },
+      {
+        property: "og:image",
+        content: "https://www.reacting.io/og-reacting-dental-assist.png",
+      },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      {
+        property: "og:image:alt",
+        content: "Dental Assist by Reacting dashboard preview",
+      },
+      { name: "twitter:card", content: "summary_large_image" },
+      {
+        name: "twitter:title",
+        content: "Dental Assist by Reacting — Practice management, simplified",
+      },
+      {
+        name: "twitter:description",
+        content:
+          "Dental Assist helps dental practices manage inventory, purchasing, suppliers and daily operations from one simple cloud platform.",
+      },
+      {
+        name: "twitter:image",
+        content: "https://www.reacting.io/og-reacting-dental-assist.png",
+      },
     ],
     links: [
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       { rel: "preconnect", href: "https://api.fontshare.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap",
-      },
-      {
-        rel: "stylesheet",
-        href: "https://api.fontshare.com/v2/css?f[]=satoshi@700,900,500&display=swap",
+        href: "https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700,900&display=swap",
       },
       { rel: "stylesheet", href: appCss },
       { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "Reacting",
+          url: "https://www.reacting.io",
+          logo: "https://www.reacting.io/brand/reacting-logo-horizontal.png",
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "SoftwareApplication",
+          name: "Dental Assist",
+          applicationCategory: "BusinessApplication",
+          operatingSystem: "Web",
+          url: "https://www.reacting.io",
+          description:
+            "Dental Assist helps dental practices manage inventory, purchasing, suppliers and daily operations from one simple cloud platform.",
+          publisher: {
+            "@type": "Organization",
+            name: "Reacting",
+            url: "https://www.reacting.io",
+          },
+        }),
+      },
     ],
   }),
   shellComponent: RootShell,

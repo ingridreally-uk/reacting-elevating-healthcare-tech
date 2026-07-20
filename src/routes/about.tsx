@@ -3,6 +3,7 @@ import { ArrowRight, MapPin, Building2, Stethoscope } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SiteShell, PageHero } from "@/components/site/SiteChrome";
 import { TrustBar } from "@/components/site/ProductMock";
+import { SITE_ORIGIN } from "@/lib/site-url";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -20,6 +21,7 @@ export const Route = createFileRoute("/about")({
           "Reacting builds cloud software for healthcare, starting with Dental Assist.",
       },
     ],
+    links: [{ rel: "canonical", href: `${SITE_ORIGIN}/about` }],
   }),
   component: AboutPage,
 });
@@ -51,40 +53,13 @@ function AboutPage() {
       <section className="border-b border-border/60">
         <div className="mx-auto max-w-[1280px] px-6 py-14 lg:px-10 lg:py-20">
           <div className="grid gap-12 lg:grid-cols-[1fr_1.15fr] lg:gap-10">
-            {/* Practice photography — 2-image mosaic */}
-            <div className="grid grid-cols-5 grid-rows-5 gap-3">
-              <div className="col-span-3 row-span-3 overflow-hidden rounded-2xl border border-border/70 shadow-[0_20px_50px_-30px_oklch(0.17_0.05_265/0.28)]">
-                <img
-                  src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1200&q=80"
-                  alt="Reception desk inside the partner dental practice"
-                  className="h-full w-full object-cover"
-                  loading="lazy"
-                />
-              </div>
-              <div className="col-span-2 row-span-2 col-start-4 row-start-1 overflow-hidden rounded-2xl border border-border/70">
-                <img
-                  src="https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&w=800&q=80"
-                  alt="Practice manager working at a laptop"
-                  className="h-full w-full object-cover"
-                  loading="lazy"
-                />
-              </div>
-              <div className="col-span-2 row-span-3 col-start-4 row-start-3 overflow-hidden rounded-2xl border border-border/70">
-                <img
-                  src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=800&q=80"
-                  alt="Store room shelves with dental consumables"
-                  className="h-full w-full object-cover"
-                  loading="lazy"
-                />
-              </div>
-              <div className="col-span-3 row-span-2 col-start-1 row-start-4 overflow-hidden rounded-2xl border border-border/70">
-                <img
-                  src="https://images.unsplash.com/photo-1616391182219-e080b4d1043a?auto=format&fit=crop&w=1000&q=80"
-                  alt="Clinical surgery, treatment chair and light"
-                  className="h-full w-full object-cover"
-                  loading="lazy"
-                />
-              </div>
+            <div className="overflow-hidden rounded-2xl border border-border/70 shadow-[0_20px_50px_-30px_oklch(0.17_0.05_265/0.28)]">
+              <img
+                src="/practice/practice-team.webp"
+                alt="The founding team behind Reacting and Dental Assist."
+                className="aspect-[4/5] h-full w-full object-cover"
+                loading="lazy"
+              />
             </div>
             <div>
               <div className="mb-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
@@ -101,17 +76,17 @@ function AboutPage() {
                   operational side of running a practice.
                 </p>
                 <p>
-                  Today Dental Assist is used by the practice it was built in
-                  and is being prepared for other practices ready to leave paper
-                  behind. Every feature still has to earn its place in daily
-                  use.
+                  Today Dental Assist has been developed and used in the founding
+                  dental practice for the past 2–3 years. It is now opening to a
+                  small number of additional practices. Every feature still has to
+                  earn its place in daily use.
                 </p>
               </div>
 
-              <dl className="mt-6 grid grid-cols-3 gap-6 border-t border-border/70 pt-6">
+              <dl className="mt-6 grid grid-cols-1 gap-6 border-t border-border/70 pt-6 sm:grid-cols-3">
                 {[
                   { icon: MapPin, k: "Based", v: "United Kingdom" },
-                  { icon: Building2, k: "Founded", v: "2023" },
+                  { icon: Building2, k: "Development began", v: "2021" },
                   { icon: Stethoscope, k: "Built inside", v: "A real practice" },
                 ].map((s) => (
                   <div key={s.k}>
@@ -129,6 +104,15 @@ function AboutPage() {
                 ))}
               </dl>
             </div>
+          </div>
+
+          <div className="mt-10">
+            <Button asChild size="lg" className="h-11 rounded-full px-6 text-[13.5px] font-medium">
+              <Link to="/book-demo">
+                Book a Demo
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </Button>
           </div>
         </div>
       </section>
@@ -170,8 +154,8 @@ function AboutPage() {
             Interested in early access?
           </h2>
           <p className="mx-auto mt-5 max-w-lg text-[16px] leading-[1.65] text-muted-foreground">
-            We&apos;re working with a small number of beta practices. Get in
-            touch to see if Dental Assist is the right fit for yours.
+            We&apos;re opening Dental Assist to a small number of additional
+            practices. Get in touch to see if it is the right fit for yours.
           </p>
           <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Button asChild size="lg" className="h-11 rounded-full px-6 text-[13.5px] font-medium">

@@ -25,6 +25,7 @@ export const Route = createFileRoute("/dashboard")({
         content:
           "Your daily operational view. See what needs attention across stock, purchasing and budget.",
       },
+      { name: "robots", content: "noindex, nofollow" },
     ],
   }),
   component: DashboardPage,

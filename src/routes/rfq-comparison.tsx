@@ -23,6 +23,7 @@ export const Route = createFileRoute("/rfq-comparison")({
         content:
           "Compare supplier RFQ responses side-by-side and confidently choose the best option for each product before raising a purchase order.",
       },
+      { name: "robots", content: "noindex, nofollow" },
     ],
   }),
   component: RfqComparisonPage,

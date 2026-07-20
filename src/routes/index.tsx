@@ -1,875 +1,376 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import * as React from "react";
-import { useState } from "react";
+import { createFileRoute } from "@tanstack/react-router";
 import {
-  ArrowRight,
-  Play,
+  Leaf,
+  PiggyBank,
+  PackageCheck,
+  Timer,
   Package,
-  ShoppingCart,
-  Truck,
-  FileText,
-  BarChart3,
-  LineChart,
-  Check,
-  Plus,
-  Minus,
-  
-  ShieldCheck,
   RefreshCw,
-  Sparkles,
-  Users,
-  Briefcase,
   Building2,
-  Lightbulb,
-  Hammer,
-  TrendingUp,
-  MessageSquare,
+  Activity,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
 import { SiteShell } from "@/components/site/SiteChrome";
-import { Reveal } from "@/components/site/Reveal";
-import { AppScreenshot, BrowserFrame as RealBrowserFrame, CardScreenshot } from "@/components/site/ProductMock";
-
-const SCREEN = {
-  dashboard: "/product-screens/screen-10.png",
-  inventory: "/product-screens/screen-22.png",
-  lowStock: "/product-screens/screen-21.png",
-  expiring: "/product-screens/screen-29.png",
-  purchasing: "/product-screens/screen-05.png",
-  suppliers: "/product-screens/screen-17.png",
-  rfq: "/product-screens/screen-15.png",
-  rfqCompare: "/product-screens/screen-19.png",
-  deliveries: "/product-screens/screen-12.png",
-  reporting: "/product-screens/screen-28.png",
-  savings: "/product-screens/screen-03.png",
-  audit: "/product-screens/screen-27.png",
-  team: "/product-screens/screen-27.png",
-};
+import { MarketingHero } from "@/components/marketing/MarketingHero";
+import { FeatureSection } from "@/components/marketing/FeatureSection";
+import { MediaGallery } from "@/components/marketing/MediaGallery";
+import { BenefitCard, StatisticCard } from "@/components/marketing/Cards";
+import { PricingCard } from "@/components/marketing/PricingCard";
+import { FAQ } from "@/components/marketing/FAQ";
+import { CTASection } from "@/components/marketing/CTASection";
+import {
+  APP_SIGNUP,
+  SCREENS,
+  type MediaItem,
+} from "@/components/marketing/content";
+import { SITE_ORIGIN } from "@/lib/site-url";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Dental Assist by Reacting — Practice management, simplified" },
+      {
+        title:
+          "Dental Purchasing & Inventory Software | Dental Assist by Reacting",
+      },
       {
         name: "description",
         content:
-          "Dental Assist helps dental practices manage inventory, purchasing, suppliers and daily operations from one simple cloud platform. Built inside a real dental practice.",
+          "Start a free trial of Dental Assist — purchasing, inventory, suppliers and reporting for dental practices. No credit card required.",
       },
-      { property: "og:title", content: "Dental Assist by Reacting" },
+      {
+        property: "og:title",
+        content: "Dental Assist by Reacting",
+      },
       {
         property: "og:description",
         content:
-          "Cloud software that helps dental practices manage inventory, purchasing, suppliers and daily operations.",
+          "Manage stock, suppliers, purchase orders and reporting from one simple workspace built for dental practices.",
       },
     ],
+    links: [{ rel: "canonical", href: `${SITE_ORIGIN}/` }],
   }),
-  component: Landing,
+  component: MarketingHome,
 });
 
-const SECTION = "py-10 lg:py-14";
-const CONTAINER = "mx-auto max-w-[1280px] px-6 lg:px-10";
-const HEADING_GAP = "mt-8";
-
-/* ------------------------------------------------------------------ */
-
-
-/* ------------------------------------------------------------------ */
-/*  Real product screenshot preview                                   */
-/* ------------------------------------------------------------------ */
-
-function RealPreview({ src, alt }: { src: string; alt: string }) {
-  return <AppScreenshot src={src} alt={alt} />;
-}
-
-function HeroDashboard() {
-  return (
-    <RealBrowserFrame url="app.dentalassist.com / dashboard">
-      <AppScreenshot src={SCREEN.dashboard} alt="Dental Assist dashboard — real product screen" />
-    </RealBrowserFrame>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/*  Hero                                                              */
-/* ------------------------------------------------------------------ */
-
-function Hero() {
-  return (
-    <section className="relative overflow-hidden">
-      <div className={`${CONTAINER} pb-10 pt-8 sm:pt-12 lg:pb-12 lg:pt-14`}>
-        <div className="grid items-center gap-10 lg:grid-cols-[1.02fr_1fr] lg:gap-12">
-          <div>
-            <Reveal>
-              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1.5 text-[12px] text-muted-foreground">
-                <span className="inline-block h-1.5 w-1.5 rounded-full bg-accent" />
-                Built and used every day in a real dental practice
-              </div>
-            </Reveal>
-            <Reveal delay={80}>
-              <h1 className="text-[46px] font-semibold leading-[1.02] tracking-[-0.028em] text-foreground sm:text-[60px] lg:text-[72px]">
-                Everything your practice needs to stay organised.
-              </h1>
-            </Reveal>
-            <Reveal delay={160}>
-              <p className="mt-8 max-w-[540px] text-[17px] leading-[1.65] text-muted-foreground sm:text-[18px]">
-                Dental Assist helps dental practices manage purchasing,
-                inventory, suppliers and daily operations through one simple
-                cloud platform built around real dental workflows.
-              </p>
-            </Reveal>
-            <Reveal delay={240}>
-              <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
-                <Button
-                  asChild
-                  size="lg"
-                  className="h-11 w-full rounded-full px-6 text-[13.5px] font-medium sm:w-auto"
-                >
-                  <Link to="/book-demo">
-                    Book Your Demo
-                    <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </Button>
-                <Button
-                  asChild
-                  size="lg"
-                  variant="ghost"
-                  className="h-11 w-full rounded-full px-5 text-[13.5px] font-medium text-foreground hover:bg-secondary sm:w-auto"
-                >
-                  <Link to="/product">
-                    <Play className="h-4 w-4" />
-                    Watch Overview
-                  </Link>
-                </Button>
-              </div>
-            </Reveal>
-            <Reveal delay={320}>
-              <ul className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3 text-[13px] text-muted-foreground">
-                {[
-                  { label: "Built in Practice", icon: Hammer },
-                  { label: "Secure Cloud", icon: ShieldCheck },
-                  { label: "Continuous Updates", icon: RefreshCw },
-                ].map((t) => (
-                  <li key={t.label} className="inline-flex items-center gap-2">
-                    <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-accent/10">
-                      <Check className="h-3 w-3 text-accent" strokeWidth={3} />
-                    </span>
-                    {t.label}
-                  </li>
-                ))}
-              </ul>
-            </Reveal>
-          </div>
-
-          <Reveal delay={200}>
-            <div className="animate-float will-change-transform">
-              <HeroDashboard />
-            </div>
-          </Reveal>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/*  Section heading                                                   */
-/* ------------------------------------------------------------------ */
-
-function SectionHeading({
-  eyebrow,
-  title,
-  body,
-}: {
-  eyebrow?: string;
-  title: string;
-  body?: string;
-}) {
-  return (
-    <div className="max-w-2xl">
-      {eyebrow && (
-        <div className="mb-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
-          {eyebrow}
-        </div>
-      )}
-      <h2 className="text-[32px] font-semibold leading-[1.1] tracking-[-0.025em] text-foreground sm:text-[42px]">
-        {title}
-      </h2>
-      {body && (
-        <p className="mt-5 text-[16.5px] leading-[1.65] text-muted-foreground">
-          {body}
-        </p>
-      )}
-    </div>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/*  Benefits — accordion                                              */
-/* ------------------------------------------------------------------ */
-
-const benefits: {
-  title: string;
-  body: string;
-  benefit: string;
-  screen: string;
-  url: string;
-}[] = [
+const gallery: MediaItem[] = [
   {
-    title: "Stop using spreadsheets.",
-    body: "Move every stock list, order log and supplier price sheet into one calm workspace the whole team can trust.",
-    benefit: "Save hours a week previously lost to admin.",
-    screen: SCREEN.dashboard,
-    url: "app.dentalassist.com / dashboard",
+    id: "dashboard",
+    title: "Dashboard",
+    description: "Practice overview at a glance",
+    imageSrc: SCREENS.dashboard,
+    alt: "Dental Assist dashboard",
   },
   {
-    title: "Know exactly what is in stock.",
-    body: "Live counts across every surgery and store room, with automatic alerts before you run out mid-procedure.",
-    benefit: "Never cancel a treatment because of missing materials.",
-    screen: SCREEN.inventory,
-    url: "app.dentalassist.com / stock",
+    id: "stock",
+    title: "Stock",
+    description: "Live inventory across locations",
+    imageSrc: SCREENS.stock,
+    alt: "Dental Assist stock screen",
   },
   {
-    title: "Compare supplier prices faster.",
-    body: "Send one RFQ to multiple suppliers and see every response side by side. Pick the best price per item, not per basket.",
-    benefit: "Typical practices save 8–15% on materials.",
-    screen: SCREEN.rfqCompare,
-    url: "app.dentalassist.com / rfqs / compare",
+    id: "low-stock",
+    title: "Low Stock",
+    description: "Items that need attention",
+    imageSrc: SCREENS.lowStock,
+    alt: "Dental Assist low stock screen",
   },
   {
-    title: "Reduce expired materials.",
-    body: "Batch and expiry tracking flags items before they go out of date so nothing is written off.",
-    benefit: "Cut waste and keep clinical governance clean.",
-    screen: SCREEN.expiring,
-    url: "app.dentalassist.com / expiring-stock",
+    id: "expiring",
+    title: "Expiring Stock",
+    description: "Prioritise rotation and reduce waste",
+    imageSrc: SCREENS.expiring,
+    alt: "Dental Assist Expiring Stock page showing expired and expiring item cards with status labels and earliest expiry dates",
   },
   {
-    title: "Give your whole team one simple workflow.",
-    body: "Roles for owners, managers and dental nurses mean each person sees exactly what they need — nothing more.",
-    benefit: "Everyone aligned. One source of truth.",
-    screen: SCREEN.team,
-    url: "app.dentalassist.com / team",
-  },
-];
-
-function Benefits() {
-  const [open, setOpen] = useState<number | null>(0);
-  return (
-    <section className={`border-t border-border/60 bg-background ${SECTION}`}>
-      <div className={CONTAINER}>
-        <Reveal>
-          <SectionHeading
-            eyebrow="Why Dental Assist"
-            title="Why practices choose Dental Assist."
-            body="Each of these is a small operational win. Together they change how the practice runs."
-          />
-        </Reveal>
-
-        <Reveal delay={120}>
-          <ul className="mt-6 divide-y divide-border border-y border-border">
-            {benefits.map((b, i) => {
-              const isOpen = open === i;
-              return (
-                <li key={b.title}>
-                  <button
-                    onClick={() => setOpen(isOpen ? null : i)}
-                    aria-expanded={isOpen}
-                    className="group flex w-full items-center justify-between gap-6 py-7 text-left transition-colors hover:bg-secondary/40 sm:py-8"
-                  >
-                    <div className="flex min-w-0 items-center gap-6">
-                      <span className="w-6 shrink-0 text-[12px] font-medium tabular-nums text-muted-foreground">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                      <span className="text-[18px] font-medium tracking-tight text-foreground sm:text-[22px]">
-                        {b.title}
-                      </span>
-                    </div>
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-border bg-background text-muted-foreground transition-colors group-hover:text-foreground">
-                      {isOpen ? (
-                        <Minus className="h-3.5 w-3.5" />
-                      ) : (
-                        <Plus className="h-3.5 w-3.5" />
-                      )}
-                    </span>
-                  </button>
-                  <div
-                    className={`grid overflow-hidden transition-[grid-template-rows,opacity] duration-500 ease-out ${
-                      isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
-                    }`}
-                  >
-                    <div className="min-h-0">
-                      <div className="grid gap-8 pb-10 pl-12 pr-2 pt-1 lg:grid-cols-[1fr_1.15fr] lg:gap-12">
-                        <div>
-                          <p className="max-w-md text-[15.5px] leading-[1.7] text-muted-foreground">
-                            {b.body}
-                          </p>
-                          <div className="mt-6 inline-flex items-start gap-3 rounded-xl border border-border bg-secondary/60 px-4 py-3">
-                            <Sparkles className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
-                            <div className="text-[13.5px] font-medium text-foreground">
-                              {b.benefit}
-                            </div>
-                          </div>
-                        </div>
-                        <RealBrowserFrame url={b.url}>
-                          <AppScreenshot src={b.screen} alt={`Dental Assist — ${b.title}`} />
-                        </RealBrowserFrame>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/*  Audiences — premium cards                                         */
-/* ------------------------------------------------------------------ */
-
-const audiences = [
-  {
-    title: "Practice Owners",
-    body: "Control costs and get real visibility into practice operations.",
-    icon: Briefcase,
-    bullets: [
-      "Live spend by category & supplier",
-      "Approvals with a full audit trail",
-      "Confidence in monthly numbers",
-    ],
-    tone: "bg-foreground",
+    id: "suppliers",
+    title: "Suppliers",
+    description: "Contacts and purchase history",
+    imageSrc: SCREENS.suppliers,
+    alt: "Dental Assist supplier list",
   },
   {
-    title: "Practice Managers",
-    body: "One calm workspace for purchasing, suppliers and stock.",
-    icon: Building2,
-    bullets: [
-      "No more spreadsheets or paper POs",
-      "Every supplier and price list in one place",
-      "Weekly ordering in minutes, not hours",
-    ],
-    tone: "bg-accent",
+    id: "rfq",
+    title: "RFQs",
+    description: "Compare quotes before you buy",
+    imageSrc: SCREENS.rfq,
+    alt: "Dental Assist RFQ screen",
   },
   {
-    title: "Dental Teams",
-    body: "Simple stock counts, deliveries and quick product search.",
-    icon: Users,
-    bullets: [
-      "Barcode-friendly counts",
-      "Log goods-in in seconds",
-      "Search by brand, code or category",
-    ],
-    tone: "bg-deep-blue",
-  },
-];
-
-function Audiences() {
-  return (
-    <section className={`border-t border-border/60 bg-secondary/60 ${SECTION}`}>
-      <div className={CONTAINER}>
-        <Reveal>
-          <SectionHeading title="Built for your whole practice." />
-        </Reveal>
-        <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {audiences.map((a, i) => (
-            <Reveal key={a.title} delay={i * 80}>
-              <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_30px_70px_-30px_rgb(15_23_42/0.18)]">
-                <span
-                  aria-hidden
-                  className={`absolute inset-x-0 top-0 h-[3px] ${a.tone}`}
-                />
-                <a.icon
-                  className="h-5 w-5 text-foreground"
-                  strokeWidth={1.5}
-                />
-                <div className="mt-6 text-[11px] font-medium uppercase tracking-[0.16em] text-muted-foreground">
-                  0{i + 1}
-                </div>
-                <h3 className="mt-2 text-[20px] font-semibold tracking-tight text-foreground">
-                  {a.title}
-                </h3>
-                <p className="mt-3 text-[14.5px] leading-[1.65] text-muted-foreground">
-                  {a.body}
-                </p>
-                <div className="mt-7 border-t border-border pt-5">
-                  <div className="text-[10.5px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
-                    Typical benefits
-                  </div>
-                  <ul className="mt-3 space-y-2.5">
-                    {a.bullets.map((b) => (
-                      <li
-                        key={b}
-                        className="flex items-start gap-2.5 text-[13.5px] text-foreground/85"
-                      >
-                        <Check
-                          className="mt-0.5 h-3.5 w-3.5 shrink-0 text-accent"
-                          strokeWidth={2.5}
-                        />
-                        {b}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </article>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/*  Core modules — alternating                                        */
-/* ------------------------------------------------------------------ */
-
-const modules = [
-  {
-    title: "Inventory",
-    body: "Track every item, every location, in real time. Set par levels and get alerts before you run out.",
-    icon: Package,
-    href: "/features",
-    hash: "inventory",
-    screen: SCREEN.inventory,
-    large: true,
+    id: "orders",
+    title: "Purchase Orders",
+    description: "Raise and track orders in one place",
+    imageSrc: SCREENS.purchasing,
+    alt: "Dental Assist purchase orders",
   },
   {
-    title: "Purchasing",
-    body: "Raise, approve and track orders in one place. No more paper trails.",
-    icon: ShoppingCart,
-    href: "/features",
-    hash: "purchasing",
-    screen: SCREEN.purchasing,
-    large: false,
-  },
-  {
-    title: "Supplier Management",
-    body: "All your suppliers, contacts and price lists in one tidy directory.",
-    icon: Truck,
-    href: "/features",
-    hash: "suppliers",
-    screen: SCREEN.suppliers,
-    large: false,
-  },
-  {
-    title: "RFQ Comparison",
-    body: "Request quotes from multiple suppliers and compare side by side.",
-    icon: FileText,
-    href: "/features",
-    hash: "rfq",
-    screen: SCREEN.rfqCompare,
-    large: true,
-  },
-  {
+    id: "reporting",
     title: "Reporting",
-    body: "Understand spend, usage and waste across the practice.",
-    icon: BarChart3,
-    href: "/features",
-    hash: "reporting",
-    screen: SCREEN.reporting,
-    large: false,
-  },
-  {
-    title: "Analytics",
-    body: "Spot trends and make confident decisions about your operations.",
-    icon: LineChart,
-    href: "/features",
-    hash: "dashboard",
-    screen: SCREEN.dashboard,
-    large: false,
+    description: "Spend, usage and savings signals",
+    imageSrc: SCREENS.reporting,
+    alt: "Dental Assist reporting",
   },
 ];
 
-function ModuleCard({
-  m,
-  large,
-}: {
-  m: (typeof modules)[number];
-  large: boolean;
-}) {
-  return (
-    <Link
-      to={m.href}
-      hash={m.hash}
-      className={`group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-card transition-all duration-300 hover:-translate-y-1 hover:border-foreground/20 hover:shadow-[0_30px_70px_-30px_rgb(15_23_42/0.18)] ${
-        large ? "lg:col-span-2" : ""
-      }`}
-    >
-      <div className="p-7 lg:p-9">
-        <m.icon className="h-5 w-5 text-foreground" strokeWidth={1.5} />
-        <div className="mt-6 text-[20px] font-semibold tracking-tight sm:text-[22px]">
-          {m.title}
-        </div>
-        <p className="mt-2 max-w-md text-[14.5px] leading-[1.65] text-muted-foreground">
-          {m.body}
-        </p>
-        <div className="mt-5 inline-flex items-center gap-1.5 text-[13px] font-medium text-foreground/70 transition-colors group-hover:text-foreground">
-          Explore {m.title}
-          <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
-        </div>
-      </div>
-      <div className="mx-7 mb-7 mt-auto overflow-hidden rounded-xl border border-border bg-background lg:mx-9 lg:mb-9">
-        <CardScreenshot src={m.screen} alt={`Dental Assist — ${m.title}`} />
-      </div>
-    </Link>
-  );
-}
-
-function Modules() {
-  return (
-    <section className={`border-t border-border/60 bg-background ${SECTION}`}>
-      <div className={CONTAINER}>
-        <Reveal>
-          <SectionHeading
-            eyebrow="Core Modules"
-            title="Everything your practice needs, in one platform."
-            body="Six connected modules covering the full operational side of a modern dental practice."
-          />
-        </Reveal>
-
-        <div className="mt-6 grid gap-6 lg:grid-cols-3">
-          {modules.map((m, i) => (
-            <Reveal key={m.title} delay={(i % 3) * 80}>
-              <ModuleCard m={m} large={m.large} />
-            </Reveal>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/*  Our story — split layout + timeline                               */
-/* ------------------------------------------------------------------ */
-
-const timeline = [
+const steps = [
   {
-    label: "Problem",
-    body: "Spreadsheets, paper POs and lost invoices slowing the whole practice down.",
-    icon: Lightbulb,
+    n: "01",
+    title: "Start your free trial",
+    body: "No credit card. Explore Dental Assist with your practice in mind.",
   },
   {
-    label: "Build",
-    body: "We built the tool we needed ourselves, tested on real workflows.",
-    icon: Hammer,
+    n: "02",
+    title: "Import your products",
+    body: "Bring in existing stock lists so setup stays quick and practical.",
   },
   {
-    label: "Daily Use",
-    body: "Used every day inside a working practice by owners, managers and nurses.",
-    icon: Users,
-  },
-  {
-    label: "Continuous Improvement",
-    body: "Each release shaped by real feedback from the surgery floor.",
-    icon: TrendingUp,
+    n: "03",
+    title: "Begin managing inventory",
+    body: "Get clearer visibility across stock, purchasing and suppliers.",
   },
 ];
 
-function StoryImagePlaceholder() {
-  return (
-    <div className="relative overflow-hidden rounded-2xl border border-border bg-secondary">
-      <div className="aspect-[4/5] w-full">
-        <div className="flex h-full flex-col items-center justify-center gap-3 px-6 text-center">
-          <div className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-background text-muted-foreground">
-            <Building2 className="h-4 w-4" strokeWidth={1.5} />
-          </div>
-          <div className="text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
-            Photograph
-          </div>
-          <div className="max-w-xs text-[14px] font-medium text-foreground">
-            Practice & team photo
-          </div>
-          <div className="max-w-xs text-[12.5px] leading-[1.55] text-muted-foreground">
-            Real, unstaged image of the practice this software is built in.
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function OurStory() {
-  return (
-    <section className={`border-t border-border/60 bg-secondary/60 ${SECTION}`}>
-      <div className={CONTAINER}>
-        <div className="grid items-start gap-10 lg:grid-cols-[0.9fr_1.2fr] lg:gap-10">
-          <Reveal>
-            <StoryImagePlaceholder />
-          </Reveal>
-          <div>
-            <Reveal>
-              <div className="mb-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
-                Our story
-              </div>
-              <h2 className="text-[32px] font-semibold leading-[1.1] tracking-[-0.025em] text-foreground sm:text-[42px]">
-                Built inside a real dental practice.
-              </h2>
-              <p className="mt-6 max-w-xl text-[17px] leading-[1.7] text-foreground/85">
-                Dental Assist was developed and refined inside a working dental
-                practice to solve real daily operational problems. Every feature
-                is shaped by real workflows, not assumptions.
-              </p>
-            </Reveal>
-
-            <Reveal delay={120}>
-              <ol className="mt-6 space-y-5 border-l border-border pl-8">
-                {timeline.map((t, i) => (
-                  <li key={t.label} className="relative">
-                    <span
-                      aria-hidden
-                      className="absolute -left-[41px] top-1 flex h-8 w-8 items-center justify-center rounded-full border border-border bg-background text-foreground"
-                    >
-                      <t.icon className="h-3.5 w-3.5" strokeWidth={1.75} />
-                    </span>
-                    <div className="flex items-baseline gap-3">
-                      <span className="text-[10.5px] font-semibold uppercase tracking-[0.16em] text-muted-foreground tabular-nums">
-                        0{i + 1}
-                      </span>
-                      <span className="text-[15px] font-semibold tracking-tight text-foreground">
-                        {t.label}
-                      </span>
-                    </div>
-                    <p className="mt-1.5 max-w-md text-[14px] leading-[1.65] text-muted-foreground">
-                      {t.body}
-                    </p>
-                  </li>
-                ))}
-              </ol>
-            </Reveal>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/*  FAQ                                                               */
-/* ------------------------------------------------------------------ */
-
-const faqs = [
-  {
-    q: "Who is Dental Assist for?",
-    a: "Independent dental practices and small groups that want to replace spreadsheets and paper with one simple platform for inventory, purchasing and supplier management.",
-  },
-  {
-    q: "How long does it take to get started?",
-    a: "Most practices are up and running within a week. We help you import existing stock lists and connect your suppliers so the team can start on day one.",
-  },
-  {
-    q: "Does Dental Assist work with our existing suppliers?",
-    a: "Yes. You can manage every supplier you already work with, store their price lists and send RFQs from inside the platform.",
-  },
-  {
-    q: "Is our data secure?",
-    a: "Dental Assist runs on a secure cloud infrastructure with encryption in transit and at rest, role-based access and regular backups.",
-  },
-  {
-    q: "Can the whole team use it?",
-    a: "Yes. Roles are designed for owners, managers and dental teams so each person sees exactly what they need.",
-  },
-];
-
-function FAQ() {
-  const [open, setOpen] = useState<number | null>(0);
-  return (
-    <section className={`border-t border-border/60 bg-background ${SECTION}`}>
-      <div className={CONTAINER}>
-        <div className="grid gap-10 lg:grid-cols-[1fr_1.4fr] lg:gap-12">
-          <Reveal>
-            <div>
-              <div className="mb-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
-                FAQ
-              </div>
-              <h2 className="text-[32px] font-semibold leading-[1.1] tracking-[-0.025em] text-foreground sm:text-[42px]">
-                Questions, answered.
-              </h2>
-              <p className="mt-5 text-[15.5px] leading-[1.65] text-muted-foreground">
-                Can&apos;t find what you&apos;re looking for? Get in touch and
-                we&apos;ll walk you through it.
-              </p>
-
-              <div className="mt-6 rounded-2xl border border-border bg-secondary/60 p-6">
-                <MessageSquare className="h-5 w-5 text-foreground" strokeWidth={1.5} />
-                <div className="mt-4 text-[15px] font-semibold tracking-tight">
-                  Still have questions?
-                </div>
-                <p className="mt-1.5 text-[13.5px] leading-[1.6] text-muted-foreground">
-                  Our team replies within one working day.
-                </p>
-                <Button
-                  asChild
-                  className="mt-5 h-10 rounded-full px-5 text-[13px] font-medium"
-                >
-                  <Link to="/contact">Contact us</Link>
-                </Button>
-              </div>
-            </div>
-          </Reveal>
-          <Reveal delay={120}>
-            <ul className="divide-y divide-border border-y border-border">
-              {faqs.map((f, i) => {
-                const isOpen = open === i;
-                return (
-                  <li key={f.q}>
-                    <button
-                      onClick={() => setOpen(isOpen ? null : i)}
-                      className="flex w-full items-center justify-between gap-6 py-6 text-left"
-                      aria-expanded={isOpen}
-                    >
-                      <span className="text-[16.5px] font-medium tracking-tight text-foreground">
-                        {f.q}
-                      </span>
-                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-border bg-background text-muted-foreground">
-                        {isOpen ? (
-                          <Minus className="h-3.5 w-3.5" />
-                        ) : (
-                          <Plus className="h-3.5 w-3.5" />
-                        )}
-                      </span>
-                    </button>
-                    <div
-                      className={`grid overflow-hidden transition-[grid-template-rows,opacity] duration-500 ease-out ${
-                        isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
-                      }`}
-                    >
-                      <div className="min-h-0">
-                        <p className="pb-7 pr-10 text-[15px] leading-[1.75] text-muted-foreground">
-                          {f.a}
-                        </p>
-                      </div>
-                    </div>
-                  </li>
-                );
-              })}
-            </ul>
-          </Reveal>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/*  Reacting ecosystem                                                */
-/* ------------------------------------------------------------------ */
-
-function Ecosystem() {
-  const products: {
-    name: string;
-    status: "Current" | "Coming Soon" | "Future";
-    body: string;
-  }[] = [
-    { name: "Dental Assist", status: "Current", body: "Purchasing and inventory for dental practices." },
-    { name: "Vet Assist", status: "Coming Soon", body: "Operational software for veterinary clinics." },
-    { name: "Medical Assist", status: "Future", body: "Practice operations for private medical clinics." },
-    { name: "Optical Assist", status: "Future", body: "Inventory and purchasing for optical practices." },
-  ];
-  return (
-    <section className="border-t border-border/60 bg-secondary/50">
-      <div className={`${CONTAINER} ${SECTION}`}>
-        <Reveal>
-          <div className="mx-auto max-w-2xl text-center">
-            <div className="text-[11px] font-medium uppercase tracking-[0.18em] text-accent">
-              The Reacting ecosystem
-            </div>
-            <h2 className="mt-4 text-[32px] font-semibold leading-[1.1] tracking-[-0.025em] sm:text-[40px]">
-              Intelligent software for healthcare businesses.
-            </h2>
-            <p className="mt-4 text-[16px] leading-[1.65] text-muted-foreground">
-              Dental Assist is the first product built by Reacting. More are on the way.
-            </p>
-          </div>
-        </Reveal>
-        <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {products.map((p) => (
-            <Reveal key={p.name}>
-              <div className="flex h-full flex-col justify-between rounded-2xl border border-border bg-background p-6">
-                <div>
-                  <div className="text-[15px] font-semibold tracking-tight text-foreground">
-                    {p.name}
-                  </div>
-                  <p className="mt-2 text-[13.5px] leading-[1.55] text-muted-foreground">
-                    {p.body}
-                  </p>
-                </div>
-                <div
-                  className={`mt-6 inline-flex w-fit items-center rounded-full px-2.5 py-1 text-[11px] font-medium ${
-                    p.status === "Current"
-                      ? "bg-accent/10 text-accent"
-                      : "border border-border text-muted-foreground"
-                  }`}
-                >
-                  {p.status}
-                </div>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/*  Final CTA — dark navy                                             */
-/* ------------------------------------------------------------------ */
-
-function FinalCTA() {
-  return (
-    <section className="border-t border-border/60 bg-[#111827] text-white">
-      <div className={`${CONTAINER} py-10 lg:py-14`}>
-        <Reveal>
-          <div className="mx-auto max-w-3xl text-center">
-            <h2 className="text-[36px] font-semibold leading-[1.05] tracking-[-0.025em] sm:text-[54px]">
-              Ready to simplify your practice?
-            </h2>
-            <p className="mx-auto mt-6 max-w-xl text-[17px] leading-[1.65] text-white/70">
-              See how Dental Assist replaces spreadsheets and paper with one
-              calm, connected platform.
-            </p>
-            <div className="mt-6 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
-              <Button
-                asChild
-                size="lg"
-                className="h-12 rounded-full bg-white px-7 text-[13.5px] font-semibold text-[#111827] hover:bg-white/90"
-              >
-                <Link to="/book-demo">
-                  Book Demo
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-              </Button>
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="h-12 rounded-full border-white/30 bg-transparent px-7 text-[13.5px] font-medium text-white hover:bg-white/10 hover:text-white"
-              >
-                <Link to="/contact">Contact Us</Link>
-              </Button>
-            </div>
-          </div>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/*  Page                                                              */
-/* ------------------------------------------------------------------ */
-
-function Landing() {
+function MarketingHome() {
   return (
     <SiteShell>
-      <Hero />
-      <Benefits />
-      <Modules />
-      <OurStory />
-      <FinalCTA />
+      <MarketingHero />
+
+      <section className="border-b border-border/60 bg-background">
+        <div className="mx-auto max-w-[1200px] px-6 py-12 lg:px-10 lg:py-14">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <StatisticCard
+              icon={Package}
+              label="Stock, suppliers and orders in one workspace"
+            />
+            <StatisticCard
+              icon={RefreshCw}
+              label="Clearer purchasing decisions with side-by-side quotes"
+            />
+            <StatisticCard
+              icon={Activity}
+              label="Live inventory visibility for the practice team"
+            />
+            <StatisticCard
+              icon={Building2}
+              label="Built specifically for dental practices"
+            />
+          </div>
+        </div>
+      </section>
+
+      <div id="features" className="scroll-mt-20">
+        <FeatureSection
+          eyebrow="Inventory management"
+          title="Know what’s on the shelf — without the spreadsheet chase."
+          description="Track inventory across surgeries and store rooms with live quantities and fast search, so the team spends less time hunting for stock."
+          bullets={[
+            "Complete stock visibility",
+            "Live quantities by location",
+            "Instant product search",
+            "Clear counts for everyday use",
+          ]}
+          ctaHref={APP_SIGNUP}
+          imageSrc={SCREENS.stock}
+          alt="Dental Assist inventory management"
+          className="bg-background"
+        />
+
+        <FeatureSection
+          eyebrow="Low stock alerts"
+          title="Spot shortages early and act before they become urgent."
+          description="Automatic low-stock visibility helps the team raise RFQs and keep purchasing moving — reducing the risk of missing materials on a busy day."
+          bullets={[
+            "Automatic low-stock detection",
+            "One-click paths into RFQs",
+            "Clear lists ready for action",
+            "Fits the purchasing workflow",
+          ]}
+          ctaHref={APP_SIGNUP}
+          imageSrc={SCREENS.lowStock}
+          alt="Dental Assist low stock alerts"
+          imageFirst
+          className="bg-[#F7FBF9]"
+        />
+
+        <FeatureSection
+          eyebrow="Expiry tracking"
+          title="Rotate stock with confidence and cut unnecessary waste."
+          description="Monitor products nearing expiry so the practice can prioritise what should be used next and reduce write-offs."
+          bullets={[
+            "Monitor expiring products",
+            "Prioritise stock rotation",
+            "Reduce avoidable waste",
+            "Support day-to-day compliance habits",
+          ]}
+          ctaHref={APP_SIGNUP}
+          imageSrc={SCREENS.expiring}
+          alt="Dental Assist Expiring Stock page showing expired and expiring item cards with status labels and earliest expiry dates"
+          className="bg-background"
+        />
+
+        <FeatureSection
+          eyebrow="Supplier management"
+          title="Keep suppliers, history and ordering in one calm place."
+          description="A central supplier directory with purchase history helps the team follow up faster and keep RFQs and orders organised."
+          bullets={[
+            "Central supplier database",
+            "Purchase history by vendor",
+            "Clearer supplier follow-up",
+            "RFQ and ordering in the same workspace",
+          ]}
+          ctaHref={APP_SIGNUP}
+          imageSrc={SCREENS.suppliers}
+          alt="Dental Assist supplier list"
+          imageFirst
+          className="bg-[#F7FBF9]"
+        />
+
+        <FeatureSection
+          eyebrow="Reporting"
+          title="See spend, usage and savings without rebuilding reports."
+          description="Interactive dashboards help owners and managers understand purchasing trends, stock value and usage signals."
+          bullets={[
+            "Purchasing trends",
+            "Stock value and usage views",
+            "Savings signals from smarter buying",
+            "Supplier analytics in one place",
+          ]}
+          ctaHref={APP_SIGNUP}
+          imageSrc={SCREENS.reporting}
+          alt="Dental Assist reporting"
+          className="bg-background"
+        />
+      </div>
+
+      <section
+        id="product-gallery"
+        className="scroll-mt-20 border-b border-border/60 bg-[#F7FBF9]"
+      >
+        <div className="mx-auto max-w-[1200px] px-6 py-16 lg:px-10 lg:py-20">
+          <motion.div
+            className="mx-auto max-w-2xl text-center"
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[oklch(0.42_0.08_175)]">
+              Product tour
+            </div>
+            <h2 className="mt-3 text-[32px] font-semibold tracking-[-0.03em] text-foreground sm:text-[42px]">
+              See Dental Assist in action.
+            </h2>
+            <p className="mt-4 text-[16px] leading-[1.65] text-muted-foreground">
+              Browse real product screens. A walkthrough video will replace
+              individual shots here as it becomes available.
+            </p>
+          </motion.div>
+          <div className="mt-10">
+            <MediaGallery items={gallery} />
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b border-border/60 bg-background">
+        <div className="mx-auto max-w-[1200px] px-6 py-16 lg:px-10 lg:py-20">
+          <div className="mx-auto max-w-2xl text-center">
+            <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[oklch(0.42_0.08_175)]">
+              Benefits
+            </div>
+            <h2 className="mt-3 text-[32px] font-semibold tracking-[-0.03em] sm:text-[42px]">
+              Less stress. Clearer stock. Calmer ordering.
+            </h2>
+          </div>
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            <BenefitCard
+              icon={Leaf}
+              title="Reduce waste"
+              body="Spot expiry risk earlier and rotate stock before it becomes a write-off."
+            />
+            <BenefitCard
+              icon={PiggyBank}
+              title="Save money"
+              body="Compare supplier responses and make clearer purchasing decisions."
+            />
+            <BenefitCard
+              icon={PackageCheck}
+              title="Spot shortages earlier"
+              body="Low-stock visibility helps the team act before materials run critically low."
+            />
+            <BenefitCard
+              icon={Timer}
+              title="Spend less time ordering"
+              body="Keep stock, suppliers and purchase orders together so admin takes less of the day."
+            />
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b border-border/60 bg-[#F7FBF9]">
+        <div className="mx-auto max-w-[1200px] px-6 py-16 lg:px-10 lg:py-20">
+          <div className="mx-auto max-w-2xl text-center">
+            <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[oklch(0.42_0.08_175)]">
+              How it works
+            </div>
+            <h2 className="mt-3 text-[32px] font-semibold tracking-[-0.03em] sm:text-[42px]">
+              Up and running in three simple steps.
+            </h2>
+          </div>
+          <div className="mt-10 grid gap-6 lg:grid-cols-3">
+            {steps.map((s, i) => (
+              <motion.div
+                key={s.n}
+                className="rounded-2xl border border-border/70 bg-card p-6 shadow-sm"
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.08 }}
+              >
+                <div className="text-[12px] font-semibold tabular-nums tracking-[0.16em] text-muted-foreground">
+                  {s.n}
+                </div>
+                <h3 className="mt-4 text-[20px] font-semibold tracking-tight">
+                  {s.title}
+                </h3>
+                <p className="mt-2 text-[14.5px] leading-[1.65] text-muted-foreground">
+                  {s.body}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="pricing" className="scroll-mt-20 border-b border-border/60 bg-background">
+        <div className="mx-auto max-w-[1200px] px-6 py-16 lg:px-10 lg:py-20">
+          <div className="mx-auto mb-10 max-w-2xl text-center">
+            <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[oklch(0.42_0.08_175)]">
+              Pricing
+            </div>
+            <h2 className="mt-3 text-[32px] font-semibold tracking-[-0.03em] sm:text-[42px]">
+              Simple pricing.
+            </h2>
+            <p className="mt-4 text-[16px] text-muted-foreground">
+              14-day free trial · No credit card required · £59 per practice/month
+            </p>
+          </div>
+          <PricingCard />
+        </div>
+      </section>
+
+      <section id="faq" className="scroll-mt-20 border-b border-border/60 bg-[#F7FBF9]">
+        <div className="mx-auto max-w-[1200px] px-6 py-16 lg:px-10 lg:py-20">
+          <div className="mx-auto mb-10 max-w-2xl text-center">
+            <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[oklch(0.42_0.08_175)]">
+              FAQ
+            </div>
+            <h2 className="mt-3 text-[32px] font-semibold tracking-[-0.03em] sm:text-[42px]">
+              Questions, answered.
+            </h2>
+          </div>
+          <FAQ />
+        </div>
+      </section>
+
+      <CTASection />
     </SiteShell>
   );
 }

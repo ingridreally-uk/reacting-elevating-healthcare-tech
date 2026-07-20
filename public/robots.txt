@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /dashboard
+Disallow: /rfq-comparison
+
+Sitemap: https://www.reacting.io/sitemap.xml

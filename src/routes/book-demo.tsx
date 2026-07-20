@@ -1,8 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { Check, Clock, MessageSquare, ShieldCheck, Monitor } from "lucide-react";
+import { Clock, MessageSquare, ShieldCheck, Monitor } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SiteShell } from "@/components/site/SiteChrome";
+import { SITE_ORIGIN } from "@/lib/site-url";
 
 export const Route = createFileRoute("/book-demo")({
   head: () => ({
@@ -20,6 +21,7 @@ export const Route = createFileRoute("/book-demo")({
           "30-minute online walkthrough. See the platform, ask questions, no obligation.",
       },
     ],
+    links: [{ rel: "canonical", href: `${SITE_ORIGIN}/book-demo` }],
   }),
   component: BookDemoPage,
 });
@@ -32,7 +34,8 @@ const highlights = [
 ];
 
 function BookDemoPage() {
-  const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [showEndpointNotice, setShowEndpointNotice] = useState(false);
 
   return (
     <SiteShell>
@@ -74,67 +77,112 @@ function BookDemoPage() {
           {/* Right: form */}
           <div className="lg:sticky lg:top-24 lg:self-start">
             <div className="rounded-2xl border border-border bg-card p-6 shadow-[0_40px_80px_-40px_rgb(15_23_42/0.18)] sm:p-7">
-              {submitted ? (
-                <div className="py-8 text-center">
-                  <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-accent/10">
-                    <Check className="h-5 w-5 text-accent" />
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  if (submitting) return;
+                  setSubmitting(true);
+                  window.setTimeout(() => {
+                    setSubmitting(false);
+                    setShowEndpointNotice(true);
+                  }, 600);
+                }}
+                className="space-y-5"
+              >
+                <div>
+                  <div className="text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
+                    Request your demo
                   </div>
-                  <h2 className="mt-5 text-[22px] font-semibold tracking-tight">
-                    Request received.
+                  <h2 className="mt-2 text-[22px] font-semibold tracking-tight">
+                    Tell us a little about you.
                   </h2>
-                  <p className="mx-auto mt-3 max-w-sm text-[14.5px] leading-[1.6] text-muted-foreground">
-                    Thanks — we&apos;ll be in touch within one working day to
-                    confirm a time for your walkthrough.
-                  </p>
                 </div>
-              ) : (
-                <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    setSubmitted(true);
-                  }}
-                  className="space-y-5"
-                >
-                  <div>
-                    <div className="text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
-                      Request your demo
-                    </div>
-                    <h2 className="mt-2 text-[22px] font-semibold tracking-tight">
-                      Tell us a little about you.
-                    </h2>
-                  </div>
 
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    <Field label="First name" name="firstName" required />
-                    <Field label="Last name" name="lastName" required />
-                  </div>
-                  <Field label="Work email" name="email" type="email" required />
-                  <Field label="Practice name" name="practice" required />
-                  <Field label="Role" name="role" placeholder="e.g. Practice Manager" />
-                  <Field label="Number of surgeries" name="surgeries" placeholder="e.g. 4" />
-                  <div>
-                    <label className="mb-1.5 block text-[12.5px] font-medium text-foreground">
-                      Anything we should know?
-                    </label>
-                    <textarea
-                      name="notes"
-                      rows={3}
-                      className="w-full resize-none rounded-lg border border-input bg-background px-3 py-2.5 text-[14px] shadow-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-foreground/30 focus:ring-1 focus:ring-foreground/10"
-                    />
-                  </div>
-
-                  <Button
-                    type="submit"
-                    size="lg"
-                    className="mt-2 h-11 w-full rounded-full text-[13.5px] font-medium"
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <Field
+                    label="First name"
+                    name="firstName"
+                    autoComplete="given-name"
+                    required
+                  />
+                  <Field
+                    label="Last name"
+                    name="lastName"
+                    autoComplete="family-name"
+                    required
+                  />
+                </div>
+                <Field
+                  label="Work email"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  required
+                />
+                <Field
+                  label="Practice name"
+                  name="practice"
+                  autoComplete="organization"
+                  required
+                />
+                <Field
+                  label="Role"
+                  name="role"
+                  autoComplete="organization-title"
+                  placeholder="e.g. Practice Manager"
+                />
+                <Field
+                  label="Number of surgeries"
+                  name="surgeries"
+                  autoComplete="off"
+                  placeholder="e.g. 4"
+                />
+                <div>
+                  <label
+                    htmlFor="notes"
+                    className="mb-1.5 block text-[12.5px] font-medium text-foreground"
                   >
-                    Request Demo
-                  </Button>
-                  <p className="text-center text-[11.5px] text-muted-foreground">
-                    We&apos;ll reply within one working day. No spam, ever.
+                    Anything we should know?
+                  </label>
+                  <textarea
+                    id="notes"
+                    name="notes"
+                    rows={3}
+                    autoComplete="off"
+                    className="w-full resize-none rounded-lg border border-input bg-background px-3 py-2.5 text-[14px] shadow-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-foreground/30 focus:ring-1 focus:ring-foreground/10"
+                  />
+                </div>
+
+                <Button
+                  type="submit"
+                  size="lg"
+                  disabled={submitting}
+                  className="mt-2 h-11 w-full rounded-full text-[13.5px] font-medium"
+                >
+                  {submitting ? "Submitting..." : "Request Demo"}
+                </Button>
+
+                {showEndpointNotice && (
+                  <p
+                    className="text-center text-[12.5px] leading-[1.55] text-muted-foreground"
+                    aria-live="polite"
+                  >
+                    Online submission is being connected before launch. Please
+                    email us directly in the meantime at{" "}
+                    <a
+                      href="mailto:hello@reacting.io"
+                      className="text-foreground underline-offset-4 hover:underline"
+                    >
+                      hello@reacting.io
+                    </a>
+                    .
                   </p>
-                </form>
-              )}
+                )}
+
+                <p className="text-center text-[11.5px] text-muted-foreground">
+                  We&apos;ll reply within one working day. No spam, ever.
+                </p>
+              </form>
             </div>
           </div>
         </div>
@@ -149,12 +197,14 @@ function Field({
   type = "text",
   placeholder,
   required,
+  autoComplete,
 }: {
   label: string;
   name: string;
   type?: string;
   placeholder?: string;
   required?: boolean;
+  autoComplete?: string;
 }) {
   return (
     <div>
@@ -167,6 +217,7 @@ function Field({
         type={type}
         required={required}
         placeholder={placeholder}
+        autoComplete={autoComplete}
         className="h-10 w-full rounded-lg border border-input bg-background px-3 text-[14px] shadow-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-foreground/30 focus:ring-1 focus:ring-foreground/10"
       />
     </div>

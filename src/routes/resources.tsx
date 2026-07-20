@@ -1,86 +1,80 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { GraduationCap, PlaySquare, LifeBuoy, Newspaper, ArrowRight } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { SiteShell, PageHero } from "@/components/site/SiteChrome";
 import { TrustBar } from "@/components/site/ProductMock";
+import { SITE_ORIGIN } from "@/lib/site-url";
 
 export const Route = createFileRoute("/resources")({
   head: () => ({
     meta: [
-      { title: "Resources — Dental Assist by Reacting" },
+      { title: "Resources | Reacting" },
       {
         name: "description",
         content:
-          "Learn Dental Assist through the Academy, product videos, help centre articles and the Reacting blog.",
+          "Learn about Reacting and book a personalised demo. Our Academy, Help Centre and training resources are currently in development.",
       },
-      { property: "og:title", content: "Resources — Dental Assist" },
+      { property: "og:title", content: "Resources | Reacting" },
       {
         property: "og:description",
         content:
-          "Academy, videos, help centre and blog for Dental Assist users.",
+          "Learn about Reacting and book a personalised demo. Our Academy, Help Centre and training resources are currently in development.",
       },
     ],
+    links: [{ rel: "canonical", href: `${SITE_ORIGIN}/resources` }],
   }),
   component: ResourcesPage,
 });
 
-const resources = [
-  {
-    icon: GraduationCap,
-    title: "Academy",
-    body: "Structured lessons that take your team from first login to confident daily use.",
-    tag: "Coming soon",
-  },
-  {
-    icon: PlaySquare,
-    title: "Videos",
-    body: "Short product walkthroughs covering purchasing, inventory, RFQs and reporting.",
-    tag: "Coming soon",
-  },
-  {
-    icon: LifeBuoy,
-    title: "Help Centre",
-    body: "Practical answers to setup, workflow and administration questions.",
-    tag: "Coming soon",
-  },
-  {
-    icon: Newspaper,
-    title: "Blog",
-    body: "Notes from inside a real dental practice on operations, purchasing and technology.",
-    tag: "Coming soon",
-  },
+const reassurances = [
+  "Personal onboarding",
+  "Live Q&A",
+  "Help setting up your practice",
+  "No obligation demo",
 ];
+
+const roadmap = ["Training Academy", "Video Tutorials", "Help Centre", "Blog & Best Practices"];
 
 function ResourcesPage() {
   return (
     <SiteShell>
       <PageHero
         eyebrow="Resources"
-        title="Learn Dental Assist at your pace."
-        body="Guides, videos and help articles designed to get your whole team confident quickly. Written by the people who use the platform every day."
+        title="Resources for smarter dental practice operations"
+        body="Resources are currently being prepared. We're building practical guides, videos and documentation to help dental practices get the most from Reacting. In the meantime, we'd be happy to walk you through everything personally."
+        primaryCta={{ label: "Book a Demo", to: "/book-demo" }}
+        secondaryCta={{ label: "Contact Us", to: "/contact" }}
       />
 
       <section className="border-b border-border/60">
-        <div className="mx-auto max-w-7xl px-6 py-14 lg:px-10 lg:py-20">
-          <div className="grid gap-5 sm:grid-cols-2">
-            {resources.map((r) => (
-              <div
-                key={r.title}
-                className="group rounded-2xl border border-border bg-card p-8 transition-all hover:-translate-y-0.5 hover:shadow-[0_24px_60px_-30px_rgb(15_23_42/0.15)]"
-              >
-                <r.icon className="h-5 w-5 text-foreground" strokeWidth={1.5} />
-                <div className="mt-6 flex items-center gap-3">
-                  <h3 className="text-[20px] font-semibold tracking-tight">
-                    {r.title}
-                  </h3>
-                  <span className="rounded-full border border-border bg-background px-2 py-0.5 text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground">
-                    {r.tag}
-                  </span>
-                </div>
-                <p className="mt-3 text-[15px] leading-[1.65] text-muted-foreground">
-                  {r.body}
-                </p>
-              </div>
+        <div className="mx-auto max-w-7xl px-6 pb-10 pt-2 lg:px-10 lg:pb-12">
+          <ul className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-x-8 sm:gap-y-3">
+            {reassurances.map((item) => (
+              <li key={item} className="flex items-center gap-2 text-[14px] text-foreground/85">
+                <Check className="h-3.5 w-3.5 shrink-0 text-accent" strokeWidth={3} />
+                {item}
+              </li>
             ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className="border-b border-border/60">
+        <div className="mx-auto max-w-7xl px-6 py-8 lg:px-10 lg:py-10">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-baseline sm:gap-6">
+            <div className="shrink-0 text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
+              Coming Soon
+            </div>
+            <ul className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:gap-x-6 sm:gap-y-2">
+              {roadmap.map((item) => (
+                <li
+                  key={item}
+                  className="text-[14.5px] font-medium tracking-tight text-foreground/85"
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </section>
@@ -90,20 +84,26 @@ function ResourcesPage() {
       <section>
         <div className="mx-auto max-w-7xl px-6 py-10 text-center lg:px-10 lg:py-14">
           <h2 className="mx-auto max-w-2xl text-[30px] font-semibold leading-[1.1] tracking-[-0.025em] sm:text-[40px]">
-            Prefer a guided walkthrough?
+            Need help today?
           </h2>
           <p className="mx-auto mt-5 max-w-lg text-[16px] leading-[1.65] text-muted-foreground">
-            Book a 30-minute call with our team and we&apos;ll show you Dental
-            Assist for your practice.
+            Our team is happy to answer questions and demonstrate Reacting using your own workflows.
           </p>
-          <div className="mt-6 flex justify-center">
-            <Link
-              to="/book-demo"
-              className="inline-flex h-11 items-center gap-2 rounded-full bg-primary px-6 text-[13.5px] font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+          <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <Button asChild size="lg" className="h-11 rounded-full px-6 text-[13.5px] font-medium">
+              <Link to="/book-demo">
+                Book a Demo
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </Button>
+            <Button
+              asChild
+              size="lg"
+              variant="ghost"
+              className="h-11 rounded-full px-5 text-[13.5px] font-medium text-foreground hover:bg-secondary"
             >
-              Book Your Demo
-              <ArrowRight className="h-4 w-4" />
-            </Link>
+              <Link to="/contact">Contact Us</Link>
+            </Button>
           </div>
         </div>
       </section>

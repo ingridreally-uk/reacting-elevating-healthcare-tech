@@ -20,36 +20,21 @@ const floating = [
 export function MarketingHero() {
   return (
     <section className="relative overflow-hidden border-b border-border/60 bg-[linear-gradient(180deg,#F7FBF9_0%,#EEF6F3_48%,#FFFFFF_100%)]">
-      <div className="mx-auto grid max-w-[1200px] items-center gap-12 px-6 pb-16 pt-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-10 lg:px-10 lg:pb-20 lg:pt-16">
+      <div className="mx-auto grid max-w-[1200px] items-center gap-8 px-6 pb-12 pt-10 md:grid-cols-[0.95fr_1.05fr] md:gap-10 md:pb-16 md:pt-12 lg:gap-10 lg:px-10 lg:pb-20 lg:pt-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55 }}
         >
-          <h1 className="max-w-xl text-[42px] font-semibold leading-[1.02] tracking-[-0.035em] text-foreground sm:text-[56px] lg:text-[60px]">
+          <h1 className="max-w-xl text-[36px] font-semibold leading-[1.08] tracking-[-0.035em] text-foreground sm:text-[52px] sm:leading-[1.02] lg:text-[60px]">
             Purchasing shouldn&apos;t feel like paperwork.
           </h1>
-          <p className="mt-6 max-w-lg text-[17px] leading-[1.7] text-muted-foreground sm:text-[18px]">
+          <p className="mt-5 max-w-md text-[16px] leading-[1.65] text-muted-foreground sm:mt-6 sm:max-w-lg sm:text-[18px] sm:leading-[1.7]">
             Manage stock, suppliers, purchase orders and reporting from one
             beautifully simple workspace built for dental practices.
           </p>
 
-          <ul className="mt-6 flex flex-col gap-2.5 sm:flex-row sm:flex-wrap sm:gap-x-5">
-            {trialPoints.map((p) => (
-              <li
-                key={p}
-                className="inline-flex items-center gap-2 text-[13.5px] text-foreground/85"
-              >
-                <Check
-                  className="h-3.5 w-3.5 text-[oklch(0.52_0.12_165)]"
-                  strokeWidth={3}
-                />
-                {p}
-              </li>
-            ))}
-          </ul>
-
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+          <div className="mt-7 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:items-center">
             <a
               href={APP_SIGNUP}
               className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-primary px-7 text-[14px] font-semibold text-primary-foreground transition hover:bg-primary/90 sm:w-auto"
@@ -64,6 +49,21 @@ export function MarketingHero() {
               Watch Demo
             </a>
           </div>
+
+          <ul className="mt-5 flex flex-col gap-2 sm:mt-6 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-6 sm:gap-y-2">
+            {trialPoints.map((p) => (
+              <li
+                key={p}
+                className="inline-flex items-center gap-2 text-[13.5px] text-foreground/85"
+              >
+                <Check
+                  className="h-3.5 w-3.5 shrink-0 text-[oklch(0.52_0.12_165)]"
+                  strokeWidth={3}
+                />
+                {p}
+              </li>
+            ))}
+          </ul>
         </motion.div>
 
         <motion.div

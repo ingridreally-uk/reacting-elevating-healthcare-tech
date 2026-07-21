@@ -58,56 +58,56 @@ const gallery: MediaItem[] = [
     title: "Dashboard",
     description: "Practice overview at a glance",
     imageSrc: SCREENS.dashboard,
-    alt: "Dental Assist dashboard",
+    alt: "Dental Assist dashboard with spend, stock risk and purchasing queue",
   },
   {
     id: "stock",
     title: "Stock",
-    description: "Live inventory across locations",
-    imageSrc: SCREENS.stock,
-    alt: "Dental Assist stock screen",
+    description: "Folders and inventory organised for the practice",
+    imageSrc: SCREENS.stockPage,
+    alt: "Dental Assist Stock page with sidebar, search and labelled stock folders",
   },
   {
     id: "low-stock",
     title: "Low Stock",
-    description: "Items that need attention",
-    imageSrc: SCREENS.lowStock,
-    alt: "Dental Assist low stock screen",
+    description: "Items that need action before they run short",
+    imageSrc: SCREENS.lowStockPage,
+    alt: "Dental Assist Low Stock page with items that need action and product cards",
   },
   {
     id: "expiring",
     title: "Expiring Stock",
-    description: "Prioritise rotation and reduce waste",
+    description: "Expired and expiring products to rotate first",
     imageSrc: SCREENS.expiring,
-    alt: "Dental Assist Expiring Stock page showing expired and expiring item cards with status labels and earliest expiry dates",
+    alt: "Dental Assist Expiring Stock page showing expired and expiring item cards with status labels and dates",
   },
   {
     id: "suppliers",
     title: "Suppliers",
-    description: "Contacts and purchase history",
+    description: "Vendor directory with contacts and status",
     imageSrc: SCREENS.suppliers,
-    alt: "Dental Assist supplier list",
+    alt: "Dental Assist Vendors page showing the supplier directory with contact details and Active status",
   },
   {
     id: "rfq",
-    title: "RFQs",
-    description: "Compare quotes before you buy",
-    imageSrc: SCREENS.rfq,
-    alt: "Dental Assist RFQ screen",
+    title: "RFQ comparison",
+    description: "Compare supplier quotes before you buy",
+    imageSrc: SCREENS.rfqCompare,
+    alt: "Dental Assist RFQ comparison view with selected quotes and order summary",
   },
   {
     id: "orders",
     title: "Purchase Orders",
     description: "Raise and track orders in one place",
     imageSrc: SCREENS.purchasing,
-    alt: "Dental Assist purchase orders",
+    alt: "Dental Assist Purchase Orders list with status and supplier details",
   },
   {
     id: "reporting",
-    title: "Reporting",
-    description: "Spend, usage and savings signals",
+    title: "Savings & Usage",
+    description: "Spend, stock usage and RFQ savings over time",
     imageSrc: SCREENS.reporting,
-    alt: "Dental Assist reporting",
+    alt: "Dental Assist Savings and Usage report showing order value, stock usage and RFQ savings",
   },
 ];
 
@@ -159,7 +159,7 @@ function MarketingHome() {
 
       <div id="features" className="scroll-mt-20">
         <FeatureSection
-          eyebrow="Inventory management"
+          eyebrow="Inventory Management"
           title="Know what’s on the shelf — without the spreadsheet chase."
           description="Track inventory across surgeries and store rooms with live quantities and fast search, so the team spends less time hunting for stock."
           bullets={[
@@ -175,7 +175,7 @@ function MarketingHome() {
         />
 
         <FeatureSection
-          eyebrow="Low stock alerts"
+          eyebrow="Low Stock Alerts"
           title="Spot shortages early and act before they become urgent."
           description="Automatic low-stock visibility helps the team raise RFQs and keep purchasing moving — reducing the risk of missing materials on a busy day."
           bullets={[
@@ -192,7 +192,7 @@ function MarketingHome() {
         />
 
         <FeatureSection
-          eyebrow="Expiry tracking"
+          eyebrow="Expiry Tracking"
           title="Rotate stock with confidence and cut unnecessary waste."
           description="Monitor products nearing expiry so the practice can prioritise what should be used next and reduce write-offs."
           bullets={[
@@ -208,35 +208,35 @@ function MarketingHome() {
         />
 
         <FeatureSection
-          eyebrow="Supplier management"
-          title="Keep suppliers, history and ordering in one calm place."
-          description="A central supplier directory with purchase history helps the team follow up faster and keep RFQs and orders organised."
+          eyebrow="Supplier Management"
+          title="Keep every supplier contact in one calm place."
+          description="A central supplier directory helps the team find the right vendor quickly, follow up with clear contact details, and keep purchasing organised."
           bullets={[
-            "Central supplier database",
-            "Purchase history by vendor",
-            "Clearer supplier follow-up",
-            "RFQ and ordering in the same workspace",
+            "Central supplier directory",
+            "Contacts and account details together",
+            "Clear Active supplier status",
+            "Works alongside RFQs and ordering",
           ]}
           ctaHref={APP_SIGNUP}
           imageSrc={SCREENS.suppliers}
-          alt="Dental Assist supplier list"
+          alt="Dental Assist Vendors page showing the supplier directory with contact details and Active status"
           imageFirst
           className="bg-[#F7FBF9]"
         />
 
         <FeatureSection
           eyebrow="Reporting"
-          title="See spend, usage and savings without rebuilding reports."
-          description="Interactive dashboards help owners and managers understand purchasing trends, stock value and usage signals."
+          title="See what the practice spends, uses and saves."
+          description="Owners and managers get a clear view of order value, stock usage and RFQ savings over time — without rebuilding spreadsheets each month."
           bullets={[
-            "Purchasing trends",
-            "Stock value and usage views",
-            "Savings signals from smarter buying",
-            "Supplier analytics in one place",
+            "Order value, stock usage and RFQ savings on one timeline",
+            "Six-month totals that are easy to compare",
+            "Strongest months for spend, usage and savings",
+            "Clear signals when smarter buying is offsetting spend",
           ]}
           ctaHref={APP_SIGNUP}
           imageSrc={SCREENS.reporting}
-          alt="Dental Assist reporting"
+          alt="Dental Assist Savings and Usage report showing order value, stock usage and RFQ savings trends"
           className="bg-background"
         />
       </div>
@@ -259,8 +259,7 @@ function MarketingHome() {
               See Dental Assist in action.
             </h2>
             <p className="mt-4 text-[16px] leading-[1.65] text-muted-foreground">
-              Browse real product screens. A walkthrough video will replace
-              individual shots here as it becomes available.
+              Browse real product screens from the Dental Assist workspace.
             </p>
           </motion.div>
           <div className="mt-10">
@@ -275,7 +274,7 @@ function MarketingHome() {
             <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[oklch(0.42_0.08_175)]">
               Benefits
             </div>
-            <h2 className="mt-3 text-[32px] font-semibold tracking-[-0.03em] sm:text-[42px]">
+            <h2 className="mt-3 text-[32px] font-semibold tracking-[-0.03em] text-foreground sm:text-[42px]">
               Less stress. Clearer stock. Calmer ordering.
             </h2>
           </div>
@@ -310,7 +309,7 @@ function MarketingHome() {
             <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[oklch(0.42_0.08_175)]">
               How it works
             </div>
-            <h2 className="mt-3 text-[32px] font-semibold tracking-[-0.03em] sm:text-[42px]">
+            <h2 className="mt-3 text-[32px] font-semibold tracking-[-0.03em] text-foreground sm:text-[42px]">
               Up and running in three simple steps.
             </h2>
           </div>
@@ -318,7 +317,7 @@ function MarketingHome() {
             {steps.map((s, i) => (
               <motion.div
                 key={s.n}
-                className="rounded-2xl border border-border/70 bg-card p-6 shadow-sm"
+                className="h-full rounded-2xl border border-border/70 bg-card p-6 shadow-sm"
                 initial={{ opacity: 0, y: 18 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -345,7 +344,7 @@ function MarketingHome() {
             <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[oklch(0.42_0.08_175)]">
               Pricing
             </div>
-            <h2 className="mt-3 text-[32px] font-semibold tracking-[-0.03em] sm:text-[42px]">
+            <h2 className="mt-3 text-[32px] font-semibold tracking-[-0.03em] text-foreground sm:text-[42px]">
               Simple pricing.
             </h2>
             <p className="mt-4 text-[16px] text-muted-foreground">
@@ -362,7 +361,7 @@ function MarketingHome() {
             <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[oklch(0.42_0.08_175)]">
               FAQ
             </div>
-            <h2 className="mt-3 text-[32px] font-semibold tracking-[-0.03em] sm:text-[42px]">
+            <h2 className="mt-3 text-[32px] font-semibold tracking-[-0.03em] text-foreground sm:text-[42px]">
               Questions, answered.
             </h2>
           </div>

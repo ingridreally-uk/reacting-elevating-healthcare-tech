@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { BrowserMock } from "./BrowserMock";
 import { MediaViewer } from "./MediaViewer";
@@ -33,15 +33,17 @@ export function FeatureSection({
   imageFirst?: boolean;
   className?: string;
 }) {
+  const reduceMotion = useReducedMotion();
+
   return (
     <section
       id={id}
       className={cn("border-b border-border/60", className)}
     >
-      <div className="mx-auto grid max-w-[1200px] items-center gap-10 px-6 py-16 lg:grid-cols-2 lg:gap-14 lg:px-10 lg:py-20">
+      <div className="mx-auto grid max-w-[1200px] items-center gap-10 px-6 py-16 md:grid-cols-2 md:gap-12 lg:gap-14 lg:px-10 lg:py-20">
         <motion.div
-          className={imageFirst ? "lg:order-2" : undefined}
-          initial={{ opacity: 0, y: 24 }}
+          className={imageFirst ? "md:order-2" : undefined}
+          initial={reduceMotion ? false : { opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.5 }}
@@ -77,13 +79,13 @@ export function FeatureSection({
 
         <motion.div
           className={cn(
-            "w-full min-w-0 max-w-[36rem]",
-            imageFirst ? "lg:order-1" : "lg:justify-self-end",
+            "w-full min-w-0",
+            imageFirst ? "md:order-1" : "md:justify-self-end",
           )}
-          initial={{ opacity: 0, y: 28 }}
+          initial={reduceMotion ? false : { opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.55, delay: 0.08 }}
+          transition={{ duration: 0.55, delay: reduceMotion ? 0 : 0.08 }}
         >
           <BrowserMock>
             <MediaViewer

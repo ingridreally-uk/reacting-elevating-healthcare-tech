@@ -9,11 +9,11 @@ export const SCREENS = {
   lowStockPage: "/product-screens/low-stock-page.webp",
   expiring: "/product-screens/expiring-stock.webp",
   purchasing: "/product-screens/screen-05.png",
-  suppliers: "/product-screens/screen-13.webp",
+  suppliers: "/product-screens/suppliers-page.webp",
   rfq: "/product-screens/screen-15.png",
   rfqCompare: "/product-screens/screen-19.png",
   deliveries: "/product-screens/screen-12.png",
-  reporting: "/product-screens/screen-03.webp",
+  reporting: "/product-screens/reporting-page.webp",
   savings: "/product-screens/screen-28.webp",
   orderDetail: "/product-screens/screen-09.png",
 } as const;

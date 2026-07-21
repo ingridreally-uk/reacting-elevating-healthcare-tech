@@ -11,7 +11,7 @@ export function StatisticCard({
 }) {
   return (
     <motion.div
-      className="rounded-2xl border border-border/70 bg-card/80 px-5 py-5 shadow-sm"
+      className="h-full rounded-2xl border border-border/70 bg-card/80 px-5 py-5 shadow-sm"
       initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -38,7 +38,7 @@ export function BenefitCard({
 }) {
   return (
     <motion.div
-      className="group rounded-2xl border border-border/70 bg-card p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_50px_-28px_rgb(15_23_42/0.18)]"
+      className="group h-full rounded-2xl border border-border/70 bg-card p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_50px_-28px_rgb(15_23_42/0.18)]"
       initial={{ opacity: 0, y: 18 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}

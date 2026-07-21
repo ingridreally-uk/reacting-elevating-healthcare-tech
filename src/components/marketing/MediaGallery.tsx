@@ -31,6 +31,7 @@ export function ScreenshotCard({
           videoSrc={item.videoSrc}
           posterSrc={item.posterSrc}
           alt={item.alt}
+          objectPosition="top left"
           className="transition-transform duration-500 group-hover:scale-[1.03]"
         />
         {item.videoSrc ? (
@@ -200,6 +201,7 @@ function Lightbox({
                 posterSrc={item.posterSrc}
                 alt={item.alt}
                 className="aspect-[16/9]"
+                objectPosition="top left"
                 priority
               />
             </BrowserMock>

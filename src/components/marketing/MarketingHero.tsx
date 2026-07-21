@@ -132,7 +132,7 @@ export function MarketingHero() {
           <BrowserMock url="app.reacting.io / dashboard" className="relative z-[1]">
             <MediaViewer
               imageSrc={SCREENS.dashboard}
-              alt="Dental Assist dashboard"
+              alt="Dental Assist dashboard with spend, stock risk and purchasing queue"
               priority
               objectPosition="top left"
             />

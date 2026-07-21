@@ -24,11 +24,8 @@ export function PricingCard() {
       transition={{ duration: 0.5 }}
     >
       <div className="text-center">
-        <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[oklch(0.42_0.08_175)]">
-          Simple pricing
-        </div>
-        <p className="mt-5 text-[15px] font-medium leading-[1.55] text-foreground">
-          14-day free trial · No credit card required · £59 per practice/month
+        <p className="text-[15px] font-medium leading-[1.55] text-foreground">
+          14-day free trial · No credit card required
         </p>
         <div className="mt-5 flex items-end justify-center gap-1">
           <span className="text-[56px] font-semibold leading-none tracking-[-0.04em] text-foreground">
@@ -53,13 +50,9 @@ export function PricingCard() {
         ))}
       </ul>
 
-      <div className="mt-8 rounded-2xl bg-[oklch(0.97_0.015_165)] px-4 py-3 text-center text-[13px] text-foreground/80">
-        14-day free trial · No credit card required
-      </div>
-
       <a
         href={APP_SIGNUP}
-        className="mt-6 inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-primary text-[14px] font-semibold text-primary-foreground transition hover:bg-primary/90"
+        className="mt-8 inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-primary text-[14px] font-semibold text-primary-foreground transition hover:bg-primary/90"
       >
         Start Free Trial
         <ArrowRight className="h-4 w-4" />

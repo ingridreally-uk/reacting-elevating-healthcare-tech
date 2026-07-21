@@ -91,6 +91,7 @@ export function FeatureSection({
               videoSrc={videoSrc}
               posterSrc={posterSrc}
               alt={alt}
+              objectPosition="top left"
             />
           </BrowserMock>
         </motion.div>

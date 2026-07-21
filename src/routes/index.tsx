@@ -169,8 +169,8 @@ function MarketingHome() {
             "Clear counts for everyday use",
           ]}
           ctaHref={APP_SIGNUP}
-          imageSrc={SCREENS.stock}
-          alt="Dental Assist inventory management"
+          imageSrc={SCREENS.stockPage}
+          alt="Dental Assist Stock page with sidebar, search, folder toolbar and labelled stock folders"
           className="bg-background"
         />
 
@@ -185,8 +185,8 @@ function MarketingHome() {
             "Fits the purchasing workflow",
           ]}
           ctaHref={APP_SIGNUP}
-          imageSrc={SCREENS.lowStock}
-          alt="Dental Assist low stock alerts"
+          imageSrc={SCREENS.lowStockPage}
+          alt="Dental Assist Low Stock page showing items that need action and the first row of low-stock product cards"
           imageFirst
           className="bg-[#F7FBF9]"
         />
@@ -196,10 +196,10 @@ function MarketingHome() {
           title="Rotate stock with confidence and cut unnecessary waste."
           description="Monitor products nearing expiry so the practice can prioritise what should be used next and reduce write-offs."
           bullets={[
-            "Monitor expiring products",
-            "Prioritise stock rotation",
+            "See expired and expiring products in one place",
+            "Prioritise stock rotation before write-offs",
             "Reduce avoidable waste",
-            "Support day-to-day compliance habits",
+            "Keep expiry dates visible for day-to-day checks",
           ]}
           ctaHref={APP_SIGNUP}
           imageSrc={SCREENS.expiring}

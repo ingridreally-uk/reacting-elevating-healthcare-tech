@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
 type MediaViewerProps = {
@@ -24,7 +24,16 @@ export function MediaViewer({
   priority,
   objectPosition = "top left",
 }: MediaViewerProps) {
-  const [loaded, setLoaded] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
+  const [loaded, setLoaded] = useState(Boolean(priority));
+
+  useEffect(() => {
+    setLoaded(Boolean(priority));
+    const img = imgRef.current;
+    if (img?.complete && img.naturalWidth > 0) {
+      setLoaded(true);
+    }
+  }, [imageSrc, priority]);
 
   if (videoSrc) {
     return (
@@ -48,6 +57,7 @@ export function MediaViewer({
     <div className={cn("relative aspect-[16/10] w-full overflow-hidden bg-secondary", className)}>
       {imageSrc ? (
         <img
+          ref={imgRef}
           src={imageSrc}
           alt={alt}
           loading={priority ? "eager" : "lazy"}
@@ -56,8 +66,8 @@ export function MediaViewer({
           draggable={false}
           onLoad={() => setLoaded(true)}
           className={cn(
-            "absolute inset-0 h-full w-full object-cover transition-opacity duration-500",
-            loaded || priority ? "opacity-100" : "opacity-0",
+            "absolute inset-0 h-full w-full object-cover object-left-top transition-opacity duration-300",
+            loaded ? "opacity-100" : "opacity-0",
           )}
           style={{ objectPosition }}
         />

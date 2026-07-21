@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, Check, Package, ShoppingCart, TrendingUp, Truck } from "lucide-react";
 import { BrowserMock } from "./BrowserMock";
 import { MediaViewer } from "./MediaViewer";
@@ -11,18 +11,40 @@ const trialPoints = [
 ];
 
 const floating = [
-  { label: "Low Stock", value: "Needs attention", icon: Package, x: "-8%", y: "12%" },
-  { label: "Orders", value: "In progress", icon: ShoppingCart, x: "78%", y: "8%" },
-  { label: "Savings", value: "Smarter buying", icon: TrendingUp, x: "-6%", y: "68%" },
-  { label: "Suppliers", value: "In one place", icon: Truck, x: "76%", y: "62%" },
+  {
+    label: "Low Stock",
+    value: "Needs attention",
+    icon: Package,
+    position: "left-0 top-0 -translate-x-[18%] -translate-y-[22%]",
+  },
+  {
+    label: "Orders",
+    value: "In progress",
+    icon: ShoppingCart,
+    position: "right-0 top-0 translate-x-[18%] -translate-y-[22%]",
+  },
+  {
+    label: "Savings",
+    value: "Smarter buying",
+    icon: TrendingUp,
+    position: "bottom-0 left-0 -translate-x-[18%] translate-y-[22%]",
+  },
+  {
+    label: "Suppliers",
+    value: "In one place",
+    icon: Truck,
+    position: "bottom-0 right-0 translate-x-[18%] translate-y-[22%]",
+  },
 ];
 
 export function MarketingHero() {
+  const reduceMotion = useReducedMotion();
+
   return (
     <section className="relative overflow-hidden border-b border-border/60 bg-[linear-gradient(180deg,#F7FBF9_0%,#EEF6F3_48%,#FFFFFF_100%)]">
       <div className="mx-auto grid max-w-[1200px] items-center gap-8 px-6 pb-12 pt-10 md:grid-cols-[0.95fr_1.05fr] md:gap-10 md:pb-16 md:pt-12 lg:gap-10 lg:px-10 lg:pb-20 lg:pt-16">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={reduceMotion ? false : { opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55 }}
         >
@@ -67,18 +89,29 @@ export function MarketingHero() {
         </motion.div>
 
         <motion.div
-          className="relative min-w-0"
-          initial={{ opacity: 0, y: 28 }}
+          className="relative min-w-0 md:px-3 lg:px-5"
+          initial={reduceMotion ? false : { opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.12 }}
         >
           {floating.map((card, i) => (
             <motion.div
               key={card.label}
-              className="pointer-events-none absolute z-10 hidden rounded-2xl border border-border/70 bg-white/95 px-3.5 py-3 shadow-[0_18px_40px_-24px_rgb(15_23_42/0.35)] backdrop-blur lg:block"
-              style={{ left: card.x, top: card.y }}
-              animate={{ y: [0, i % 2 === 0 ? -8 : 8, 0] }}
-              transition={{ duration: 5 + i, repeat: Infinity, ease: "easeInOut" }}
+              className={`pointer-events-none absolute z-10 hidden rounded-2xl border border-border/70 bg-white/95 px-3 py-2.5 shadow-[0_14px_32px_-22px_rgb(15_23_42/0.3)] backdrop-blur md:block ${card.position}`}
+              animate={
+                reduceMotion
+                  ? undefined
+                  : { y: [0, i % 2 === 0 ? -3 : 3, 0] }
+              }
+              transition={
+                reduceMotion
+                  ? undefined
+                  : {
+                      duration: 9 + i * 0.6,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }
+              }
             >
               <div className="flex items-center gap-2.5">
                 <span className="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-[oklch(0.96_0.02_165)] text-[oklch(0.38_0.08_175)]">
@@ -101,6 +134,7 @@ export function MarketingHero() {
               imageSrc={SCREENS.dashboard}
               alt="Dental Assist dashboard"
               priority
+              objectPosition="top left"
             />
           </BrowserMock>
         </motion.div>

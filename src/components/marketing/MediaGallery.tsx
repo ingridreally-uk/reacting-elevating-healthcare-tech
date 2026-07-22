@@ -2,10 +2,11 @@ import { useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { ChevronLeft, ChevronRight, X, Play } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { BrowserMock } from "./BrowserMock";
+import { ProductFrame } from "./ProductFrame";
 import { MediaViewer } from "./MediaViewer";
 import type { MediaItem } from "./content";
 import { cn } from "@/lib/utils";
+import { elev, iconStroke, radius } from "./design";
 
 export function ScreenshotCard({
   item,
@@ -21,7 +22,11 @@ export function ScreenshotCard({
       type="button"
       onClick={(e) => onOpen(e.currentTarget)}
       className={cn(
-        "group w-full overflow-hidden rounded-2xl border border-border/70 bg-card text-left shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_50px_-28px_rgb(15_23_42/0.2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+        "group flex h-full w-full flex-col overflow-hidden border border-border/70 bg-card text-left transition duration-200",
+        radius.card,
+        elev.card,
+        "hover:-translate-y-0.5 hover:shadow-[var(--shadow-md)]",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
         className,
       )}
     >
@@ -31,21 +36,23 @@ export function ScreenshotCard({
           videoSrc={item.videoSrc}
           posterSrc={item.posterSrc}
           alt={item.alt}
-          objectPosition="top left"
-          className="max-md:aspect-[16/9.15] transition-transform duration-500 group-hover:scale-[1.03]"
+          objectPosition={item.objectPosition ?? "left top"}
+          objectFit={item.objectFit ?? "cover"}
+          aspectRatio={item.aspectRatio ?? "16 / 10"}
+          className="transition-transform duration-300 group-hover:scale-[1.015]"
         />
         {item.videoSrc ? (
           <span className="absolute bottom-3 right-3 inline-flex h-8 w-8 items-center justify-center rounded-full bg-foreground/80 text-background">
-            <Play className="h-3.5 w-3.5 fill-current" />
+            <Play className="h-3.5 w-3.5 fill-current" strokeWidth={iconStroke} />
           </span>
         ) : null}
       </div>
-      <div className="px-4 py-2.5 md:py-3">
-        <div className="text-[14px] font-semibold tracking-tight text-foreground">
+      <div className="flex flex-1 flex-col px-3.5 py-2.5">
+        <div className="text-[13px] font-semibold tracking-tight text-foreground">
           {item.title}
         </div>
         {item.description ? (
-          <p className="mt-1 line-clamp-2 text-[12.5px] leading-[1.5] text-muted-foreground md:line-clamp-none">
+          <p className="mt-0.5 line-clamp-2 text-[11.5px] leading-[1.45] text-muted-foreground">
             {item.description}
           </p>
         ) : null}
@@ -76,6 +83,7 @@ function Lightbox({
   const titleId = useId();
   const dialogRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
+  const lightboxSrc = item.lightboxSrc ?? item.imageSrc;
 
   useEffect(() => {
     const previouslyFocused = returnFocusTo;
@@ -194,17 +202,16 @@ function Lightbox({
             </div>
           </div>
           <div className="min-h-0 overflow-auto">
-            <BrowserMock url={`app.reacting.io / ${item.title.toLowerCase()}`}>
+            <ProductFrame>
               <MediaViewer
-                imageSrc={item.imageSrc}
+                imageSrc={lightboxSrc}
                 videoSrc={item.videoSrc}
                 posterSrc={item.posterSrc}
                 alt={item.alt}
-                className="aspect-[16/9]"
-                objectPosition="top left"
+                natural
                 priority
               />
-            </BrowserMock>
+            </ProductFrame>
           </div>
         </motion.div>
       </motion.div>
@@ -226,16 +233,12 @@ export function MediaGallery({ items }: { items: MediaItem[] }) {
   return (
     <>
       <div className="hidden md:block">
-        <div className="columns-3 gap-5 space-y-5">
+        <div className="grid grid-cols-2 gap-4 lg:grid-cols-3 lg:gap-5">
           {items.map((item, i) => (
             <ScreenshotCard
               key={item.id}
               item={item}
               onOpen={(el) => openAt(i, el)}
-              className={cn(
-                "mb-5 break-inside-avoid",
-                i % 3 === 1 ? "mt-8" : i % 3 === 2 ? "mt-4" : "",
-              )}
             />
           ))}
         </div>

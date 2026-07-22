@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Minus, Plus } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { iconStroke } from "./design";
 
 const faqs = [
   {
@@ -33,7 +34,7 @@ export function FAQ() {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <div className="mx-auto max-w-3xl divide-y divide-border border-y border-border">
+    <div className="mx-auto max-w-2xl divide-y divide-border/80 border-y border-border/80">
       {faqs.map((item, i) => {
         const isOpen = open === i;
         return (
@@ -42,16 +43,16 @@ export function FAQ() {
               type="button"
               aria-expanded={isOpen}
               onClick={() => setOpen(isOpen ? null : i)}
-              className="flex w-full items-center justify-between gap-4 py-5 text-left transition-colors hover:bg-secondary/40"
+              className="flex w-full items-center justify-between gap-4 py-3 text-left transition-colors duration-200 hover:bg-secondary/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
-              <span className="text-[16px] font-medium tracking-tight text-foreground sm:text-[17px]">
+              <span className="text-[14.5px] font-medium tracking-tight text-foreground">
                 {item.q}
               </span>
-              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-border bg-background text-muted-foreground">
+              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-border/80 bg-background text-muted-foreground transition-colors duration-200">
                 {isOpen ? (
-                  <Minus className="h-3.5 w-3.5" />
+                  <Minus className="h-3.5 w-3.5" strokeWidth={iconStroke} />
                 ) : (
-                  <Plus className="h-3.5 w-3.5" />
+                  <Plus className="h-3.5 w-3.5" strokeWidth={iconStroke} />
                 )}
               </span>
             </button>
@@ -61,10 +62,10 @@ export function FAQ() {
                   initial={{ height: 0, opacity: 0 }}
                   animate={{ height: "auto", opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.25 }}
+                  transition={{ duration: 0.2, ease: "easeOut" }}
                   className="overflow-hidden"
                 >
-                  <p className="pb-5 pr-12 text-[15px] leading-[1.7] text-muted-foreground">
+                  <p className="pb-3 pr-10 text-[13.5px] leading-[1.65] text-muted-foreground">
                     {item.a}
                   </p>
                 </motion.div>

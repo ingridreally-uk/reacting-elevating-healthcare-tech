@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { Menu, X, ArrowRight } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
+import { ReactingLogoLink } from "./ReactingLogo";
 
 const navLinks = [
   { label: "Features", href: "/#features" },
@@ -10,30 +11,12 @@ const navLinks = [
 ];
 
 export function Logo({ height }: { height?: number } = {}) {
-  return (
-    <Link to="/" className="inline-flex items-center" aria-label="Reacting home">
-      <img
-        src="/brand/reacting-logo-horizontal.webp"
-        alt="Reacting"
-        draggable={false}
-        className="w-auto select-none"
-        style={height ? { height } : undefined}
-      />
-    </Link>
-  );
+  const markSize = height ? Math.round(height * 0.9) : 28;
+  return <ReactingLogoLink markSize={markSize} />;
 }
 
 function HeaderLogo() {
-  return (
-    <Link to="/" className="inline-flex items-center" aria-label="Reacting home">
-      <img
-        src="/brand/reacting-logo-horizontal.webp"
-        alt="Reacting"
-        draggable={false}
-        className="h-auto w-[130px] select-none md:w-[150px]"
-      />
-    </Link>
-  );
+  return <ReactingLogoLink markSize={28} className="md:[&_span]:text-[18px]" />;
 }
 
 export function SiteHeader() {
@@ -160,18 +143,11 @@ export function SiteFooter() {
 
   return (
     <footer className="border-t border-border/60 bg-background">
-      <div className="mx-auto max-w-[1280px] px-6 pb-10 pt-16 lg:px-10 lg:pb-12 lg:pt-20">
-        <div className="grid gap-10 lg:grid-cols-[1.8fr_1fr_1fr] lg:gap-10">
+      <div className="mx-auto max-w-[1280px] px-6 pb-8 pt-10 lg:px-10 lg:pb-10 lg:pt-12">
+        <div className="grid gap-8 lg:grid-cols-[1.8fr_1fr_1fr] lg:gap-10">
           <div>
-            <Link to="/" className="inline-flex items-center" aria-label="Reacting home">
-              <img
-                src="/brand/reacting-logo-horizontal.webp"
-                alt="Reacting"
-                draggable={false}
-                className="h-auto w-[140px] select-none"
-              />
-            </Link>
-            <p className="mt-5 max-w-xs text-[13.5px] leading-[1.65] text-muted-foreground">
+            <ReactingLogoLink markSize={26} />
+            <p className="mt-4 max-w-xs text-[13px] leading-[1.65] text-muted-foreground">
               Reacting builds calm purchasing and inventory software for dental
               practices. Dental Assist is our first product.
             </p>
@@ -181,7 +157,7 @@ export function SiteFooter() {
               <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-foreground/90">
                 {c.title}
               </div>
-              <ul className="mt-5 space-y-3">
+              <ul className="mt-4 space-y-2.5">
                 {c.links.map((l) => (
                   <li key={l.label}>
                     <FooterLink label={l.label} href={l.href} />
@@ -191,11 +167,11 @@ export function SiteFooter() {
             </div>
           ))}
         </div>
-        <div className="mt-8 flex flex-col items-start justify-between gap-3 border-t border-border pt-8 sm:flex-row sm:items-center">
-          <p className="text-[12.5px] text-muted-foreground">
+        <div className="mt-6 flex flex-col items-start justify-between gap-2 border-t border-border pt-6 sm:flex-row sm:items-center">
+          <p className="text-[12px] text-muted-foreground">
             © {new Date().getFullYear()} Reacting Ltd. All rights reserved.
           </p>
-          <p className="text-[12.5px] text-muted-foreground">
+          <p className="text-[12px] text-muted-foreground">
             Dental Assist · A Reacting product · Built in practice
           </p>
         </div>

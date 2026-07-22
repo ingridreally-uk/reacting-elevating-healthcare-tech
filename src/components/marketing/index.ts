@@ -1,4 +1,5 @@
 export { BrowserMock } from "./BrowserMock";
+export { ProductFrame } from "./ProductFrame";
 export { MediaViewer } from "./MediaViewer";
 export { MediaGallery, ScreenshotCard } from "./MediaGallery";
 export { FeatureSection } from "./FeatureSection";

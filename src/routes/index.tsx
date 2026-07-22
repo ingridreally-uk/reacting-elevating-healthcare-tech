@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import {
-  Leaf,
-  PiggyBank,
+  CircleAlert,
+  PoundSterling,
   PackageCheck,
   Timer,
   Package,
@@ -59,55 +59,68 @@ const gallery: MediaItem[] = [
     description: "Practice overview at a glance",
     imageSrc: SCREENS.dashboard,
     alt: "Dental Assist dashboard with spend, stock risk and purchasing queue",
+    aspectRatio: "16 / 10",
   },
   {
     id: "stock",
     title: "Stock",
-    description: "Folders and inventory organised for the practice",
+    description: "Folders organised for the practice",
     imageSrc: SCREENS.stockPage,
-    alt: "Dental Assist Stock page with sidebar, search and labelled stock folders",
+    alt: "Dental Assist Stock page with labelled inventory folders",
+    aspectRatio: "16 / 10",
   },
   {
     id: "low-stock",
     title: "Low Stock",
-    description: "Items that need action before they run short",
+    description: "Items that need action soon",
     imageSrc: SCREENS.lowStockPage,
-    alt: "Dental Assist Low Stock page with items that need action and product cards",
+    alt: "Dental Assist Low Stock page with alert count and product cards",
+    aspectRatio: "16 / 10",
   },
   {
     id: "expiring",
     title: "Expiring Stock",
-    description: "Expired and expiring products to rotate first",
+    description: "Rotate before write-offs",
     imageSrc: SCREENS.expiring,
-    alt: "Dental Assist Expiring Stock page showing expired and expiring item cards with status labels and dates",
+    alt: "Dental Assist Expiring Stock cards with dates and warning badges",
+    aspectRatio: "16 / 10",
   },
   {
     id: "suppliers",
     title: "Suppliers",
-    description: "Vendor directory with contacts and status",
+    description: "Directory with contacts and status",
     imageSrc: SCREENS.suppliers,
-    alt: "Dental Assist Vendors page showing the supplier directory with contact details and Active status",
-  },
-  {
-    id: "rfq",
-    title: "RFQ comparison",
-    description: "Compare supplier quotes before you buy",
-    imageSrc: SCREENS.rfqCompare,
-    alt: "Dental Assist RFQ comparison view with selected quotes and order summary",
+    alt: "Dental Assist supplier directory with Active status",
+    aspectRatio: "16 / 10",
   },
   {
     id: "orders",
     title: "Purchase Orders",
-    description: "Raise and track orders in one place",
+    description: "Raise and track orders",
     imageSrc: SCREENS.purchasing,
-    alt: "Dental Assist Purchase Orders list with status and supplier details",
+    alt: "Dental Assist Purchase Orders list with status and totals",
+    aspectRatio: "16 / 10",
   },
   {
     id: "reporting",
     title: "Savings & Usage",
-    description: "Spend, stock usage and RFQ savings over time",
+    description: "Spend, usage and RFQ savings",
     imageSrc: SCREENS.reporting,
-    alt: "Dental Assist Savings and Usage report showing order value, stock usage and RFQ savings",
+    alt: "Dental Assist Savings and Usage report with graph and totals",
+    aspectRatio: "16 / 10",
+    objectPosition: "center top",
+  },
+  {
+    id: "rfq",
+    title: "RFQ quote comparison",
+    description:
+      "Compare supplier responses, select the best prices and review the total budget impact before ordering.",
+    imageSrc: SCREENS.rfqCompare,
+    lightboxSrc: SCREENS.rfqCompareFull,
+    alt: "Dental Assist RFQ quote comparison beside supplier totals, savings and budget impact",
+    aspectRatio: "16 / 10",
+    objectPosition: "center center",
+    objectFit: "cover",
   },
 ];
 
@@ -135,8 +148,8 @@ function MarketingHome() {
       <MarketingHero />
 
       <section className="border-b border-border/60 bg-background">
-        <div className="mx-auto max-w-[1200px] px-6 py-12 lg:px-10 lg:py-14">
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mx-auto max-w-[1200px] px-6 py-7 lg:px-10 lg:py-8">
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             <StatisticCard
               icon={Package}
               label="Stock, suppliers and orders in one workspace"
@@ -170,7 +183,10 @@ function MarketingHome() {
           ]}
           ctaHref={APP_SIGNUP}
           imageSrc={SCREENS.stockPage}
-          alt="Dental Assist Stock page with sidebar, search, folder toolbar and labelled stock folders"
+          alt="Dental Assist Stock page with labelled stock folders"
+          frameLabel="app.reacting.io / stock"
+          aspectRatio="16 / 10"
+          visualWeight="default"
           className="bg-background"
         />
 
@@ -186,8 +202,11 @@ function MarketingHome() {
           ]}
           ctaHref={APP_SIGNUP}
           imageSrc={SCREENS.lowStockPage}
-          alt="Dental Assist Low Stock page showing items that need action and the first row of low-stock product cards"
+          alt="Dental Assist Low Stock page with alert count and product cards"
+          frameLabel="app.reacting.io / low stock"
           imageFirst
+          aspectRatio="16 / 9.6"
+          visualWeight="wide"
           className="bg-[#F7FBF9]"
         />
 
@@ -203,7 +222,10 @@ function MarketingHome() {
           ]}
           ctaHref={APP_SIGNUP}
           imageSrc={SCREENS.expiring}
-          alt="Dental Assist Expiring Stock page showing expired and expiring item cards with status labels and earliest expiry dates"
+          alt="Dental Assist Expiring Stock with expired product cards and dates"
+          frameLabel="app.reacting.io / expiring stock"
+          aspectRatio="16 / 10.5"
+          visualWeight="compact"
           className="bg-background"
         />
 
@@ -219,8 +241,11 @@ function MarketingHome() {
           ]}
           ctaHref={APP_SIGNUP}
           imageSrc={SCREENS.suppliers}
-          alt="Dental Assist Vendors page showing the supplier directory with contact details and Active status"
+          alt="Dental Assist supplier directory with contacts and Active status"
+          frameLabel="app.reacting.io / vendors"
           imageFirst
+          aspectRatio="16 / 9.4"
+          visualWeight="default"
           className="bg-[#F7FBF9]"
         />
 
@@ -236,7 +261,11 @@ function MarketingHome() {
           ]}
           ctaHref={APP_SIGNUP}
           imageSrc={SCREENS.reporting}
-          alt="Dental Assist Savings and Usage report showing order value, stock usage and RFQ savings trends"
+          alt="Dental Assist Savings and Usage report with graph and six-month totals"
+          frameLabel="app.reacting.io / savings & usage"
+          objectPosition="center top"
+          aspectRatio="19 / 10"
+          visualWeight="wide"
           className="bg-background"
         />
       </div>
@@ -245,91 +274,97 @@ function MarketingHome() {
         id="product-gallery"
         className="scroll-mt-20 border-b border-border/60 bg-[#F7FBF9]"
       >
-        <div className="mx-auto max-w-[1200px] px-6 py-12 pb-10 md:py-16 lg:px-10 lg:py-20">
+        <div className="mx-auto max-w-[1200px] px-6 py-9 md:py-10 lg:px-10 lg:py-11">
           <motion.div
             className="mx-auto max-w-2xl text-center"
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
             <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[oklch(0.42_0.08_175)]">
               Product tour
             </div>
-            <h2 className="mt-3 text-[32px] font-semibold tracking-[-0.03em] text-foreground sm:text-[42px]">
+            <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.03em] text-foreground sm:text-[34px]">
               See Dental Assist in action.
             </h2>
-            <p className="mt-3 text-[16px] leading-[1.65] text-muted-foreground md:mt-4">
+            <p className="mx-auto mt-2 max-w-[42ch] text-[14.5px] leading-[1.6] text-muted-foreground">
               Browse real product screens from the Dental Assist workspace.
             </p>
           </motion.div>
-          <div className="mt-6 md:mt-10">
+          <div className="mt-5 md:mt-7">
             <MediaGallery items={gallery} />
           </div>
         </div>
       </section>
 
       <section className="border-b border-border/60 bg-background">
-        <div className="mx-auto max-w-[1200px] px-6 py-16 lg:px-10 lg:py-20">
+        <div className="mx-auto max-w-[1200px] px-6 py-9 lg:px-10 lg:py-10">
           <div className="mx-auto max-w-2xl text-center">
             <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[oklch(0.42_0.08_175)]">
               Benefits
             </div>
-            <h2 className="mt-3 text-[32px] font-semibold tracking-[-0.03em] text-foreground sm:text-[42px]">
+            <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.03em] text-foreground sm:text-[34px]">
               Less stress. Clearer stock. Calmer ordering.
             </h2>
+            <p className="mx-auto mt-2 max-w-[42ch] text-[14.5px] leading-[1.6] text-muted-foreground">
+              Outcomes dental practices notice once stock and purchasing live in
+              one place.
+            </p>
           </div>
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-6 grid gap-3.5 sm:grid-cols-2 lg:grid-cols-4">
             <BenefitCard
-              icon={Leaf}
-              title="Reduce waste"
-              body="Spot expiry risk earlier and rotate stock before it becomes a write-off."
+              icon={CircleAlert}
+              title="Cut material waste"
+              body="Flag expiry early and rotate stock before usable materials become write-offs."
             />
             <BenefitCard
-              icon={PiggyBank}
-              title="Save money"
-              body="Compare supplier responses and make clearer purchasing decisions."
+              icon={PoundSterling}
+              title="Buy for less"
+              body="Compare supplier quotes side by side and choose clearer prices for the practice."
             />
             <BenefitCard
               icon={PackageCheck}
-              title="Spot shortages earlier"
-              body="Low-stock visibility helps the team act before materials run critically low."
+              title="Avoid stockouts"
+              body="See low stock before a chairside shortage stops a treatment mid-session."
             />
             <BenefitCard
               icon={Timer}
               title="Spend less time ordering"
-              body="Keep stock, suppliers and purchase orders together so admin takes less of the day."
+              body="Keep stock, suppliers and purchase orders together so weekly ordering stays quick."
             />
           </div>
         </div>
       </section>
 
       <section className="border-b border-border/60 bg-[#F7FBF9]">
-        <div className="mx-auto max-w-[1200px] px-6 py-16 lg:px-10 lg:py-20">
+        <div className="mx-auto max-w-[1200px] px-6 py-9 lg:px-10 lg:py-10">
           <div className="mx-auto max-w-2xl text-center">
             <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[oklch(0.42_0.08_175)]">
               How it works
             </div>
-            <h2 className="mt-3 text-[32px] font-semibold tracking-[-0.03em] text-foreground sm:text-[42px]">
+            <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.03em] text-foreground sm:text-[34px]">
               Up and running in three simple steps.
             </h2>
           </div>
-          <div className="mt-10 grid gap-6 lg:grid-cols-3">
+          <div className="relative mt-6 grid gap-3.5 lg:grid-cols-3 lg:gap-5">
             {steps.map((s, i) => (
               <motion.div
                 key={s.n}
-                className="h-full rounded-2xl border border-border/70 bg-card p-6 shadow-sm"
-                initial={{ opacity: 0, y: 18 }}
+                className="relative h-full rounded-2xl border border-border/70 bg-card px-4 py-3.5 shadow-[var(--shadow-sm)]"
+                initial={{ opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.08 }}
+                transition={{ delay: i * 0.05 }}
               >
-                <div className="text-[12px] font-semibold tabular-nums tracking-[0.16em] text-muted-foreground">
-                  {s.n}
+                <div className="flex items-center gap-2.5">
+                  <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-[oklch(0.96_0.02_165)] text-[11px] font-semibold tabular-nums text-[oklch(0.38_0.08_175)]">
+                    {s.n}
+                  </span>
+                  <h3 className="text-[15px] font-semibold tracking-tight">
+                    {s.title}
+                  </h3>
                 </div>
-                <h3 className="mt-4 text-[20px] font-semibold tracking-tight">
-                  {s.title}
-                </h3>
-                <p className="mt-2 text-[14.5px] leading-[1.65] text-muted-foreground">
+                <p className="mt-1.5 text-[13px] leading-[1.6] text-muted-foreground">
                   {s.body}
                 </p>
               </motion.div>
@@ -338,30 +373,36 @@ function MarketingHome() {
         </div>
       </section>
 
-      <section id="pricing" className="scroll-mt-20 border-b border-border/60 bg-background">
-        <div className="mx-auto max-w-[1200px] px-6 py-16 lg:px-10 lg:py-20">
-          <div className="mx-auto mb-10 max-w-2xl text-center">
+      <section
+        id="pricing"
+        className="scroll-mt-20 border-b border-border/60 bg-background"
+      >
+        <div className="mx-auto max-w-[1200px] px-6 py-9 lg:px-10 lg:py-10">
+          <div className="mx-auto mb-6 max-w-xl text-center">
             <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[oklch(0.42_0.08_175)]">
               Pricing
             </div>
-            <h2 className="mt-3 text-[32px] font-semibold tracking-[-0.03em] text-foreground sm:text-[42px]">
+            <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.03em] text-foreground sm:text-[34px]">
               Simple pricing.
             </h2>
-            <p className="mt-4 text-[16px] text-muted-foreground">
-              14-day free trial · No credit card required · £59 per practice/month
+            <p className="mt-2 text-[14.5px] text-muted-foreground">
+              £59 per practice/month
             </p>
           </div>
           <PricingCard />
         </div>
       </section>
 
-      <section id="faq" className="scroll-mt-20 border-b border-border/60 bg-[#F7FBF9]">
-        <div className="mx-auto max-w-[1200px] px-6 py-16 lg:px-10 lg:py-20">
-          <div className="mx-auto mb-10 max-w-2xl text-center">
+      <section
+        id="faq"
+        className="scroll-mt-20 border-b border-border/60 bg-[#F7FBF9]"
+      >
+        <div className="mx-auto max-w-[1200px] px-6 py-9 lg:px-10 lg:py-10">
+          <div className="mx-auto mb-5 max-w-xl text-center">
             <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[oklch(0.42_0.08_175)]">
               FAQ
             </div>
-            <h2 className="mt-3 text-[32px] font-semibold tracking-[-0.03em] text-foreground sm:text-[42px]">
+            <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.03em] text-foreground sm:text-[34px]">
               Questions, answered.
             </h2>
           </div>

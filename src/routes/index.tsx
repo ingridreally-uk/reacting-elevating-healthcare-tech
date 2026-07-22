@@ -245,7 +245,7 @@ function MarketingHome() {
         id="product-gallery"
         className="scroll-mt-20 border-b border-border/60 bg-[#F7FBF9]"
       >
-        <div className="mx-auto max-w-[1200px] px-6 py-16 lg:px-10 lg:py-20">
+        <div className="mx-auto max-w-[1200px] px-6 py-12 pb-10 md:py-16 lg:px-10 lg:py-20">
           <motion.div
             className="mx-auto max-w-2xl text-center"
             initial={{ opacity: 0, y: 16 }}
@@ -258,11 +258,11 @@ function MarketingHome() {
             <h2 className="mt-3 text-[32px] font-semibold tracking-[-0.03em] text-foreground sm:text-[42px]">
               See Dental Assist in action.
             </h2>
-            <p className="mt-4 text-[16px] leading-[1.65] text-muted-foreground">
+            <p className="mt-3 text-[16px] leading-[1.65] text-muted-foreground md:mt-4">
               Browse real product screens from the Dental Assist workspace.
             </p>
           </motion.div>
-          <div className="mt-10">
+          <div className="mt-6 md:mt-10">
             <MediaGallery items={gallery} />
           </div>
         </div>

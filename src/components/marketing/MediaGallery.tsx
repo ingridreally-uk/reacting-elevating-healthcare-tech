@@ -32,7 +32,7 @@ export function ScreenshotCard({
           posterSrc={item.posterSrc}
           alt={item.alt}
           objectPosition="top left"
-          className="transition-transform duration-500 group-hover:scale-[1.03]"
+          className="max-md:aspect-[16/9.15] transition-transform duration-500 group-hover:scale-[1.03]"
         />
         {item.videoSrc ? (
           <span className="absolute bottom-3 right-3 inline-flex h-8 w-8 items-center justify-center rounded-full bg-foreground/80 text-background">
@@ -40,12 +40,12 @@ export function ScreenshotCard({
           </span>
         ) : null}
       </div>
-      <div className="px-4 py-3">
+      <div className="px-4 py-2.5 md:py-3">
         <div className="text-[14px] font-semibold tracking-tight text-foreground">
           {item.title}
         </div>
         {item.description ? (
-          <p className="mt-1 text-[12.5px] leading-[1.5] text-muted-foreground">
+          <p className="mt-1 line-clamp-2 text-[12.5px] leading-[1.5] text-muted-foreground md:line-clamp-none">
             {item.description}
           </p>
         ) : null}
@@ -246,7 +246,7 @@ export function MediaGallery({ items }: { items: MediaItem[] }) {
           item={items[mobileIndex]}
           onOpen={(el) => openAt(mobileIndex, el)}
         />
-        <div className="mt-4 flex items-center justify-center gap-2">
+        <div className="mt-3 flex items-center justify-center gap-2">
           {items.map((item, i) => (
             <button
               key={item.id}
@@ -260,7 +260,7 @@ export function MediaGallery({ items }: { items: MediaItem[] }) {
             />
           ))}
         </div>
-        <div className="mt-3 flex justify-center gap-2">
+        <div className="mt-2 flex justify-center gap-2">
           <button
             type="button"
             className="rounded-full border border-border px-3 py-1.5 text-[12px]"

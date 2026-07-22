@@ -15,6 +15,8 @@ export default defineConfig({
   vite: {
     server: {
       port: 8081,
+      strictPort: true,
+      open: "http://localhost:8081",
     },
   },
 });

@@ -6,7 +6,7 @@ import { ProductFrame } from "./ProductFrame";
 import { MediaViewer } from "./MediaViewer";
 import type { MediaItem } from "./content";
 import { cn } from "@/lib/utils";
-import { elev, iconStroke, radius } from "./design";
+import { elev, iconStroke, layout, radius } from "./design";
 
 export function ScreenshotCard({
   item,
@@ -22,37 +22,51 @@ export function ScreenshotCard({
       type="button"
       onClick={(e) => onOpen(e.currentTarget)}
       className={cn(
-        "group flex h-full w-full flex-col overflow-hidden border border-border/70 bg-card text-left transition duration-200",
+        "group flex h-full w-full flex-col overflow-hidden border border-border/55 bg-card text-left transition duration-200",
         radius.card,
-        elev.card,
-        "hover:-translate-y-0.5 hover:shadow-[var(--shadow-md)]",
+        elev.product,
+        "hover:-translate-y-0.5 hover:border-border hover:shadow-[0_14px_28px_-14px_rgba(11,43,40,0.22)]",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
         className,
       )}
     >
-      <div className="relative overflow-hidden">
+      <div
+        aria-hidden
+        className={cn(
+          "flex items-center gap-1.5 border-b border-border/40 bg-[#F6F9F8] px-3",
+          layout.chromeH,
+        )}
+      >
+        <span className="h-1.5 w-1.5 rounded-full bg-[#FF5F57]/70" />
+        <span className="h-1.5 w-1.5 rounded-full bg-[#FEBC2E]/70" />
+        <span className="h-1.5 w-1.5 rounded-full bg-[#28C840]/70" />
+        <span className="ml-2 truncate text-[10px] tracking-wide text-muted-foreground/80">
+          app.reacting.io
+        </span>
+      </div>
+      <div className="relative overflow-hidden bg-[#F4F8F7]">
         <MediaViewer
           imageSrc={item.imageSrc}
           videoSrc={item.videoSrc}
           posterSrc={item.posterSrc}
           alt={item.alt}
-          objectPosition={item.objectPosition ?? "left top"}
-          objectFit={item.objectFit ?? "cover"}
-          aspectRatio={item.aspectRatio ?? "16 / 10"}
-          className="transition-transform duration-300 group-hover:scale-[1.015]"
+          objectPosition={item.objectPosition ?? "center"}
+          objectFit={item.objectFit ?? "contain"}
+          aspectRatio="16 / 10"
+          className="transition-transform duration-300 group-hover:scale-[1.01]"
         />
         {item.videoSrc ? (
-          <span className="absolute bottom-3 right-3 inline-flex h-8 w-8 items-center justify-center rounded-full bg-foreground/80 text-background">
+          <span className="absolute bottom-3 right-3 z-[1] inline-flex h-8 w-8 items-center justify-center rounded-full bg-foreground/80 text-background">
             <Play className="h-3.5 w-3.5 fill-current" strokeWidth={iconStroke} />
           </span>
         ) : null}
       </div>
-      <div className="flex flex-1 flex-col px-3.5 py-2.5">
-        <div className="text-[13px] font-semibold tracking-tight text-foreground">
+      <div className="flex min-h-[5.25rem] flex-1 flex-col border-t border-border/40 px-3.5 pb-3.5 pt-3">
+        <div className="text-[13.5px] font-semibold leading-snug tracking-tight text-foreground">
           {item.title}
         </div>
         {item.description ? (
-          <p className="mt-0.5 line-clamp-2 text-[11.5px] leading-[1.45] text-muted-foreground">
+          <p className="mt-1.5 line-clamp-2 text-[12px] leading-[1.45] text-muted-foreground">
             {item.description}
           </p>
         ) : null}
@@ -108,9 +122,9 @@ function Lightbox({
       }
       if (e.key !== "Tab" || !dialog) return;
 
-      const focusable = Array.from(
-        dialog.querySelectorAll<HTMLElement>(FOCUSABLE),
-      ).filter((el) => !el.hasAttribute("disabled") && el.tabIndex !== -1);
+      const focusable = Array.from(dialog.querySelectorAll<HTMLElement>(FOCUSABLE)).filter(
+        (el) => !el.hasAttribute("disabled") && el.tabIndex !== -1,
+      );
 
       if (focusable.length === 0) {
         e.preventDefault();
@@ -230,52 +244,73 @@ export function MediaGallery({ items }: { items: MediaItem[] }) {
     setOpenIndex(i);
   };
 
+  const row1 = items.slice(0, 3);
+  const row2 = items.slice(3, 6);
+  const row3 = items.slice(6);
+
+  const renderRow = (row: MediaItem[], offset: number, wide = false) => (
+    <div
+      className={cn(
+        "grid gap-4 lg:gap-5",
+        wide
+          ? "mx-auto grid-cols-1 sm:grid-cols-2 lg:max-w-[100%]"
+          : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3",
+      )}
+    >
+      {row.map((item, i) => (
+        <ScreenshotCard key={item.id} item={item} onOpen={(el) => openAt(offset + i, el)} />
+      ))}
+    </div>
+  );
+
   return (
     <>
-      <div className="hidden md:block">
-        <div className="grid grid-cols-2 gap-4 lg:grid-cols-3 lg:gap-5">
-          {items.map((item, i) => (
-            <ScreenshotCard
-              key={item.id}
-              item={item}
-              onOpen={(el) => openAt(i, el)}
-            />
-          ))}
-        </div>
+      <div className="hidden space-y-4 md:block">
+        {renderRow(row1, 0)}
+        {renderRow(row2, 3)}
+        {row3.length > 0 ? (
+          <div className="mx-auto grid w-full grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:w-[calc((100%-2.5rem)*2/3+1.25rem)] lg:gap-5">
+            {row3.map((item, i) => (
+              <ScreenshotCard key={item.id} item={item} onOpen={(el) => openAt(6 + i, el)} />
+            ))}
+          </div>
+        ) : null}
       </div>
 
       <div className="md:hidden">
-        <ScreenshotCard
-          item={items[mobileIndex]}
-          onOpen={(el) => openAt(mobileIndex, el)}
-        />
+        <ScreenshotCard item={items[mobileIndex]} onOpen={(el) => openAt(mobileIndex, el)} />
         <div className="mt-3 flex items-center justify-center gap-2">
           {items.map((item, i) => (
             <button
               key={item.id}
               type="button"
               aria-label={`Show ${item.title}`}
+              aria-current={i === mobileIndex ? "true" : undefined}
               onClick={() => setMobileIndex(i)}
               className={cn(
-                "h-2 w-2 rounded-full transition",
-                i === mobileIndex ? "bg-primary" : "bg-border",
+                "inline-flex h-10 w-10 items-center justify-center rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
               )}
-            />
+            >
+              <span
+                className={cn(
+                  "h-2.5 w-2.5 rounded-full transition",
+                  i === mobileIndex ? "bg-primary" : "bg-border",
+                )}
+              />
+            </button>
           ))}
         </div>
-        <div className="mt-2 flex justify-center gap-2">
+        <div className="mt-1 flex justify-center gap-2">
           <button
             type="button"
-            className="rounded-full border border-border px-3 py-1.5 text-[12px]"
-            onClick={() =>
-              setMobileIndex((v) => (v - 1 + items.length) % items.length)
-            }
+            className="min-h-11 rounded-full border border-border px-4 py-2 text-[13px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            onClick={() => setMobileIndex((v) => (v - 1 + items.length) % items.length)}
           >
             Previous
           </button>
           <button
             type="button"
-            className="rounded-full border border-border px-3 py-1.5 text-[12px]"
+            className="min-h-11 rounded-full border border-border px-4 py-2 text-[13px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             onClick={() => setMobileIndex((v) => (v + 1) % items.length)}
           >
             Next
@@ -290,13 +325,9 @@ export function MediaGallery({ items }: { items: MediaItem[] }) {
           returnFocusTo={triggerRef.current}
           onClose={() => setOpenIndex(null)}
           onPrev={() =>
-            setOpenIndex((v) =>
-              v === null ? 0 : (v - 1 + items.length) % items.length,
-            )
+            setOpenIndex((v) => (v === null ? 0 : (v - 1 + items.length) % items.length))
           }
-          onNext={() =>
-            setOpenIndex((v) => (v === null ? 0 : (v + 1) % items.length))
-          }
+          onNext={() => setOpenIndex((v) => (v === null ? 0 : (v + 1) % items.length))}
         />
       ) : null}
     </>

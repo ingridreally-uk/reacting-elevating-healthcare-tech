@@ -1,42 +1,49 @@
 import { Link } from "@tanstack/react-router";
-import { ReactingMark } from "./ReactingMark";
 import { cn } from "@/lib/utils";
 
+/** Approved full Reacting lock-up (symbol + wordmark), transparent background. */
+export const REACTING_LOGO_SRC =
+  "/brand/reacting-logo-horizontal-transparent.webp";
+export const REACTING_LOGO_FALLBACK =
+  "/brand/reacting-logo-horizontal-transparent.png";
+
 /**
- * Transparent wordmark for light and dark surfaces (no white plate).
+ * Full Reacting logo lock-up. Width-driven so aspect ratio is preserved.
+ * Desktop target ~150–170px; mobile ~125–145px.
  */
 export function ReactingLogo({
   className,
-  markSize = 28,
-  wordClassName,
+  widthClassName = "w-[135px] md:w-[160px]",
 }: {
   className?: string;
-  markSize?: number;
-  wordClassName?: string;
+  /** Tailwind width classes controlling display size */
+  widthClassName?: string;
 }) {
   return (
-    <span className={cn("inline-flex items-center gap-2", className)}>
-      <ReactingMark size={markSize} className="shrink-0" />
-      <span
-        className={cn(
-          "text-[17px] font-semibold tracking-[-0.03em] text-foreground",
-          wordClassName,
-        )}
-      >
-        Reacting
-      </span>
-    </span>
+    <img
+      src={REACTING_LOGO_SRC}
+      alt="Reacting"
+      width={1163}
+      height={397}
+      draggable={false}
+      decoding="async"
+      className={cn("h-auto select-none", widthClassName, className)}
+      onError={(e) => {
+        const img = e.currentTarget;
+        if (img.src.includes(".webp")) {
+          img.src = REACTING_LOGO_FALLBACK;
+        }
+      }}
+    />
   );
 }
 
 export function ReactingLogoLink({
   className,
-  markSize = 28,
-  wordClassName,
+  widthClassName,
 }: {
   className?: string;
-  markSize?: number;
-  wordClassName?: string;
+  widthClassName?: string;
 }) {
   return (
     <Link
@@ -44,7 +51,10 @@ export function ReactingLogoLink({
       className={cn("inline-flex items-center", className)}
       aria-label="Reacting home"
     >
-      <ReactingLogo markSize={markSize} wordClassName={wordClassName} />
+      <ReactingLogo widthClassName={widthClassName} />
     </Link>
   );
 }
+
+/** @deprecated Prefer ReactingLogo — kept for any mark-only call sites */
+export { ReactingMark } from "./ReactingMark";

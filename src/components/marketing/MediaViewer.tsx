@@ -11,15 +11,15 @@ type MediaViewerProps = {
   priority?: boolean;
   objectPosition?: string;
   objectFit?: MediaFit;
-  /** CSS aspect-ratio value, e.g. "16 / 10" or "21 / 9" */
+  /** CSS aspect-ratio value matching the prepared asset */
   aspectRatio?: string;
   /** Show the full image at natural proportions (lightbox). */
   natural?: boolean;
 };
 
 /**
- * Renders either an image or video in the same frame.
- * Swap `imageSrc` for `videoSrc` later without changing layout.
+ * Prepared marketing assets are edge-filled to the frame aspect.
+ * Prefer object-fit: contain so the full prepared canvas shows without UI cropping.
  */
 export function MediaViewer({
   imageSrc,
@@ -28,8 +28,8 @@ export function MediaViewer({
   alt,
   className,
   priority,
-  objectPosition = "top left",
-  objectFit = "cover",
+  objectPosition = "center",
+  objectFit = "contain",
   aspectRatio = "16 / 10",
   natural = false,
 }: MediaViewerProps) {
@@ -47,14 +47,12 @@ export function MediaViewer({
   if (videoSrc) {
     return (
       <div
-        className={cn("relative w-full overflow-hidden bg-secondary", className)}
+        className={cn("relative w-full overflow-hidden bg-[#F4F8F7]", className)}
         style={natural ? undefined : { aspectRatio }}
       >
         <video
           className={cn(
-            natural
-              ? "h-auto w-full"
-              : "absolute inset-0 h-full w-full",
+            natural ? "h-auto w-full" : "absolute inset-0 h-full w-full",
             objectFit === "contain" ? "object-contain" : "object-cover",
           )}
           style={{ objectPosition }}
@@ -72,7 +70,7 @@ export function MediaViewer({
 
   if (natural) {
     return (
-      <div className={cn("relative w-full overflow-hidden bg-secondary", className)}>
+      <div className={cn("relative w-full overflow-hidden bg-[#F4F8F7]", className)}>
         {imageSrc ? (
           <img
             ref={imgRef}
@@ -93,9 +91,13 @@ export function MediaViewer({
     );
   }
 
+  const [aw, ah] = aspectRatio.split("/").map((v) => Number(v.trim()));
+  const reserveW = Number.isFinite(aw) && Number.isFinite(ah) ? Math.round(160 * aw) : 1600;
+  const reserveH = Number.isFinite(aw) && Number.isFinite(ah) ? Math.round(160 * ah) : 1000;
+
   return (
     <div
-      className={cn("relative w-full overflow-hidden bg-secondary", className)}
+      className={cn("relative w-full overflow-hidden bg-[#F4F8F7]", className)}
       style={{ aspectRatio }}
     >
       {imageSrc ? (
@@ -103,6 +105,8 @@ export function MediaViewer({
           ref={imgRef}
           src={imageSrc}
           alt={alt}
+          width={reserveW}
+          height={reserveH}
           loading={priority ? "eager" : "lazy"}
           decoding="async"
           fetchPriority={priority ? "high" : "auto"}

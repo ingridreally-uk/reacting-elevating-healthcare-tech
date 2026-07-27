@@ -10,13 +10,12 @@ const navLinks = [
   { label: "FAQ", href: "/#faq" },
 ];
 
-export function Logo({ height }: { height?: number } = {}) {
-  const markSize = height ? Math.round(height * 0.9) : 28;
-  return <ReactingLogoLink markSize={markSize} />;
+export function Logo(_props: { height?: number } = {}) {
+  return <ReactingLogoLink widthClassName="w-[135px] md:w-[160px]" />;
 }
 
 function HeaderLogo() {
-  return <ReactingLogoLink markSize={28} className="md:[&_span]:text-[18px]" />;
+  return <ReactingLogoLink widthClassName="w-[135px] md:w-[160px]" />;
 }
 
 export function SiteHeader() {
@@ -45,7 +44,7 @@ export function SiteHeader() {
             <a
               key={l.label}
               href={l.href}
-              className="text-[13.5px] text-muted-foreground transition-colors hover:text-foreground"
+              className="rounded-sm text-[13.5px] text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
               {l.label}
             </a>
@@ -54,7 +53,7 @@ export function SiteHeader() {
         <div className="hidden items-center gap-2 md:flex">
           <a
             href="https://app.reacting.io/login"
-            className="px-3 text-[13.5px] text-muted-foreground transition-colors hover:text-foreground"
+            className="rounded-sm px-3 py-2 text-[13.5px] text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
             Login
           </a>
@@ -67,7 +66,7 @@ export function SiteHeader() {
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
-          className="inline-flex h-10 w-10 items-center justify-center rounded-md text-foreground md:hidden"
+          className="inline-flex h-10 w-10 items-center justify-center rounded-md text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring md:hidden"
         >
           {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
@@ -104,17 +103,11 @@ export function SiteHeader() {
   );
 }
 
-function FooterLink({
-  label,
-  href,
-}: {
-  label: string;
-  href: string;
-}) {
+function FooterLink({ label, href }: { label: string; href: string }) {
   return (
     <a
       href={href}
-      className="text-[13.5px] text-muted-foreground transition-colors hover:text-foreground"
+      className="rounded-sm text-[13.5px] text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
     >
       {label}
     </a>
@@ -127,6 +120,7 @@ export function SiteFooter() {
       title: "Product",
       links: [
         { label: "Features", href: "/#features" },
+        { label: "Product tour", href: "/#product-gallery" },
         { label: "Pricing", href: "/#pricing" },
         { label: "FAQ", href: "/#faq" },
       ],
@@ -142,14 +136,14 @@ export function SiteFooter() {
   ];
 
   return (
-    <footer className="border-t border-border/60 bg-background">
-      <div className="mx-auto max-w-[1280px] px-6 pb-8 pt-10 lg:px-10 lg:pb-10 lg:pt-12">
-        <div className="grid gap-8 lg:grid-cols-[1.8fr_1fr_1fr] lg:gap-10">
-          <div>
-            <ReactingLogoLink markSize={26} />
-            <p className="mt-4 max-w-xs text-[13px] leading-[1.65] text-muted-foreground">
-              Reacting builds calm purchasing and inventory software for dental
-              practices. Dental Assist is our first product.
+    <footer className="border-t border-border/40 bg-[#FBFDFC]">
+      <div className="mx-auto max-w-[1200px] px-6 pb-11 pt-16 lg:px-10 lg:pb-12 lg:pt-20">
+        <div className="grid gap-14 sm:grid-cols-2 lg:grid-cols-[minmax(0,1.4fr)_1fr_1fr] lg:gap-20">
+          <div className="sm:col-span-2 lg:col-span-1">
+            <ReactingLogoLink widthClassName="w-[150px]" />
+            <p className="mt-6 max-w-[34ch] text-[13.5px] leading-[1.75] text-muted-foreground">
+              Reacting builds practical operational software for modern dental practices. Dental
+              Assist is our first product.
             </p>
           </div>
           {cols.map((c) => (
@@ -157,7 +151,7 @@ export function SiteFooter() {
               <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-foreground/90">
                 {c.title}
               </div>
-              <ul className="mt-4 space-y-2.5">
+              <ul className="mt-5 space-y-3.5">
                 {c.links.map((l) => (
                   <li key={l.label}>
                     <FooterLink label={l.label} href={l.href} />
@@ -167,7 +161,7 @@ export function SiteFooter() {
             </div>
           ))}
         </div>
-        <div className="mt-6 flex flex-col items-start justify-between gap-2 border-t border-border pt-6 sm:flex-row sm:items-center">
+        <div className="mt-14 flex flex-col items-start justify-between gap-3 border-t border-border/60 pt-8 sm:flex-row sm:items-center">
           <p className="text-[12px] text-muted-foreground">
             © {new Date().getFullYear()} Reacting Ltd. All rights reserved.
           </p>
@@ -184,7 +178,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <SiteHeader />
-      <main>{children}</main>
+      <main id="main-content">{children}</main>
       <SiteFooter />
     </div>
   );
@@ -223,7 +217,11 @@ export function PageHero({
           {(primaryCta || secondaryCta) && (
             <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
               {primaryCta && (
-                <Button asChild size="lg" className="h-11 rounded-full px-6 text-[13.5px] font-medium">
+                <Button
+                  asChild
+                  size="lg"
+                  className="h-11 rounded-full px-6 text-[13.5px] font-medium"
+                >
                   <Link to={primaryCta.to}>
                     {primaryCta.label}
                     <ArrowRight className="h-4 w-4" />
@@ -273,13 +271,9 @@ export function ScreenshotPlaceholder({
         <div className="text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
           Product screenshot
         </div>
-        <div className="text-[18px] font-semibold tracking-tight text-foreground">
-          {label}
-        </div>
+        <div className="text-[18px] font-semibold tracking-tight text-foreground">{label}</div>
         {caption && (
-          <div className="max-w-md text-[13px] leading-[1.5] text-muted-foreground">
-            {caption}
-          </div>
+          <div className="max-w-md text-[13px] leading-[1.5] text-muted-foreground">{caption}</div>
         )}
       </div>
     </div>

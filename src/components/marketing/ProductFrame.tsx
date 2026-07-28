@@ -15,22 +15,17 @@ export function ProductFrame({
   label?: string;
   emphasis?: "default" | "hero";
 }) {
+  const isHero = emphasis === "hero";
+
   return (
     <div className={cn("relative", className)}>
       <div
-        aria-hidden
         className={cn(
-          "absolute -z-10 rounded-[1.35rem]",
-          emphasis === "hero"
-            ? "-inset-3 bg-[radial-gradient(ellipse_at_50%_35%,oklch(0.92_0.025_165)_0%,transparent_68%)] opacity-80"
-            : "-inset-2 bg-[linear-gradient(160deg,oklch(0.95_0.012_165)_0%,transparent_70%)] opacity-55",
-        )}
-      />
-      <div
-        className={cn(
-          "overflow-hidden border border-border/50 bg-card",
+          "overflow-hidden bg-card",
           radius.panel,
-          emphasis === "hero" ? elev.productHero : elev.product,
+          isHero
+            ? cn("border border-black/[0.08]", elev.productHero)
+            : cn("border border-border/55", elev.product),
         )}
       >
         {label ? (

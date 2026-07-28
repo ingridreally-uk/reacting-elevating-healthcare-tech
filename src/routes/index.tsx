@@ -23,22 +23,27 @@ import { HowItWorks } from "@/components/marketing/HowItWorks";
 import { APP_SIGNUP, SCREENS, type MediaItem } from "@/components/marketing/content";
 import { SITE_ORIGIN } from "@/lib/site-url";
 
-const HOME_TITLE = "Dental Practice Operations, Stock & Purchasing Software | Dental Assist";
+const HOME_TITLE = "Dental Inventory and Purchasing Software | Dental Assist by Reacting";
 const HOME_DESCRIPTION =
-  "Dental Assist brings dental stock, materials, suppliers, RFQs, purchase orders, expiry tracking and spend visibility into one connected operational workspace.";
+  "Dental Assist helps dental practices manage stock, expiry dates, suppliers, quotations, purchase orders and spending in one connected workspace.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: HOME_TITLE },
       { name: "description", content: HOME_DESCRIPTION },
+      { name: "robots", content: "index, follow" },
       { property: "og:title", content: HOME_TITLE },
       { property: "og:description", content: HOME_DESCRIPTION },
+      { property: "og:type", content: "website" },
       { property: "og:url", content: `${SITE_ORIGIN}/` },
+      { property: "og:site_name", content: "Reacting" },
       {
         property: "og:image",
         content: `${SITE_ORIGIN}/og-reacting-dental-assist.png`,
       },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
       {
         property: "og:image:alt",
         content: "Dental Assist operational dashboard for dental practices",
@@ -51,7 +56,15 @@ export const Route = createFileRoute("/")({
         content: `${SITE_ORIGIN}/og-reacting-dental-assist.png`,
       },
     ],
-    links: [{ rel: "canonical", href: `${SITE_ORIGIN}/` }],
+    links: [
+      { rel: "canonical", href: `${SITE_ORIGIN}/` },
+      {
+        rel: "preload",
+        as: "image",
+        href: SCREENS.dashboard,
+        type: "image/webp",
+      },
+    ],
     scripts: [
       {
         type: "application/ld+json",
@@ -73,55 +86,59 @@ export const Route = createFileRoute("/")({
   component: MarketingHome,
 });
 
-/** Product Tour — editorial 3 + 3 + 2 layout (order matters). */
+/** Product tour — full feature screenshots for readability (not tiny thumbnails). */
 const gallery: MediaItem[] = [
   {
     id: "dashboard",
     title: "Dashboard",
-    description: "Actions, stock risk and purchasing at a glance",
-    imageSrc: SCREENS.tourDashboard,
-    lightboxSrc: SCREENS.dashboard,
-    alt: "Dental Assist dashboard for dental practice operations showing actions required, low-stock risk and purchasing activity",
+    description: "Stock risk, spend and actions at a glance",
+    imageSrc: SCREENS.dashboard,
+    alt: "Dental Assist dashboard showing stock risk, monthly spend, purchasing actions and expiry alerts",
     aspectRatio: "16 / 10",
     objectFit: "contain",
   },
   {
     id: "stock",
     title: "Inventory",
-    description: "Materials, quantities and stock detail",
-    imageSrc: SCREENS.tourStock,
-    lightboxSrc: SCREENS.stockPage,
-    alt: "Dental Assist inventory management showing dental materials, quantities, minimum levels and stock details",
+    description: "Live quantities, locations and product detail",
+    imageSrc: SCREENS.stockPage,
+    alt: "Dental Assist inventory showing materials list, quantities, stock status and selected product detail",
     aspectRatio: "16 / 10",
     objectFit: "contain",
   },
   {
     id: "low-stock",
     title: "Low Stock",
-    description: "Products that need replenishment",
-    imageSrc: SCREENS.tourLowStock,
-    lightboxSrc: SCREENS.lowStockPage,
-    alt: "Dental Assist low-stock alerts showing dental materials that need action with RFQ options",
+    description: "Items that need replenishment",
+    imageSrc: SCREENS.lowStockPage,
+    alt: "Dental Assist low-stock page with actionable product cards and RFQ options",
     aspectRatio: "16 / 10",
     objectFit: "contain",
   },
   {
     id: "expiring",
     title: "Expiry Tracking",
-    description: "Expired and expiring stock to rotate",
-    imageSrc: SCREENS.tourExpiring,
-    lightboxSrc: SCREENS.expiring,
-    alt: "Dental Assist expiry tracking showing expired dental materials with dates for stock rotation and waste reduction",
+    description: "Expired and expiring materials to rotate",
+    imageSrc: SCREENS.expiring,
+    alt: "Dental Assist expiry tracking showing expired materials with dates ready for review",
     aspectRatio: "16 / 10",
     objectFit: "contain",
   },
   {
     id: "suppliers",
     title: "Suppliers",
-    description: "Directory with selected supplier detail",
-    imageSrc: SCREENS.tourSuppliers,
-    lightboxSrc: SCREENS.suppliers,
-    alt: "Dental Assist supplier management showing vendor directory and selected supplier account details",
+    description: "Directory and supplier account detail",
+    imageSrc: SCREENS.suppliers,
+    alt: "Dental Assist supplier directory with selected supplier profile and linked activity",
+    aspectRatio: "16 / 10",
+    objectFit: "contain",
+  },
+  {
+    id: "rfq",
+    title: "RFQ Comparison",
+    description: "Compare quotes, select prices and see savings",
+    imageSrc: SCREENS.rfqCompareFull,
+    alt: "Dental Assist RFQ comparison with supplier columns, selected prices, savings and budget impact",
     aspectRatio: "16 / 10",
     objectFit: "contain",
   },
@@ -129,33 +146,19 @@ const gallery: MediaItem[] = [
     id: "orders",
     title: "Purchase Orders",
     description: "Raise, track and follow up orders",
-    imageSrc: SCREENS.tourOrders,
-    lightboxSrc: SCREENS.purchasing,
-    alt: "Dental Assist purchase orders screen showing order metrics, status and supplier order rows",
+    imageSrc: SCREENS.purchasing,
+    alt: "Dental Assist purchase orders showing order status and supplier rows",
     aspectRatio: "16 / 10",
     objectFit: "contain",
   },
   {
     id: "reporting",
-    title: "Savings & Usage",
+    title: "Savings & Reporting",
     description: "Order value, stock usage and RFQ savings",
-    imageSrc: SCREENS.tourReporting,
-    lightboxSrc: SCREENS.reporting,
-    alt: "Dental Assist reporting for dental practice cost control showing spend, usage and RFQ savings",
+    imageSrc: SCREENS.reporting,
+    alt: "Dental Assist reporting chart with order value, stock usage and RFQ savings totals",
     aspectRatio: "16 / 10",
     objectFit: "contain",
-    wide: true,
-  },
-  {
-    id: "rfq",
-    title: "RFQ Comparison",
-    description: "Compare supplier responses, select prices and see savings before ordering",
-    imageSrc: SCREENS.tourRfq,
-    lightboxSrc: SCREENS.rfqCompareFull,
-    alt: "Dental Assist RFQ software comparing supplier quotations with selected prices, savings and budget impact",
-    aspectRatio: "16 / 10",
-    objectFit: "contain",
-    wide: true,
   },
 ];
 
@@ -164,19 +167,29 @@ function MarketingHome() {
     <SiteShell>
       <MarketingHero />
 
-      <section className="border-b border-border/60 bg-background">
+      <section className="border-b border-border/60 bg-background" aria-label="Key benefits">
         <div className="mx-auto max-w-[1200px] px-6 py-7 lg:px-10 lg:py-8">
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             <StatisticCard
               icon={Package}
-              label="Stock, suppliers and purchasing in one workspace"
+              title="One connected workspace"
+              body="Stock, suppliers and purchasing together."
             />
             <StatisticCard
               icon={RefreshCw}
-              label="Clearer buying decisions with side-by-side quotes"
+              title="Compare before you buy"
+              body="Review supplier quotations side by side."
             />
-            <StatisticCard icon={Activity} label="Live material visibility for the practice team" />
-            <StatisticCard icon={Building2} label="Built specifically for dental practices" />
+            <StatisticCard
+              icon={Activity}
+              title="See what needs attention"
+              body="Track stock levels, expiry risk and purchasing actions."
+            />
+            <StatisticCard
+              icon={Building2}
+              title="Built around dental practice workflows"
+              body="Practical tools for owners, managers and teams."
+            />
           </div>
         </div>
       </section>
@@ -185,15 +198,16 @@ function MarketingHome() {
         <FeatureSection
           id="inventory"
           eyebrow="Inventory Visibility"
-          title="Know what’s on the shelf — without the spreadsheet chase."
-          description="Track dental materials across surgeries and store rooms with live quantities, locations and status, so the team spends less time hunting for stock."
+          title="Know what is on the shelf — without chasing spreadsheets."
+          description="Track materials across surgeries and store rooms with live quantities, locations and stock status, so the team spends less time searching and counting."
           bullets={[
-            "See materials, quantities and stock status",
-            "Organise by category and location",
+            "Live quantities by category and location",
+            "Stock status visible for the whole team",
             "Instant product search",
-            "Clear counts for everyday use",
+            "Selected item detail without leaving the list",
           ]}
           ctaHref={APP_SIGNUP}
+          showCta
           imageSrc={SCREENS.stockPage}
           alt="Dental Assist inventory management showing dental materials list, quantities, stock status and item detail"
           frameLabel="app.reacting.io / stock"
@@ -204,16 +218,17 @@ function MarketingHome() {
 
         <FeatureSection
           id="low-stock"
-          eyebrow="Low Stock Alerts"
-          title="Spot shortages early and act before they become urgent."
-          description="Automatic low-stock visibility helps the team raise RFQs and keep materials moving — reducing the risk of shortages on a busy clinical day."
+          eyebrow="Low-Stock Alerts"
+          title="Spot shortages early — before they interrupt treatment."
+          description="See products that need attention, raise RFQs and keep essential materials moving before a busy clinical day is affected."
           bullets={[
             "Automatic low-stock detection",
-            "One-click paths into RFQs",
             "Clear lists ready for action",
-            "Supports day-to-day stock control",
+            "One-click paths into RFQs",
+            "Supports day-to-day replenishment",
           ]}
           ctaHref={APP_SIGNUP}
+          showCta={false}
           imageSrc={SCREENS.lowStockPage}
           alt="Dental Assist low-stock alerts with card view of materials needing action and RFQ paths"
           frameLabel="app.reacting.io / low stock"
@@ -226,15 +241,16 @@ function MarketingHome() {
         <FeatureSection
           id="expiry"
           eyebrow="Expiry Tracking"
-          title="Rotate stock with confidence and cut unnecessary waste."
-          description="Monitor products nearing expiry so the practice can prioritise what should be used next and reduce write-offs."
+          title="Use stock in time and reduce avoidable waste."
+          description="Keep expired and expiring products visible, prioritise stock rotation and reduce unnecessary write-offs."
           bullets={[
-            "See expired and expiring products in one place",
-            "Prioritise stock rotation before write-offs",
-            "Reduce avoidable material waste",
-            "Keep expiry dates visible for day-to-day checks",
+            "Expired and expiring products in one place",
+            "Prioritise rotation before write-offs",
+            "Details and RFQ actions on each card",
+            "Clearer day-to-day expiry checks",
           ]}
           ctaHref={APP_SIGNUP}
+          showCta={false}
           imageSrc={SCREENS.expiring}
           alt="Dental Assist expiry tracking showing three expired dental materials ready for review"
           frameLabel="app.reacting.io / expiring stock"
@@ -246,18 +262,19 @@ function MarketingHome() {
         <FeatureSection
           id="suppliers"
           eyebrow="Supplier Management"
-          title="Keep supplier accounts clear and ready for ordering."
-          description="A central supplier directory with useful account detail helps the team find the right vendor quickly and keep RFQs and purchase orders organised."
+          title="Keep supplier information and purchasing activity together."
+          description="Store supplier contacts, account details, RFQs and purchase-order activity in one clear directory for the whole team."
           bullets={[
             "Central dental supplier directory",
-            "Contacts, status and account details together",
+            "Contacts and account details together",
             "Linked RFQ and order activity",
-            "Clearer follow-up for the whole team",
+            "Clearer follow-up across the practice",
           ]}
           ctaHref={APP_SIGNUP}
+          showCta={false}
           imageSrc={SCREENS.suppliers}
-          alt="Dental Assist supplier management showing vendor directory with selected supplier contacts, account reference and linked RFQ activity"
-          frameLabel="app.reacting.io / vendors"
+          alt="Dental Assist supplier management showing supplier directory with selected contacts, account reference and linked RFQ activity"
+          frameLabel="app.reacting.io / suppliers"
           objectPosition="center"
           objectFit="contain"
           imageFirst
@@ -267,17 +284,18 @@ function MarketingHome() {
         <FeatureSection
           id="rfq"
           eyebrow="RFQ and Purchasing"
-          title="Compare suppliers before the practice commits to an order."
-          description="Create a request for quotation, review supplier responses side by side and understand the order total, savings and budget impact before purchasing."
+          title="Compare supplier quotes before committing to an order."
+          description="Review responses side by side, select the best price for each product and understand the total saving and budget impact before purchasing."
           bullets={[
-            "Compare supplier quotes in one workspace",
-            "Select the best price for each product",
-            "Review savings and total order value",
-            "Keep purchasing decisions clear and traceable",
+            "Side-by-side supplier quote columns",
+            "Select the best price per product",
+            "Order summary with total saving",
+            "Budget impact before you commit",
           ]}
           ctaHref={APP_SIGNUP}
+          showCta
           imageSrc={SCREENS.rfqCompare}
-          alt="Dental Assist RFQ comparison showing Henry Schein and Kent Express quotations with order total, savings and budget impact"
+          alt="Dental Assist RFQ comparison showing supplier quotations with order total, savings and budget impact"
           frameLabel="app.reacting.io / rfq"
           objectPosition="center"
           objectFit="contain"
@@ -288,14 +306,15 @@ function MarketingHome() {
           id="reporting"
           eyebrow="Reporting"
           title="See what the practice spends, uses and saves."
-          description="Owners and managers get a clear view of order value, stock usage and RFQ savings over time — without rebuilding spreadsheets each month."
+          description="Track order value, stock usage and RFQ savings over time without rebuilding spreadsheets every month."
           bullets={[
-            "Order value, stock usage and RFQ savings on one timeline",
+            "Order value, usage and savings on one timeline",
             "Six-month totals that are easy to compare",
-            "Strongest months for spend, usage and savings",
+            "Monthly highlights for spend and savings",
             "Clearer signals for practice cost control",
           ]}
           ctaHref={APP_SIGNUP}
+          showCta={false}
           imageSrc={SCREENS.reporting}
           alt="Dental Assist savings and usage reporting with trend chart, order value, stock usage and RFQ savings totals"
           frameLabel="app.reacting.io / savings & usage"
@@ -311,7 +330,7 @@ function MarketingHome() {
         aria-labelledby="product-tour-heading"
         className="scroll-mt-24 border-b border-border/60 bg-[#F7FBF9]"
       >
-        <div className="mx-auto max-w-[1200px] px-6 py-12 md:py-14 lg:px-10">
+        <div className="mx-auto max-w-[1200px] px-6 py-11 md:py-12 lg:px-10">
           <motion.div
             className="mx-auto max-w-2xl text-center"
             initial={{ opacity: 0, y: 12 }}
@@ -325,11 +344,11 @@ function MarketingHome() {
               id="product-tour-heading"
               className="mt-2.5 text-[26px] font-semibold tracking-[-0.03em] text-foreground sm:text-[34px]"
             >
-              See Dental Assist in action.
+              Explore the Dental Assist workflow.
             </h2>
-            <p className="mx-auto mt-2.5 max-w-[44ch] text-[14.5px] leading-[1.6] text-muted-foreground">
-              A concise walkthrough of the operational workspace — from stock visibility to RFQ
-              comparison and reporting.
+            <p className="mx-auto mt-2.5 max-w-[48ch] text-[14.5px] leading-[1.6] text-muted-foreground">
+              Move through the core workspace — from stock visibility and expiry control to supplier
+              comparison, purchase orders and reporting.
             </p>
           </motion.div>
           <div className="mt-8 md:mt-9">
@@ -342,28 +361,28 @@ function MarketingHome() {
         aria-labelledby="benefits-heading"
         className="border-b border-border/60 bg-background"
       >
-        <div className="mx-auto max-w-[1200px] px-6 py-12 lg:px-10 lg:py-14">
+        <div className="mx-auto max-w-[1200px] px-6 py-10 lg:px-10 lg:py-12">
           <div className="mx-auto max-w-2xl text-center">
             <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[oklch(0.42_0.08_175)]">
-              Built for the way dental practices work
+              Outcomes for the practice
             </div>
             <h2
               id="benefits-heading"
               className="mt-2.5 text-[26px] font-semibold tracking-[-0.03em] text-foreground sm:text-[34px]"
             >
-              Clearer operations today. A stronger foundation for the practice.
+              Less waste. Fewer shortages. Clearer purchasing.
             </h2>
             <p className="mx-auto mt-2.5 max-w-[48ch] text-[14.5px] leading-[1.6] text-muted-foreground">
-              Replace fragmented spreadsheets, WhatsApp chasing and unclear stock checks with one
-              connected view of what the practice has, needs, uses and spends.
+              Replace fragmented spreadsheets and message threads with one connected view of what
+              the practice has, needs, uses and spends.
             </p>
           </div>
-          <div className="mt-9">
+          <div className="mt-8">
             <BenefitGrid
               items={[
                 {
                   icon: CircleAlert,
-                  title: "Cut material waste",
+                  title: "Reduce material waste",
                   body: "Flag expiry early and rotate stock before usable materials become write-offs.",
                 },
                 {
@@ -373,7 +392,7 @@ function MarketingHome() {
                 },
                 {
                   icon: PackageCheck,
-                  title: "Avoid stockouts",
+                  title: "Prevent stock shortages",
                   body: "See low stock early — before a chairside shortage interrupts treatment.",
                 },
                 {
@@ -394,13 +413,13 @@ function MarketingHome() {
         aria-labelledby="pricing-heading"
         className="scroll-mt-24 border-b border-border/60 bg-background"
       >
-        <div className="mx-auto max-w-[1200px] px-6 py-12 lg:px-10 lg:py-14">
+        <div className="mx-auto max-w-[1200px] px-6 py-10 lg:px-10 lg:py-12">
           <PricingCard />
         </div>
       </section>
 
       <section id="faq" aria-labelledby="faq-heading" className="scroll-mt-24 bg-[#F7FBF9]">
-        <div className="mx-auto max-w-[1200px] px-6 py-12 lg:px-10 lg:py-14">
+        <div className="mx-auto max-w-[1200px] px-6 py-10 lg:px-10 lg:py-12">
           <FAQ />
         </div>
       </section>

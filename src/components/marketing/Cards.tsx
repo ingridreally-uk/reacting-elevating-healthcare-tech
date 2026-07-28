@@ -3,7 +3,18 @@ import type { LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { elev, iconStroke, radius } from "./design";
 
-export function StatisticCard({ label, icon: Icon }: { label: string; icon?: LucideIcon }) {
+export function StatisticCard({
+  label,
+  title,
+  body,
+  icon: Icon,
+}: {
+  label?: string;
+  title?: string;
+  body?: string;
+  icon?: LucideIcon;
+}) {
+  const heading = title ?? label ?? "";
   return (
     <motion.div
       className={cn(
@@ -19,9 +30,14 @@ export function StatisticCard({ label, icon: Icon }: { label: string; icon?: Luc
       {Icon ? (
         <Icon className="h-4 w-4 text-[oklch(0.42_0.08_175)]" strokeWidth={iconStroke} />
       ) : null}
-      <p className={cn("text-[13px] font-medium leading-[1.45] text-foreground", Icon && "mt-2.5")}>
-        {label}
+      <p
+        className={cn("text-[13.5px] font-semibold leading-snug text-foreground", Icon && "mt-2.5")}
+      >
+        {heading}
       </p>
+      {body ? (
+        <p className="mt-1.5 text-[12.5px] leading-[1.5] text-muted-foreground">{body}</p>
+      ) : null}
     </motion.div>
   );
 }

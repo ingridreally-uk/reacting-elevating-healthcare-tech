@@ -1,79 +1,12 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { ChevronLeft, ChevronRight, X, Play } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { ProductFrame } from "./ProductFrame";
 import { MediaViewer } from "./MediaViewer";
 import type { MediaItem } from "./content";
 import { cn } from "@/lib/utils";
-import { elev, iconStroke, layout, radius } from "./design";
-
-export function ScreenshotCard({
-  item,
-  onOpen,
-  className,
-}: {
-  item: MediaItem;
-  onOpen: (trigger: HTMLElement) => void;
-  className?: string;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={(e) => onOpen(e.currentTarget)}
-      className={cn(
-        "group flex h-full w-full flex-col overflow-hidden border border-border/55 bg-card text-left transition duration-200",
-        radius.card,
-        elev.product,
-        "hover:-translate-y-0.5 hover:border-border hover:shadow-[0_14px_28px_-14px_rgba(11,43,40,0.22)]",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-        className,
-      )}
-    >
-      <div
-        aria-hidden
-        className={cn(
-          "flex items-center gap-1.5 border-b border-border/40 bg-[#F6F9F8] px-3",
-          layout.chromeH,
-        )}
-      >
-        <span className="h-1.5 w-1.5 rounded-full bg-[#FF5F57]/70" />
-        <span className="h-1.5 w-1.5 rounded-full bg-[#FEBC2E]/70" />
-        <span className="h-1.5 w-1.5 rounded-full bg-[#28C840]/70" />
-        <span className="ml-2 truncate text-[10px] tracking-wide text-muted-foreground/80">
-          app.reacting.io
-        </span>
-      </div>
-      <div className="relative overflow-hidden bg-[#F4F8F7]">
-        <MediaViewer
-          imageSrc={item.imageSrc}
-          videoSrc={item.videoSrc}
-          posterSrc={item.posterSrc}
-          alt={item.alt}
-          objectPosition={item.objectPosition ?? "center"}
-          objectFit={item.objectFit ?? "contain"}
-          aspectRatio="16 / 10"
-          className="transition-transform duration-300 group-hover:scale-[1.01]"
-        />
-        {item.videoSrc ? (
-          <span className="absolute bottom-3 right-3 z-[1] inline-flex h-8 w-8 items-center justify-center rounded-full bg-foreground/80 text-background">
-            <Play className="h-3.5 w-3.5 fill-current" strokeWidth={iconStroke} />
-          </span>
-        ) : null}
-      </div>
-      <div className="flex min-h-[5.25rem] flex-1 flex-col border-t border-border/40 px-3.5 pb-3.5 pt-3">
-        <div className="text-[13.5px] font-semibold leading-snug tracking-tight text-foreground">
-          {item.title}
-        </div>
-        {item.description ? (
-          <p className="mt-1.5 line-clamp-2 text-[12px] leading-[1.45] text-muted-foreground">
-            {item.description}
-          </p>
-        ) : null}
-      </div>
-    </button>
-  );
-}
+import { layout } from "./design";
 
 const FOCUSABLE =
   'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])';
@@ -101,7 +34,6 @@ function Lightbox({
 
   useEffect(() => {
     const previouslyFocused = returnFocusTo;
-    const dialog = dialogRef.current;
     closeRef.current?.focus();
 
     const onKey = (e: KeyboardEvent) => {
@@ -118,49 +50,39 @@ function Lightbox({
       if (e.key === "ArrowRight") {
         e.preventDefault();
         onNext();
-        return;
       }
-      if (e.key !== "Tab" || !dialog) return;
-
-      const focusable = Array.from(dialog.querySelectorAll<HTMLElement>(FOCUSABLE)).filter(
-        (el) => !el.hasAttribute("disabled") && el.tabIndex !== -1,
-      );
-
-      if (focusable.length === 0) {
-        e.preventDefault();
-        return;
-      }
-
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
-      const active = document.activeElement as HTMLElement | null;
-
-      if (e.shiftKey) {
-        if (active === first || !dialog.contains(active)) {
+      if (e.key === "Tab" && dialogRef.current) {
+        const nodes = Array.from(dialogRef.current.querySelectorAll<HTMLElement>(FOCUSABLE));
+        if (!nodes.length) return;
+        const first = nodes[0];
+        const last = nodes[nodes.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
           e.preventDefault();
           last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
         }
-      } else if (active === last || !dialog.contains(active)) {
-        e.preventDefault();
-        first.focus();
       }
     };
 
+    document.addEventListener("keydown", onKey);
+    const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    window.addEventListener("keydown", onKey);
     return () => {
-      document.body.style.overflow = "";
-      window.removeEventListener("keydown", onKey);
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prevOverflow;
       previouslyFocused?.focus();
     };
-  }, [onClose, onPrev, onNext, returnFocusTo, index]);
-
-  if (typeof document === "undefined") return null;
+  }, [onClose, onNext, onPrev, returnFocusTo, index]);
 
   return createPortal(
     <AnimatePresence>
       <motion.div
-        className="fixed inset-0 z-[80] flex items-end justify-center bg-[#0B1F1C]/72 p-3 backdrop-blur-sm sm:items-center sm:p-4"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={titleId}
+        className="fixed inset-0 z-[80] flex items-center justify-center bg-black/70 p-4 sm:p-8"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -168,30 +90,26 @@ function Lightbox({
       >
         <motion.div
           ref={dialogRef}
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby={titleId}
-          className="relative flex max-h-[min(100dvh,100%)] w-full max-w-5xl flex-col"
-          initial={{ opacity: 0, y: 16, scale: 0.98 }}
+          className="flex max-h-[90vh] w-full max-w-5xl flex-col overflow-hidden rounded-2xl bg-[#0B1F2A] text-white shadow-2xl"
+          initial={{ opacity: 0, y: 12, scale: 0.98 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: 12, scale: 0.98 }}
-          transition={{ duration: 0.25 }}
+          exit={{ opacity: 0, y: 8, scale: 0.98 }}
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="mb-3 flex shrink-0 items-center justify-between gap-3 text-white">
+          <div className="flex items-center justify-between gap-3 border-b border-white/10 px-4 py-3 sm:px-5">
             <div className="min-w-0">
-              <div id={titleId} className="truncate text-[15px] font-semibold">
+              <div id={titleId} className="truncate text-[14px] font-semibold">
                 {item.title}
               </div>
-              <div className="text-[12px] text-white/70">
-                {index + 1} / {items.length}
-              </div>
+              {item.description ? (
+                <p className="mt-0.5 truncate text-[12px] text-white/65">{item.description}</p>
+              ) : null}
             </div>
-            <div className="flex shrink-0 items-center gap-2">
+            <div className="flex shrink-0 items-center gap-1.5">
               <button
                 type="button"
                 onClick={onPrev}
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/10 transition hover:bg-white/20"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/10 transition hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
                 aria-label="Previous"
               >
                 <ChevronLeft className="h-5 w-5" />
@@ -199,7 +117,7 @@ function Lightbox({
               <button
                 type="button"
                 onClick={onNext}
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/10 transition hover:bg-white/20"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/10 transition hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
                 aria-label="Next"
               >
                 <ChevronRight className="h-5 w-5" />
@@ -208,14 +126,14 @@ function Lightbox({
                 ref={closeRef}
                 type="button"
                 onClick={onClose}
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/15 transition hover:bg-white/25"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/15 transition hover:bg-white/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
                 aria-label="Close gallery"
               >
                 <X className="h-5 w-5" />
               </button>
             </div>
           </div>
-          <div className="min-h-0 overflow-auto">
+          <div className="min-h-0 overflow-auto p-3 sm:p-4">
             <ProductFrame>
               <MediaViewer
                 imageSrc={lightboxSrc}
@@ -234,87 +152,128 @@ function Lightbox({
   );
 }
 
+/**
+ * Focused product tour: one large preview + workflow selector.
+ * Prefer full feature screenshots so visitors can read the UI without zooming.
+ */
 export function MediaGallery({ items }: { items: MediaItem[] }) {
+  const [active, setActive] = useState(0);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
-  const [mobileIndex, setMobileIndex] = useState(0);
   const triggerRef = useRef<HTMLElement | null>(null);
+  const reduceMotion = useReducedMotion();
+  const item = items[active] ?? items[0];
+  const listId = useId();
 
-  const openAt = (i: number, trigger: HTMLElement) => {
+  if (!item) return null;
+
+  const openLightbox = (i: number, trigger: HTMLElement) => {
     triggerRef.current = trigger;
     setOpenIndex(i);
   };
 
-  const row1 = items.slice(0, 3);
-  const row2 = items.slice(3, 6);
-  const row3 = items.slice(6);
-
-  const renderRow = (row: MediaItem[], offset: number, wide = false) => (
-    <div
-      className={cn(
-        "grid gap-4 lg:gap-5",
-        wide
-          ? "mx-auto grid-cols-1 sm:grid-cols-2 lg:max-w-[100%]"
-          : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3",
-      )}
-    >
-      {row.map((item, i) => (
-        <ScreenshotCard key={item.id} item={item} onOpen={(el) => openAt(offset + i, el)} />
-      ))}
-    </div>
-  );
-
   return (
     <>
-      <div className="hidden space-y-4 md:block">
-        {renderRow(row1, 0)}
-        {renderRow(row2, 3)}
-        {row3.length > 0 ? (
-          <div className="mx-auto grid w-full grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:w-[calc((100%-2.5rem)*2/3+1.25rem)] lg:gap-5">
-            {row3.map((item, i) => (
-              <ScreenshotCard key={item.id} item={item} onOpen={(el) => openAt(6 + i, el)} />
-            ))}
-          </div>
-        ) : null}
-      </div>
-
-      <div className="md:hidden">
-        <ScreenshotCard item={items[mobileIndex]} onOpen={(el) => openAt(mobileIndex, el)} />
-        <div className="mt-3 flex items-center justify-center gap-2">
-          {items.map((item, i) => (
-            <button
-              key={item.id}
-              type="button"
-              aria-label={`Show ${item.title}`}
-              aria-current={i === mobileIndex ? "true" : undefined}
-              onClick={() => setMobileIndex(i)}
-              className={cn(
-                "inline-flex h-10 w-10 items-center justify-center rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-              )}
-            >
-              <span
-                className={cn(
-                  "h-2.5 w-2.5 rounded-full transition",
-                  i === mobileIndex ? "bg-primary" : "bg-border",
-                )}
-              />
-            </button>
-          ))}
+      <div className="grid items-start gap-6 lg:grid-cols-12 lg:gap-8">
+        <div className="lg:col-span-4">
+          <p id={listId} className="sr-only">
+            Product workflows
+          </p>
+          <ul
+            className="flex gap-2 overflow-x-auto pb-1 lg:flex-col lg:gap-1.5 lg:overflow-visible lg:pb-0"
+            role="tablist"
+            aria-labelledby={listId}
+            onKeyDown={(e) => {
+              if (
+                e.key !== "ArrowDown" &&
+                e.key !== "ArrowUp" &&
+                e.key !== "ArrowRight" &&
+                e.key !== "ArrowLeft" &&
+                e.key !== "Home" &&
+                e.key !== "End"
+              ) {
+                return;
+              }
+              e.preventDefault();
+              let next = active;
+              if (e.key === "Home") next = 0;
+              else if (e.key === "End") next = items.length - 1;
+              else if (e.key === "ArrowDown" || e.key === "ArrowRight")
+                next = (active + 1) % items.length;
+              else next = (active - 1 + items.length) % items.length;
+              setActive(next);
+              requestAnimationFrame(() => {
+                document.getElementById(`tour-tab-${items[next]?.id}`)?.focus();
+              });
+            }}
+          >
+            {items.map((entry, i) => {
+              const selected = i === active;
+              return (
+                <li key={entry.id} className="shrink-0 lg:shrink">
+                  <button
+                    type="button"
+                    role="tab"
+                    aria-selected={selected}
+                    aria-controls={`tour-panel-${entry.id}`}
+                    id={`tour-tab-${entry.id}`}
+                    onClick={() => setActive(i)}
+                    className={cn(
+                      "w-full rounded-xl border px-3.5 py-3 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                      selected
+                        ? "border-[oklch(0.72_0.05_165)] bg-white shadow-[0_1px_2px_rgba(11,43,40,0.04)]"
+                        : "border-transparent bg-transparent hover:bg-white/70",
+                    )}
+                  >
+                    <span className="block text-[13.5px] font-semibold tracking-tight text-foreground">
+                      {entry.title}
+                    </span>
+                    {entry.description ? (
+                      <span className="mt-0.5 block text-[12px] leading-snug text-muted-foreground">
+                        {entry.description}
+                      </span>
+                    ) : null}
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
         </div>
-        <div className="mt-1 flex justify-center gap-2">
-          <button
-            type="button"
-            className="min-h-11 rounded-full border border-border px-4 py-2 text-[13px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-            onClick={() => setMobileIndex((v) => (v - 1 + items.length) % items.length)}
-          >
-            Previous
-          </button>
-          <button
-            type="button"
-            className="min-h-11 rounded-full border border-border px-4 py-2 text-[13px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-            onClick={() => setMobileIndex((v) => (v + 1) % items.length)}
-          >
-            Next
-          </button>
+
+        <div className="min-w-0 lg:col-span-8">
+          <div role="tabpanel" id={`tour-panel-${item.id}`} aria-labelledby={`tour-tab-${item.id}`}>
+            <motion.div
+              key={item.id}
+              initial={reduceMotion ? false : { opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.28 }}
+            >
+              <button
+                type="button"
+                className="group block w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                onClick={(e) => openLightbox(active, e.currentTarget)}
+                aria-label={`Open larger view of ${item.title}`}
+              >
+                <ProductFrame
+                  label={`app.reacting.io / ${item.title === "Savings & Reporting" ? "savings & usage" : item.title.toLowerCase()}`}
+                >
+                  <div className="aspect-[16/10] w-full">
+                    <MediaViewer
+                      imageSrc={item.imageSrc}
+                      alt={item.alt}
+                      objectPosition={item.objectPosition ?? "center"}
+                      objectFit={item.objectFit ?? "contain"}
+                      aspectRatio="16 / 10"
+                      priority={active === 0}
+                      className="transition-opacity duration-200 group-hover:opacity-[0.98]"
+                    />
+                  </div>
+                </ProductFrame>
+              </button>
+              <p className="mt-3 text-center text-[12.5px] text-muted-foreground">
+                Select a workflow to see how information moves through the practice.
+              </p>
+            </motion.div>
+          </div>
         </div>
       </div>
 
@@ -331,5 +290,47 @@ export function MediaGallery({ items }: { items: MediaItem[] }) {
         />
       ) : null}
     </>
+  );
+}
+
+/** @deprecated Prefer MediaGallery; kept for any external imports. */
+export function ScreenshotCard({
+  item,
+  onOpen,
+  className,
+}: {
+  item: MediaItem;
+  onOpen: (trigger: HTMLElement) => void;
+  className?: string;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={(e) => onOpen(e.currentTarget)}
+      className={cn(
+        "group flex w-full flex-col overflow-hidden rounded-2xl border border-border/55 bg-card text-left",
+        className,
+      )}
+    >
+      <div
+        className={cn(
+          "flex items-center gap-1.5 border-b border-border/40 bg-[#F6F9F8] px-3",
+          layout.chromeH,
+        )}
+      >
+        <span className="h-1.5 w-1.5 rounded-full bg-[#FF5F57]/70" />
+        <span className="h-1.5 w-1.5 rounded-full bg-[#FEBC2E]/70" />
+        <span className="h-1.5 w-1.5 rounded-full bg-[#28C840]/70" />
+      </div>
+      <MediaViewer
+        imageSrc={item.imageSrc}
+        alt={item.alt}
+        aspectRatio="16 / 10"
+        objectFit="contain"
+      />
+      <div className="border-t border-border/40 px-3.5 py-3">
+        <div className="text-[13.5px] font-semibold">{item.title}</div>
+      </div>
+    </button>
   );
 }

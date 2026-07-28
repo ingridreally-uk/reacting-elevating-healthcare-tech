@@ -16,6 +16,7 @@ export function FeatureSection({
   bullets,
   ctaLabel = "Start Free Trial",
   ctaHref,
+  showCta = true,
   imageSrc,
   videoSrc,
   posterSrc,
@@ -34,6 +35,8 @@ export function FeatureSection({
   bullets: string[];
   ctaLabel?: string;
   ctaHref: string;
+  /** When false, the section explains without another trial CTA. */
+  showCta?: boolean;
   imageSrc?: string;
   videoSrc?: string;
   posterSrc?: string;
@@ -57,7 +60,7 @@ export function FeatureSection({
       <div
         className={cn(
           layout.shell,
-          "grid items-center py-12 md:grid-cols-12 lg:py-14",
+          "grid items-center py-10 md:grid-cols-12 lg:py-12",
           layout.featureGap,
         )}
       >
@@ -90,13 +93,15 @@ export function FeatureSection({
               </li>
             ))}
           </ul>
-          <a
-            href={ctaHref}
-            className={cn(btn.base, btn.primary, "mt-7 w-fit min-w-[170px] max-w-[200px] px-6")}
-          >
-            {ctaLabel}
-            <ArrowRight className="h-4 w-4" strokeWidth={1.75} />
-          </a>
+          {showCta ? (
+            <a
+              href={ctaHref}
+              className={cn(btn.base, btn.primary, "mt-7 w-fit min-w-[170px] max-w-[200px] px-6")}
+            >
+              {ctaLabel}
+              <ArrowRight className="h-4 w-4" strokeWidth={1.75} />
+            </a>
+          ) : null}
         </motion.div>
 
         <motion.div

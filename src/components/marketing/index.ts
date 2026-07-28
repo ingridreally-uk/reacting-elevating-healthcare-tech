@@ -1,3 +1,4 @@
+export { TrustSignals } from "./TrustSignals";
 export { BrowserMock } from "./BrowserMock";
 export { ProductFrame } from "./ProductFrame";
 export { MediaViewer } from "./MediaViewer";
@@ -8,9 +9,4 @@ export { PricingCard } from "./PricingCard";
 export { FAQ } from "./FAQ";
 export { CTASection } from "./CTASection";
 export { MarketingHero } from "./MarketingHero";
-export {
-  APP_LOGIN,
-  APP_SIGNUP,
-  SCREENS,
-  type MediaItem,
-} from "./content";
+export { APP_LOGIN, APP_SIGNUP, SCREENS, type MediaItem } from "./content";

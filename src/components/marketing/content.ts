@@ -9,20 +9,9 @@ export const SCREENS = {
   expiring: "/product-screens/mkt-expiring.webp",
   purchasing: "/product-screens/mkt-purchase-orders.webp",
   suppliers: "/product-screens/mkt-suppliers.webp",
-  reporting: "/product-screens/mkt-reporting.webp",
+  reporting: "/product-screens/mkt-savings-usage.webp",
   rfqCompare: "/product-screens/mkt-rfq-workflow.webp",
   rfqCompareFull: "/product-screens/mkt-rfq-workflow-full.webp",
-  heroDepth: "/product-screens/mkt-hero-depth.webp",
-  heroActions: "/product-screens/mkt-hero-actions.webp",
-  heroStockRisk: "/product-screens/mkt-hero-stock-risk.webp",
-  tourDashboard: "/product-screens/mkt-tour-dashboard.webp",
-  tourStock: "/product-screens/mkt-tour-stock.webp",
-  tourLowStock: "/product-screens/mkt-tour-low-stock.webp",
-  tourExpiring: "/product-screens/mkt-tour-expiring.webp",
-  tourSuppliers: "/product-screens/mkt-tour-suppliers.webp",
-  tourOrders: "/product-screens/mkt-tour-orders.webp",
-  tourReporting: "/product-screens/mkt-tour-reporting.webp",
-  tourRfq: "/product-screens/mkt-tour-rfq.webp",
 } as const;
 
 export type MediaFit = "cover" | "contain";
@@ -39,6 +28,6 @@ export type MediaItem = {
   objectPosition?: string;
   aspectRatio?: string;
   objectFit?: MediaFit;
-  /** Wider card for Product Tour final row */
+  /** Wider card — unused by the focused tour selector; retained for type compatibility */
   wide?: boolean;
 };

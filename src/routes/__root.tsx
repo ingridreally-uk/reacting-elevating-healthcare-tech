@@ -81,6 +81,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "theme-color", content: "#0B2B28" },
       { title: "Dental Assist by Reacting — Practice operations, made clearer" },
       {
         name: "description",
@@ -152,19 +153,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           url: "https://www.reacting.io",
           description:
             "Dental practice operations software for stock, materials, suppliers, RFQs, purchase orders, expiry tracking and spend visibility in one connected workspace.",
-          featureList: [
-            "Dental inventory and stock management",
-            "Stock by location",
-            "Low-stock alerts",
-            "Expiry tracking",
-            "Supplier management",
-            "RFQ and quotation comparison",
-            "Purchase-order management",
-            "Spending, usage and savings reporting",
-          ],
+          brand: {
+            "@type": "Brand",
+            name: "Reacting",
+          },
           offers: {
             "@type": "Offer",
-            price: "59.00",
+            price: "59",
             priceCurrency: "GBP",
             description: "Per practice / month. 14-day free trial. No credit card required.",
           },

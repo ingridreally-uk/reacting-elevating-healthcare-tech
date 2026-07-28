@@ -6,6 +6,7 @@ import { ReactingLogoLink } from "./ReactingLogo";
 
 const navLinks = [
   { label: "Features", href: "/#features" },
+  { label: "Product tour", href: "/#product-gallery" },
   { label: "Pricing", href: "/#pricing" },
   { label: "FAQ", href: "/#faq" },
 ];
@@ -53,12 +54,15 @@ export function SiteHeader() {
         <div className="hidden items-center gap-2 md:flex">
           <a
             href="https://app.reacting.io/login"
+            rel="noopener noreferrer"
             className="rounded-sm px-3 py-2 text-[13.5px] text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
             Login
           </a>
           <Button asChild className="h-9 rounded-full px-4 text-[13px] font-medium">
-            <a href="https://app.reacting.io/signup">Start Free Trial</a>
+            <a href="https://app.reacting.io/signup" rel="noopener noreferrer">
+              Start Free Trial
+            </a>
           </Button>
         </div>
         <button
@@ -86,13 +90,18 @@ export function SiteHeader() {
             ))}
             <a
               href="https://app.reacting.io/login"
+              rel="noopener noreferrer"
               onClick={() => setOpen(false)}
               className="rounded-md px-2 py-3 text-[15px] text-foreground/85 hover:bg-secondary"
             >
               Login
             </a>
             <Button asChild className="mt-3 h-11 w-full rounded-full">
-              <a href="https://app.reacting.io/signup" onClick={() => setOpen(false)}>
+              <a
+                href="https://app.reacting.io/signup"
+                rel="noopener noreferrer"
+                onClick={() => setOpen(false)}
+              >
                 Start Free Trial
               </a>
             </Button>
@@ -104,9 +113,11 @@ export function SiteHeader() {
 }
 
 function FooterLink({ label, href }: { label: string; href: string }) {
+  const external = href.startsWith("http");
   return (
     <a
       href={href}
+      {...(external ? { rel: "noopener noreferrer" } : {})}
       className="rounded-sm text-[13.5px] text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
     >
       {label}
@@ -137,11 +148,11 @@ export function SiteFooter() {
 
   return (
     <footer className="border-t border-border/40 bg-[#FBFDFC]">
-      <div className="mx-auto max-w-[1200px] px-6 pb-11 pt-16 lg:px-10 lg:pb-12 lg:pt-20">
-        <div className="grid gap-14 sm:grid-cols-2 lg:grid-cols-[minmax(0,1.4fr)_1fr_1fr] lg:gap-20">
+      <div className="mx-auto max-w-[1200px] px-6 pb-8 pt-10 lg:px-10 lg:pb-9 lg:pt-11">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[minmax(0,1.3fr)_1fr_1fr] lg:gap-14">
           <div className="sm:col-span-2 lg:col-span-1">
-            <ReactingLogoLink widthClassName="w-[150px]" />
-            <p className="mt-6 max-w-[34ch] text-[13.5px] leading-[1.75] text-muted-foreground">
+            <ReactingLogoLink widthClassName="w-[140px]" />
+            <p className="mt-4 max-w-[34ch] text-[13px] leading-[1.7] text-muted-foreground">
               Reacting builds practical operational software for modern dental practices. Dental
               Assist is our first product.
             </p>
@@ -151,7 +162,7 @@ export function SiteFooter() {
               <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-foreground/90">
                 {c.title}
               </div>
-              <ul className="mt-5 space-y-3.5">
+              <ul className="mt-4 space-y-2.5">
                 {c.links.map((l) => (
                   <li key={l.label}>
                     <FooterLink label={l.label} href={l.href} />
@@ -161,13 +172,21 @@ export function SiteFooter() {
             </div>
           ))}
         </div>
-        <div className="mt-14 flex flex-col items-start justify-between gap-3 border-t border-border/60 pt-8 sm:flex-row sm:items-center">
+        <div className="mt-9 flex flex-col items-start justify-between gap-3 border-t border-border/60 pt-6 sm:flex-row sm:items-center">
           <p className="text-[12px] text-muted-foreground">
             © {new Date().getFullYear()} Reacting Ltd. All rights reserved.
           </p>
-          <p className="text-[12px] text-muted-foreground">
-            Dental Assist · A Reacting product · Built in practice
-          </p>
+          <ul className="flex flex-wrap gap-x-4 gap-y-1 text-[12px] text-muted-foreground">
+            <li>
+              <FooterLink label="Privacy Policy" href="/privacy" />
+            </li>
+            <li>
+              <FooterLink label="Terms" href="/terms" />
+            </li>
+            <li>
+              <FooterLink label="Cookie Policy" href="/cookies" />
+            </li>
+          </ul>
         </div>
       </div>
     </footer>

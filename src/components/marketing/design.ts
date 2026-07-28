@@ -5,10 +5,11 @@
 export const elev = {
   card: "shadow-[0_1px_2px_rgba(11,43,40,0.04),0_4px_12px_-4px_rgba(11,43,40,0.08)]",
   cardHover: "shadow-[0_4px_16px_-4px_rgba(11,43,40,0.12)]",
-  product: "shadow-[0_10px_28px_-12px_rgba(11,43,40,0.18),0_2px_6px_-2px_rgba(11,43,40,0.06)]",
+  product: "shadow-[0_8px_24px_-12px_rgba(11,43,40,0.14),0_2px_6px_-2px_rgba(11,43,40,0.05)]",
+  /** Hero product — restrained contact + ambient. */
   productHero:
-    "shadow-[0_28px_56px_-22px_rgba(11,43,40,0.32),0_10px_20px_-10px_rgba(11,43,40,0.14)]",
-  focus: "shadow-[0_14px_32px_-16px_rgba(11,43,40,0.32),0_4px_12px_-4px_rgba(11,43,40,0.14)]",
+    "shadow-[0_1px_2px_rgba(11,43,40,0.04),0_12px_28px_-10px_rgba(11,43,40,0.14),0_28px_48px_-20px_rgba(11,43,40,0.12)]",
+  focus: "shadow-[0_6px_16px_-8px_rgba(11,43,40,0.12),0_2px_6px_-2px_rgba(11,43,40,0.06)]",
 } as const;
 
 export const radius = {

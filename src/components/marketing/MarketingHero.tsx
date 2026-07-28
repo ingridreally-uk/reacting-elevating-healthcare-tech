@@ -3,58 +3,58 @@ import { ArrowRight, Check } from "lucide-react";
 import { ProductFrame } from "./ProductFrame";
 import { MediaViewer } from "./MediaViewer";
 import { APP_SIGNUP, SCREENS } from "./content";
-import { btn, elev, layout, radius } from "./design";
+import { btn, layout } from "./design";
 import { cn } from "@/lib/utils";
 
 const trialPoints = ["14-day free trial", "No credit card required", "Built for dental practices"];
 
-/** Compact product highlight — extracted from the matching dashboard region. */
-function FocusPanel({
-  src,
+const insightChips = [
+  { label: "£450 saved this month", position: "left-[1%] top-[16%] lg:left-[-2%] lg:top-[14%]" },
+  { label: "23 stock risks", position: "right-[1%] top-[20%] lg:right-[-2%] lg:top-[18%]" },
+  { label: "3 actions ready", position: "bottom-[8%] right-[3%] lg:bottom-[6%] lg:right-[1%]" },
+] as const;
+
+function InsightChip({
+  label,
   className,
-  drift = false,
+  delay,
   reduceMotion,
 }: {
-  src: string;
+  label: string;
   className?: string;
-  drift?: boolean;
+  delay: number;
   reduceMotion: boolean | null;
 }) {
   return (
     <motion.div
       aria-hidden
       className={cn(
-        "pointer-events-none overflow-hidden border border-border/45 bg-card",
-        radius.card,
-        elev.focus,
+        "pointer-events-none absolute z-[2] hidden rounded-lg border border-black/[0.06] bg-white/95 px-3 py-2 text-[12px] font-semibold tracking-tight text-foreground shadow-[0_1px_2px_rgba(11,43,40,0.04),0_8px_18px_-10px_rgba(11,43,40,0.14)] backdrop-blur-sm md:block",
         className,
       )}
-      initial={reduceMotion ? false : { opacity: 0, y: 8, scale: 0.985 }}
+      initial={reduceMotion ? false : { opacity: 0, y: 6, scale: 0.98 }}
       animate={
         reduceMotion
-          ? { opacity: 1 }
-          : drift
-            ? { opacity: 1, y: [0, -4, 0], scale: 1 }
-            : { opacity: 1, y: 0, scale: 1 }
+          ? { opacity: 1, scale: 1 }
+          : {
+              opacity: [0.55, 1, 1, 0.55],
+              y: 0,
+              scale: [0.98, 1, 1, 0.98],
+            }
       }
       transition={
-        drift && !reduceMotion
-          ? {
-              opacity: { duration: 0.5, delay: 0.35 },
-              y: { duration: 7.5, repeat: Infinity, ease: "easeInOut" },
-              scale: { duration: 0.5, delay: 0.35 },
+        reduceMotion
+          ? { duration: 0.35, delay }
+          : {
+              duration: 5.4,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay,
+              times: [0, 0.18, 0.55, 1],
             }
-          : { duration: 0.5, delay: 0.28, ease: "easeOut" }
       }
     >
-      <img
-        src={src}
-        alt=""
-        className="h-full w-full object-cover object-left-top"
-        loading="eager"
-        decoding="async"
-        draggable={false}
-      />
+      {label}
     </motion.div>
   );
 }
@@ -65,48 +65,48 @@ export function MarketingHero() {
   return (
     <section
       aria-labelledby="hero-heading"
-      className="relative overflow-x-clip border-b border-border/60 bg-[linear-gradient(165deg,#F7FBF9_0%,#EEF6F3_42%,#FFFFFF_100%)]"
+      className="relative overflow-x-clip border-b border-border/50 bg-[linear-gradient(180deg,#F8FBFA_0%,#FFFFFF_58%,#FFFFFF_100%)]"
     >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-[72%] bg-[radial-gradient(ellipse_at_78%_18%,oklch(0.93_0.03_165)_0%,transparent_56%)]"
-      />
       <div
         className={cn(
           layout.shell,
-          "relative grid items-center gap-8 pb-12 pt-10 md:grid-cols-12 md:gap-8 md:pb-14 md:pt-11 lg:gap-10 lg:pb-16 lg:pt-12",
+          "relative grid items-center gap-7 py-8 md:grid-cols-12 md:gap-6 md:py-9 lg:gap-8 lg:py-10",
         )}
       >
         <motion.div
           className="relative z-10 flex flex-col justify-center md:col-span-5"
-          initial={reduceMotion ? false : { opacity: 0, y: 14 }}
+          initial={reduceMotion ? false : { opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45 }}
+          transition={{ duration: 0.4 }}
         >
-          <div className={layout.eyebrow}>Dental practice operations, made clearer</div>
+          <div className={layout.eyebrow}>Dental practice stock &amp; purchasing, made clear</div>
           <h1
             id="hero-heading"
-            className="mt-3 max-w-[18ch] text-[34px] font-semibold leading-[1.06] tracking-[-0.035em] text-foreground sm:text-[46px] sm:leading-[1.02] lg:text-[52px]"
+            className="mt-3 max-w-[17ch] text-[30px] font-semibold leading-[1.06] tracking-[-0.035em] text-foreground sm:text-[40px] sm:leading-[1.02] lg:text-[46px]"
           >
-            Know what your practice has, needs and spends.
+            Stop losing time and money to scattered stock control.
           </h1>
-          <p className="mt-3.5 max-w-[38ch] text-[15px] leading-[1.65] text-muted-foreground sm:mt-4 sm:max-w-[40ch] sm:text-[16.5px] sm:leading-[1.68]">
-            Dental Assist connects stock, suppliers, purchasing, expiry tracking and reporting,
-            helping dental teams reduce waste, prevent shortages and make clearer day-to-day
-            decisions.
+          <p className="mt-3 max-w-[42ch] text-[14.5px] leading-[1.65] text-muted-foreground sm:text-[15.5px] sm:leading-[1.68]">
+            Dental Assist gives your team one live view of stock, expiry risk, suppliers,
+            quotations, purchase orders and spend — helping you prevent shortages, reduce waste and
+            buy with confidence.
           </p>
 
-          <div className="mt-5 flex flex-col gap-2.5 sm:mt-6 sm:flex-row sm:items-center">
-            <a href={APP_SIGNUP} className={cn(btn.base, btn.primary, "w-full sm:w-auto")}>
+          <div className="mt-4 flex flex-col gap-2.5 sm:mt-5 sm:flex-row sm:items-center">
+            <a
+              href={APP_SIGNUP}
+              rel="noopener noreferrer"
+              className={cn(btn.base, btn.primary, "w-full sm:w-auto")}
+            >
               Start Free Trial
               <ArrowRight className="h-4 w-4" strokeWidth={1.75} />
             </a>
             <a href="#product-gallery" className={cn(btn.base, btn.secondary, "w-full sm:w-auto")}>
-              See Dental Assist in action
+              Explore Dental Assist
             </a>
           </div>
 
-          <ul className="mt-4 flex flex-col gap-1.5 sm:mt-5 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-5 sm:gap-y-1.5">
+          <ul className="mt-3.5 flex flex-col gap-1.5 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-5 sm:gap-y-1.5">
             {trialPoints.map((p) => (
               <li
                 key={p}
@@ -122,75 +122,36 @@ export function MarketingHero() {
           </ul>
         </motion.div>
 
-        <div className="relative min-w-0 md:col-span-7">
-          <motion.div
+        <motion.div
+          className="relative min-w-0 md:col-span-7"
+          initial={reduceMotion ? false : { opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <div
             aria-hidden
-            className="pointer-events-none absolute inset-[8%] -z-10 translate-x-4 translate-y-5 overflow-hidden rounded-[1.35rem] border border-border/25 opacity-[0.36] blur-[0.5px] md:translate-x-5 md:translate-y-6"
-            initial={reduceMotion ? false : { opacity: 0 }}
-            animate={{ opacity: 0.36 }}
-            transition={{ duration: 0.7, delay: 0.08 }}
-          >
-            <img
-              src={SCREENS.heroDepth}
-              alt=""
-              className="h-full w-full scale-[1.06] object-cover"
-              loading="eager"
-              decoding="async"
-              draggable={false}
-            />
-          </motion.div>
-
-          <motion.div
-            className="relative z-[1]"
-            initial={reduceMotion ? false : { opacity: 0, y: 16, scale: 0.988 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 0.55, delay: 0.06, ease: "easeOut" }}
-          >
-            <ProductFrame label="app.reacting.io / dashboard" emphasis="hero">
-              <MediaViewer
-                imageSrc={SCREENS.dashboard}
-                alt="Dental Assist operational dashboard showing KPI cards, budget, actions required, low-stock alerts and expiry warnings"
-                priority
-                objectFit="contain"
-                objectPosition="center"
-                aspectRatio="16 / 10"
-              />
-            </ProductFrame>
-          </motion.div>
-
-          {/* Max two compact highlights — never cover central KPI row */}
-          <div className="pointer-events-none absolute inset-0 z-[3] hidden md:block">
-            <FocusPanel
-              src={SCREENS.heroStockRisk}
+            className="pointer-events-none absolute -bottom-3 left-[14%] right-[14%] z-0 h-7 rounded-[100%] bg-[radial-gradient(ellipse_at_center,rgba(11,43,40,0.11)_0%,transparent_72%)] blur-md"
+          />
+          {insightChips.map((chip, i) => (
+            <InsightChip
+              key={chip.label}
+              label={chip.label}
+              className={chip.position}
+              delay={0.4 + i * 1.8}
               reduceMotion={reduceMotion}
-              className="absolute left-[-1.5%] top-[18%] h-[72px] w-[104px] lg:left-[-2%] lg:h-[80px] lg:w-[116px]"
             />
-            <FocusPanel
-              src={SCREENS.heroActions}
-              reduceMotion={reduceMotion}
-              drift
-              className="absolute bottom-[10%] right-[-2.5%] hidden h-[96px] w-[188px] lg:block lg:h-[108px] lg:w-[210px]"
+          ))}
+          <ProductFrame label="app.reacting.io / dashboard" emphasis="hero">
+            <MediaViewer
+              imageSrc={SCREENS.dashboard}
+              alt="Dental Assist dashboard showing stock risk, monthly spend, purchasing actions and expiry alerts"
+              priority
+              objectFit="cover"
+              objectPosition="center top"
+              aspectRatio="16 / 10"
             />
-          </div>
-
-          {/* Tablet: one highlight only */}
-          <div className="pointer-events-none absolute inset-0 z-[3] hidden sm:block md:hidden">
-            <FocusPanel
-              src={SCREENS.heroStockRisk}
-              reduceMotion={reduceMotion}
-              className="absolute left-[-1%] top-[16%] h-[64px] w-[92px]"
-            />
-          </div>
-
-          {/* Mobile: compact highlight below the frame, not over it */}
-          <div className="mt-3 sm:hidden">
-            <FocusPanel
-              src={SCREENS.heroActions}
-              reduceMotion={reduceMotion}
-              className="relative mx-auto h-[88px] w-[min(100%,280px)]"
-            />
-          </div>
-        </div>
+          </ProductFrame>
+        </motion.div>
       </div>
     </section>
   );

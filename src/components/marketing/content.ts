@@ -11,7 +11,6 @@ export const SCREENS = {
   suppliers: "/product-screens/mkt-suppliers.webp",
   reporting: "/product-screens/mkt-savings-usage.webp",
   rfqCompare: "/product-screens/mkt-rfq-workflow.webp",
-  rfqCompareFull: "/product-screens/mkt-rfq-workflow-full.webp",
 } as const;
 
 export type MediaFit = "cover" | "contain";

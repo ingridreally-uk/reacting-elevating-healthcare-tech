@@ -3,26 +3,16 @@ import { ArrowRight, MapPin, Building2, Stethoscope } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SiteShell, PageHero } from "@/components/site/SiteChrome";
 import { TrustBar } from "@/components/site/ProductMock";
-import { SITE_ORIGIN } from "@/lib/site-url";
+import { pageMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/about")({
-  head: () => ({
-    meta: [
-      { title: "About — Reacting" },
-      {
-        name: "description",
-        content:
-          "Reacting builds cloud software for healthcare businesses. Dental Assist, our first product, was built inside a real dental practice.",
-      },
-      { property: "og:title", content: "About — Reacting" },
-      {
-        property: "og:description",
-        content:
-          "Reacting builds cloud software for healthcare, starting with Dental Assist.",
-      },
-    ],
-    links: [{ rel: "canonical", href: `${SITE_ORIGIN}/about` }],
-  }),
+  head: () =>
+    pageMeta({
+      title: "About Reacting — The Team Behind Dental Assist",
+      description:
+        "Reacting builds cloud software for healthcare businesses. Dental Assist, our first product, was built inside a real dental practice.",
+      path: "/about",
+    }),
   component: AboutPage,
 });
 

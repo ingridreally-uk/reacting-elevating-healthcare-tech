@@ -152,9 +152,18 @@ function Lightbox({
   );
 }
 
+function pathLabel(title: string) {
+  if (title === "Savings & Reporting") return "savings & usage";
+  if (title === "RFQ Comparison") return "rfq";
+  if (title === "Purchase Orders") return "purchase orders";
+  if (title === "Expiry Tracking") return "expiring stock";
+  if (title === "Low Stock") return "low stock";
+  return title.toLowerCase();
+}
+
 /**
- * Focused product tour: one large preview + workflow selector.
- * Prefer full feature screenshots so visitors can read the UI without zooming.
+ * Interactive workflow walkthrough — screenshots carry the explanation.
+ * Reserved media slot above the preview can host a product video later.
  */
 export function MediaGallery({ items }: { items: MediaItem[] }) {
   const [active, setActive] = useState(0);
@@ -176,10 +185,10 @@ export function MediaGallery({ items }: { items: MediaItem[] }) {
       <div className="grid items-start gap-6 lg:grid-cols-12 lg:gap-8">
         <div className="lg:col-span-4">
           <p id={listId} className="sr-only">
-            Product workflows
+            Product workflow steps
           </p>
-          <ul
-            className="flex gap-2 overflow-x-auto pb-1 lg:flex-col lg:gap-1.5 lg:overflow-visible lg:pb-0"
+          <ol
+            className="flex gap-2 overflow-x-auto pb-1 lg:flex-col lg:gap-1 lg:overflow-visible lg:pb-0"
             role="tablist"
             aria-labelledby={listId}
             onKeyDown={(e) => {
@@ -218,25 +227,38 @@ export function MediaGallery({ items }: { items: MediaItem[] }) {
                     id={`tour-tab-${entry.id}`}
                     onClick={() => setActive(i)}
                     className={cn(
-                      "w-full rounded-xl border px-3.5 py-3 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                      "group flex w-full items-start gap-3 rounded-xl border px-3 py-2.5 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                       selected
-                        ? "border-[oklch(0.72_0.05_165)] bg-white shadow-[0_1px_2px_rgba(11,43,40,0.04)]"
+                        ? "border-[oklch(0.66_0.11_210)] bg-white shadow-[0_1px_2px_rgba(11,23,48,0.04)]"
                         : "border-transparent bg-transparent hover:bg-white/70",
                     )}
                   >
-                    <span className="block text-[13.5px] font-semibold tracking-tight text-foreground">
-                      {entry.title}
+                    <span
+                      className={cn(
+                        "mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[11px] font-semibold tabular-nums",
+                        selected
+                          ? "bg-[oklch(0.4_0.08_260)] text-white"
+                          : "bg-[oklch(0.94_0.02_260)] text-[oklch(0.4_0.08_260)]",
+                      )}
+                      aria-hidden
+                    >
+                      {String(i + 1).padStart(2, "0")}
                     </span>
-                    {entry.description ? (
-                      <span className="mt-0.5 block text-[12px] leading-snug text-muted-foreground">
-                        {entry.description}
+                    <span className="min-w-0">
+                      <span className="block text-[13.5px] font-semibold tracking-tight text-foreground">
+                        {entry.title}
                       </span>
-                    ) : null}
+                      {entry.description ? (
+                        <span className="mt-0.5 block text-[12px] leading-snug text-muted-foreground">
+                          {entry.description}
+                        </span>
+                      ) : null}
+                    </span>
                   </button>
                 </li>
               );
             })}
-          </ul>
+          </ol>
         </div>
 
         <div className="min-w-0 lg:col-span-8">
@@ -253,9 +275,7 @@ export function MediaGallery({ items }: { items: MediaItem[] }) {
                 onClick={(e) => openLightbox(active, e.currentTarget)}
                 aria-label={`Open larger view of ${item.title}`}
               >
-                <ProductFrame
-                  label={`app.reacting.io / ${item.title === "Savings & Reporting" ? "savings & usage" : item.title.toLowerCase()}`}
-                >
+                <ProductFrame label={`app.reacting.io / ${pathLabel(item.title)}`}>
                   <div className="aspect-[16/10] w-full">
                     <MediaViewer
                       imageSrc={item.imageSrc}
@@ -270,7 +290,7 @@ export function MediaGallery({ items }: { items: MediaItem[] }) {
                 </ProductFrame>
               </button>
               <p className="mt-3 text-center text-[12.5px] text-muted-foreground">
-                Select a workflow to see how information moves through the practice.
+                Step {active + 1} of {items.length} — follow the workflow through the practice.
               </p>
             </motion.div>
           </div>

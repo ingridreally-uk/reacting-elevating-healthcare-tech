@@ -5,10 +5,10 @@ import { Button } from "@/components/ui/button";
 import { ReactingLogoLink } from "./ReactingLogo";
 
 const navLinks = [
-  { label: "Features", href: "/#features" },
-  { label: "Product tour", href: "/#product-gallery" },
+  { label: "Product", href: "/product" },
+  { label: "Features", href: "/features" },
   { label: "Pricing", href: "/#pricing" },
-  { label: "FAQ", href: "/#faq" },
+  { label: "About", href: "/about" },
 ];
 
 export function Logo(_props: { height?: number } = {}) {
@@ -40,16 +40,26 @@ export function SiteHeader() {
     >
       <div className="mx-auto flex h-16 max-w-[1280px] items-center justify-between px-6 lg:px-10">
         <HeaderLogo />
-        <nav aria-label="Primary" className="hidden items-center gap-9 md:flex">
-          {navLinks.map((l) => (
-            <a
-              key={l.label}
-              href={l.href}
-              className="rounded-sm text-[13.5px] text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-            >
-              {l.label}
-            </a>
-          ))}
+        <nav aria-label="Primary" className="hidden items-center gap-8 md:flex">
+          {navLinks.map((l) =>
+            l.href.startsWith("/#") ? (
+              <a
+                key={l.label}
+                href={l.href}
+                className="rounded-sm text-[13.5px] text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              >
+                {l.label}
+              </a>
+            ) : (
+              <Link
+                key={l.label}
+                to={l.href}
+                className="rounded-sm text-[13.5px] text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              >
+                {l.label}
+              </Link>
+            ),
+          )}
         </nav>
         <div className="hidden items-center gap-2 md:flex">
           <a
@@ -78,16 +88,27 @@ export function SiteHeader() {
       {open && (
         <div className="border-t border-border/70 bg-background md:hidden">
           <div className="mx-auto flex max-w-[1280px] flex-col gap-1 px-6 py-4">
-            {navLinks.map((l) => (
-              <a
-                key={l.label}
-                href={l.href}
-                onClick={() => setOpen(false)}
-                className="rounded-md px-2 py-3 text-[15px] text-foreground/85 hover:bg-secondary"
-              >
-                {l.label}
-              </a>
-            ))}
+            {navLinks.map((l) =>
+              l.href.startsWith("/#") ? (
+                <a
+                  key={l.label}
+                  href={l.href}
+                  onClick={() => setOpen(false)}
+                  className="rounded-md px-2 py-3 text-[15px] text-foreground/85 hover:bg-secondary"
+                >
+                  {l.label}
+                </a>
+              ) : (
+                <Link
+                  key={l.label}
+                  to={l.href}
+                  onClick={() => setOpen(false)}
+                  className="rounded-md px-2 py-3 text-[15px] text-foreground/85 hover:bg-secondary"
+                >
+                  {l.label}
+                </Link>
+              ),
+            )}
             <a
               href="https://app.reacting.io/login"
               rel="noopener noreferrer"
@@ -114,6 +135,16 @@ export function SiteHeader() {
 
 function FooterLink({ label, href }: { label: string; href: string }) {
   const external = href.startsWith("http");
+  if (!external && !href.startsWith("/#")) {
+    return (
+      <Link
+        to={href}
+        className="rounded-sm text-[13.5px] text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+      >
+        {label}
+      </Link>
+    );
+  }
   return (
     <a
       href={href}
@@ -130,10 +161,18 @@ export function SiteFooter() {
     {
       title: "Product",
       links: [
-        { label: "Features", href: "/#features" },
-        { label: "Product tour", href: "/#product-gallery" },
+        { label: "Product", href: "/product" },
+        { label: "Features", href: "/features" },
         { label: "Pricing", href: "/#pricing" },
         { label: "FAQ", href: "/#faq" },
+      ],
+    },
+    {
+      title: "Company",
+      links: [
+        { label: "About", href: "/about" },
+        { label: "Resources", href: "/resources" },
+        { label: "Contact", href: "/contact" },
       ],
     },
     {
@@ -141,28 +180,28 @@ export function SiteFooter() {
       links: [
         { label: "Login", href: "https://app.reacting.io/login" },
         { label: "Start Free Trial", href: "https://app.reacting.io/signup" },
-        { label: "Contact", href: "/contact" },
+        { label: "Book a Demo", href: "/book-demo" },
       ],
     },
   ];
 
   return (
-    <footer className="border-t border-border/40 bg-[#FBFDFC]">
-      <div className="mx-auto max-w-[1200px] px-6 pb-8 pt-10 lg:px-10 lg:pb-9 lg:pt-11">
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[minmax(0,1.3fr)_1fr_1fr] lg:gap-14">
+    <footer className="border-t border-border/40 bg-[#FAFBFC]">
+      <div className="mx-auto max-w-[1200px] px-6 pb-7 pt-8 lg:px-10 lg:pb-8 lg:pt-9">
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-[minmax(0,1.2fr)_1fr_1fr_1fr] lg:gap-10">
           <div className="sm:col-span-2 lg:col-span-1">
-            <ReactingLogoLink widthClassName="w-[140px]" />
-            <p className="mt-4 max-w-[34ch] text-[13px] leading-[1.7] text-muted-foreground">
-              Reacting builds practical operational software for modern dental practices. Dental
-              Assist is our first product.
+            <ReactingLogoLink widthClassName="w-[128px]" />
+            <p className="mt-3 max-w-[32ch] text-[12.5px] leading-[1.65] text-muted-foreground">
+              Reacting builds practical operational software for dental practices. Dental Assist is
+              our first product.
             </p>
           </div>
           {cols.map((c) => (
             <div key={c.title}>
-              <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-foreground/90">
+              <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-foreground/85">
                 {c.title}
               </div>
-              <ul className="mt-4 space-y-2.5">
+              <ul className="mt-3 space-y-2">
                 {c.links.map((l) => (
                   <li key={l.label}>
                     <FooterLink label={l.label} href={l.href} />
@@ -172,11 +211,11 @@ export function SiteFooter() {
             </div>
           ))}
         </div>
-        <div className="mt-9 flex flex-col items-start justify-between gap-3 border-t border-border/60 pt-6 sm:flex-row sm:items-center">
-          <p className="text-[12px] text-muted-foreground">
+        <div className="mt-7 flex flex-col items-start justify-between gap-2.5 border-t border-border/55 pt-5 sm:flex-row sm:items-center">
+          <p className="text-[11.5px] text-muted-foreground">
             © {new Date().getFullYear()} Reacting Ltd. All rights reserved.
           </p>
-          <ul className="flex flex-wrap gap-x-4 gap-y-1 text-[12px] text-muted-foreground">
+          <ul className="flex flex-wrap gap-x-4 gap-y-1 text-[11.5px] text-muted-foreground">
             <li>
               <FooterLink label="Privacy Policy" href="/privacy" />
             </li>

@@ -1,6 +1,8 @@
 User-agent: *
 Allow: /
-Disallow: /dashboard
-Disallow: /rfq-comparison
+
+# /dashboard and /rfq-comparison are excluded via <meta name="robots" content="noindex, nofollow">
+# on the pages themselves, not Disallow — a Disallow rule would stop crawlers reading that tag
+# and could leave the URL indexed with no snippet.
 
 Sitemap: https://www.reacting.io/sitemap.xml

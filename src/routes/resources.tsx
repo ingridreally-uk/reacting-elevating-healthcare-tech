@@ -3,26 +3,16 @@ import { ArrowRight, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SiteShell, PageHero } from "@/components/site/SiteChrome";
 import { TrustBar } from "@/components/site/ProductMock";
-import { SITE_ORIGIN } from "@/lib/site-url";
+import { pageMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/resources")({
-  head: () => ({
-    meta: [
-      { title: "Resources | Reacting" },
-      {
-        name: "description",
-        content:
-          "Learn about Reacting and book a personalised demo. Our Academy, Help Centre and training resources are currently in development.",
-      },
-      { property: "og:title", content: "Resources | Reacting" },
-      {
-        property: "og:description",
-        content:
-          "Learn about Reacting and book a personalised demo. Our Academy, Help Centre and training resources are currently in development.",
-      },
-    ],
-    links: [{ rel: "canonical", href: `${SITE_ORIGIN}/resources` }],
-  }),
+  head: () =>
+    pageMeta({
+      title: "Resources for Dental Practice Operations | Reacting",
+      description:
+        "Learn about Reacting and book a personalised demo. Our Academy, Help Centre and training resources are currently in development.",
+      path: "/resources",
+    }),
   component: ResourcesPage,
 });
 

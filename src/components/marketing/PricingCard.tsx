@@ -1,15 +1,14 @@
 import { Check, ArrowRight } from "lucide-react";
-import { motion } from "framer-motion";
 import { APP_SIGNUP } from "./content";
 import { btn, elev, iconStroke, layout, radius } from "./design";
 import { cn } from "@/lib/utils";
 
 const included = [
-  "Inventory visibility",
+  "Live shelf quantities",
   "Low-stock alerts",
   "Expiry tracking",
-  "Supplier management",
-  "RFQ comparison",
+  "Supplier directory",
+  "Quote comparison",
   "Purchase orders",
   "Spend and usage reporting",
   "Unlimited products",
@@ -20,21 +19,15 @@ const included = [
 
 export function PricingCard() {
   return (
-    <motion.div
-      className="mx-auto max-w-[920px]"
-      initial={{ opacity: 0, y: 14 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.35 }}
-    >
+    <div className="mx-auto max-w-[920px]">
       <div className="mx-auto max-w-xl text-center">
         <div className={layout.eyebrow}>Pricing</div>
         <h2 id="pricing-heading" className={cn(layout.h2, "mt-2.5")}>
-          Simple pricing for the whole practice.
+          One practice. One clear monthly cost.
         </h2>
         <p className={cn(layout.lead, "mx-auto mt-3 max-w-[42ch]")}>
-          One clear plan for dental practices — stock, suppliers, purchasing, expiry tracking and
-          reporting in one workspace.
+          Everything the day needs — shelf visibility, risk alerts, suppliers, quotes, orders and
+          reporting — without per-seat pricing.
         </p>
       </div>
 
@@ -46,7 +39,7 @@ export function PricingCard() {
         )}
       >
         <div className="grid lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
-          <div className="flex flex-col justify-between border-b border-border/55 bg-[#F7FBF9] p-7 sm:p-8 lg:border-b-0 lg:border-r">
+          <div className="flex flex-col justify-between border-b border-border/55 bg-[#F1F5F9] p-7 sm:p-8 lg:border-b-0 lg:border-r">
             <div>
               <div className="text-[13px] font-semibold tracking-tight text-foreground">
                 Practice plan
@@ -70,7 +63,7 @@ export function PricingCard() {
                 ].map((t) => (
                   <li key={t} className="flex items-center gap-2.5">
                     <Check
-                      className="h-3.5 w-3.5 shrink-0 text-[oklch(0.52_0.12_165)]"
+                      className="h-3.5 w-3.5 shrink-0 text-accent"
                       strokeWidth={iconStroke}
                     />
                     {t}
@@ -101,7 +94,7 @@ export function PricingCard() {
               {included.map((entry) => (
                 <li key={entry} className="flex items-start gap-2.5 text-[13.5px] text-foreground">
                   <Check
-                    className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[oklch(0.52_0.12_165)]"
+                    className="mt-0.5 h-3.5 w-3.5 shrink-0 text-accent"
                     strokeWidth={iconStroke}
                   />
                   {entry}
@@ -111,6 +104,6 @@ export function PricingCard() {
           </div>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }

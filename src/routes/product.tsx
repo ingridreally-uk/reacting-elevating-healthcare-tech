@@ -7,29 +7,17 @@ import {
   ShowcaseScreenshot,
   TrustBar,
 } from "@/components/site/ProductMock";
-import { SITE_ORIGIN } from "@/lib/site-url";
+import { pageMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/product")({
-  head: () => ({
-    meta: [
-      { title: "Dental Practice Management Software | Dental Assist" },
-      {
-        name: "description",
-        content:
-          "Dental Assist helps dental practices manage purchasing, inventory, suppliers and day-to-day operations with software developed and refined inside a real dental practice.",
-      },
-      {
-        property: "og:title",
-        content: "Dental Practice Management Software | Dental Assist",
-      },
-      {
-        property: "og:description",
-        content:
-          "Dental Assist helps dental practices manage purchasing, inventory, suppliers and day-to-day operations with software developed and refined inside a real dental practice.",
-      },
-    ],
-    links: [{ rel: "canonical", href: `${SITE_ORIGIN}/product` }],
-  }),
+  head: () =>
+    pageMeta({
+      title: "Dental Stock, Purchasing & RFQ Software | Dental Assist",
+      description:
+        "Dental Assist helps dental practices manage purchasing, inventory, suppliers and day-to-day operations with software developed and refined inside a real dental practice.",
+      path: "/product",
+      imageAlt: "Dental Assist dashboard — real product screen",
+    }),
   component: ProductPage,
 });
 

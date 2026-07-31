@@ -3,26 +3,16 @@ import { useState } from "react";
 import { Clock, MessageSquare, ShieldCheck, Monitor } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SiteShell } from "@/components/site/SiteChrome";
-import { SITE_ORIGIN } from "@/lib/site-url";
+import { pageMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/book-demo")({
-  head: () => ({
-    meta: [
-      { title: "Book a Demo — Dental Assist by Reacting" },
-      {
-        name: "description",
-        content:
-          "Book a 30-minute online walkthrough of Dental Assist. See the platform, ask questions, no obligation.",
-      },
-      { property: "og:title", content: "Book a Demo — Dental Assist" },
-      {
-        property: "og:description",
-        content:
-          "30-minute online walkthrough. See the platform, ask questions, no obligation.",
-      },
-    ],
-    links: [{ rel: "canonical", href: `${SITE_ORIGIN}/book-demo` }],
-  }),
+  head: () =>
+    pageMeta({
+      title: "Book a Demo — Dental Assist by Reacting",
+      description:
+        "Book a 30-minute online walkthrough of Dental Assist. See the platform, ask questions, no obligation.",
+      path: "/book-demo",
+    }),
   component: BookDemoPage,
 });
 

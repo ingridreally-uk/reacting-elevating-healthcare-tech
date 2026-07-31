@@ -12,6 +12,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { ReactingLogo } from "@/components/site/ReactingLogo";
+import { SITE_ORIGIN } from "@/lib/site-url";
 
 function NotFoundComponent() {
   return (
@@ -81,45 +82,48 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { name: "theme-color", content: "#0B2B28" },
-      { title: "Dental Assist by Reacting — Practice operations, made clearer" },
+      { name: "theme-color", content: "#0B1730" },
+      { title: "Dental Inventory and Purchasing Software | Dental Assist by Reacting" },
       {
         name: "description",
         content:
-          "Dental Assist helps dental practices manage stock, materials, suppliers, RFQs, purchase orders, expiry dates and spending from one connected operational workspace.",
+          "Dental Assist helps UK dental practices manage stock, expiry dates, suppliers, quotations, purchase orders and spending in one connected workspace.",
       },
-      { property: "og:title", content: "Dental Assist by Reacting" },
+      {
+        property: "og:title",
+        content: "Dental Inventory and Purchasing Software | Dental Assist by Reacting",
+      },
       {
         property: "og:description",
         content:
-          "Dental Assist brings stock, suppliers, purchasing, expiry tracking and spend visibility into one connected workspace for dental practices.",
+          "Dental Assist helps UK dental practices manage stock, expiry dates, suppliers, quotations, purchase orders and spending in one connected workspace.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://www.reacting.io/" },
+      { property: "og:url", content: `${SITE_ORIGIN}/` },
       { property: "og:site_name", content: "Reacting" },
       {
         property: "og:image",
-        content: "https://www.reacting.io/og-reacting-dental-assist.png",
+        content: `${SITE_ORIGIN}/og-reacting-dental-assist.png`,
       },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
       {
         property: "og:image:alt",
-        content: "Dental Assist by Reacting dashboard preview",
+        content: "Dental Assist dashboard for dental practice stock and purchasing",
       },
       { name: "twitter:card", content: "summary_large_image" },
       {
         name: "twitter:title",
-        content: "Dental Assist by Reacting — Practice operations, made clearer",
+        content: "Dental Inventory and Purchasing Software | Dental Assist by Reacting",
       },
       {
         name: "twitter:description",
         content:
-          "Dental Assist helps dental practices manage stock, materials, suppliers, RFQs, purchase orders, expiry dates and spending from one connected operational workspace.",
+          "Dental Assist helps UK dental practices manage stock, expiry dates, suppliers, quotations, purchase orders and spending in one connected workspace.",
       },
       {
         name: "twitter:image",
-        content: "https://www.reacting.io/og-reacting-dental-assist.png",
+        content: `${SITE_ORIGIN}/og-reacting-dental-assist.png`,
       },
     ],
     links: [
@@ -136,54 +140,29 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         type: "application/ld+json",
         children: JSON.stringify({
           "@context": "https://schema.org",
-          "@type": "Organization",
-          name: "Reacting",
-          url: "https://www.reacting.io",
-          logo: "https://www.reacting.io/brand/reacting-logo-horizontal-transparent.png",
-        }),
-      },
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "SoftwareApplication",
-          name: "Dental Assist",
-          applicationCategory: "BusinessApplication",
-          operatingSystem: "Web",
-          url: "https://www.reacting.io",
-          description:
-            "Dental practice operations software for stock, materials, suppliers, RFQs, purchase orders, expiry tracking and spend visibility in one connected workspace.",
-          brand: {
-            "@type": "Brand",
-            name: "Reacting",
-          },
-          offers: {
-            "@type": "Offer",
-            price: "59",
-            priceCurrency: "GBP",
-            description: "Per practice / month. 14-day free trial. No credit card required.",
-          },
-          publisher: {
-            "@type": "Organization",
-            name: "Reacting",
-            url: "https://www.reacting.io",
-          },
-        }),
-      },
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "WebSite",
-          name: "Reacting",
-          url: "https://www.reacting.io",
-          description:
-            "Practical operational software for modern dental practices. Dental Assist manages stock, suppliers, RFQs, purchase orders, expiry tracking and spend visibility.",
-          publisher: {
-            "@type": "Organization",
-            name: "Reacting",
-            url: "https://www.reacting.io",
-          },
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": `${SITE_ORIGIN}/#organization`,
+              name: "Reacting",
+              url: SITE_ORIGIN,
+              logo: {
+                "@type": "ImageObject",
+                url: `${SITE_ORIGIN}/brand/reacting-logo-horizontal-transparent.png`,
+              },
+              sameAs: [],
+            },
+            {
+              "@type": "WebSite",
+              "@id": `${SITE_ORIGIN}/#website`,
+              name: "Reacting",
+              url: SITE_ORIGIN,
+              description:
+                "Practical operational software for modern dental practices. Dental Assist manages stock, suppliers, RFQs, purchase orders, expiry tracking and spend visibility.",
+              publisher: { "@id": `${SITE_ORIGIN}/#organization` },
+              inLanguage: "en-GB",
+            },
+          ],
         }),
       },
     ],

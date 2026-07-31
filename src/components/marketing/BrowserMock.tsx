@@ -16,7 +16,7 @@ export function BrowserMock({
         className,
       )}
     >
-      <div className="flex items-center gap-2 border-b border-border/70 bg-[#F4F8F7] px-4 py-2.5">
+      <div className="flex items-center gap-2 border-b border-border/70 bg-[#F1F5F9] px-4 py-2.5">
         <span className="h-2.5 w-2.5 rounded-full bg-[#FF5F57]/75" />
         <span className="h-2.5 w-2.5 rounded-full bg-[#FEBC2E]/75" />
         <span className="h-2.5 w-2.5 rounded-full bg-[#28C840]/75" />

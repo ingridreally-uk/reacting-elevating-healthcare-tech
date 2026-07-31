@@ -1,33 +1,30 @@
 import { Check } from "lucide-react";
-import { layout } from "./design";
 import { cn } from "@/lib/utils";
+import { layout } from "./design";
 
 const signals = [
-  "Built for dental practices",
-  "No credit card required",
-  "Unlimited products",
-  "Unlimited team members",
+  "Made for private dental practices",
+  "Works alongside your practice-management system",
   "Guided product import",
-  "Email support included",
-  "Cancel anytime",
+  "£59 / practice / month",
 ] as const;
 
-/** Compact trust strip — only supportable claims. */
+/** Quiet confidence strip — no fabricated social proof. */
 export function TrustSignals({ className }: { className?: string }) {
   return (
     <section
-      aria-label="Why practices choose Dental Assist"
-      className={cn("border-b border-border/60 bg-background", className)}
+      aria-label="Why practices can trust Dental Assist"
+      className={cn("border-b border-border/40 bg-background", className)}
     >
-      <div className={cn(layout.shell, "py-7 lg:py-8")}>
-        <ul className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2.5 sm:gap-x-7">
+      <div className={cn(layout.shell, "py-5 lg:py-6")}>
+        <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
           {signals.map((s) => (
             <li
               key={s}
-              className="inline-flex items-center gap-2 text-[12.5px] text-foreground/80 sm:text-[13px]"
+              className="inline-flex items-center justify-center gap-2 text-center text-[12px] text-foreground/65 sm:text-[12.5px]"
             >
               <Check
-                className="h-3.5 w-3.5 shrink-0 text-[oklch(0.52_0.12_165)]"
+                className="h-3.5 w-3.5 shrink-0 text-accent"
                 strokeWidth={2.5}
                 aria-hidden
               />

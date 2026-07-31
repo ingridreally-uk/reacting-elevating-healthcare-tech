@@ -47,7 +47,7 @@ export function MediaViewer({
   if (videoSrc) {
     return (
       <div
-        className={cn("relative w-full overflow-hidden bg-[#F4F8F7]", className)}
+        className={cn("relative w-full overflow-hidden bg-[#F1F5F9]", className)}
         style={natural ? undefined : { aspectRatio }}
       >
         <video
@@ -70,7 +70,7 @@ export function MediaViewer({
 
   if (natural) {
     return (
-      <div className={cn("relative w-full overflow-hidden bg-[#F4F8F7]", className)}>
+      <div className={cn("relative w-full overflow-hidden bg-[#F1F5F9]", className)}>
         {imageSrc ? (
           <img
             ref={imgRef}
@@ -97,7 +97,7 @@ export function MediaViewer({
 
   return (
     <div
-      className={cn("relative w-full overflow-hidden bg-[#F4F8F7]", className)}
+      className={cn("relative w-full overflow-hidden bg-[#F1F5F9]", className)}
       style={{ aspectRatio }}
     >
       {imageSrc ? (

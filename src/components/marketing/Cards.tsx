@@ -28,7 +28,7 @@ export function StatisticCard({
       transition={{ duration: 0.3 }}
     >
       {Icon ? (
-        <Icon className="h-4 w-4 text-[oklch(0.42_0.08_175)]" strokeWidth={iconStroke} />
+        <Icon className="h-4 w-4 text-[oklch(0.4_0.08_260)]" strokeWidth={iconStroke} />
       ) : null}
       <p
         className={cn("text-[13.5px] font-semibold leading-snug text-foreground", Icon && "mt-2.5")}
@@ -57,16 +57,16 @@ export function BenefitCard({
         "group flex h-full flex-col border border-border/65 bg-card p-5 transition duration-200",
         radius.card,
         elev.card,
-        "hover:-translate-y-0.5 hover:border-border hover:shadow-[0_4px_16px_-4px_rgba(11,43,40,0.12)]",
-      )}
-      initial={{ opacity: 0, y: 12 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.3 }}
-    >
+      "hover:-translate-y-0.5 hover:border-border hover:shadow-[0_4px_16px_-4px_rgba(11,23,48,0.12)]",
+    )}
+    initial={{ opacity: 0, y: 12 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.3 }}
+  >
       <div
         className={cn(
-          "inline-flex h-9 w-9 shrink-0 items-center justify-center bg-[oklch(0.96_0.02_165)] text-[oklch(0.38_0.08_175)]",
+          "inline-flex h-9 w-9 shrink-0 items-center justify-center bg-[oklch(0.94_0.02_260)] text-[oklch(0.4_0.08_260)]",
           radius.control,
         )}
       >
@@ -112,7 +112,7 @@ export function BenefitGrid({
             >
               <div
                 className={cn(
-                  "inline-flex h-9 w-9 shrink-0 items-center justify-center bg-[oklch(0.96_0.02_165)] text-[oklch(0.38_0.08_175)]",
+                  "inline-flex h-9 w-9 shrink-0 items-center justify-center bg-[oklch(0.94_0.02_260)] text-[oklch(0.4_0.08_260)]",
                   radius.control,
                 )}
               >

@@ -3,25 +3,16 @@ import { useState } from "react";
 import { Mail, MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SiteShell, PageHero } from "@/components/site/SiteChrome";
-import { SITE_ORIGIN } from "@/lib/site-url";
+import { pageMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/contact")({
-  head: () => ({
-    meta: [
-      { title: "Contact — Dental Assist by Reacting" },
-      {
-        name: "description",
-        content:
-          "Get in touch with the Reacting team about Dental Assist — questions, partnerships or early access.",
-      },
-      { property: "og:title", content: "Contact — Dental Assist" },
-      {
-        property: "og:description",
-        content: "Get in touch with the Reacting team about Dental Assist.",
-      },
-    ],
-    links: [{ rel: "canonical", href: `${SITE_ORIGIN}/contact` }],
-  }),
+  head: () =>
+    pageMeta({
+      title: "Contact Reacting — Dental Assist Support & Sales",
+      description:
+        "Get in touch with the Reacting team about Dental Assist — questions, partnerships or early access.",
+      path: "/contact",
+    }),
   component: ContactPage,
 });
 

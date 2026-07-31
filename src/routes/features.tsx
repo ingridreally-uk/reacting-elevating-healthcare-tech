@@ -14,31 +14,16 @@ import {
   ShowcaseScreenshot,
   TrustBar,
 } from "@/components/site/ProductMock";
-import { SITE_ORIGIN } from "@/lib/site-url";
+import { pageMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/features")({
-  head: () => ({
-    meta: [
-      {
-        title: "Dental Inventory, Purchasing & RFQ Features | Dental Assist",
-      },
-      {
-        name: "description",
-        content:
-          "Explore Dental Assist features for dental inventory, purchasing, supplier management, RFQ comparison and reporting, developed inside a real dental practice.",
-      },
-      {
-        property: "og:title",
-        content: "Dental Inventory, Purchasing & RFQ Features | Dental Assist",
-      },
-      {
-        property: "og:description",
-        content:
-          "Explore Dental Assist features for dental inventory, purchasing, supplier management, RFQ comparison and reporting, developed inside a real dental practice.",
-      },
-    ],
-    links: [{ rel: "canonical", href: `${SITE_ORIGIN}/features` }],
-  }),
+  head: () =>
+    pageMeta({
+      title: "Dental Inventory, Purchasing & RFQ Features | Dental Assist",
+      description:
+        "Explore Dental Assist features for dental inventory, purchasing, supplier management, RFQ comparison and reporting, developed inside a real dental practice.",
+      path: "/features",
+    }),
   component: FeaturesPage,
 });
 

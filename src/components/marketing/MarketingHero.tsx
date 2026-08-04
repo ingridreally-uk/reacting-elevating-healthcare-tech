@@ -1,21 +1,10 @@
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowRight, Check } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { ProductFrame } from "./ProductFrame";
 import { MediaViewer } from "./MediaViewer";
-import { VideoLightbox } from "./VideoLightbox";
-import {
-  APP_SIGNUP,
-  HERO_LOOP_POSTER,
-  HERO_LOOP_VIDEO,
-  PRODUCT_TOUR_POSTER,
-  PRODUCT_TOUR_VIDEO,
-} from "./content";
+import { APP_SIGNUP, HERO_LOOP_POSTER, HERO_LOOP_VIDEO } from "./content";
 import { btn } from "./design";
 import { cn } from "@/lib/utils";
-
-const reassurance = ["14 days free", "No credit card", "Guided product import"];
-
-const replaces = ["the spreadsheet", "WhatsApp", "\u201Cask the manager\u201D"];
 
 /**
  * Split hero — copy leads with the objection owners and managers actually
@@ -23,6 +12,10 @@ const replaces = ["the spreadsheet", "WhatsApp", "\u201Cask the manager\u201D"];
  * before naming the product. The product shot is presented flat and
  * confident — no floating badges, no tilt — with proof anchored as a
  * caption rather than staged on top of the screenshot.
+ *
+ * Deliberately restrained to one supporting message, one secondary action
+ * and one quiet reassurance line — every additional block competes with
+ * the primary CTA for a first glance that only lasts a few seconds.
  */
 export function MarketingHero() {
   const reduceMotion = useReducedMotion();
@@ -57,29 +50,11 @@ export function MarketingHero() {
               <span className="block text-foreground/76">Not before it costs you.</span>
             </h1>
             <p className="mx-auto mt-5 max-w-[50ch] text-[16px] leading-[1.68] text-muted-foreground sm:text-[17px] lg:mx-0">
-              The manager&apos;s on top of it — spreadsheets, supplier replies, what to
-              reorder. But that report takes real hours to build, so you only see where
-              things stand once it&apos;s finished, not while it still matters. Dental
-              Assist keeps one current view of stock, orders and spend, updated as it
-              happens — no report to wait on.
+              Right now, the answer lives in a spreadsheet, a WhatsApp thread, or whoever you
+              ask. Dental Assist brings stock, orders and spend into one current view — so you
+              see what needs attention before it becomes a problem, not just what&apos;s been
+              counted.
             </p>
-
-            <div className="mx-auto mt-5 flex max-w-[46ch] flex-wrap items-center justify-center gap-x-2 gap-y-2 text-[13px] lg:mx-0 lg:justify-start">
-              <span className="text-foreground/45">Instead of</span>
-              {replaces.map((item, i) => (
-                <span key={item} className="inline-flex items-center gap-2">
-                  <span className="rounded-md bg-foreground/[0.05] px-2 py-1 text-foreground/55 line-through">
-                    {item}
-                  </span>
-                  {i === replaces.length - 1 ? (
-                    <span className="text-foreground/45" aria-hidden>
-                      →
-                    </span>
-                  ) : null}
-                </span>
-              ))}
-              <span className="font-semibold text-foreground">one shared, current view</span>
-            </div>
 
             <div className="mt-7 flex flex-col items-stretch gap-2.5 sm:flex-row sm:items-center lg:justify-start">
               <a
@@ -95,27 +70,8 @@ export function MarketingHero() {
               </a>
             </div>
 
-            <div className="mt-4 flex justify-center lg:justify-start">
-              <VideoLightbox
-                videoSrc={PRODUCT_TOUR_VIDEO}
-                posterSrc={PRODUCT_TOUR_POSTER}
-                title="Dental Assist product tour"
-                triggerLabel="Watch a 45-second product tour"
-              />
-            </div>
-
-            <ul className="mt-6 flex flex-col items-center gap-x-5 gap-y-2 text-[13px] text-foreground/72 sm:flex-row sm:flex-wrap lg:justify-start">
-              {reassurance.map((item) => (
-                <li key={item} className="inline-flex items-center gap-1.5">
-                  <Check className="h-3.5 w-3.5 shrink-0 text-accent" strokeWidth={2.5} aria-hidden />
-                  {item}
-                </li>
-              ))}
-            </ul>
-
-            <p className="mx-auto mt-6 max-w-[42ch] border-t border-border/60 pt-5 text-[13px] leading-[1.6] text-foreground/55 lg:mx-0">
-              Built inside a working dental practice — not a generic inventory tool adapted for
-              dentistry.
+            <p className="mt-5 text-[12.5px] text-foreground/55">
+              14 days free · No card required · Guided setup
             </p>
           </motion.div>
 

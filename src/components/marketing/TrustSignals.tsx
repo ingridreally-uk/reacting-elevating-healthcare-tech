@@ -6,10 +6,11 @@ const signals = [
   "Made for private dental practices",
   "Works alongside your practice-management system",
   "Guided product import",
-  "£59 / practice / month",
 ] as const;
 
-/** Quiet confidence strip — no fabricated social proof. */
+/** Quiet confidence strip — no fabricated social proof. Pricing stays out of
+ * this strip; it belongs only in the dedicated pricing section once the
+ * problem and workflow have earned it. */
 export function TrustSignals({ className }: { className?: string }) {
   return (
     <section
@@ -17,7 +18,7 @@ export function TrustSignals({ className }: { className?: string }) {
       className={cn("border-b border-border/40 bg-background", className)}
     >
       <div className={cn(layout.shell, "py-5 lg:py-6")}>
-        <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+        <ul className="grid gap-3 sm:grid-cols-3 lg:gap-6">
           {signals.map((s) => (
             <li
               key={s}

@@ -2,11 +2,10 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Check, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SiteShell } from "@/components/site/SiteChrome";
-import {
-  BrowserFrame,
-  ShowcaseScreenshot,
-  TrustBar,
-} from "@/components/site/ProductMock";
+import { TrustBar } from "@/components/site/ProductMock";
+import { ProductFrame } from "@/components/marketing/ProductFrame";
+import { MediaViewer } from "@/components/marketing/MediaViewer";
+import { SCREENS } from "@/components/marketing/content";
 import { pageMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/product")({
@@ -21,12 +20,6 @@ export const Route = createFileRoute("/product")({
   component: ProductPage,
 });
 
-const SCREEN = {
-  dashboard: "/product-screens/screen-10.png",
-  inventory: "/product-screens/screen-22.png",
-  purchasing: "/product-screens/screen-05.png",
-};
-
 const showcases = [
   {
     id: "inventory",
@@ -34,7 +27,7 @@ const showcases = [
     title: "Know what is in stock before it runs low.",
     body: "Track materials across surgeries and store rooms with clear counts and alerts. Reduce the risk of missing materials disrupting the working day.",
     caption: "Inventory view from the live product.",
-    src: SCREEN.inventory,
+    src: SCREENS.stockPage,
     alt: "Dental Assist inventory management",
     url: "app.reacting.io / stock",
     imageFirst: true,
@@ -46,7 +39,7 @@ const showcases = [
     title: "Raise and track orders without the paper chase.",
     body: "Approve and follow purchase orders from one workspace. Keep the team aligned on what was ordered, what is waiting and what has arrived.",
     caption: "Purchase orders from the live product.",
-    src: SCREEN.purchasing,
+    src: SCREENS.purchasing,
     alt: "Dental Assist purchasing workflow",
     url: "app.reacting.io / purchasing",
     imageFirst: false,
@@ -65,9 +58,6 @@ const included = [
   "Cloud workspace",
 ];
 
-const HERO_FRAME =
-  "shadow-[0_24px_50px_-30px_rgb(15_23_42/0.2),0_1px_3px_-1px_rgb(15_23_42/0.08)]";
-
 /**
  * Media slot for the product hero. Pass `videoSrc` later to swap the
  * dashboard poster for a looping product video without changing layout.
@@ -85,30 +75,16 @@ function HeroProductMedia({
 }) {
   return (
     <div className="w-full min-w-0">
-      <BrowserFrame url="app.reacting.io / dashboard" className={HERO_FRAME}>
-        <div className="relative aspect-[16/10] w-full overflow-hidden bg-background sm:aspect-[1920/890]">
-          {videoSrc ? (
-            <video
-              className="absolute inset-0 h-full w-full object-cover object-top"
-              poster={posterSrc}
-              src={videoSrc}
-              muted
-              playsInline
-              autoPlay
-              loop
-            />
-          ) : (
-            <img
-              src={posterSrc}
-              alt={posterAlt}
-              loading="eager"
-              fetchPriority="high"
-              draggable={false}
-              className="absolute left-0 top-0 h-auto w-full max-w-none origin-top-left scale-[1.45] select-none sm:inset-0 sm:h-full sm:w-full sm:origin-center sm:scale-100 sm:object-cover sm:object-top"
-            />
-          )}
-        </div>
-      </BrowserFrame>
+      <ProductFrame emphasis="hero" label="app.reacting.io / dashboard">
+        <MediaViewer
+          imageSrc={posterSrc}
+          videoSrc={videoSrc}
+          alt={posterAlt}
+          priority
+          objectFit="contain"
+          aspectRatio="16 / 10"
+        />
+      </ProductFrame>
       <p className="mt-3 text-[12px] text-muted-foreground">{caption}</p>
     </div>
   );
@@ -157,7 +133,7 @@ function ProductPage() {
             </div>
 
             <HeroProductMedia
-              posterSrc={SCREEN.dashboard}
+              posterSrc={SCREENS.dashboard}
               posterAlt="Dental Assist dashboard — real product screen"
               caption="Live inventory, purchasing queue, supplier activity and spend — all in one workspace."
             />
@@ -178,10 +154,15 @@ function ProductPage() {
             <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
               {s.imageFirst ? (
                 <>
-                  <div className="w-full min-w-0 max-w-[42rem]">
-                    <BrowserFrame url={s.url} className={HERO_FRAME}>
-                      <ShowcaseScreenshot src={s.src} alt={s.alt} />
-                    </BrowserFrame>
+                  <div className="w-full min-w-0">
+                    <ProductFrame label={s.url}>
+                      <MediaViewer
+                        imageSrc={s.src}
+                        alt={s.alt}
+                        objectFit="contain"
+                        aspectRatio="16 / 10"
+                      />
+                    </ProductFrame>
                     <p className="mt-3 text-[12px] text-muted-foreground">
                       {s.caption}
                     </p>
@@ -211,10 +192,15 @@ function ProductPage() {
                       {s.body}
                     </p>
                   </div>
-                  <div className="w-full min-w-0 max-w-[42rem] lg:justify-self-end">
-                    <BrowserFrame url={s.url} className={HERO_FRAME}>
-                      <ShowcaseScreenshot src={s.src} alt={s.alt} />
-                    </BrowserFrame>
+                  <div className="w-full min-w-0 lg:justify-self-end">
+                    <ProductFrame label={s.url}>
+                      <MediaViewer
+                        imageSrc={s.src}
+                        alt={s.alt}
+                        objectFit="contain"
+                        aspectRatio="16 / 10"
+                      />
+                    </ProductFrame>
                     <p className="mt-3 text-[12px] text-muted-foreground">
                       {s.caption}
                     </p>

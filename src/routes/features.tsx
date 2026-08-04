@@ -9,11 +9,10 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SiteShell } from "@/components/site/SiteChrome";
-import {
-  BrowserFrame,
-  ShowcaseScreenshot,
-  TrustBar,
-} from "@/components/site/ProductMock";
+import { TrustBar } from "@/components/site/ProductMock";
+import { ProductFrame } from "@/components/marketing/ProductFrame";
+import { MediaViewer } from "@/components/marketing/MediaViewer";
+import { SCREENS } from "@/components/marketing/content";
 import { pageMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/features")({
@@ -27,11 +26,7 @@ export const Route = createFileRoute("/features")({
   component: FeaturesPage,
 });
 
-const FRAME =
-  "shadow-[0_24px_50px_-30px_rgb(15_23_42/0.2),0_1px_3px_-1px_rgb(15_23_42/0.08)]";
-
-type ShotSection = {
-  kind: "shot";
+type FeatureSection = {
   id: string;
   aliasIds?: string[];
   icon: typeof FileText;
@@ -43,23 +38,18 @@ type ShotSection = {
   alt: string;
   url: string;
   imageFirst: boolean;
-};
-
-type TextSection = {
-  kind: "text";
-  id: string;
-  aliasIds?: string[];
-  icon: typeof FileText;
-  eyebrow: string;
-  title: string;
-  body: string;
-  bullets: string[];
   tone: "white" | "muted";
 };
 
-const shotSections: ShotSection[] = [
+/**
+ * All five sections carry a real screenshot now (Suppliers, Low stock and
+ * Reporting used to be text-only, which made the page feel unfinished next
+ * to RFQ/Deliveries). Every image below is the same nav-trimmed, art-directed
+ * asset used on the homepage — not a raw capture with the app's sidebar or
+ * internal test data still visible.
+ */
+const sections: FeatureSection[] = [
   {
-    kind: "shot",
     id: "rfq",
     icon: FileText,
     eyebrow: "RFQ comparison",
@@ -70,13 +60,13 @@ const shotSections: ShotSection[] = [
       "Clear comparison of quoted items",
       "Move selected quotes into purchasing",
     ],
-    src: "/product-screens/screen-15.png",
-    alt: "Dental Assist RFQ list and workflow",
+    src: SCREENS.rfqCompare,
+    alt: "Dental Assist RFQ comparison with itemised quotes and budget impact",
     url: "app.reacting.io / rfqs",
     imageFirst: false,
+    tone: "white",
   },
   {
-    kind: "shot",
     id: "deliveries",
     aliasIds: ["purchasing"],
     icon: Truck,
@@ -88,16 +78,13 @@ const shotSections: ShotSection[] = [
       "Record locations on receipt",
       "Flag shortages for follow-up",
     ],
-    src: "/product-screens/screen-12.png",
+    src: SCREENS.deliveries,
     alt: "Dental Assist receive-order workflow",
     url: "app.reacting.io / purchasing / receive",
     imageFirst: true,
+    tone: "muted",
   },
-];
-
-const textSections: TextSection[] = [
   {
-    kind: "text",
     id: "suppliers",
     icon: Users,
     eyebrow: "Supplier management",
@@ -108,10 +95,13 @@ const textSections: TextSection[] = [
       "Purchase history by vendor",
       "Account details in one workspace",
     ],
-    tone: "muted",
+    src: SCREENS.suppliers,
+    alt: "Dental Assist supplier directory",
+    url: "app.reacting.io / vendors",
+    imageFirst: false,
+    tone: "white",
   },
   {
-    kind: "text",
     id: "low-stock",
     aliasIds: ["inventory"],
     icon: AlertTriangle,
@@ -123,10 +113,13 @@ const textSections: TextSection[] = [
       "Expiry-focused follow-up",
       "Clear next steps for the team",
     ],
-    tone: "white",
+    src: SCREENS.lowStockPage,
+    alt: "Dental Assist low-stock cards ready for RFQ action",
+    url: "app.reacting.io / low-stock",
+    imageFirst: true,
+    tone: "muted",
   },
   {
-    kind: "text",
     id: "reporting",
     aliasIds: ["dashboard"],
     icon: BarChart3,
@@ -138,7 +131,11 @@ const textSections: TextSection[] = [
       "Supplier and category views",
       "Export when you need a record",
     ],
-    tone: "muted",
+    src: SCREENS.reporting,
+    alt: "Dental Assist reporting with spend, usage and savings over six months",
+    url: "app.reacting.io / savings-and-usage",
+    imageFirst: false,
+    tone: "white",
   },
 ];
 
@@ -183,11 +180,13 @@ function FeaturesPage() {
         </div>
       </section>
 
-      {shotSections.map((f) => (
+      {sections.map((f) => (
         <section
           key={f.id}
           id={f.id}
-          className="relative border-b border-border/60 bg-background"
+          className={`relative border-b border-border/60 ${
+            f.tone === "muted" ? "bg-[#F8FAFC]" : "bg-background"
+          }`}
         >
           {f.aliasIds?.map((alias) => (
             <span key={alias} id={alias} className="absolute top-0" />
@@ -196,10 +195,15 @@ function FeaturesPage() {
             <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
               {f.imageFirst ? (
                 <>
-                  <div className="w-full min-w-0 max-w-[42rem]">
-                    <BrowserFrame url={f.url} className={FRAME}>
-                      <ShowcaseScreenshot src={f.src} alt={f.alt} />
-                    </BrowserFrame>
+                  <div className="w-full min-w-0">
+                    <ProductFrame label={f.url}>
+                      <MediaViewer
+                        imageSrc={f.src}
+                        alt={f.alt}
+                        objectFit="contain"
+                        aspectRatio="16 / 10"
+                      />
+                    </ProductFrame>
                   </div>
                   <div>
                     <f.icon className="h-5 w-5 text-foreground" strokeWidth={1.5} />
@@ -250,52 +254,18 @@ function FeaturesPage() {
                       ))}
                     </ul>
                   </div>
-                  <div className="w-full min-w-0 max-w-[42rem] lg:justify-self-end">
-                    <BrowserFrame url={f.url} className={FRAME}>
-                      <ShowcaseScreenshot src={f.src} alt={f.alt} />
-                    </BrowserFrame>
+                  <div className="w-full min-w-0 lg:justify-self-end">
+                    <ProductFrame label={f.url}>
+                      <MediaViewer
+                        imageSrc={f.src}
+                        alt={f.alt}
+                        objectFit="contain"
+                        aspectRatio="16 / 10"
+                      />
+                    </ProductFrame>
                   </div>
                 </>
               )}
-            </div>
-          </div>
-        </section>
-      ))}
-
-      {textSections.map((f) => (
-        <section
-          key={f.id}
-          id={f.id}
-          className={`relative border-b border-border/60 ${
-            f.tone === "muted" ? "bg-[#F8FAFC]" : "bg-background"
-          }`}
-        >
-          {f.aliasIds?.map((alias) => (
-            <span key={alias} id={alias} className="absolute top-0" />
-          ))}
-          <div className="mx-auto max-w-[1280px] px-6 py-9 lg:px-10 lg:py-12">
-            <div className="max-w-2xl">
-              <f.icon className="h-5 w-5 text-foreground" strokeWidth={1.5} />
-              <div className="mt-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
-                {f.eyebrow}
-              </div>
-              <h2 className="mt-3 text-[28px] font-semibold leading-[1.12] tracking-[-0.02em] sm:text-[34px]">
-                {f.title}
-              </h2>
-              <p className="mt-4 text-[15.5px] leading-[1.65] text-muted-foreground">
-                {f.body}
-              </p>
-              <ul className="mt-5 grid gap-2 sm:grid-cols-2 sm:gap-x-10">
-                {f.bullets.map((b) => (
-                  <li
-                    key={b}
-                    className="flex items-start gap-2.5 text-[14px] text-foreground"
-                  >
-                    <span className="mt-2 inline-block h-1 w-1 shrink-0 rounded-full bg-foreground/60" />
-                    {b}
-                  </li>
-                ))}
-              </ul>
             </div>
           </div>
         </section>

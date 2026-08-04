@@ -179,7 +179,10 @@ async function main() {
   // ─── HERO / MORNING — notice: morning risk cards, not the full chrome ───
   // Story: "What needs you before the first patient?"
   {
-    const left = 218;
+    // NAV_TRIM (not a fixed pixel count) — this source has a wider nav rail
+    // than the 218px used previously, which left a sliver of the sidebar's
+    // white/mint edge visible on the left of the hero screenshot.
+    const left = Math.round(dm.width * NAV_TRIM);
     const top = 0;
     const width = dm.width - left;
     const height = Math.min(dm.height, Math.round(dm.height * 0.92));
@@ -195,11 +198,15 @@ async function main() {
     const src = path.join(PUBLIC, "screen-24.png");
     const sm = await sharp(src).metadata();
     const left = Math.round(sm.width * NAV_TRIM);
+    // Trim a ~12px OS-taskbar sliver that bleeds into the bottom of this
+    // particular capture (confirmed by pixel-sampling: rows height-12..height
+    // are dark, everything above is clean white).
+    const bottomTrim = 12;
     const buf = await extractSafe(src, {
       left,
       top: 0,
       width: sm.width - left,
-      height: sm.height,
+      height: sm.height - bottomTrim,
     });
     await featureThenTour(buf, "mkt-stock.webp", "mkt-tour-stock.webp");
   }
@@ -229,73 +236,15 @@ async function main() {
     await featureThenTour(buf, "mkt-expiring.webp", "mkt-tour-expiring.webp");
   }
 
-  // ─── SUPPLIERS — notice: who to order from + linked activity ───
+  // ─── SUPPLIERS — real capture: the Vendors directory ───
+  // Was a hand-drawn SVG mockup (fabricated vendor names, fake detail panel).
+  // TrustBar tells visitors "every screenshot on this site is from the actual
+  // Dental Assist software" — that was false for this one. This is the real
+  // Vendors page (already free of the left nav rail in the source capture).
   {
-    const leftW = Math.round(FW * 0.52);
-    const rightW = FW - leftW;
-    const vendors = [
-      ["Kent Express", "Orders desk", "orders@kentexpress.co.uk"],
-      ["Henry Schein", "UK orders", "uk.orders@henryschein.co.uk"],
-      ["Schottlander", "Customer service", "orders@schottlander.co.uk"],
-      ["Dental Directory", "Sales", "sales@dentaldirectory.co.uk"],
-      ["TOC Dental", "Purchasing", "orders@tocdental.com"],
-      ["Wright Cottrell", "Accounts", "accounts@wrightcottrell.co.uk"],
-    ];
-    const rowH = 108;
-    let rows = "";
-    vendors.forEach(([n, c, e], i) => {
-      const y = i * rowH;
-      const selected = i === 0;
-      rows += `<rect x="0" y="${y}" width="100%" height="${rowH}" fill="${selected ? "#EAF6F1" : "#FFFFFF"}"/>
-        ${selected ? `<rect x="0" y="${y}" width="4" height="${rowH}" fill="#1F6B52"/>` : ""}
-        <rect x="16" y="${y + 30}" width="40" height="40" rx="10" fill="#E4F2EC"/>
-        <text x="68" y="${y + 46}" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="600" fill="#0B1F2A">${esc(n)}</text>
-        <text x="68" y="${y + 68}" font-family="Segoe UI, Arial, sans-serif" font-size="12" fill="#6B7C84">${esc(c)} · ${esc(e)}</text>
-        <rect x="${leftW - 100}" y="${y + 36}" width="72" height="28" rx="14" fill="#1F6B52"/>
-        <text x="${leftW - 86}" y="${y + 55}" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="600" fill="#FFFFFF">Active</text>`;
-    });
-    const dir = Buffer.from(`<svg width="${leftW}" height="${FH}" xmlns="http://www.w3.org/2000/svg">
-      <rect width="100%" height="100%" fill="#FFFFFF"/>
-      <text x="20" y="40" font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="700" fill="#0B1F2A">Suppliers</text>
-      <text x="20" y="64" font-family="Segoe UI, Arial, sans-serif" font-size="13" fill="#5B6B73">Who the practice buys from</text>
-      <g transform="translate(0,84)">${rows}</g>
-    </svg>`);
-    const detail = Buffer.from(`<svg width="${rightW}" height="${FH}" xmlns="http://www.w3.org/2000/svg">
-      <rect width="100%" height="100%" fill="#EEF5F2"/>
-      <rect x="10" y="14" width="${rightW - 20}" height="${FH - 28}" rx="16" fill="#FFFFFF" stroke="#E2EBE7"/>
-      <text x="28" y="50" font-family="Segoe UI, Arial, sans-serif" font-size="11" fill="#5B6B73">SUPPLIER</text>
-      <text x="28" y="90" font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="700" fill="#0B1F2A">Kent Express</text>
-      <rect x="220" y="66" width="68" height="26" rx="13" fill="#1F6B52"/>
-      <text x="234" y="84" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF">Active</text>
-      <text x="28" y="124" font-family="Segoe UI, Arial, sans-serif" font-size="12" fill="#5B6B73">Preferred for gloves and PPE · Net 30</text>
-      <text x="28" y="172" font-family="Segoe UI, Arial, sans-serif" font-size="11" fill="#5B6B73">Main contact</text>
-      <text x="28" y="198" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="600" fill="#0B1F2A">Orders desk</text>
-      <text x="28" y="246" font-family="Segoe UI, Arial, sans-serif" font-size="11" fill="#5B6B73">Email</text>
-      <text x="28" y="272" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#0B1F2A">orders@kentexpress.co.uk</text>
-      <text x="28" y="320" font-family="Segoe UI, Arial, sans-serif" font-size="11" fill="#5B6B73">Account ref</text>
-      <text x="28" y="346" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="600" fill="#0B1F2A">KE-48291</text>
-      <rect x="28" y="376" width="${rightW - 56}" height="1" fill="#E2EBE7"/>
-      <text x="28" y="416" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="600" fill="#5B6B73">LINKED TO THIS SUPPLIER</text>
-      <rect x="28" y="434" width="${(rightW - 64) / 2}" height="96" rx="12" fill="#EAF6F1"/>
-      <text x="44" y="478" font-family="Segoe UI, Arial, sans-serif" font-size="28" font-weight="700" fill="#0B1F2A">3</text>
-      <text x="44" y="506" font-family="Segoe UI, Arial, sans-serif" font-size="12" fill="#5B6B73">Open RFQs</text>
-      <rect x="${36 + (rightW - 64) / 2}" y="434" width="${(rightW - 64) / 2}" height="96" rx="12" fill="#EAF6F1"/>
-      <text x="${52 + (rightW - 64) / 2}" y="478" font-family="Segoe UI, Arial, sans-serif" font-size="28" font-weight="700" fill="#0B1F2A">2</text>
-      <text x="${52 + (rightW - 64) / 2}" y="506" font-family="Segoe UI, Arial, sans-serif" font-size="12" fill="#5B6B73">Purchase orders</text>
-      <rect x="28" y="556" width="${rightW - 56}" height="1" fill="#E2EBE7"/>
-      <text x="28" y="596" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="600" fill="#5B6B73">LAST ORDER</text>
-      <text x="28" y="632" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="600" fill="#0B1F2A">10 Apr 2026 · 16 delivered</text>
-    </svg>`);
-    const composed = await sharp({
-      create: { width: FW, height: FH, channels: 3, background: BG },
-    })
-      .composite([
-        { input: dir, left: 0, top: 0 },
-        { input: detail, left: leftW, top: 0 },
-      ])
-      .png()
-      .toBuffer();
-    await featureThenTour(composed, "mkt-suppliers.webp", "mkt-tour-suppliers.webp");
+    const src = path.join(PUBLIC, "suppliers-page.webp");
+    const buf = await sharp(src).png().toBuffer();
+    await featureThenTour(buf, "mkt-suppliers.webp", "mkt-tour-suppliers.webp");
   }
 
   // ─── RFQ — real capture, composed from three moments of the same flow ───
@@ -366,11 +315,33 @@ async function main() {
     await featureThenTour(buf, "mkt-purchase-orders.webp", "mkt-tour-orders.webp");
   }
 
-  // ─── REPORTING — notice: spend / usage / savings over time ───
+  // ─── DELIVERIES — real capture: receive-order flow, goods-in ───
+  // Used on the Features page. Content is clean (item names only, no
+  // supplier/customer names), so this only ever needed the nav rail removed.
+  {
+    const src = path.join(PUBLIC, "screen-12.png");
+    const dm2 = await sharp(src).metadata();
+    const left = Math.round(dm2.width * NAV_TRIM);
+    const buf = await extractSafe(src, {
+      left,
+      top: 0,
+      width: dm2.width - left,
+      height: dm2.height,
+    });
+    await featureThenTour(buf, "mkt-deliveries.webp", "mkt-tour-deliveries.webp");
+  }
+
+  // ─── REPORTING — real capture: spend / usage / savings over time ───
+  // IMPORTANT: only list genuine, un-cropped source captures here — never a
+  // previous mkt-*.webp output. This step used to fall back to its own prior
+  // output when no fresh capture existed, so every re-run re-applied the same
+  // 2%/8% crop on top of an already-cropped image, progressively clipping
+  // more of the chart on each run (visible as a cut-off "£3,104.8" figure).
+  // "reporting-page.webp" is the genuine, uncropped capture — feed it straight
+  // into the canvas at its natural size instead of blind-percentage-cropping.
   {
     const candidates = [
-      path.join(PUBLIC, "mkt-savings-usage.webp"),
-      path.join(PUBLIC, "mkt-reporting.webp"),
+      path.join(PUBLIC, "reporting-page.webp"),
       path.join(APP, "5. savings and usage.jpg"),
       path.join(APP, "5. savings & usage.jpg"),
       path.join(APP, "reporting.jpg"),
@@ -407,16 +378,7 @@ async function main() {
       </svg>`);
       srcBuf = await sharp(screen).png().toBuffer();
     }
-    const m = await sharp(srcBuf).metadata();
-    const buf = await sharp(srcBuf)
-      .extract({
-        left: Math.round(m.width * 0.02),
-        top: Math.round(m.height * 0.02),
-        width: Math.round(m.width * 0.96),
-        height: Math.round(m.height * 0.9),
-      })
-      .png()
-      .toBuffer();
+    const buf = await sharp(srcBuf).png().toBuffer();
     await featureThenTour(buf, "mkt-savings-usage.webp", "mkt-tour-reporting.webp");
     try {
       await save(await fs.readFile(path.join(OUT, "mkt-savings-usage.webp")), "mkt-reporting.webp");

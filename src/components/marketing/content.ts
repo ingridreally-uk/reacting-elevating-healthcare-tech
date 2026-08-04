@@ -8,6 +8,7 @@ export const SCREENS = {
   lowStockPage: "/product-screens/mkt-low-stock.webp",
   expiring: "/product-screens/mkt-expiring.webp",
   purchasing: "/product-screens/mkt-purchase-orders.webp",
+  deliveries: "/product-screens/mkt-deliveries.webp",
   suppliers: "/product-screens/mkt-suppliers.webp",
   reporting: "/product-screens/mkt-savings-usage.webp",
   rfqCompare: "/product-screens/mkt-rfq-workflow.webp",

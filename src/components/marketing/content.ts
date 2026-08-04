@@ -1,6 +1,14 @@
 export const APP_SIGNUP = "https://app.reacting.io/signup";
 export const APP_LOGIN = "https://app.reacting.io/login";
 
+/** Short, silent, looping capture of the real app for the hero. */
+export const HERO_LOOP_VIDEO = "/product-screens/hero-product-loop.mp4";
+export const HERO_LOOP_POSTER = "/product-screens/hero-product-loop-poster.jpg";
+
+/** Longer narrated walkthrough, played on demand from a lightbox. */
+export const PRODUCT_TOUR_VIDEO = "/product-screens/product-tour.mp4";
+export const PRODUCT_TOUR_POSTER = "/product-screens/product-tour-poster.jpg";
+
 /** Feature-section screenshots (consistent prepared canvases). */
 export const SCREENS = {
   dashboard: "/product-screens/mkt-dashboard.webp",

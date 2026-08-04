@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { APP_SIGNUP } from "./content";
 import { btn, iconStroke, layout } from "./design";
@@ -24,7 +25,7 @@ export function CTASection() {
             Start with your own practice in mind. In 14 days, see whether one shared view changes
             how the team starts the day.
           </p>
-          <div className="mt-8 flex justify-center">
+          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <a
               href={APP_SIGNUP}
               rel="noopener noreferrer"
@@ -33,6 +34,9 @@ export function CTASection() {
               Start Free Trial
               <ArrowRight className="h-4 w-4" strokeWidth={iconStroke} />
             </a>
+            <Link to="/book-demo" className={cn(btn.base, btn.onDarkSecondary, "w-full sm:w-auto")}>
+              Book a Demo
+            </Link>
           </div>
         </div>
       </div>

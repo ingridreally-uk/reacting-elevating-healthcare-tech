@@ -13,9 +13,9 @@ import { Outcomes } from "@/components/marketing/Outcomes";
 import { SCREENS } from "@/components/marketing/content";
 import { SITE_ORIGIN } from "@/lib/site-url";
 
-const HOME_TITLE = "Dental Practice Stock & Purchasing Software | Dental Assist";
+const HOME_TITLE = "Reacting | Operational Software for Modern Dental Practices";
 const HOME_DESCRIPTION =
-  "Dental Assist gives UK dental practices one clear view of stock, expiry, suppliers, quotes, purchase orders and monthly spend. Start a 14-day free trial.";
+  "Reacting connects the operational work behind modern dental practices. Dental Assist brings stock, suppliers, purchasing, deliveries and reporting into one clear workflow.";
 
 export const Route = createFileRoute("/")({
   head: () => ({

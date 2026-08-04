@@ -46,7 +46,7 @@ export function MarketingHero() {
           <motion.div className="mx-auto max-w-[36rem] text-center lg:mx-0 lg:max-w-none lg:text-left" initial={false}>
             <span className="inline-flex items-center gap-2 text-[11.5px] font-semibold uppercase tracking-[0.16em] text-[oklch(0.4_0.08_260)]">
               <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden />
-              Dental Assist for private dental practices
+              Operational software for modern dental practices
             </span>
 
             <h1

@@ -83,20 +83,20 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { name: "theme-color", content: "#0B1730" },
-      { title: "Dental Inventory and Purchasing Software | Dental Assist by Reacting" },
+      { title: "Reacting | Operational Software for Modern Dental Practices" },
       {
         name: "description",
         content:
-          "Dental Assist helps UK dental practices manage stock, expiry dates, suppliers, quotations, purchase orders and spending in one connected workspace.",
+          "Reacting connects the operational work behind modern dental practices. Dental Assist brings stock, suppliers, purchasing, deliveries and reporting into one clear workflow.",
       },
       {
         property: "og:title",
-        content: "Dental Inventory and Purchasing Software | Dental Assist by Reacting",
+        content: "Reacting | Operational Software for Modern Dental Practices",
       },
       {
         property: "og:description",
         content:
-          "Dental Assist helps UK dental practices manage stock, expiry dates, suppliers, quotations, purchase orders and spending in one connected workspace.",
+          "Reacting connects the operational work behind modern dental practices. Dental Assist brings stock, suppliers, purchasing, deliveries and reporting into one clear workflow.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: `${SITE_ORIGIN}/` },
@@ -114,12 +114,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:card", content: "summary_large_image" },
       {
         name: "twitter:title",
-        content: "Dental Inventory and Purchasing Software | Dental Assist by Reacting",
+        content: "Reacting | Operational Software for Modern Dental Practices",
       },
       {
         name: "twitter:description",
         content:
-          "Dental Assist helps UK dental practices manage stock, expiry dates, suppliers, quotations, purchase orders and spending in one connected workspace.",
+          "Reacting connects the operational work behind modern dental practices. Dental Assist brings stock, suppliers, purchasing, deliveries and reporting into one clear workflow.",
       },
       {
         name: "twitter:image",

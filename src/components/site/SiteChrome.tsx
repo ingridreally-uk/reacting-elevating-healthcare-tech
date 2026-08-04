@@ -69,6 +69,12 @@ export function SiteHeader() {
           >
             Login
           </a>
+          <Link
+            to="/book-demo"
+            className="rounded-sm px-3 py-2 text-[13.5px] text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          >
+            Book a Demo
+          </Link>
           <Button asChild className="h-9 rounded-full px-4 text-[13px] font-medium">
             <a href="https://app.reacting.io/signup" rel="noopener noreferrer">
               Start Free Trial
@@ -117,6 +123,13 @@ export function SiteHeader() {
             >
               Login
             </a>
+            <Link
+              to="/book-demo"
+              onClick={() => setOpen(false)}
+              className="rounded-md px-2 py-3 text-[15px] text-foreground/85 hover:bg-secondary"
+            >
+              Book a Demo
+            </Link>
             <Button asChild className="mt-3 h-11 w-full rounded-full">
               <a
                 href="https://app.reacting.io/signup"

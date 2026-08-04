@@ -42,11 +42,11 @@ export function MarketingHero() {
               id="hero-heading"
               className="mt-5 text-[36px] font-semibold leading-[1.04] tracking-[-0.04em] text-foreground sm:text-[48px] lg:text-[52px]"
             >
-              The surgery gets restocked at close.
+              The surgery gets restocked.
               <span className="block text-foreground/76">Whether it happened is a guess.</span>
             </h1>
             <p className="mx-auto mt-5 max-w-[48ch] text-[16px] leading-[1.68] text-muted-foreground sm:text-[17px] lg:mx-0">
-              End-of-day restocking is assumed, not checked. Dental Assist gives whoever walks in
+              Restocking is assumed, not checked. Dental Assist gives whoever walks in
               next a real answer — what&apos;s on the shelf, what&apos;s running low, what&apos;s
               already ordered — so gaps surface before the first patient, not mid-treatment.
             </p>

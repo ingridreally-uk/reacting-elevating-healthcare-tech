@@ -1,4 +1,4 @@
-import { useId, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { ProductFrame } from "./ProductFrame";
@@ -111,8 +111,30 @@ export function DayInPractice() {
   const reduceMotion = useReducedMotion();
   const listId = useId();
   const step = steps[active] ?? steps[0];
+  const railRef = useRef<HTMLOListElement>(null);
+  // Mobile-only trailing-edge fade: true while the rail has more steps to the
+  // right than are currently visible. Recomputed on scroll/resize so it
+  // disappears once the last step is actually in view.
+  const [canScrollRight, setCanScrollRight] = useState(false);
 
   const go = (next: number) => setActive((next + steps.length) % steps.length);
+
+  useEffect(() => {
+    const rail = railRef.current;
+    if (!rail) return;
+
+    const updateFade = () => {
+      setCanScrollRight(rail.scrollWidth - rail.clientWidth - rail.scrollLeft > 1);
+    };
+
+    updateFade();
+    rail.addEventListener("scroll", updateFade, { passive: true });
+    window.addEventListener("resize", updateFade);
+    return () => {
+      rail.removeEventListener("scroll", updateFade);
+      window.removeEventListener("resize", updateFade);
+    };
+  }, []);
 
   return (
     <section
@@ -146,11 +168,12 @@ export function DayInPractice() {
           )}
         >
           <div className="grid lg:grid-cols-12">
-            <div className="border-b border-border/55 lg:col-span-4 lg:border-b-0 lg:border-r lg:border-border/60">
+            <div className="relative min-w-0 border-b border-border/55 lg:col-span-4 lg:border-b-0 lg:border-r lg:border-border/60">
               <p id={listId} className="sr-only">
                 Day-in-practice steps
               </p>
               <ol
+                ref={railRef}
                 className="flex divide-x divide-border/50 overflow-x-auto lg:flex-col lg:divide-x-0 lg:divide-y"
                 role="tablist"
                 aria-labelledby={listId}
@@ -221,6 +244,16 @@ export function DayInPractice() {
                   );
                 })}
               </ol>
+
+              {/* Mobile-only trailing-edge fade: signals more steps sit off to the
+                  right of the scrollable rail. Purely decorative — never blocks
+                  touch, keyboard or screen-reader access to the tabs beneath it. */}
+              {canScrollRight ? (
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-card to-transparent lg:hidden"
+                />
+              ) : null}
             </div>
 
             <div className="min-w-0 p-5 sm:p-7 lg:col-span-8">

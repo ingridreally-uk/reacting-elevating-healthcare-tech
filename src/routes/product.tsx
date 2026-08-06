@@ -20,10 +20,15 @@ export const Route = createFileRoute("/product")({
   component: ProductPage,
 });
 
+/**
+ * Operational journey, not a feature catalogue:
+ * Hold → Risk → Decide → Order → Receive → Understand.
+ * Supplier Management is consolidated into Supplier Comparison.
+ */
 const showcases = [
   {
     id: "inventory",
-    eyebrow: "Inventory management",
+    eyebrow: "Inventory & procurement",
     title: "Know what is in stock before it runs low.",
     body: "Track materials across surgeries and store rooms with clear counts and alerts. Reduce the risk of missing materials disrupting the working day.",
     caption: "Inventory view from the live product.",
@@ -34,8 +39,32 @@ const showcases = [
     tone: "muted" as const,
   },
   {
+    id: "low-stock",
+    eyebrow: "Low stock & expiry",
+    title: "See risk early — before it hits the surgery day.",
+    body: "Surface items that need attention while there is still time to act. Helps teams reduce shortages and expired materials sitting unnoticed in store rooms.",
+    caption: "Low-stock and expiry follow-up from the live product.",
+    src: SCREENS.lowStockPage,
+    alt: "Dental Assist low-stock cards ready for RFQ action",
+    url: "app.reacting.io / low-stock",
+    imageFirst: false,
+    tone: "white" as const,
+  },
+  {
+    id: "rfq",
+    eyebrow: "Supplier comparison",
+    title: "Compare supplier responses before you commit.",
+    body: "Send the same request to multiple suppliers and review replies side by side. Keep contacts, account details and purchase history together so the team can decide without digging through emails.",
+    caption: "RFQ comparison from the live product.",
+    src: SCREENS.rfqCompare,
+    alt: "Dental Assist RFQ comparison with itemised quotes and budget impact",
+    url: "app.reacting.io / rfqs",
+    imageFirst: true,
+    tone: "muted" as const,
+  },
+  {
     id: "purchasing",
-    eyebrow: "Purchasing workflow",
+    eyebrow: "Purchase orders",
     title: "Raise and track orders without the paper chase.",
     body: "Approve and follow purchase orders from one workspace. Keep the team aligned on what was ordered, what is waiting and what has arrived.",
     caption: "Purchase orders from the live product.",
@@ -45,17 +74,41 @@ const showcases = [
     imageFirst: false,
     tone: "white" as const,
   },
+  {
+    id: "deliveries",
+    eyebrow: "Deliveries & goods-in",
+    title: "Confirm arrivals and close the loop on follow-up.",
+    body: "Record what arrived, where it goes and what still needs attention. Supports day-to-day receiving without relying on paper notes or scattered messages.",
+    caption: "Receive-order workflow from the live product.",
+    src: SCREENS.deliveries,
+    alt: "Dental Assist receive-order workflow",
+    url: "app.reacting.io / purchasing / receive",
+    imageFirst: true,
+    tone: "muted" as const,
+  },
+  {
+    id: "reporting",
+    eyebrow: "Reports",
+    title: "Understand spend and usage without rebuilding spreadsheets.",
+    body: "Review spend, usage and RFQ-related savings signals in one place. Helps owners and managers see patterns and make calmer purchasing decisions.",
+    caption: "Spend and usage reporting from the live product.",
+    src: SCREENS.reporting,
+    alt: "Dental Assist reporting with spend, usage and savings over six months",
+    url: "app.reacting.io / savings-and-usage",
+    imageFirst: false,
+    tone: "white" as const,
+  },
 ];
 
 const included = [
   "Inventory management",
-  "Purchase order workflow",
-  "Supplier directory & price lists",
+  "Low stock and expiry alerts",
+  "Supplier directory & purchase history",
   "RFQ side-by-side comparison",
+  "Purchase order workflow",
   "Delivery tracking & goods-in",
   "Spend and usage reporting",
   "Team access for owners and managers",
-  "Cloud workspace",
 ];
 
 /**

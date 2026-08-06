@@ -63,10 +63,10 @@ type Product = {
 };
 
 const suppliers: SupplierMeta[] = [
-  { id: "henry", name: "Henry Schein", initials: "HS", delivery: "2 business days", minOrder: "£150", rating: 4.7, quoteDate: "28 Jun 2026" },
-  { id: "dental-sky", name: "Dental Sky", initials: "DS", delivery: "1 business day", minOrder: "£100", rating: 4.6, quoteDate: "29 Jun 2026" },
-  { id: "wright", name: "Wright Health", initials: "WH", delivery: "3 business days", minOrder: "£200", rating: 4.4, quoteDate: "27 Jun 2026" },
-  { id: "kent", name: "Kent Express", initials: "KE", delivery: "2–4 business days", minOrder: "£120", rating: 4.3, quoteDate: "28 Jun 2026" },
+  { id: "ashcombe", name: "Ashcombe Dental Supply Co.", initials: "AD", delivery: "2 business days", minOrder: "£150", rating: 4.7, quoteDate: "28 Jun 2026" },
+  { id: "blackthorn", name: "Blackthorn Dental Wholesale", initials: "BD", delivery: "1 business day", minOrder: "£100", rating: 4.6, quoteDate: "29 Jun 2026" },
+  { id: "ferrow-vale", name: "Ferrow & Vale Dental", initials: "FV", delivery: "3 business days", minOrder: "£200", rating: 4.4, quoteDate: "27 Jun 2026" },
+  { id: "marlin", name: "Marlin Dental Distribution", initials: "MD", delivery: "2–4 business days", minOrder: "£120", rating: 4.3, quoteDate: "28 Jun 2026" },
 ];
 
 const products: Product[] = [
@@ -77,16 +77,16 @@ const products: Product[] = [
     qty: 4,
     category: "Restorative",
     quotes: [
-      { supplierId: "henry", unitPrice: 84.5, availability: "in_stock" },
-      { supplierId: "dental-sky", unitPrice: 78.9, availability: "in_stock", note: "Free shipping over £100" },
-      { supplierId: "wright", unitPrice: 89.0, availability: "low" },
-      { supplierId: "kent", unitPrice: 92.4, availability: "in_stock" },
+      { supplierId: "ashcombe", unitPrice: 84.5, availability: "in_stock" },
+      { supplierId: "blackthorn", unitPrice: 78.9, availability: "in_stock", note: "Free shipping over £100" },
+      { supplierId: "ferrow-vale", unitPrice: 89.0, availability: "low" },
+      { supplierId: "marlin", unitPrice: 92.4, availability: "in_stock" },
     ],
     notes: "Confirm batch expiry > 18 months on receipt.",
     alternatives: ["3M Filtek Z250 A2 (compatible shade)"],
     comments: [
-      { supplierId: "dental-sky", text: "Bulk pricing applies on 6+ boxes." },
-      { supplierId: "wright", text: "Limited stock — next batch arrives 10 July." },
+      { supplierId: "blackthorn", text: "Bulk pricing applies on 6+ boxes." },
+      { supplierId: "ferrow-vale", text: "Limited stock — next batch arrives 10 July." },
     ],
   },
   {
@@ -96,14 +96,14 @@ const products: Product[] = [
     qty: 12,
     category: "PPE",
     quotes: [
-      { supplierId: "henry", unitPrice: 7.2, availability: "in_stock" },
-      { supplierId: "dental-sky", unitPrice: 6.85, availability: "in_stock" },
-      { supplierId: "wright", unitPrice: 6.95, availability: "in_stock" },
-      { supplierId: "kent", unitPrice: 6.5, availability: "in_stock", note: "Volume discount applied" },
+      { supplierId: "ashcombe", unitPrice: 7.2, availability: "in_stock" },
+      { supplierId: "blackthorn", unitPrice: 6.85, availability: "in_stock" },
+      { supplierId: "ferrow-vale", unitPrice: 6.95, availability: "in_stock" },
+      { supplierId: "marlin", unitPrice: 6.5, availability: "in_stock", note: "Volume discount applied" },
     ],
     notes: "Powder-free, EN 455 compliant.",
     alternatives: ["Medicom SafeTouch (M)"],
-    comments: [{ supplierId: "kent", text: "Free next-day on orders over £250." }],
+    comments: [{ supplierId: "marlin", text: "Free next-day on orders over £250." }],
   },
   {
     id: "p3",
@@ -112,10 +112,10 @@ const products: Product[] = [
     qty: 6,
     category: "Anaesthesia",
     quotes: [
-      { supplierId: "henry", unitPrice: 42.0, availability: "in_stock" },
-      { supplierId: "dental-sky", unitPrice: 41.5, availability: "in_stock" },
-      { supplierId: "wright", unitPrice: 44.2, availability: "in_stock" },
-      { supplierId: "kent", unitPrice: 43.8, availability: "backorder" },
+      { supplierId: "ashcombe", unitPrice: 42.0, availability: "in_stock" },
+      { supplierId: "blackthorn", unitPrice: 41.5, availability: "in_stock" },
+      { supplierId: "ferrow-vale", unitPrice: 44.2, availability: "in_stock" },
+      { supplierId: "marlin", unitPrice: 43.8, availability: "backorder" },
     ],
     notes: "Verify CoA on delivery.",
     alternatives: [],
@@ -128,14 +128,14 @@ const products: Product[] = [
     qty: 8,
     category: "Endodontics",
     quotes: [
-      { supplierId: "henry", unitPrice: 28.9, availability: "in_stock" },
-      { supplierId: "dental-sky", unitPrice: 31.4, availability: "in_stock" },
-      { supplierId: "wright", unitPrice: 27.5, availability: "in_stock", note: "Single-use NiTi" },
-      { supplierId: "kent", unitPrice: 30.1, availability: "low" },
+      { supplierId: "ashcombe", unitPrice: 28.9, availability: "in_stock" },
+      { supplierId: "blackthorn", unitPrice: 31.4, availability: "in_stock" },
+      { supplierId: "ferrow-vale", unitPrice: 27.5, availability: "in_stock", note: "Single-use NiTi" },
+      { supplierId: "marlin", unitPrice: 30.1, availability: "low" },
     ],
     notes: "Single-use only.",
     alternatives: ["Dentsply ProTaper Next 25mm"],
-    comments: [{ supplierId: "wright", text: "Sleeves included at no extra cost." }],
+    comments: [{ supplierId: "ferrow-vale", text: "Sleeves included at no extra cost." }],
   },
   {
     id: "p5",
@@ -144,10 +144,10 @@ const products: Product[] = [
     qty: 3,
     category: "Restorative",
     quotes: [
-      { supplierId: "henry", unitPrice: 64.0, availability: "in_stock" },
-      { supplierId: "dental-sky", unitPrice: 61.2, availability: "in_stock" },
-      { supplierId: "wright", unitPrice: 66.5, availability: "in_stock" },
-      { supplierId: "kent", unitPrice: 63.4, availability: "in_stock" },
+      { supplierId: "ashcombe", unitPrice: 64.0, availability: "in_stock" },
+      { supplierId: "blackthorn", unitPrice: 61.2, availability: "in_stock" },
+      { supplierId: "ferrow-vale", unitPrice: 66.5, availability: "in_stock" },
+      { supplierId: "marlin", unitPrice: 63.4, availability: "in_stock" },
     ],
     notes: "Store at 2–8 °C on arrival.",
     alternatives: [],

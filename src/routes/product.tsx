@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Check, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SiteShell } from "@/components/site/SiteChrome";
 import { TrustBar } from "@/components/site/ProductMock";
@@ -100,20 +100,9 @@ const showcases = [
   },
 ];
 
-const included = [
-  "Inventory management",
-  "Low stock and expiry alerts",
-  "Supplier directory & purchase history",
-  "RFQ side-by-side comparison",
-  "Purchase order workflow",
-  "Delivery tracking & goods-in",
-  "Spend and usage reporting",
-  "Team access for owners and managers",
-];
-
 /**
- * Media slot for the product hero. Pass `videoSrc` later to swap the
- * dashboard poster for a looping product video without changing layout.
+ * Media slot for the product hero. Dashboard is the shared-view proof —
+ * same frame, crop and responsive behaviour as showcase ProductFrames.
  */
 function HeroProductMedia({
   posterSrc,
@@ -173,14 +162,6 @@ function ProductPage() {
                     Book a Demo
                     <ArrowRight className="h-4 w-4" />
                   </Link>
-                </Button>
-                <Button
-                  asChild
-                  size="lg"
-                  variant="ghost"
-                  className="h-11 w-full rounded-full px-5 text-[13.5px] font-medium text-foreground hover:bg-secondary sm:w-auto"
-                >
-                  <Link to="/features">See Features</Link>
                 </Button>
               </div>
             </div>
@@ -264,30 +245,6 @@ function ProductPage() {
           </div>
         </section>
       ))}
-
-      <section className="border-b border-border/60 bg-[#F8FAFC]">
-        <div className="mx-auto max-w-[1280px] px-6 py-9 lg:px-10 lg:py-12">
-          <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
-            What&apos;s included
-          </div>
-          <h2 className="max-w-lg text-[28px] font-semibold leading-[1.12] tracking-[-0.025em] text-foreground sm:text-[34px]">
-            Core capabilities for day-to-day practice operations.
-          </h2>
-          <ul className="mt-6 grid grid-cols-1 gap-x-12 gap-y-2 sm:grid-cols-2">
-            {included.map((f) => (
-              <li key={f} className="flex items-start gap-2.5">
-                <Check
-                  className="mt-0.5 h-3.5 w-3.5 shrink-0 text-accent"
-                  strokeWidth={2.25}
-                />
-                <span className="text-[14px] leading-[1.45] text-foreground">
-                  {f}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
 
       <section className="border-b border-border/60 bg-background">
         <div className="mx-auto max-w-[1280px] px-6 py-9 text-center lg:px-10 lg:py-12">

@@ -5,7 +5,7 @@ import { SiteShell } from "@/components/site/SiteChrome";
 import { TrustBar } from "@/components/site/ProductMock";
 import { ProductFrame } from "@/components/marketing/ProductFrame";
 import { MediaViewer } from "@/components/marketing/MediaViewer";
-import { SCREENS } from "@/components/marketing/content";
+import { SCREENS, SCREEN_FOCUS, type ScreenFocus } from "@/components/marketing/content";
 import { pageMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/product")({
@@ -25,7 +25,19 @@ export const Route = createFileRoute("/product")({
  * Hold → Risk → Decide → Order → Receive → Understand.
  * Supplier Management is consolidated into Supplier Comparison.
  */
-const showcases = [
+const showcases: {
+  id: string;
+  eyebrow: string;
+  title: string;
+  body: string;
+  caption: string;
+  src: string;
+  alt: string;
+  url: string;
+  imageFirst: boolean;
+  tone: "muted" | "white";
+  focus: ScreenFocus;
+}[] = [
   {
     id: "inventory",
     eyebrow: "Inventory & procurement",
@@ -36,7 +48,8 @@ const showcases = [
     alt: "Dental Assist inventory management",
     url: "app.reacting.io / stock",
     imageFirst: true,
-    tone: "muted" as const,
+    tone: "muted",
+    focus: SCREEN_FOCUS.stockPage,
   },
   {
     id: "low-stock",
@@ -48,7 +61,8 @@ const showcases = [
     alt: "Dental Assist low-stock cards ready for RFQ action",
     url: "app.reacting.io / low-stock",
     imageFirst: false,
-    tone: "white" as const,
+    tone: "white",
+    focus: SCREEN_FOCUS.lowStockPage,
   },
   {
     id: "rfq",
@@ -60,7 +74,8 @@ const showcases = [
     alt: "Dental Assist RFQ comparison with itemised quotes and budget impact",
     url: "app.reacting.io / rfqs",
     imageFirst: true,
-    tone: "muted" as const,
+    tone: "muted",
+    focus: SCREEN_FOCUS.rfqCompare,
   },
   {
     id: "purchasing",
@@ -72,7 +87,8 @@ const showcases = [
     alt: "Dental Assist purchasing workflow",
     url: "app.reacting.io / purchasing",
     imageFirst: false,
-    tone: "white" as const,
+    tone: "white",
+    focus: SCREEN_FOCUS.purchasing,
   },
   {
     id: "deliveries",
@@ -84,7 +100,8 @@ const showcases = [
     alt: "Dental Assist receive-order workflow",
     url: "app.reacting.io / purchasing / receive",
     imageFirst: true,
-    tone: "muted" as const,
+    tone: "muted",
+    focus: SCREEN_FOCUS.deliveries,
   },
   {
     id: "reporting",
@@ -96,35 +113,36 @@ const showcases = [
     alt: "Dental Assist reporting with spend, usage and savings over six months",
     url: "app.reacting.io / savings-and-usage",
     imageFirst: false,
-    tone: "white" as const,
+    tone: "white",
+    focus: SCREEN_FOCUS.reporting,
   },
 ];
 
 /**
  * Media slot for the product hero. Dashboard is the shared-view proof —
- * same frame, crop and responsive behaviour as showcase ProductFrames.
+ * cover focus crops baked canvas margin so the UI fills the frame.
  */
 function HeroProductMedia({
   posterSrc,
   posterAlt,
-  videoSrc,
   caption,
 }: {
   posterSrc: string;
   posterAlt: string;
-  videoSrc?: string;
   caption: string;
 }) {
+  const focus = SCREEN_FOCUS.dashboard;
   return (
     <div className="w-full min-w-0">
       <ProductFrame emphasis="hero" label="app.reacting.io / dashboard">
         <MediaViewer
           imageSrc={posterSrc}
-          videoSrc={videoSrc}
           alt={posterAlt}
           priority
-          objectFit="contain"
-          aspectRatio="16 / 10"
+          objectFit={focus.objectFit}
+          objectPosition={focus.objectPosition}
+          aspectRatio={focus.aspectRatio}
+          scale={focus.scale}
         />
       </ProductFrame>
       <p className="mt-3 text-[12px] text-muted-foreground">{caption}</p>
@@ -193,8 +211,10 @@ function ProductPage() {
                       <MediaViewer
                         imageSrc={s.src}
                         alt={s.alt}
-                        objectFit="contain"
-                        aspectRatio="16 / 10"
+                        objectFit={s.focus.objectFit}
+                        objectPosition={s.focus.objectPosition}
+                        aspectRatio={s.focus.aspectRatio ?? "16 / 10"}
+                        scale={s.focus.scale}
                       />
                     </ProductFrame>
                     <p className="mt-3 text-[12px] text-muted-foreground">
@@ -231,8 +251,10 @@ function ProductPage() {
                       <MediaViewer
                         imageSrc={s.src}
                         alt={s.alt}
-                        objectFit="contain"
-                        aspectRatio="16 / 10"
+                        objectFit={s.focus.objectFit}
+                        objectPosition={s.focus.objectPosition}
+                        aspectRatio={s.focus.aspectRatio ?? "16 / 10"}
+                        scale={s.focus.scale}
                       />
                     </ProductFrame>
                     <p className="mt-3 text-[12px] text-muted-foreground">

@@ -94,6 +94,80 @@ export const SCREENS = {
 
 export type MediaFit = "cover" | "contain";
 
+export type ScreenFocus = {
+  objectFit: MediaFit;
+  objectPosition: string;
+  aspectRatio?: string;
+  /**
+   * Zoom into the prepared canvas to crop baked slate margins.
+   * Same-aspect cover alone cannot remove that letterboxing.
+   */
+  scale?: number;
+};
+
+/**
+ * Display focus for prepared mkt-* canvases.
+ * Assets stay identity-safe; cover + origin + scale pull the operational
+ * action into the frame instead of floating in empty slate.
+ */
+export const SCREEN_FOCUS = {
+  dashboard: {
+    objectFit: "cover",
+    // Keep KPI row fully in frame — only crop baked bottom slate.
+    objectPosition: "50% 20%",
+    aspectRatio: "16 / 10",
+    scale: 1.22,
+  },
+  stockPage: {
+    objectFit: "cover",
+    objectPosition: "60% 28%",
+    aspectRatio: "16 / 10",
+    scale: 1.24,
+  },
+  lowStockPage: {
+    objectFit: "cover",
+    objectPosition: "50% 14%",
+    aspectRatio: "16 / 10",
+    scale: 1.34,
+  },
+  expiring: {
+    objectFit: "cover",
+    objectPosition: "50% 16%",
+    aspectRatio: "16 / 10",
+    scale: 1.26,
+  },
+  suppliers: {
+    objectFit: "cover",
+    objectPosition: "30% 14%",
+    aspectRatio: "16 / 10",
+    scale: 1.26,
+  },
+  rfqCompare: {
+    objectFit: "cover",
+    objectPosition: "50% 40%",
+    aspectRatio: "16 / 10",
+    scale: 1.14,
+  },
+  purchasing: {
+    objectFit: "cover",
+    objectPosition: "38% 12%",
+    aspectRatio: "16 / 10",
+    scale: 1.12,
+  },
+  deliveries: {
+    objectFit: "cover",
+    objectPosition: "50% 18%",
+    aspectRatio: "16 / 10",
+    scale: 1.24,
+  },
+  reporting: {
+    objectFit: "cover",
+    objectPosition: "46% 12%",
+    aspectRatio: "16 / 10",
+    scale: 1.18,
+  },
+} as const satisfies Record<keyof typeof SCREENS, ScreenFocus>;
+
 export type MediaItem = {
   id: string;
   title: string;

@@ -15,11 +15,17 @@ type MediaViewerProps = {
   aspectRatio?: string;
   /** Show the full image at natural proportions (lightbox). */
   natural?: boolean;
+  /**
+   * Optional zoom into the prepared canvas (crops baked letterboxing).
+   * Origin follows objectPosition. Values above ~1.35 risk clipping UI.
+   */
+  scale?: number;
 };
 
 /**
  * Prepared marketing assets are edge-filled to the frame aspect.
- * Prefer object-fit: contain so the full prepared canvas shows without UI cropping.
+ * Use cover + scale when the prepared canvas has intentional story focus;
+ * contain when the full canvas must remain visible.
  */
 export function MediaViewer({
   imageSrc,
@@ -32,6 +38,7 @@ export function MediaViewer({
   objectFit = "contain",
   aspectRatio = "16 / 10",
   natural = false,
+  scale = 1,
 }: MediaViewerProps) {
   const imgRef = useRef<HTMLImageElement>(null);
   const [loaded, setLoaded] = useState(Boolean(priority));
@@ -44,6 +51,16 @@ export function MediaViewer({
     }
   }, [imageSrc, priority]);
 
+  const zoom = Number.isFinite(scale) && scale > 1 ? scale : 1;
+  const mediaStyle =
+    zoom > 1
+      ? {
+          objectPosition,
+          transform: `scale(${zoom})`,
+          transformOrigin: objectPosition,
+        }
+      : { objectPosition };
+
   if (videoSrc) {
     return (
       <div
@@ -55,7 +72,7 @@ export function MediaViewer({
             natural ? "h-auto w-full" : "absolute inset-0 h-full w-full",
             objectFit === "contain" ? "object-contain" : "object-cover",
           )}
-          style={{ objectPosition }}
+          style={mediaStyle}
           src={videoSrc}
           poster={posterSrc ?? imageSrc}
           muted
@@ -117,7 +134,7 @@ export function MediaViewer({
             objectFit === "contain" ? "object-contain" : "object-cover",
             loaded ? "opacity-100" : "opacity-0",
           )}
-          style={{ objectPosition }}
+          style={mediaStyle}
         />
       ) : null}
     </div>

@@ -12,7 +12,7 @@ import { SiteShell } from "@/components/site/SiteChrome";
 import { TrustBar } from "@/components/site/ProductMock";
 import { ProductFrame } from "@/components/marketing/ProductFrame";
 import { MediaViewer } from "@/components/marketing/MediaViewer";
-import { SCREENS } from "@/components/marketing/content";
+import { SCREENS, SCREEN_FOCUS, type ScreenFocus } from "@/components/marketing/content";
 import { pageMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/features")({
@@ -39,6 +39,7 @@ type FeatureSection = {
   url: string;
   imageFirst: boolean;
   tone: "white" | "muted";
+  focus: ScreenFocus;
 };
 
 /**
@@ -65,6 +66,7 @@ const sections: FeatureSection[] = [
     url: "app.reacting.io / rfqs",
     imageFirst: false,
     tone: "white",
+    focus: SCREEN_FOCUS.rfqCompare,
   },
   {
     id: "deliveries",
@@ -83,6 +85,7 @@ const sections: FeatureSection[] = [
     url: "app.reacting.io / purchasing / receive",
     imageFirst: true,
     tone: "muted",
+    focus: SCREEN_FOCUS.deliveries,
   },
   {
     id: "suppliers",
@@ -100,6 +103,7 @@ const sections: FeatureSection[] = [
     url: "app.reacting.io / vendors",
     imageFirst: false,
     tone: "white",
+    focus: SCREEN_FOCUS.suppliers,
   },
   {
     id: "low-stock",
@@ -118,6 +122,7 @@ const sections: FeatureSection[] = [
     url: "app.reacting.io / low-stock",
     imageFirst: true,
     tone: "muted",
+    focus: SCREEN_FOCUS.lowStockPage,
   },
   {
     id: "reporting",
@@ -136,6 +141,7 @@ const sections: FeatureSection[] = [
     url: "app.reacting.io / savings-and-usage",
     imageFirst: false,
     tone: "white",
+    focus: SCREEN_FOCUS.reporting,
   },
 ];
 
@@ -200,8 +206,10 @@ function FeaturesPage() {
                       <MediaViewer
                         imageSrc={f.src}
                         alt={f.alt}
-                        objectFit="contain"
-                        aspectRatio="16 / 10"
+                        objectFit={f.focus.objectFit}
+                        objectPosition={f.focus.objectPosition}
+                        aspectRatio={f.focus.aspectRatio ?? "16 / 10"}
+                        scale={f.focus.scale}
                       />
                     </ProductFrame>
                   </div>
@@ -259,8 +267,10 @@ function FeaturesPage() {
                       <MediaViewer
                         imageSrc={f.src}
                         alt={f.alt}
-                        objectFit="contain"
-                        aspectRatio="16 / 10"
+                        objectFit={f.focus.objectFit}
+                        objectPosition={f.focus.objectPosition}
+                        aspectRatio={f.focus.aspectRatio ?? "16 / 10"}
+                        scale={f.focus.scale}
                       />
                     </ProductFrame>
                   </div>

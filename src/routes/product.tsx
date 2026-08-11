@@ -13,162 +13,152 @@ export const Route = createFileRoute("/product")({
     pageMeta({
       title: "Dental Stock, Purchasing & RFQ Software | Dental Assist",
       description:
-        "Dental Assist helps dental practices manage purchasing, inventory, suppliers and day-to-day operations with software developed and refined inside a real dental practice.",
+        "Dental Assist is Reacting's operational workspace for dental inventory, suppliers and purchasing — developed and refined inside a real dental practice.",
       path: "/product",
       imageAlt: "Dental Assist dashboard — real product screen",
     }),
   component: ProductPage,
 });
 
-/**
- * Operational journey, not a feature catalogue:
- * Hold → Risk → Decide → Order → Receive → Understand.
- * Supplier Management is consolidated into Supplier Comparison.
- */
-const showcases: {
+/** Non-sequential anatomy — parts of one Dental Assist product. */
+const insideCapabilities = [
+  {
+    label: "Inventory",
+    body: "Quantities, locations and the live stock record.",
+  },
+  {
+    label: "Low stock & expiry",
+    body: "Items that need attention before they interrupt the day.",
+  },
+  {
+    label: "Suppliers",
+    body: "Vendor contacts, accounts and purchase history.",
+  },
+  {
+    label: "RFQs",
+    body: "Request and compare supplier responses in one place.",
+  },
+  {
+    label: "Purchase orders",
+    body: "Raise, approve and track orders from the same workspace.",
+  },
+  {
+    label: "Deliveries",
+    body: "Receive against the order and flag what still needs follow-up.",
+  },
+  {
+    label: "Reporting",
+    body: "Spend, usage and savings signals without rebuilding spreadsheets.",
+  },
+  {
+    label: "Budget visibility",
+    body: "Budget impact and spend oversight where purchasing decisions are made.",
+  },
+] as const;
+
+const roles = [
+  {
+    id: "owner",
+    title: "Owner",
+    body: "See what the practice holds, what needs attention and what is being spent — without reconstructing the day from messages and memory.",
+    points: [
+      "Spend and inventory value on the overview",
+      "Stock risk and purchasing activity in view",
+      "Savings and usage for calmer oversight",
+    ],
+  },
+  {
+    id: "manager",
+    title: "Practice Manager",
+    body: "Keep suppliers, purchasing and follow-up in one workspace so operational control does not depend on chasing emails.",
+    points: [
+      "Supplier directory and purchase history",
+      "Purchase orders and outstanding follow-up",
+      "Budget visibility beside buying decisions",
+    ],
+  },
+  {
+    id: "stock-lead",
+    title: "Nurse / Stock Lead",
+    body: "Work from clear quantities and locations, act on expiry and replenishment, and receive deliveries against the order.",
+    points: [
+      "Stock counts and where items live",
+      "Expiry and replenishment that need action",
+      "Receiving that closes the loop on arrivals",
+    ],
+  },
+] as const;
+
+/** Compact depth evidence — different from Home’s journey screens. */
+const depthEvidence: {
   id: string;
-  eyebrow: string;
+  label: string;
   title: string;
   body: string;
   caption: string;
   src: string;
   alt: string;
   url: string;
-  imageFirst: boolean;
-  tone: "muted" | "white";
   focus: ScreenFocus;
 }[] = [
   {
-    id: "inventory",
-    eyebrow: "Inventory & procurement",
-    title: "Know what is in stock before it runs low.",
-    body: "Track materials across surgeries and store rooms with clear counts and alerts. Reduce the risk of missing materials disrupting the working day.",
-    caption: "Inventory view from the live product.",
+    id: "suppliers",
+    label: "Suppliers",
+    title: "Vendor relationships in one record",
+    body: "Contacts, account details and purchase history stay with the supplier — not scattered across inboxes.",
+    caption: "Supplier directory from the live product.",
+    src: SCREENS.suppliers,
+    alt: "Dental Assist supplier directory",
+    url: "app.reacting.io / vendors",
+    focus: SCREEN_FOCUS.suppliers,
+  },
+  {
+    id: "expiring",
+    label: "Expiry",
+    title: "Expiry control before write-off",
+    body: "Near-expiry and expired materials surface while there is still time to act — not after they sit unnoticed.",
+    caption: "Expiring stock from the live product.",
+    src: SCREENS.expiring,
+    alt: "Dental Assist expiring stock follow-up",
+    url: "app.reacting.io / expiring-stock",
+    focus: SCREEN_FOCUS.expiring,
+  },
+  {
+    id: "stock",
+    label: "Inventory",
+    title: "The inventory record the practice works from",
+    body: "Item status, counts and location detail form the live record purchasing and receiving depend on.",
+    caption: "Inventory record from the live product.",
     src: SCREENS.stockPage,
-    alt: "Dental Assist inventory management",
+    alt: "Dental Assist inventory item detail with stock status and locations",
     url: "app.reacting.io / stock",
-    imageFirst: true,
-    tone: "muted",
     focus: SCREEN_FOCUS.stockPage,
-  },
-  {
-    id: "low-stock",
-    eyebrow: "Low stock & expiry",
-    title: "See risk early — before it hits the surgery day.",
-    body: "Surface items that need attention while there is still time to act. Helps teams reduce shortages and expired materials sitting unnoticed in store rooms.",
-    caption: "Low-stock and expiry follow-up from the live product.",
-    src: SCREENS.lowStockPage,
-    alt: "Dental Assist low-stock cards ready for RFQ action",
-    url: "app.reacting.io / low-stock",
-    imageFirst: false,
-    tone: "white",
-    focus: SCREEN_FOCUS.lowStockPage,
-  },
-  {
-    id: "rfq",
-    eyebrow: "Supplier comparison",
-    title: "Compare supplier responses before you commit.",
-    body: "Send the same request to multiple suppliers and review replies side by side. Keep contacts, account details and purchase history together so the team can decide without digging through emails.",
-    caption: "RFQ comparison from the live product.",
-    src: SCREENS.rfqCompare,
-    alt: "Dental Assist RFQ comparison with itemised quotes and budget impact",
-    url: "app.reacting.io / rfqs",
-    imageFirst: true,
-    tone: "muted",
-    focus: SCREEN_FOCUS.rfqCompare,
-  },
-  {
-    id: "purchasing",
-    eyebrow: "Purchase orders",
-    title: "Raise and track orders without the paper chase.",
-    body: "Approve and follow purchase orders from one workspace. Keep the team aligned on what was ordered, what is waiting and what has arrived.",
-    caption: "Purchase orders from the live product.",
-    src: SCREENS.purchasing,
-    alt: "Dental Assist purchasing workflow",
-    url: "app.reacting.io / purchasing",
-    imageFirst: false,
-    tone: "white",
-    focus: SCREEN_FOCUS.purchasing,
-  },
-  {
-    id: "deliveries",
-    eyebrow: "Deliveries & goods-in",
-    title: "Confirm arrivals and close the loop on follow-up.",
-    body: "Record what arrived, where it goes and what still needs attention. Supports day-to-day receiving without relying on paper notes or scattered messages.",
-    caption: "Receive-order workflow from the live product.",
-    src: SCREENS.deliveries,
-    alt: "Dental Assist receive-order workflow",
-    url: "app.reacting.io / purchasing / receive",
-    imageFirst: true,
-    tone: "muted",
-    focus: SCREEN_FOCUS.deliveries,
-  },
-  {
-    id: "reporting",
-    eyebrow: "Reports",
-    title: "Understand spend and usage without rebuilding spreadsheets.",
-    body: "Review spend, usage and RFQ-related savings signals in one place. Helps owners and managers see patterns and make calmer purchasing decisions.",
-    caption: "Spend and usage reporting from the live product.",
-    src: SCREENS.reporting,
-    alt: "Dental Assist reporting with spend, usage and savings over six months",
-    url: "app.reacting.io / savings-and-usage",
-    imageFirst: false,
-    tone: "white",
-    focus: SCREEN_FOCUS.reporting,
   },
 ];
 
-/**
- * Media slot for the product hero. Dashboard is the shared-view proof —
- * cover focus crops baked canvas margin so the UI fills the frame.
- */
-function HeroProductMedia({
-  posterSrc,
-  posterAlt,
-  caption,
-}: {
-  posterSrc: string;
-  posterAlt: string;
-  caption: string;
-}) {
-  const focus = SCREEN_FOCUS.dashboard;
-  return (
-    <div className="w-full min-w-0">
-      <ProductFrame emphasis="hero" label="app.reacting.io / dashboard">
-        <MediaViewer
-          imageSrc={posterSrc}
-          alt={posterAlt}
-          priority
-          objectFit={focus.objectFit}
-          objectPosition={focus.objectPosition}
-          aspectRatio={focus.aspectRatio}
-          scale={focus.scale}
-        />
-      </ProductFrame>
-      <p className="mt-3 text-[12px] text-muted-foreground">{caption}</p>
-    </div>
-  );
-}
-
 function ProductPage() {
+  const dashboardFocus = SCREEN_FOCUS.dashboard;
+
   return (
     <SiteShell>
+      {/* 1. Product definition — not a second Home belief hero */}
       <section className="border-b border-border/60 bg-background">
-        <div className="mx-auto max-w-[1280px] px-6 pb-10 pt-10 lg:px-10 lg:pb-12 lg:pt-12">
-          <div className="grid items-center gap-8 lg:grid-cols-[0.46fr_0.54fr] lg:gap-10">
+        <div className="mx-auto max-w-[1280px] px-6 pb-9 pt-10 lg:px-10 lg:pb-10 lg:pt-12">
+          <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.95fr)] lg:gap-10">
             <div className="min-w-0">
               <div className="mb-4 text-[12px] font-medium uppercase tracking-[0.18em] text-accent">
                 Dental Assist · A Reacting product
               </div>
-              <h1 className="text-[36px] font-semibold leading-[1.05] tracking-[-0.025em] text-foreground sm:text-[44px] lg:text-[48px]">
-                Spend less time chasing stock and orders. Keep the practice
-                running.
+              <h1 className="text-[34px] font-semibold leading-[1.06] tracking-[-0.025em] text-foreground sm:text-[42px] lg:text-[46px]">
+                Dental Assist is the operational workspace for non-clinical
+                practice operations.
               </h1>
               <p className="mt-5 max-w-xl text-[16px] leading-[1.65] text-muted-foreground sm:text-[17px]">
-                Dental Assist helps dental practices manage purchasing,
-                inventory and suppliers in one calm workspace. Developed and
-                refined inside a real dental practice, and now opening to a
-                small number of additional practices.
+                One product inside Reacting. Today’s demonstrated capability
+                centres on inventory, suppliers and purchasing — so the practice
+                can see what it holds, who supplies it and what is being bought,
+                without rebuilding that picture across spreadsheets and messages.
+                Developed and refined inside a real dental practice.
               </p>
               <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
                 <Button
@@ -184,98 +174,253 @@ function ProductPage() {
               </div>
             </div>
 
-            <HeroProductMedia
-              posterSrc={SCREENS.dashboard}
-              posterAlt="Dental Assist dashboard — real product screen"
-              caption="Live inventory, purchasing queue, supplier activity and spend — all in one workspace."
-            />
+            <div className="w-full min-w-0">
+              <ProductFrame label="app.reacting.io / dashboard">
+                <MediaViewer
+                  imageSrc={SCREENS.dashboard}
+                  alt="Dental Assist dashboard — control-centre overview"
+                  priority
+                  objectFit={dashboardFocus.objectFit}
+                  objectPosition={dashboardFocus.objectPosition}
+                  aspectRatio={dashboardFocus.aspectRatio}
+                  scale={dashboardFocus.scale}
+                />
+              </ProductFrame>
+              <p className="mt-3 text-[12px] text-muted-foreground">
+                Control centre — spend, inventory value, stock risk and
+                purchasing activity in one overview.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      <TrustBar />
+      {/* 2. What lives inside — compact non-sequential anatomy */}
+      <section
+        id="inside-dental-assist"
+        aria-labelledby="inside-dental-assist-heading"
+        className="scroll-mt-24 border-b border-border/60 bg-[#F8FAFC]"
+      >
+        <div className="mx-auto max-w-[1280px] px-6 py-10 lg:px-10 lg:py-12">
+          <div className="max-w-2xl">
+            <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
+              Inside Dental Assist
+            </div>
+            <h2
+              id="inside-dental-assist-heading"
+              className="mt-2.5 text-[26px] font-semibold leading-[1.12] tracking-[-0.025em] text-foreground sm:text-[32px]"
+            >
+              What lives inside the product.
+            </h2>
+            <p className="mt-3 text-[15px] leading-[1.65] text-muted-foreground">
+              These are capabilities inside Dental Assist — not separate
+              products. Orientation only; the deeper day-to-day journey lives on
+              Home.
+            </p>
+          </div>
 
-      {showcases.map((s) => (
-        <section
-          key={s.id}
-          className={`border-b border-border/60 ${
-            s.tone === "muted" ? "bg-[#F8FAFC]" : "bg-background"
-          }`}
-        >
-          <div className="mx-auto max-w-[1280px] px-6 py-10 lg:px-10 lg:py-12">
-            <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
-              {s.imageFirst ? (
-                <>
-                  <div className="w-full min-w-0">
-                    <ProductFrame label={s.url}>
-                      <MediaViewer
-                        imageSrc={s.src}
-                        alt={s.alt}
-                        objectFit={s.focus.objectFit}
-                        objectPosition={s.focus.objectPosition}
-                        aspectRatio={s.focus.aspectRatio ?? "16 / 10"}
-                        scale={s.focus.scale}
-                      />
-                    </ProductFrame>
-                    <p className="mt-3 text-[12px] text-muted-foreground">
-                      {s.caption}
-                    </p>
-                  </div>
-                  <div>
-                    <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
-                      {s.eyebrow}
-                    </div>
-                    <h2 className="max-w-md text-[28px] font-semibold leading-[1.12] tracking-[-0.025em] text-foreground sm:text-[34px]">
-                      {s.title}
-                    </h2>
-                    <p className="mt-4 max-w-md text-[15.5px] leading-[1.65] text-muted-foreground">
-                      {s.body}
-                    </p>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div>
-                    <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
-                      {s.eyebrow}
-                    </div>
-                    <h2 className="max-w-md text-[28px] font-semibold leading-[1.12] tracking-[-0.025em] text-foreground sm:text-[34px]">
-                      {s.title}
-                    </h2>
-                    <p className="mt-4 max-w-md text-[15.5px] leading-[1.65] text-muted-foreground">
-                      {s.body}
-                    </p>
-                  </div>
-                  <div className="w-full min-w-0 lg:justify-self-end">
-                    <ProductFrame label={s.url}>
-                      <MediaViewer
-                        imageSrc={s.src}
-                        alt={s.alt}
-                        objectFit={s.focus.objectFit}
-                        objectPosition={s.focus.objectPosition}
-                        aspectRatio={s.focus.aspectRatio ?? "16 / 10"}
-                        scale={s.focus.scale}
-                      />
-                    </ProductFrame>
-                    <p className="mt-3 text-[12px] text-muted-foreground">
-                      {s.caption}
-                    </p>
-                  </div>
-                </>
-              )}
+          <ul className="mt-8 grid gap-x-8 gap-y-5 sm:grid-cols-2 lg:grid-cols-4">
+            {insideCapabilities.map((item) => (
+              <li key={item.label} className="min-w-0">
+                <div className="text-[13.5px] font-semibold tracking-[-0.01em] text-foreground">
+                  {item.label}
+                </div>
+                <p className="mt-1.5 text-[13.5px] leading-[1.55] text-muted-foreground">
+                  {item.body}
+                </p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* 3. Value by role */}
+      <section
+        aria-labelledby="roles-heading"
+        className="border-b border-border/60 bg-background"
+      >
+        <div className="mx-auto max-w-[1280px] px-6 py-10 lg:px-10 lg:py-12">
+          <div className="max-w-2xl">
+            <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
+              Built around the practice
+            </div>
+            <h2
+              id="roles-heading"
+              className="mt-2.5 text-[26px] font-semibold leading-[1.12] tracking-[-0.025em] text-foreground sm:text-[32px]"
+            >
+              Built around the people running the practice.
+            </h2>
+            <p className="mt-3 text-[15px] leading-[1.65] text-muted-foreground">
+              Each role works from the same Dental Assist record — with the
+              visibility and actions that matter to them.
+            </p>
+          </div>
+
+          <div className="mt-8 grid gap-8 lg:grid-cols-3 lg:gap-10">
+            {roles.map((role) => (
+              <div key={role.id} className="min-w-0">
+                <h3 className="text-[18px] font-semibold tracking-[-0.02em] text-foreground">
+                  {role.title}
+                </h3>
+                <p className="mt-3 text-[14.5px] leading-[1.65] text-muted-foreground">
+                  {role.body}
+                </p>
+                <ul className="mt-4 space-y-2">
+                  {role.points.map((point) => (
+                    <li
+                      key={point}
+                      className="flex items-start gap-2.5 text-[13.5px] leading-[1.5] text-foreground/85"
+                    >
+                      <span className="mt-2 inline-block h-1 w-1 shrink-0 rounded-full bg-foreground/50" />
+                      {point}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 4. Product depth — compact; not Home’s journey screens */}
+      <section
+        aria-labelledby="depth-heading"
+        className="border-b border-border/60 bg-[#F8FAFC]"
+      >
+        <div className="mx-auto max-w-[1280px] px-6 py-10 lg:px-10 lg:py-12">
+          <div className="max-w-2xl">
+            <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
+              Product depth
+            </div>
+            <h2
+              id="depth-heading"
+              className="mt-2.5 text-[26px] font-semibold leading-[1.12] tracking-[-0.025em] text-foreground sm:text-[32px]"
+            >
+              Real control surfaces beyond the overview.
+            </h2>
+            <p className="mt-3 text-[15px] leading-[1.65] text-muted-foreground">
+              Supplier management, expiry control and the inventory record —
+              authentic product screens that show how deep Dental Assist goes
+              day to day.
+            </p>
+          </div>
+
+          <div className="mt-8 grid gap-8 lg:grid-cols-3 lg:gap-6">
+            {depthEvidence.map((item) => (
+              <div key={item.id} className="min-w-0">
+                <ProductFrame label={item.url}>
+                  <MediaViewer
+                    imageSrc={item.src}
+                    alt={item.alt}
+                    objectFit={item.focus.objectFit}
+                    objectPosition={item.focus.objectPosition}
+                    aspectRatio={item.focus.aspectRatio ?? "16 / 10"}
+                    scale={item.focus.scale}
+                  />
+                </ProductFrame>
+                <div className="mt-3.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
+                  {item.label}
+                </div>
+                <h3 className="mt-1.5 text-[16px] font-semibold leading-[1.25] tracking-[-0.02em] text-foreground">
+                  {item.title}
+                </h3>
+                <p className="mt-2 text-[13.5px] leading-[1.55] text-muted-foreground">
+                  {item.body}
+                </p>
+                <p className="mt-2 text-[12px] text-muted-foreground/90">
+                  {item.caption}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 5. One operational record */}
+      <section
+        aria-labelledby="record-heading"
+        className="border-b border-border/60 bg-background"
+      >
+        <div className="mx-auto max-w-[1280px] px-6 py-10 lg:px-10 lg:py-12">
+          <div className="mx-auto max-w-2xl text-center">
+            <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
+              One operational record
+            </div>
+            <h2
+              id="record-heading"
+              className="mt-2.5 text-[26px] font-semibold leading-[1.12] tracking-[-0.025em] text-foreground sm:text-[32px]"
+            >
+              Inventory, suppliers and purchasing stay connected.
+            </h2>
+            <p className="mt-3 text-[15px] leading-[1.65] text-muted-foreground">
+              Dental Assist keeps the practice’s operational information in one
+              shared record — so stock, supplier and purchasing detail is not
+              reconstructed across spreadsheets, messages and memory every time
+              someone asks what is happening.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* 6. Product boundary */}
+      <section
+        aria-labelledby="boundary-heading"
+        className="border-b border-border/60 bg-[#F8FAFC]"
+      >
+        <div className="mx-auto max-w-[1280px] px-6 py-10 lg:px-10 lg:py-12">
+          <div className="max-w-2xl">
+            <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
+              Clear boundary
+            </div>
+            <h2
+              id="boundary-heading"
+              className="mt-2.5 text-[26px] font-semibold leading-[1.12] tracking-[-0.025em] text-foreground sm:text-[32px]"
+            >
+              What Dental Assist is today — and what it is not.
+            </h2>
+          </div>
+
+          <div className="mt-8 grid gap-8 lg:grid-cols-2 lg:gap-12">
+            <div className="min-w-0">
+              <h3 className="text-[15px] font-semibold tracking-[-0.01em] text-foreground">
+                Today
+              </h3>
+              <p className="mt-3 text-[14.5px] leading-[1.65] text-muted-foreground">
+                Dental Assist is Reacting’s first product: an operational
+                workspace for inventory, suppliers and purchasing. Those are
+                capabilities inside one product — not sibling tools. Future
+                operational capabilities (such as scheduling) are expected to
+                arrive as modules within Dental Assist as they become available,
+                under the Reacting platform.
+              </p>
+            </div>
+            <div className="min-w-0">
+              <h3 className="text-[15px] font-semibold tracking-[-0.01em] text-foreground">
+                Not today
+              </h3>
+              <p className="mt-3 text-[14.5px] leading-[1.65] text-muted-foreground">
+                Dental Assist is not a practice management system. It does not
+                replace clinical records or appointment management. It is built
+                to sit alongside the systems the practice already uses for care
+                and booking — focused on the non-clinical operational work that
+                usually lives in spreadsheets and conversation.
+              </p>
             </div>
           </div>
-        </section>
-      ))}
+        </div>
+      </section>
+
+      {/* 7. Trust + close */}
+      <TrustBar />
 
       <section className="border-b border-border/60 bg-background">
         <div className="mx-auto max-w-[1280px] px-6 py-9 text-center lg:px-10 lg:py-12">
-          <h2 className="mx-auto max-w-2xl text-[28px] font-semibold leading-[1.12] tracking-[-0.025em] text-foreground sm:text-[36px]">
+          <h2 className="mx-auto max-w-2xl text-[28px] font-semibold leading-[1.12] tracking-[-0.025em] text-foreground sm:text-[34px]">
             See Dental Assist in your practice.
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-[15px] leading-[1.6] text-muted-foreground">
-            See how Dental Assist can support purchasing, stock and supplier
-            workflows in your practice.
+            Walk through the operational workspace with your own stock,
+            suppliers and purchasing in mind.
           </p>
           <div className="mt-5 flex justify-center">
             <Button

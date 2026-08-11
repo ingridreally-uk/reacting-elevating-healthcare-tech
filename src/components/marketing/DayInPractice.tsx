@@ -59,7 +59,7 @@ const steps: Step[] = [
     short: "Decision",
     title: "Two suppliers replied. One decision remains.",
     body: "Prices sit side by side by product, with the saving and budget impact visible before the practice commits.",
-    outcome: "£2.90 saved here. The monthly budget stays clear.",
+    outcome: "Compare price, saving and budget impact before the practice commits.",
     media: DIP_SCREENS.decision,
     alt: "Dental Assist RFQ comparison with selected prices and savings",
     path: "rfq",

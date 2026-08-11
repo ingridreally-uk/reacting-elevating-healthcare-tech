@@ -30,7 +30,8 @@ export const DIP_DESKTOP_ASPECT = "229 / 140" as const;
 
 /**
  * DayInPractice only — tight natural desktop crops + shared viewport aspect.
- * contain + no runtime scale. Product/Features keep SCREENS + SCREEN_FOCUS.
+ * Desktop uses contain + no DIP runtime scale (Order included).
+ * Product/Features keep SCREENS + SCREEN_FOCUS.
  */
 export const DIP_SCREENS = {
   stock: {
@@ -51,16 +52,16 @@ export const DIP_SCREENS = {
     objectPosition: "center top",
   },
   decision: {
-    // PNG: owner RFQ screenshot — dense UI, avoid lossy WebP softening
+    // PNG: continuous sanitised RFQ crop — comparison through Budget Impact
     desktop: "/product-screens/mkt-dip-decision.png",
     // Mobile: two authentic regions from owner RFQ (comparison + budget consequence).
     mobile: "/product-screens/mkt-dip-decision-mobile.webp",
     desktopAspect: DIP_DESKTOP_ASPECT,
     mobileAspect: "1098 / 987",
-    objectPosition: "center top",
+    objectPosition: "center",
   },
   order: {
-    // PNG: owner Purchase Orders — Create Order + Actions preserved
+    // PNG: owner Purchase Orders — full L/R workspace; Create Order + Actions preserved
     desktop: "/product-screens/mkt-dip-order.png",
     // Mobile: identity + KPIs + Waiting rows + Status (Actions excluded for legibility).
     mobile: "/product-screens/mkt-dip-order-mobile.webp",

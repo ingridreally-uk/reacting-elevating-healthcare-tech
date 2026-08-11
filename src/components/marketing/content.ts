@@ -9,6 +9,76 @@ export const HERO_LOOP_POSTER = "/product-screens/hero-product-loop-poster.jpg";
 export const PRODUCT_TOUR_VIDEO = "/product-screens/product-tour.mp4";
 export const PRODUCT_TOUR_POSTER = "/product-screens/product-tour-poster.jpg";
 
+/**
+ * Homepage hero only — tight, identity-safe crops of the cleaned dashboard.
+ * Edge-filled (no letterbox slate). Not used by Product / Features / DayInPractice.
+ */
+export const HERO_DASHBOARD = {
+  desktop: "/product-screens/mkt-hero-dashboard.webp",
+  mobile: "/product-screens/mkt-hero-dashboard-mobile.webp",
+  /** Native prepared ratios — MediaViewer contain, no runtime scale. */
+  desktopAspect: "1683 / 831",
+  mobileAspect: "1010 / 582",
+} as const;
+
+/**
+ * DayInPractice desktop media viewport — stable outer frame for all steps.
+ * ~687×420 at 1440 desktop (aspect 229/140). Tight natural crops are fitted
+ * with object-fit:contain; no shared baked 1400×840 canvas.
+ */
+export const DIP_DESKTOP_ASPECT = "229 / 140" as const;
+
+/**
+ * DayInPractice only — tight natural desktop crops + shared viewport aspect.
+ * contain + no runtime scale. Product/Features keep SCREENS + SCREEN_FOCUS.
+ */
+export const DIP_SCREENS = {
+  stock: {
+    // PNG: dense Stock UI — avoid lossy WebP softening (composition locked).
+    desktop: "/product-screens/mkt-dip-stock.png",
+    // Mobile: detail-led crop from locked desktop (aspect ~1.30).
+    mobile: "/product-screens/mkt-dip-stock-mobile.webp",
+    desktopAspect: DIP_DESKTOP_ASPECT,
+    mobileAspect: "1140 / 878",
+    objectPosition: "center",
+  },
+  risk: {
+    desktop: "/product-screens/mkt-dip-risk.webp",
+    // Mobile: two complete cards + Details/RFQ (taller than landscape target for completeness).
+    mobile: "/product-screens/mkt-dip-risk-mobile.webp",
+    desktopAspect: DIP_DESKTOP_ASPECT,
+    mobileAspect: "648 / 585",
+    objectPosition: "center top",
+  },
+  decision: {
+    // PNG: owner RFQ screenshot — dense UI, avoid lossy WebP softening
+    desktop: "/product-screens/mkt-dip-decision.png",
+    // Mobile: two authentic regions from owner RFQ (comparison + budget consequence).
+    mobile: "/product-screens/mkt-dip-decision-mobile.webp",
+    desktopAspect: DIP_DESKTOP_ASPECT,
+    mobileAspect: "1098 / 987",
+    objectPosition: "center top",
+  },
+  order: {
+    // PNG: owner Purchase Orders — Create Order + Actions preserved
+    desktop: "/product-screens/mkt-dip-order.png",
+    // Mobile: identity + KPIs + Waiting rows + Status (Actions excluded for legibility).
+    mobile: "/product-screens/mkt-dip-order-mobile.webp",
+    desktopAspect: DIP_DESKTOP_ASPECT,
+    mobileAspect: "1128 / 632",
+    objectPosition: "center top",
+  },
+  control: {
+    // PNG: owner Savings & Usage — authentic Mar→Aug (incl. July)
+    desktop: "/product-screens/mkt-dip-control.png",
+    // Mobile: Jun 2026 KPIs + trend with July visible.
+    mobile: "/product-screens/mkt-dip-control-mobile.webp",
+    desktopAspect: DIP_DESKTOP_ASPECT,
+    mobileAspect: "1420 / 850",
+    objectPosition: "center",
+  },
+} as const;
+
 /** Feature-section screenshots (consistent prepared canvases). */
 export const SCREENS = {
   dashboard: "/product-screens/mkt-dashboard.webp",

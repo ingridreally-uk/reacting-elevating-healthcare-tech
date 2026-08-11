@@ -3,9 +3,11 @@ import { motion, useReducedMotion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { ProductFrame } from "./ProductFrame";
 import { MediaViewer } from "./MediaViewer";
-import { SCREENS } from "./content";
+import { DIP_DESKTOP_ASPECT, DIP_SCREENS } from "./content";
 import { cn } from "@/lib/utils";
 import { elev, layout, radius } from "./design";
+
+type DipMedia = (typeof DIP_SCREENS)[keyof typeof DIP_SCREENS];
 
 type Step = {
   id: string;
@@ -14,93 +16,73 @@ type Step = {
   title: string;
   body: string;
   outcome: string;
-  imageSrc: string;
+  media: DipMedia;
   alt: string;
   path: string;
 };
 
 /**
- * One continuous morning story, housed in a single unified panel (one card,
- * one border, one background) so the step rail and the product view read as
- * one designed surface instead of two independently-sized blocks. Every step
- * shares the same layout, aspect ratio and image treatment so nothing shifts
- * as you move through it.
+ * Lived operational workflow — Stock → Risk → Decision → Order → Control.
+ * Chronology remains a storytelling device; the payoff is continuous
+ * operational control, not completing a morning routine.
+ *
+ * Panel geometry matches the established DayInPractice composition
+ * (unified card, rail + product frame). Desktop media uses a stable common
+ * viewport; tight natural crops fit with contain — no baked stage canvas.
  */
 const steps: Step[] = [
   {
-    id: "shelf",
+    id: "stock",
     time: "07:45",
-    short: "Shelf",
+    short: "Stock",
     title: "“Do we actually have it?”",
     body: "Instead of checking three cupboards or asking on WhatsApp, the team sees the live quantity and exactly where the item belongs.",
-    outcome: "The first patient arrives. Nobody is searching.",
-    imageSrc: SCREENS.stockPage,
+    outcome: "Availability is known before the first patient arrives.",
+    media: DIP_SCREENS.stock,
     alt: "Dental Assist inventory with live quantities and selected product detail",
     path: "stock",
   },
   {
-    id: "shortage",
+    id: "risk",
     time: "08:10",
-    short: "Shortage",
-    title: "The gloves will not last the week.",
-    body: "Dental Assist brings the shortage forward while there is still time to act, with existing RFQs and orders visible beside it.",
+    short: "Risk",
+    title: "What needs attention before it becomes a problem.",
+    body: "Low stock and expiry risk surface while there is still time to act — with existing RFQs and orders visible beside each item.",
     outcome: "The practice replenishes early — not chairside.",
-    imageSrc: SCREENS.lowStockPage,
-    alt: "Dental Assist low-stock cards ready for RFQ action",
+    media: DIP_SCREENS.risk,
+    alt: "Dental Assist low-stock cards showing items that need action, with linked RFQs",
     path: "low stock",
   },
   {
-    id: "expiry",
-    time: "08:35",
-    short: "Expiry",
-    title: "A box is quietly losing its value.",
-    body: "Expired and near-expiry materials surface by date, so the team can rotate, use or replace them before they become waste.",
-    outcome: "Less write-off. No last-minute discovery.",
-    imageSrc: SCREENS.expiring,
-    alt: "Dental Assist expiry tracking with products ready for rotation",
-    path: "expiring stock",
-  },
-  {
-    id: "suppliers",
-    time: "09:10",
-    short: "Suppliers",
-    title: "“Who supplied this last time?”",
-    body: "The supplier, contact, account reference and linked purchasing history are already together — without another inbox search.",
-    outcome: "The right person gets the right request first time.",
-    imageSrc: SCREENS.suppliers,
-    alt: "Dental Assist supplier directory with account detail and linked activity",
-    path: "suppliers",
-  },
-  {
-    id: "rfq",
+    id: "decision",
     time: "09:40",
-    short: "Quotes",
+    short: "Decision",
     title: "Two suppliers replied. One decision remains.",
     body: "Prices sit side by side by product, with the saving and budget impact visible before the practice commits.",
-    outcome: "£56 saved here. The monthly budget stays clear.",
-    imageSrc: SCREENS.rfqCompare,
+    outcome: "£2.90 saved here. The monthly budget stays clear.",
+    media: DIP_SCREENS.decision,
     alt: "Dental Assist RFQ comparison with selected prices and savings",
     path: "rfq",
   },
   {
-    id: "orders",
+    id: "order",
     time: "10:15",
-    short: "Orders",
+    short: "Order",
     title: "Did somebody already place the order?",
     body: "Every purchase order, supplier and follow-up status stays visible in the same place — before anyone orders twice.",
     outcome: "One shared answer for the whole team.",
-    imageSrc: SCREENS.purchasing,
+    media: DIP_SCREENS.order,
     alt: "Dental Assist purchase orders with suppliers and status",
     path: "purchase orders",
   },
   {
-    id: "reporting",
+    id: "control",
     time: "11:10",
     short: "Control",
     title: "And what has the practice spent this month?",
-    body: "Order value, usage and quote savings are ready for the owner without rebuilding a spreadsheet at month-end.",
-    outcome: "The morning ends with control — not another admin job.",
-    imageSrc: SCREENS.reporting,
+    body: "Order value, usage and quote savings stay visible for the owner — without rebuilding a spreadsheet at month-end.",
+    outcome: "Spend and savings stay visible as the practice works.",
+    media: DIP_SCREENS.control,
     alt: "Dental Assist reporting with spend, usage and savings over six months",
     path: "savings & usage",
   },
@@ -136,24 +118,38 @@ export function DayInPractice() {
     };
   }, []);
 
+  // Mobile horizontal rail: keep the active tab visible when the step changes
+  // via arrows, keyboard, or direct selection. Does not scroll the page.
+  useEffect(() => {
+    const rail = railRef.current;
+    if (!rail) return;
+    const tab = rail.querySelector<HTMLElement>(`#journey-tab-${steps[active]?.id}`);
+    if (!tab) return;
+    tab.scrollIntoView({
+      behavior: reduceMotion ? "auto" : "smooth",
+      inline: "nearest",
+      block: "nearest",
+    });
+  }, [active, reduceMotion]);
+
   return (
     <section
       id="day-in-practice"
       aria-labelledby="journey-heading"
       className="scroll-mt-24 border-b border-border/40 bg-[#F1F5F9]"
     >
-      <div className={cn(layout.shell, "py-14 lg:py-16")}>
+      <div className={cn(layout.shell, "py-6 lg:py-10")}>
         <div className="mx-auto max-w-2xl text-center">
-          <p className={layout.eyebrow}>Follow a real morning</p>
+          <p className={layout.eyebrow}>How the day stays connected</p>
           <h2
             id="journey-heading"
-            className="mt-3 text-[28px] font-semibold tracking-[-0.032em] text-foreground sm:text-[36px]"
+            className="mt-1.5 text-[28px] font-semibold tracking-[-0.032em] text-foreground sm:text-[36px] lg:mt-2"
           >
             From an unverified handover to a practice under control.
           </h2>
-          <p className="mx-auto mt-3 max-w-[48ch] text-[15px] leading-[1.65] text-muted-foreground">
-            The evening restock is assumed, not checked. By late morning, the team knows exactly
-            what is on the shelf, what needs attention and what has already been done about it.
+          <p className="mx-auto mt-1.5 max-w-[48ch] text-[15px] leading-[1.65] text-muted-foreground lg:mt-2">
+            Stock, risk, decisions, orders and spend stay in one workflow — so the team knows what
+            needs attention and what has already been done about it.
           </p>
         </div>
 
@@ -161,7 +157,7 @@ export function DayInPractice() {
             border, background and height so nothing looks orphaned or misaligned. */}
         <div
           className={cn(
-            "mt-10 overflow-hidden lg:mt-12",
+            "mt-4 overflow-hidden lg:mt-6",
             radius.card,
             "border border-border/65 bg-card",
             elev.card,
@@ -170,7 +166,7 @@ export function DayInPractice() {
           <div className="grid lg:grid-cols-12">
             <div className="relative min-w-0 border-b border-border/55 lg:col-span-4 lg:border-b-0 lg:border-r lg:border-border/60">
               <p id={listId} className="sr-only">
-                Day-in-practice steps
+                Operational workflow steps
               </p>
               <ol
                 ref={railRef}
@@ -235,7 +231,7 @@ export function DayInPractice() {
                           >
                             {s.short}
                           </span>
-                          <span className="block text-[11px] tabular-nums text-muted-foreground">
+                          <span className="block text-[10.5px] tabular-nums text-muted-foreground/75">
                             {s.time}
                           </span>
                         </span>
@@ -256,7 +252,7 @@ export function DayInPractice() {
               ) : null}
             </div>
 
-            <div className="min-w-0 p-5 sm:p-7 lg:col-span-8">
+            <div className="min-w-0 p-3.5 sm:p-6 lg:col-span-8 lg:p-7">
               <div
                 role="tabpanel"
                 id={`journey-panel-${step.id}`}
@@ -268,29 +264,42 @@ export function DayInPractice() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
                 >
-                  <h3 className="text-[19px] font-semibold leading-snug tracking-tight text-foreground sm:text-[21px]">
+                  <h3 className="text-[18px] font-semibold leading-snug tracking-tight text-foreground sm:text-[21px]">
                     {step.title}
                   </h3>
-                  <p className="mt-2 max-w-[56ch] text-[14.5px] leading-[1.6] text-muted-foreground">
+                  <p className="mt-1.5 max-w-[56ch] text-[14.5px] leading-[1.55] text-muted-foreground lg:mt-2 lg:leading-[1.6]">
                     {step.body}
                   </p>
-                  <p className="mt-3 max-w-[52ch] border-l-2 border-[oklch(0.6_0.11_210)] pl-3.5 text-[13.5px] font-medium leading-[1.5] text-foreground/82">
+                  <p className="mt-2.5 max-w-[52ch] border-l-2 border-[oklch(0.6_0.11_210)] pl-3.5 text-[13.5px] font-medium leading-[1.45] text-foreground/82 lg:mt-3 lg:leading-[1.5]">
                     {step.outcome}
                   </p>
 
-                  <div className="mt-5">
+                  <div className="mt-3.5 lg:mt-5">
                     <ProductFrame label={`app.reacting.io / ${step.path}`}>
-                      <MediaViewer
-                        imageSrc={step.imageSrc}
-                        alt={step.alt}
-                        objectFit="contain"
-                        aspectRatio="16 / 10"
-                        priority={active === 0}
-                      />
+                      <div className="lg:hidden">
+                        <MediaViewer
+                          imageSrc={step.media.mobile}
+                          alt={step.alt}
+                          objectFit="contain"
+                          aspectRatio={step.media.mobileAspect}
+                          priority={active === 0}
+                        />
+                      </div>
+                      <div className="hidden lg:block">
+                        <MediaViewer
+                          imageSrc={step.media.desktop}
+                          alt={step.alt}
+                          objectFit="contain"
+                          objectPosition={step.media.objectPosition}
+                          aspectRatio={DIP_DESKTOP_ASPECT}
+                          className="bg-[#F0F7F4]"
+                          priority={active === 0}
+                        />
+                      </div>
                     </ProductFrame>
                   </div>
 
-                  <div className="mt-4 flex items-center justify-between gap-3">
+                  <div className="mt-3 flex items-center justify-between gap-3 lg:mt-4">
                     <p className="text-[12.5px] text-muted-foreground">
                       {active + 1} / {steps.length}
                     </p>
@@ -319,8 +328,8 @@ export function DayInPractice() {
           </div>
         </div>
 
-        <p className="mx-auto mt-8 max-w-[46ch] text-center text-[13.5px] leading-[1.6] text-muted-foreground">
-          What used to be assumed at close is confirmed by the time the first patient sits down.
+        <p className="mx-auto mt-4 max-w-[46ch] text-center text-[13.5px] leading-[1.6] text-muted-foreground lg:mt-6">
+          What used to be assumed at close stays visible while the practice is working.
         </p>
       </div>
     </section>

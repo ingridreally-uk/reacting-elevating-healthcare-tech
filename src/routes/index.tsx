@@ -10,7 +10,7 @@ import { HowItWorks } from "@/components/marketing/HowItWorks";
 import { TrustSignals } from "@/components/marketing/TrustSignals";
 import { PracticeProblems } from "@/components/marketing/PracticeProblems";
 import { Outcomes } from "@/components/marketing/Outcomes";
-import { SCREENS } from "@/components/marketing/content";
+import { HERO_DASHBOARD } from "@/components/marketing/content";
 import { SITE_ORIGIN } from "@/lib/site-url";
 
 const HOME_TITLE = "Reacting | Operational Software for Modern Dental Practices";
@@ -52,7 +52,7 @@ export const Route = createFileRoute("/")({
       {
         rel: "preload",
         as: "image",
-        href: SCREENS.dashboard,
+        href: HERO_DASHBOARD.desktop,
         type: "image/webp",
       },
     ],

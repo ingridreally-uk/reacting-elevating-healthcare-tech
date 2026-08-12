@@ -1,43 +1,32 @@
 import { ShieldCheck, RefreshCw, Clock } from "lucide-react";
 
 /**
- * Real Dental Assist product screenshots.
- * PNGs in /public/product-screens/ have been pre-cropped to remove
- * browser chrome (tabs, URL bar, bookmarks) and the Windows taskbar,
- * so they are pure app UI at 1920x890.
+ * Dormant screenshot map for unused ProductMock helpers.
+ * Points only at current live marketing-safe mkt-* assets — raw screen-*
+ * captures were removed from the public deploy surface.
  */
 
 const screenMap: Record<string, string> = {
-  // Dashboard / overview — real Dashboard screen
-  dashboard: "/product-screens/screen-10.png",
-  overview: "/product-screens/screen-10.png",
-  // Inventory / stock — Stock page with folders and items
-  inventory: "/product-screens/screen-22.png",
-  stock: "/product-screens/screen-22.png",
-  "stock-folders": "/product-screens/screen-25.png",
-  // Low stock
-  "low-stock": "/product-screens/screen-21.png",
-  // Expiring stock — Expiring Stock page with expired/expiring cards
-  expiring: "/product-screens/expiring-stock.webp",
-  // Purchasing — Purchase Orders list
-  purchasing: "/product-screens/screen-05.png",
-  orders: "/product-screens/screen-05.png",
-  "order-detail": "/product-screens/screen-09.png",
-  // Suppliers / vendors
-  suppliers: "/product-screens/screen-17.png",
-  vendors: "/product-screens/screen-17.png",
-  // RFQs — comparison used for the feature card, list for generic
-  rfq: "/product-screens/screen-19.png",
-  "rfq-compare": "/product-screens/screen-19.png",
-  "rfq-list": "/product-screens/screen-15.png",
-  // Deliveries — receive order modal
-  deliveries: "/product-screens/screen-12.png",
-  // Reporting
-  reporting: "/product-screens/screen-28.webp",
-  savings: "/product-screens/screen-03.png",
-  // Audit / team workflow
-  audit: "/product-screens/screen-27.png",
-  team: "/product-screens/screen-15.png",
+  dashboard: "/product-screens/mkt-dashboard.webp",
+  overview: "/product-screens/mkt-dashboard.webp",
+  inventory: "/product-screens/mkt-stock.webp",
+  stock: "/product-screens/mkt-stock.webp",
+  "stock-folders": "/product-screens/mkt-stock.webp",
+  "low-stock": "/product-screens/mkt-low-stock.webp",
+  expiring: "/product-screens/mkt-expiring.webp",
+  purchasing: "/product-screens/mkt-purchase-orders.webp",
+  orders: "/product-screens/mkt-purchase-orders.webp",
+  "order-detail": "/product-screens/mkt-purchase-orders.webp",
+  suppliers: "/product-screens/mkt-suppliers.webp",
+  vendors: "/product-screens/mkt-suppliers.webp",
+  rfq: "/product-screens/mkt-rfq-workflow.webp",
+  "rfq-compare": "/product-screens/mkt-rfq-workflow.webp",
+  "rfq-list": "/product-screens/mkt-rfq-workflow.webp",
+  deliveries: "/product-screens/mkt-deliveries.webp",
+  reporting: "/product-screens/mkt-savings-usage.webp",
+  savings: "/product-screens/mkt-savings-usage.webp",
+  audit: "/product-screens/mkt-dashboard.webp",
+  team: "/product-screens/mkt-dashboard.webp",
 };
 
 export function BrowserFrame({

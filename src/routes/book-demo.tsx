@@ -4,6 +4,17 @@ import { Clock, MessageSquare, ShieldCheck, Monitor } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SiteShell } from "@/components/site/SiteChrome";
 import { pageMeta } from "@/lib/seo";
+import { FIELD_MAX, PUBLIC_ENQUIRY_EMAIL } from "@/lib/leads/constants";
+import { TurnstileField } from "@/components/leads/TurnstileField";
+import {
+  FieldError,
+  HoneypotInput,
+  LeadError,
+  LeadPrivacyNote,
+  LeadSuccess,
+  looksLikeEmail,
+} from "@/components/leads/LeadStatus";
+import { turnstileSiteKey, useLeadSubmit } from "@/components/leads/useLeadSubmit";
 
 export const Route = createFileRoute("/book-demo")({
   head: () =>
@@ -23,15 +34,17 @@ const highlights = [
   { icon: ShieldCheck, title: "No obligation", body: "No pressure, no commitment. Decide in your own time." },
 ];
 
+type FieldErrors = Partial<Record<"firstName" | "lastName" | "email" | "practice", string>>;
+
 function BookDemoPage() {
-  const [submitting, setSubmitting] = useState(false);
-  const [showEndpointNotice, setShowEndpointNotice] = useState(false);
+  const { status, errorCode, setTurnstileToken, submit, submitting } = useLeadSubmit();
+  const siteKey = turnstileSiteKey();
+  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
 
   return (
     <SiteShell>
       <section className="border-b border-border/60">
         <div className="mx-auto grid max-w-7xl gap-12 px-6 pb-14 pt-12 lg:grid-cols-[1fr_1.05fr] lg:gap-10 lg:px-10 lg:pb-16 lg:pt-20">
-          {/* Left: value */}
           <div>
             <div className="mb-5 text-[12px] font-medium uppercase tracking-[0.18em] text-accent">
               Book a demo
@@ -64,115 +77,152 @@ function BookDemoPage() {
             </ul>
           </div>
 
-          {/* Right: form */}
           <div className="lg:sticky lg:top-24 lg:self-start">
             <div className="rounded-2xl border border-border bg-card p-6 shadow-[0_40px_80px_-40px_rgb(15_23_42/0.18)] sm:p-7">
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  if (submitting) return;
-                  setSubmitting(true);
-                  window.setTimeout(() => {
-                    setSubmitting(false);
-                    setShowEndpointNotice(true);
-                  }, 600);
-                }}
-                className="space-y-5"
-              >
-                <div>
-                  <div className="text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
-                    Request your demo
-                  </div>
-                  <h2 className="mt-2 text-[22px] font-semibold tracking-tight">
-                    Tell us a little about you.
-                  </h2>
-                </div>
-
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <Field
-                    label="First name"
-                    name="firstName"
-                    autoComplete="given-name"
-                    required
-                  />
-                  <Field
-                    label="Last name"
-                    name="lastName"
-                    autoComplete="family-name"
-                    required
-                  />
-                </div>
-                <Field
-                  label="Work email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  required
-                />
-                <Field
-                  label="Practice name"
-                  name="practice"
-                  autoComplete="organization"
-                  required
-                />
-                <Field
-                  label="Role"
-                  name="role"
-                  autoComplete="organization-title"
-                  placeholder="e.g. Practice Manager"
-                />
-                <Field
-                  label="Number of surgeries"
-                  name="surgeries"
-                  autoComplete="off"
-                  placeholder="e.g. 4"
-                />
-                <div>
-                  <label
-                    htmlFor="notes"
-                    className="mb-1.5 block text-[12.5px] font-medium text-foreground"
-                  >
-                    Anything we should know?
-                  </label>
-                  <textarea
-                    id="notes"
-                    name="notes"
-                    rows={3}
-                    autoComplete="off"
-                    className="w-full resize-none rounded-lg border border-input bg-background px-3 py-2.5 text-[14px] shadow-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-foreground/30 focus:ring-1 focus:ring-foreground/10"
-                  />
-                </div>
-
-                <Button
-                  type="submit"
-                  size="lg"
-                  disabled={submitting}
-                  className="mt-2 h-11 w-full rounded-full text-[13.5px] font-medium"
+              {status === "success" ? (
+                <LeadSuccess title="Thank you.">
+                  Your demo request has been sent. We&apos;ll be in touch.
+                </LeadSuccess>
+              ) : (
+                <form
+                  noValidate
+                  onSubmit={async (e) => {
+                    e.preventDefault();
+                    if (submitting) return;
+                    const values = new FormData(e.currentTarget);
+                    const firstName = String(values.get("firstName") ?? "");
+                    const lastName = String(values.get("lastName") ?? "");
+                    const email = String(values.get("email") ?? "");
+                    const practiceName = String(values.get("practice") ?? "");
+                    const next: FieldErrors = {};
+                    if (!firstName.trim()) next.firstName = "Please enter your first name.";
+                    if (!lastName.trim()) next.lastName = "Please enter your last name.";
+                    if (!email.trim()) next.email = "Please enter your work email.";
+                    else if (!looksLikeEmail(email)) next.email = "Please enter a valid work email.";
+                    if (!practiceName.trim()) next.practice = "Please enter your practice name.";
+                    setFieldErrors(next);
+                    if (Object.keys(next).length) return;
+                    await submit({
+                      source: "book-demo",
+                      firstName,
+                      lastName,
+                      email,
+                      practiceName,
+                      role: String(values.get("role") ?? ""),
+                      surgeries: String(values.get("surgeries") ?? ""),
+                      notes: String(values.get("notes") ?? ""),
+                      honeypot: String(values.get("faxNumber") ?? ""),
+                    });
+                  }}
+                  className="relative space-y-5"
                 >
-                  {submitting ? "Submitting..." : "Request Demo"}
-                </Button>
+                  <HoneypotInput />
+                  <div>
+                    <div className="text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
+                      Request your demo
+                    </div>
+                    <h2 className="mt-2 text-[22px] font-semibold tracking-tight">
+                      Tell us a little about you.
+                    </h2>
+                  </div>
 
-                {showEndpointNotice && (
-                  <p
-                    className="text-center text-[12.5px] leading-[1.55] text-muted-foreground"
-                    aria-live="polite"
-                  >
-                    Online submission is being connected before launch. Please
-                    email us directly in the meantime at{" "}
-                    <a
-                      href="mailto:hello@reacting.io"
-                      className="text-foreground underline-offset-4 hover:underline"
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <Field
+                      label="First name"
+                      name="firstName"
+                      autoComplete="given-name"
+                      required
+                      maxLength={FIELD_MAX.name}
+                      error={fieldErrors.firstName}
+                      onChange={() => setFieldErrors((e) => ({ ...e, firstName: undefined }))}
+                    />
+                    <Field
+                      label="Last name"
+                      name="lastName"
+                      autoComplete="family-name"
+                      required
+                      maxLength={FIELD_MAX.name}
+                      error={fieldErrors.lastName}
+                      onChange={() => setFieldErrors((e) => ({ ...e, lastName: undefined }))}
+                    />
+                  </div>
+                  <Field
+                    label="Work email"
+                    name="email"
+                    type="email"
+                    autoComplete="email"
+                    required
+                    maxLength={FIELD_MAX.email}
+                    error={fieldErrors.email}
+                    onChange={() => setFieldErrors((e) => ({ ...e, email: undefined }))}
+                  />
+                  <Field
+                    label="Practice name"
+                    name="practice"
+                    autoComplete="organization"
+                    required
+                    maxLength={FIELD_MAX.practice}
+                    error={fieldErrors.practice}
+                    onChange={() => setFieldErrors((e) => ({ ...e, practice: undefined }))}
+                  />
+                  <Field
+                    label="Role"
+                    name="role"
+                    autoComplete="organization-title"
+                    placeholder="e.g. Practice Manager"
+                    maxLength={FIELD_MAX.role}
+                  />
+                  <Field
+                    label="Number of surgeries"
+                    name="surgeries"
+                    autoComplete="off"
+                    placeholder="e.g. 4"
+                    maxLength={FIELD_MAX.surgeries}
+                  />
+                  <div>
+                    <label
+                      htmlFor="notes"
+                      className="mb-1.5 block text-[12.5px] font-medium text-foreground"
                     >
-                      hello@reacting.io
-                    </a>
-                    .
-                  </p>
-                )}
+                      Anything we should know?
+                    </label>
+                    <textarea
+                      id="notes"
+                      name="notes"
+                      rows={3}
+                      autoComplete="off"
+                      maxLength={FIELD_MAX.notes}
+                      className="w-full resize-none rounded-lg border border-input bg-background px-3 py-2.5 text-[14px] shadow-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-foreground/30 focus:ring-1 focus:ring-foreground/10"
+                    />
+                  </div>
 
-                <p className="text-center text-[11.5px] text-muted-foreground">
-                  We&apos;ll reply within one working day. No spam, ever.
-                </p>
-              </form>
+                  <TurnstileField siteKey={siteKey} onToken={setTurnstileToken} />
+
+                  <Button
+                    type="submit"
+                    size="lg"
+                    disabled={submitting}
+                    aria-busy={submitting}
+                    className="mt-2 h-11 w-full rounded-full text-[13.5px] font-medium"
+                  >
+                    {submitting ? "Submitting..." : "Request Demo"}
+                  </Button>
+
+                  {status === "error" && errorCode ? <LeadError code={errorCode} /> : (
+                    <p className="text-center text-[12px] leading-[1.55] text-muted-foreground">
+                      We&apos;ll reply within one working day. No spam, ever. Or email{" "}
+                      <a
+                        href={`mailto:${PUBLIC_ENQUIRY_EMAIL}`}
+                        className="text-foreground underline-offset-4 hover:underline"
+                      >
+                        {PUBLIC_ENQUIRY_EMAIL}
+                      </a>
+                      .
+                    </p>
+                  )}
+                  <LeadPrivacyNote />
+                </form>
+              )}
             </div>
           </div>
         </div>
@@ -188,6 +238,9 @@ function Field({
   placeholder,
   required,
   autoComplete,
+  maxLength,
+  error,
+  onChange,
 }: {
   label: string;
   name: string;
@@ -195,7 +248,11 @@ function Field({
   placeholder?: string;
   required?: boolean;
   autoComplete?: string;
+  maxLength?: number;
+  error?: string;
+  onChange?: () => void;
 }) {
+  const errorId = `${name}-error`;
   return (
     <div>
       <label htmlFor={name} className="mb-1.5 block text-[12.5px] font-medium text-foreground">
@@ -208,8 +265,13 @@ function Field({
         required={required}
         placeholder={placeholder}
         autoComplete={autoComplete}
+        maxLength={maxLength}
+        aria-invalid={error ? true : undefined}
+        aria-describedby={error ? errorId : undefined}
+        onChange={onChange}
         className="h-10 w-full rounded-lg border border-input bg-background px-3 text-[14px] shadow-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-foreground/30 focus:ring-1 focus:ring-foreground/10"
       />
+      <FieldError id={errorId} message={error} />
     </div>
   );
 }

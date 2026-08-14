@@ -1,9 +1,20 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { Mail, MessageSquare } from "lucide-react";
+import { Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SiteShell, PageHero } from "@/components/site/SiteChrome";
 import { pageMeta } from "@/lib/seo";
+import { FIELD_MAX, PUBLIC_ENQUIRY_EMAIL } from "@/lib/leads/constants";
+import { TurnstileField } from "@/components/leads/TurnstileField";
+import {
+  FieldError,
+  HoneypotInput,
+  LeadError,
+  LeadPrivacyNote,
+  LeadSuccess,
+  looksLikeEmail,
+} from "@/components/leads/LeadStatus";
+import { turnstileSiteKey, useLeadSubmit } from "@/components/leads/useLeadSubmit";
 
 export const Route = createFileRoute("/contact")({
   head: () =>
@@ -16,9 +27,12 @@ export const Route = createFileRoute("/contact")({
   component: ContactPage,
 });
 
+type FieldErrors = Partial<Record<"name" | "email" | "message", string>>;
+
 function ContactPage() {
-  const [submitting, setSubmitting] = useState(false);
-  const [showEndpointNotice, setShowEndpointNotice] = useState(false);
+  const { status, errorCode, setTurnstileToken, submit, submitting } = useLeadSubmit();
+  const siteKey = turnstileSiteKey();
+  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
 
   return (
     <SiteShell>
@@ -29,139 +43,136 @@ function ContactPage() {
       />
 
       <section>
-        <div className="mx-auto grid max-w-7xl gap-10 px-6 py-10 lg:grid-cols-[1fr_1.2fr] lg:gap-12 lg:px-10 lg:py-20">
-          <div className="space-y-6">
-            <ContactCard
-              icon={Mail}
-              title="Email"
-              email="hello@reacting.io"
-              caption="For general questions, partnerships and early access."
-            />
-            <ContactCard
-              icon={MessageSquare}
-              title="Support"
-              email="support@reacting.io"
-              caption="For existing customers needing help."
-            />
+        <div className="mx-auto grid max-w-7xl items-start gap-10 px-6 py-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-12 lg:px-10 lg:py-16">
+          <div className="lg:sticky lg:top-24">
+            <div className="rounded-2xl border border-border bg-card p-7">
+              <Mail className="h-5 w-5 text-foreground" strokeWidth={1.5} />
+              <div className="mt-5 text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
+                Email
+              </div>
+              <a
+                href={`mailto:${PUBLIC_ENQUIRY_EMAIL}`}
+                className="mt-2 block text-[20px] font-semibold tracking-tight text-foreground"
+              >
+                {PUBLIC_ENQUIRY_EMAIL}
+              </a>
+              <p className="mt-2 text-[13.5px] leading-[1.6] text-muted-foreground">
+                For questions, partnerships, early access and existing customers.
+              </p>
+              <p className="mt-5 text-[13.5px] leading-[1.6] text-muted-foreground">
+                Looking for a product walkthrough?{" "}
+                <Link to="/book-demo" className="text-foreground underline-offset-4 hover:underline">
+                  Book a Demo
+                </Link>
+                .
+              </p>
+            </div>
           </div>
 
           <div className="rounded-2xl border border-border bg-card p-6 shadow-[0_40px_80px_-40px_rgb(15_23_42/0.18)] sm:p-7">
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                if (submitting) return;
-                setSubmitting(true);
-                window.setTimeout(() => {
-                  setSubmitting(false);
-                  setShowEndpointNotice(true);
-                }, 600);
-              }}
-              className="space-y-5"
-            >
-              <div className="grid gap-4 sm:grid-cols-2">
-                <Field
-                  label="Name"
-                  name="name"
-                  autoComplete="name"
-                  required
-                />
-                <Field
-                  label="Work email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  required
-                />
-              </div>
-              <Field
-                label="Practice / company"
-                name="company"
-                autoComplete="organization"
-              />
-              <div>
-                <label
-                  htmlFor="message"
-                  className="mb-1.5 block text-[12.5px] font-medium text-foreground"
-                >
-                  Message *
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  rows={5}
-                  required
-                  autoComplete="off"
-                  className="w-full resize-none rounded-lg border border-input bg-background px-3 py-2.5 text-[14px] shadow-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-foreground/30 focus:ring-1 focus:ring-foreground/10"
-                />
-              </div>
-              <Button
-                type="submit"
-                size="lg"
-                disabled={submitting}
-                className="mt-2 h-11 w-full rounded-full text-[13.5px] font-medium"
+            {status === "success" ? (
+              <LeadSuccess title="Thank you.">
+                Your message has been sent. We&apos;ll be in touch.
+              </LeadSuccess>
+            ) : (
+              <form
+                noValidate
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  if (submitting) return;
+                  const values = new FormData(e.currentTarget);
+                  const name = String(values.get("name") ?? "");
+                  const email = String(values.get("email") ?? "");
+                  const message = String(values.get("message") ?? "");
+                  const next: FieldErrors = {};
+                  if (!name.trim()) next.name = "Please enter your name.";
+                  if (!email.trim()) next.email = "Please enter your work email.";
+                  else if (!looksLikeEmail(email)) next.email = "Please enter a valid work email.";
+                  if (!message.trim()) next.message = "Please enter a message.";
+                  setFieldErrors(next);
+                  if (Object.keys(next).length) return;
+                  await submit({
+                    source: "contact",
+                    name,
+                    email,
+                    company: String(values.get("company") ?? ""),
+                    message,
+                    honeypot: String(values.get("faxNumber") ?? ""),
+                  });
+                }}
+                className="relative space-y-5"
               >
-                {submitting ? "Sending..." : "Send Message"}
-              </Button>
-
-              {showEndpointNotice && (
-                <p
-                  className="text-center text-[12.5px] leading-[1.55] text-muted-foreground"
-                  aria-live="polite"
-                >
-                  Online submission is being connected before launch. Please
-                  email us directly in the meantime at{" "}
-                  <a
-                    href="mailto:hello@reacting.io"
-                    className="text-foreground underline-offset-4 hover:underline"
+                <HoneypotInput />
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <Field
+                    label="Name"
+                    name="name"
+                    autoComplete="name"
+                    required
+                    maxLength={FIELD_MAX.name}
+                    error={fieldErrors.name}
+                    onChange={() => setFieldErrors((e) => ({ ...e, name: undefined }))}
+                  />
+                  <Field
+                    label="Work email"
+                    name="email"
+                    type="email"
+                    autoComplete="email"
+                    required
+                    maxLength={FIELD_MAX.email}
+                    error={fieldErrors.email}
+                    onChange={() => setFieldErrors((e) => ({ ...e, email: undefined }))}
+                  />
+                </div>
+                <Field
+                  label="Practice / company"
+                  name="company"
+                  autoComplete="organization"
+                  maxLength={FIELD_MAX.practice}
+                />
+                <div>
+                  <label
+                    htmlFor="message"
+                    className="mb-1.5 block text-[12.5px] font-medium text-foreground"
                   >
-                    hello@reacting.io
-                  </a>
-                  .
-                </p>
-              )}
+                    Message <span className="text-muted-foreground">*</span>
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows={5}
+                    required
+                    autoComplete="off"
+                    maxLength={FIELD_MAX.message}
+                    aria-invalid={fieldErrors.message ? true : undefined}
+                    aria-describedby={fieldErrors.message ? "message-error" : undefined}
+                    onChange={() => setFieldErrors((e) => ({ ...e, message: undefined }))}
+                    className="w-full resize-none rounded-lg border border-input bg-background px-3 py-2.5 text-[14px] shadow-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-foreground/30 focus:ring-1 focus:ring-foreground/10"
+                  />
+                  <FieldError id="message-error" message={fieldErrors.message} />
+                </div>
 
-              <p className="text-center text-[11.5px] text-muted-foreground">
-                Looking for a product walkthrough?{" "}
-                <Link
-                  to="/book-demo"
-                  className="text-foreground underline-offset-4 hover:underline"
+                <TurnstileField siteKey={siteKey} onToken={setTurnstileToken} />
+
+                <Button
+                  type="submit"
+                  size="lg"
+                  disabled={submitting}
+                  aria-busy={submitting}
+                  className="mt-2 h-11 w-full rounded-full text-[13.5px] font-medium"
                 >
-                  Book a Demo
-                </Link>
-              </p>
-            </form>
+                  {submitting ? "Sending..." : "Send Message"}
+                </Button>
+
+                {status === "error" && errorCode ? <LeadError code={errorCode} /> : null}
+
+                <LeadPrivacyNote />
+              </form>
+            )}
           </div>
         </div>
       </section>
     </SiteShell>
-  );
-}
-
-function ContactCard({
-  icon: Icon,
-  title,
-  email,
-  caption,
-}: {
-  icon: typeof Mail;
-  title: string;
-  email: string;
-  caption: string;
-}) {
-  return (
-    <div className="rounded-2xl border border-border bg-card p-7">
-      <Icon className="h-5 w-5 text-foreground" strokeWidth={1.5} />
-      <div className="mt-5 text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
-        {title}
-      </div>
-      <a
-        href={`mailto:${email}`}
-        className="mt-2 block text-[20px] font-semibold tracking-tight text-foreground"
-      >
-        {email}
-      </a>
-      <p className="mt-2 text-[13.5px] leading-[1.6] text-muted-foreground">{caption}</p>
-    </div>
   );
 }
 
@@ -171,13 +182,20 @@ function Field({
   type = "text",
   required,
   autoComplete,
+  maxLength,
+  error,
+  onChange,
 }: {
   label: string;
   name: string;
   type?: string;
   required?: boolean;
   autoComplete?: string;
+  maxLength?: number;
+  error?: string;
+  onChange?: () => void;
 }) {
+  const errorId = `${name}-error`;
   return (
     <div>
       <label htmlFor={name} className="mb-1.5 block text-[12.5px] font-medium text-foreground">
@@ -189,8 +207,13 @@ function Field({
         type={type}
         required={required}
         autoComplete={autoComplete}
+        maxLength={maxLength}
+        aria-invalid={error ? true : undefined}
+        aria-describedby={error ? errorId : undefined}
+        onChange={onChange}
         className="h-10 w-full rounded-lg border border-input bg-background px-3 text-[14px] shadow-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-foreground/30 focus:ring-1 focus:ring-foreground/10"
       />
+      <FieldError id={errorId} message={error} />
     </div>
   );
 }

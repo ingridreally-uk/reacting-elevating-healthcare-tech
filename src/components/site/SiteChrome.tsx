@@ -6,7 +6,6 @@ import { ReactingLogoLink } from "./ReactingLogo";
 
 const navLinks = [
   { label: "Product", href: "/product" },
-  { label: "Features", href: "/features" },
   { label: "Pricing", href: "/#pricing" },
   { label: "About", href: "/about" },
 ];

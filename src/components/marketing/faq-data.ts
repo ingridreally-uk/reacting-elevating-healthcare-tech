@@ -38,7 +38,7 @@ export const faqs = [
   },
   {
     q: "Who is Dental Assist built for?",
-    a: "Independent and small private UK dental practices. It is designed around how a dental surgery actually runs day to day — restocking, supplier RFQs and practice-level budgets — not generic warehouse or hospital pharmacy inventory.",
+    a: "UK dental practices. It is designed around how a dental surgery actually runs day to day — restocking, supplier RFQs and practice-level budgets — not generic warehouse or hospital pharmacy inventory.",
   },
   {
     q: "Does it work for multi-site or group practices?",

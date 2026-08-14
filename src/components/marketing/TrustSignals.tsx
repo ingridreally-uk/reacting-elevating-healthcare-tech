@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import { layout } from "./design";
 
 const signals = [
-  "Made for private dental practices",
+  "Made for dental practices",
   "Works alongside your practice-management system",
   "Guided product import",
 ] as const;

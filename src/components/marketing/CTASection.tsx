@@ -17,13 +17,12 @@ export function CTASection() {
           </p>
           <h2
             id="final-cta-heading"
-            className="mx-auto mt-3 max-w-[16ch] text-[30px] font-semibold leading-[1.06] tracking-[-0.035em] sm:text-[40px]"
+            className="mx-auto mt-3 max-w-[22ch] text-[30px] font-semibold leading-[1.06] tracking-[-0.035em] sm:text-[40px]"
           >
-            Tomorrow morning can feel this clear.
+            Run practice operations with fewer unanswered questions.
           </h2>
           <p className="mx-auto mt-4 max-w-[38ch] text-[15px] leading-[1.65] text-white/68">
-            Start with your own practice in mind. In 14 days, see whether one shared view changes
-            how the team starts the day.
+            Start a 14-day trial with your own practice in mind. No card required.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <a

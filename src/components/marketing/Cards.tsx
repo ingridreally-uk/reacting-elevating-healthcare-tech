@@ -95,15 +95,24 @@ export function BenefitGrid({
       </div>
 
       <div className="hidden overflow-hidden rounded-2xl border border-border/65 bg-card shadow-[0_1px_2px_rgba(11,43,40,0.04),0_4px_12px_-4px_rgba(11,43,40,0.08)] sm:block">
-        <div className="grid auto-rows-fr sm:grid-cols-2 lg:grid-cols-4">
+        <div
+          className={cn(
+            "grid auto-rows-fr",
+            items.length === 3 ? "sm:grid-cols-3" : "sm:grid-cols-2 lg:grid-cols-4",
+          )}
+        >
           {items.map((item, i) => (
             <motion.div
               key={item.title}
               className={cn(
                 "flex h-full flex-col p-5 sm:p-6",
-                i % 2 === 1 && "sm:border-l sm:border-border/55",
-                i >= 2 && "sm:border-t sm:border-border/55 lg:border-t-0",
-                i > 0 && "lg:border-l lg:border-border/55",
+                items.length === 3
+                  ? i > 0 && "sm:border-l sm:border-border/55"
+                  : [
+                      i % 2 === 1 && "sm:border-l sm:border-border/55",
+                      i >= 2 && "sm:border-t sm:border-border/55 lg:border-t-0",
+                      i > 0 && "lg:border-l lg:border-border/55",
+                    ],
               )}
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}

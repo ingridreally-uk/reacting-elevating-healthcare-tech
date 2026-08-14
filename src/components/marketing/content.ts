@@ -126,10 +126,9 @@ export const SCREEN_FOCUS = {
     scale: 1.24,
   },
   lowStockPage: {
-    objectFit: "cover",
-    objectPosition: "50% 14%",
-    aspectRatio: "16 / 10",
-    scale: 1.34,
+    objectFit: "contain",
+    objectPosition: "center top",
+    aspectRatio: "1440 / 696",
   },
   expiring: {
     objectFit: "cover",

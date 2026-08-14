@@ -11,7 +11,6 @@ type DipMedia = (typeof DIP_SCREENS)[keyof typeof DIP_SCREENS];
 
 type Step = {
   id: string;
-  time: string;
   short: string;
   title: string;
   body: string;
@@ -22,29 +21,22 @@ type Step = {
 };
 
 /**
- * Lived operational workflow — Stock → Risk → Decision → Order → Control.
- * Chronology remains a storytelling device; the payoff is continuous
- * operational control, not completing a morning routine.
- *
- * Panel geometry matches the established DayInPractice composition
- * (unified card, rail + product frame). Desktop media uses a stable common
- * viewport; tight natural crops fit with contain — no baked stage canvas.
+ * Connected operational states — Stock → Risk → Decision → Order → Control.
+ * Not a chronological morning. Same interactive component and authentic screens.
  */
 const steps: Step[] = [
   {
     id: "stock",
-    time: "07:45",
     short: "Stock",
     title: "“Do we actually have it?”",
     body: "Instead of checking three cupboards or asking on WhatsApp, the team sees the live quantity and exactly where the item belongs.",
-    outcome: "Availability is known before the first patient arrives.",
+    outcome: "Quantity and location are visible without another search.",
     media: DIP_SCREENS.stock,
     alt: "Dental Assist inventory with live quantities and selected product detail",
     path: "stock",
   },
   {
     id: "risk",
-    time: "08:10",
     short: "Risk",
     title: "What needs attention before it becomes a problem.",
     body: "Low stock and expiry risk surface while there is still time to act — with existing RFQs and orders visible beside each item.",
@@ -55,7 +47,6 @@ const steps: Step[] = [
   },
   {
     id: "decision",
-    time: "09:40",
     short: "Decision",
     title: "Two suppliers replied. One decision remains.",
     body: "Prices sit side by side by product, with the saving and budget impact visible before the practice commits.",
@@ -66,22 +57,20 @@ const steps: Step[] = [
   },
   {
     id: "order",
-    time: "10:15",
     short: "Order",
-    title: "Did somebody already place the order?",
+    title: "Was it ordered? Is it still waiting?",
     body: "Every purchase order, supplier and follow-up status stays visible in the same place — before anyone orders twice.",
-    outcome: "One shared answer for the whole team.",
+    outcome: "See what is waiting — and what still needs follow-up.",
     media: DIP_SCREENS.order,
     alt: "Dental Assist purchase orders with suppliers and status",
     path: "purchase orders",
   },
   {
     id: "control",
-    time: "11:10",
     short: "Control",
-    title: "And what has the practice spent this month?",
-    body: "Order value, usage and quote savings stay visible for the owner — without rebuilding a spreadsheet at month-end.",
-    outcome: "Spend and savings stay visible as the practice works.",
+    title: "What is the practice spending and using?",
+    body: "Order value, stock usage and RFQ savings stay visible — without rebuilding the picture at month-end.",
+    outcome: "Spend, usage and savings stay visible as the practice works.",
     media: DIP_SCREENS.control,
     alt: "Dental Assist reporting with spend, usage and savings over six months",
     path: "savings & usage",
@@ -94,9 +83,6 @@ export function DayInPractice() {
   const listId = useId();
   const step = steps[active] ?? steps[0];
   const railRef = useRef<HTMLOListElement>(null);
-  // Mobile-only trailing-edge fade: true while the rail has more steps to the
-  // right than are currently visible. Recomputed on scroll/resize so it
-  // disappears once the last step is actually in view.
   const [canScrollRight, setCanScrollRight] = useState(false);
 
   const go = (next: number) => setActive((next + steps.length) % steps.length);
@@ -118,8 +104,6 @@ export function DayInPractice() {
     };
   }, []);
 
-  // Mobile horizontal rail: keep the active tab visible when the step changes
-  // via arrows, keyboard, or direct selection. Does not scroll the page.
   useEffect(() => {
     const rail = railRef.current;
     if (!rail) return;
@@ -138,23 +122,22 @@ export function DayInPractice() {
       aria-labelledby="journey-heading"
       className="scroll-mt-24 border-b border-border/40 bg-[#F1F5F9]"
     >
-      <div className={cn(layout.shell, "py-6 lg:py-10")}>
+      <div className={cn(layout.shell, "py-6 lg:pb-6 lg:pt-8")}>
         <div className="mx-auto max-w-2xl text-center">
-          <p className={layout.eyebrow}>How the day stays connected</p>
+          <p className={layout.eyebrow}>Connected operations</p>
           <h2
             id="journey-heading"
             className="mt-1.5 text-[28px] font-semibold tracking-[-0.032em] text-foreground sm:text-[36px] lg:mt-2"
           >
-            From an unverified handover to a practice under control.
+            See what needs attention.
+            <span className="block">Know what&apos;s already handled.</span>
           </h2>
           <p className="mx-auto mt-1.5 max-w-[48ch] text-[15px] leading-[1.65] text-muted-foreground lg:mt-2">
-            Stock, risk, decisions, orders and spend stay in one workflow — so the team knows what
-            needs attention and what has already been done about it.
+            Stock, risk, supplier decisions, orders and follow-up stay connected instead of becoming
+            separate jobs.
           </p>
         </div>
 
-        {/* One unified panel — the step rail and the product view share a single
-            border, background and height so nothing looks orphaned or misaligned. */}
         <div
           className={cn(
             "mt-4 overflow-hidden lg:mt-6",
@@ -166,7 +149,7 @@ export function DayInPractice() {
           <div className="grid lg:grid-cols-12">
             <div className="relative min-w-0 border-b border-border/55 lg:col-span-4 lg:border-b-0 lg:border-r lg:border-border/60">
               <p id={listId} className="sr-only">
-                Operational workflow steps
+                Connected operational states
               </p>
               <ol
                 ref={railRef}
@@ -201,7 +184,7 @@ export function DayInPractice() {
                         aria-controls={`journey-panel-${s.id}`}
                         onClick={() => setActive(i)}
                         className={cn(
-                          "relative flex w-full items-center gap-3 px-4 py-3.5 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset",
+                          "relative flex w-full items-center gap-3 px-4 py-3.5 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset lg:py-4",
                           selected ? "bg-[oklch(0.96_0.014_230)]" : "hover:bg-secondary/40",
                         )}
                       >
@@ -222,18 +205,13 @@ export function DayInPractice() {
                         >
                           {i + 1}
                         </span>
-                        <span className="min-w-0">
-                          <span
-                            className={cn(
-                              "block text-[13.5px] tracking-tight",
-                              selected ? "font-semibold text-foreground" : "font-medium text-foreground/75",
-                            )}
-                          >
-                            {s.short}
-                          </span>
-                          <span className="block text-[10.5px] tabular-nums text-muted-foreground/75">
-                            {s.time}
-                          </span>
+                        <span
+                          className={cn(
+                            "block text-[13.5px] tracking-tight",
+                            selected ? "font-semibold text-foreground" : "font-medium text-foreground/75",
+                          )}
+                        >
+                          {s.short}
                         </span>
                       </button>
                     </li>
@@ -241,9 +219,6 @@ export function DayInPractice() {
                 })}
               </ol>
 
-              {/* Mobile-only trailing-edge fade: signals more steps sit off to the
-                  right of the scrollable rail. Purely decorative — never blocks
-                  touch, keyboard or screen-reader access to the tabs beneath it. */}
               {canScrollRight ? (
                 <div
                   aria-hidden
@@ -327,10 +302,6 @@ export function DayInPractice() {
             </div>
           </div>
         </div>
-
-        <p className="mx-auto mt-4 max-w-[46ch] text-center text-[13.5px] leading-[1.6] text-muted-foreground lg:mt-6">
-          What used to be assumed at close stays visible while the practice is working.
-        </p>
       </div>
     </section>
   );

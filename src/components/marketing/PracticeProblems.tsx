@@ -6,29 +6,28 @@ import { BenefitGrid } from "./Cards";
 const problems = [
   {
     icon: DoorOpen,
-    title: "The handover gap",
-    body: "A nurse opens a surgery without knowing if the last person restocked it. The gap is usually discovered once the patient is already in the chair.",
+    title: "Handover gaps",
+    body: "Something was checked, requested or ordered — but the next person still has to find out what happened.",
   },
   {
     icon: EyeOff,
-    title: "Invisible consumption",
-    body: "The practice knows what it bought. It rarely knows what was actually used, by whom, or where it went — so reordering runs on memory.",
+    title: "Information in too many places",
+    body: "The answer may be in a spreadsheet, message, email or supplier portal — finding the current one becomes another job.",
   },
   {
     icon: Clock,
-    title: "Information that arrives too late",
-    body: "Shortage is found at the shelf. Expiry is found at a check. Overspend is found at month end — always after the moment to act has passed.",
+    title: "Problems discovered too late",
+    body: "Low stock, expiry or an outstanding order becomes urgent because nobody had one current view of what needed attention.",
   },
   {
     icon: Receipt,
-    title: "The invoice isn't the real cost",
-    body: "Counting time, emergency orders, write-offs and interruptions rarely get attributed to the same problem as the supplier bill.",
+    title: "Time spent reconstructing the picture",
+    body: "Managers lose time checking, searching and asking before they can make the next decision.",
   },
 ];
 
 /**
- * Root-cause framing between Trust and the Journey — earns the product story
- * that follows by naming the problem in the practice's own terms first.
+ * Recognition of operational fragmentation — not a manufactured stock problem.
  */
 export function PracticeProblems() {
   return (
@@ -36,29 +35,24 @@ export function PracticeProblems() {
       aria-labelledby="problems-heading"
       className="border-b border-border/40 bg-background"
     >
-      <div className={cn(layout.shell, "py-14 lg:py-16")}>
+      <div className={cn(layout.shell, "pb-12 pt-10 lg:pb-12 lg:pt-7")}>
         <div className="mx-auto max-w-2xl text-center">
           <div className={layout.eyebrow}>Why practices struggle</div>
           <h2
             id="problems-heading"
             className="mt-3 text-[28px] font-semibold tracking-[-0.032em] text-foreground sm:text-[36px]"
           >
-            It looks like a stock problem. It isn&apos;t.
+            The work of running the practice is scattered.
           </h2>
           <p className="mx-auto mt-3 max-w-[46ch] text-[15px] leading-[1.65] text-muted-foreground">
-            Shortages, expiry write-offs, duplicate orders and unclear spend usually trace back to
-            one thing: the practice finds out too late to act.
+            The answers exist. The problem is finding the current one — across people, messages,
+            spreadsheets and separate systems.
           </p>
         </div>
 
         <div className="mt-10 lg:mt-12">
           <BenefitGrid items={problems} />
         </div>
-
-        <p className="mx-auto mt-8 max-w-[52ch] text-center text-[14px] leading-[1.6] text-foreground/65">
-          Dental Assist exists to move that information earlier — before the shelf, before the
-          chair, before the invoice.
-        </p>
       </div>
     </section>
   );

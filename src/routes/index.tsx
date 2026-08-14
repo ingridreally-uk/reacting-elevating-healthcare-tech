@@ -6,7 +6,6 @@ import { PricingCard } from "@/components/marketing/PricingCard";
 import { FAQ } from "@/components/marketing/FAQ";
 import { faqs } from "@/components/marketing/faq-data";
 import { CTASection } from "@/components/marketing/CTASection";
-import { HowItWorks } from "@/components/marketing/HowItWorks";
 import { TrustSignals } from "@/components/marketing/TrustSignals";
 import { PracticeProblems } from "@/components/marketing/PracticeProblems";
 import { Outcomes } from "@/components/marketing/Outcomes";
@@ -105,9 +104,8 @@ export const Route = createFileRoute("/")({
 });
 
 /**
- * Art-directed homepage architecture:
- * Hero → Trust → Problems → Day journey (product story) → Outcomes → Onboarding → Pricing → FAQ → Trial
- * Features + Tour merged into one memorable journey.
+ * Home conversion journey:
+ * Hero → Trust → Problems → Connected operations → Role value → Pricing → FAQ → Trial
  */
 function MarketingHome() {
   return (
@@ -117,20 +115,19 @@ function MarketingHome() {
       <PracticeProblems />
       <DayInPractice />
       <Outcomes />
-      <HowItWorks />
 
       <section
         id="pricing"
         aria-labelledby="pricing-heading"
         className="scroll-mt-24 border-b border-border/40 bg-background"
       >
-        <div className="mx-auto max-w-[1200px] px-6 py-14 lg:px-10 lg:py-16">
+        <div className="mx-auto max-w-[1200px] px-6 pb-10 pt-10 lg:px-10 lg:pb-10 lg:pt-10">
           <PricingCard />
         </div>
       </section>
 
       <section id="faq" aria-labelledby="faq-heading" className="scroll-mt-24 bg-[#F1F5F9]">
-        <div className="mx-auto max-w-[1200px] px-6 py-14 lg:px-10 lg:py-16">
+        <div className="mx-auto max-w-[1200px] px-6 pb-12 pt-10 lg:px-10 lg:pb-14 lg:pt-10">
           <FAQ />
         </div>
       </section>

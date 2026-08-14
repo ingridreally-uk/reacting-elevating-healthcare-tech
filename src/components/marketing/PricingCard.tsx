@@ -26,8 +26,7 @@ export function PricingCard() {
           One practice. One clear monthly cost.
         </h2>
         <p className={cn(layout.lead, "mx-auto mt-3 max-w-[42ch]")}>
-          Everything the day needs — shelf visibility, risk alerts, suppliers, quotes, orders and
-          reporting — without per-seat pricing.
+          Everything your practice needs for stock and purchasing — shelf visibility, risk alerts, suppliers, quotes, orders and reporting — without per-seat pricing.
         </p>
       </div>
 

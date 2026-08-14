@@ -36,7 +36,7 @@ function AboutPage() {
     <SiteShell>
       <PageHero
         eyebrow="About Reacting"
-        title="Cloud software for healthcare, built where it&apos;s used."
+        title="Cloud software for healthcare, built where it's used."
         body="Reacting is a small, focused team building cloud tools for healthcare businesses. Dental Assist is our first product — developed and refined inside a real dental practice."
       />
 
@@ -67,9 +67,9 @@ function AboutPage() {
                 </p>
                 <p>
                   Today Dental Assist has been developed and used in the founding
-                  dental practice for the past 2–3 years. It is now opening to a
-                  small number of additional practices. Every feature still has to
-                  earn its place in daily use.
+                  dental practice for the past 2–3 years. It is now available to
+                  dental practices with a 14-day free trial. Every feature still
+                  has to earn its place in daily use.
                 </p>
               </div>
 
@@ -141,11 +141,11 @@ function AboutPage() {
       <section>
         <div className="mx-auto max-w-7xl px-6 py-10 text-center lg:px-10 lg:py-14">
           <h2 className="mx-auto max-w-2xl text-[32px] font-semibold leading-[1.1] tracking-[-0.025em] sm:text-[44px]">
-            Interested in early access?
+            Interested in Dental Assist?
           </h2>
           <p className="mx-auto mt-5 max-w-lg text-[16px] leading-[1.65] text-muted-foreground">
-            We&apos;re opening Dental Assist to a small number of additional
-            practices. Get in touch to see if it is the right fit for yours.
+            Start a 14-day free trial, or get in touch to see if it is the right
+            fit for your practice.
           </p>
           <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Button asChild size="lg" className="h-11 rounded-full px-6 text-[13.5px] font-medium">

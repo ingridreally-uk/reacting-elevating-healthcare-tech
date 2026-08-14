@@ -21,7 +21,7 @@ export const Route = createFileRoute("/contact")({
     pageMeta({
       title: "Contact Reacting — Dental Assist Support & Sales",
       description:
-        "Get in touch with the Reacting team about Dental Assist — questions, partnerships or early access.",
+        "Get in touch with the Reacting team about Dental Assist — questions, partnerships or a demo.",
       path: "/contact",
     }),
   component: ContactPage,
@@ -39,7 +39,7 @@ function ContactPage() {
       <PageHero
         eyebrow="Contact"
         title="Talk to the team."
-        body="Questions about Dental Assist, early access or partnerships — send us a note and we&apos;ll reply within one working day."
+        body="Questions about Dental Assist, partnerships or a demo — send us a note and we'll reply within one working day."
       />
 
       <section>
@@ -57,7 +57,7 @@ function ContactPage() {
                 {PUBLIC_ENQUIRY_EMAIL}
               </a>
               <p className="mt-2 text-[13.5px] leading-[1.6] text-muted-foreground">
-                For questions, partnerships, early access and existing customers.
+                For questions, partnerships, demos and existing customers.
               </p>
               <p className="mt-5 text-[13.5px] leading-[1.6] text-muted-foreground">
                 Looking for a product walkthrough?{" "}

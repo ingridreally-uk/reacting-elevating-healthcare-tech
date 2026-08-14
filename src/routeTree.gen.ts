@@ -10,12 +10,10 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TermsRouteImport } from './routes/terms'
-import { Route as RfqComparisonRouteImport } from './routes/rfq-comparison'
 import { Route as ResourcesRouteImport } from './routes/resources'
 import { Route as ProductRouteImport } from './routes/product'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as FeaturesRouteImport } from './routes/features'
-import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as CookiesRouteImport } from './routes/cookies'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BookDemoRouteImport } from './routes/book-demo'
@@ -25,11 +23,6 @@ import { Route as IndexRouteImport } from './routes/index'
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const RfqComparisonRoute = RfqComparisonRouteImport.update({
-  id: '/rfq-comparison',
-  path: '/rfq-comparison',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ResourcesRoute = ResourcesRouteImport.update({
@@ -50,11 +43,6 @@ const PrivacyRoute = PrivacyRouteImport.update({
 const FeaturesRoute = FeaturesRouteImport.update({
   id: '/features',
   path: '/features',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DashboardRoute = DashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CookiesRoute = CookiesRouteImport.update({
@@ -89,12 +77,10 @@ export interface FileRoutesByFullPath {
   '/book-demo': typeof BookDemoRoute
   '/contact': typeof ContactRoute
   '/cookies': typeof CookiesRoute
-  '/dashboard': typeof DashboardRoute
   '/features': typeof FeaturesRoute
   '/privacy': typeof PrivacyRoute
   '/product': typeof ProductRoute
   '/resources': typeof ResourcesRoute
-  '/rfq-comparison': typeof RfqComparisonRoute
   '/terms': typeof TermsRoute
 }
 export interface FileRoutesByTo {
@@ -103,12 +89,10 @@ export interface FileRoutesByTo {
   '/book-demo': typeof BookDemoRoute
   '/contact': typeof ContactRoute
   '/cookies': typeof CookiesRoute
-  '/dashboard': typeof DashboardRoute
   '/features': typeof FeaturesRoute
   '/privacy': typeof PrivacyRoute
   '/product': typeof ProductRoute
   '/resources': typeof ResourcesRoute
-  '/rfq-comparison': typeof RfqComparisonRoute
   '/terms': typeof TermsRoute
 }
 export interface FileRoutesById {
@@ -118,12 +102,10 @@ export interface FileRoutesById {
   '/book-demo': typeof BookDemoRoute
   '/contact': typeof ContactRoute
   '/cookies': typeof CookiesRoute
-  '/dashboard': typeof DashboardRoute
   '/features': typeof FeaturesRoute
   '/privacy': typeof PrivacyRoute
   '/product': typeof ProductRoute
   '/resources': typeof ResourcesRoute
-  '/rfq-comparison': typeof RfqComparisonRoute
   '/terms': typeof TermsRoute
 }
 export interface FileRouteTypes {
@@ -134,12 +116,10 @@ export interface FileRouteTypes {
     | '/book-demo'
     | '/contact'
     | '/cookies'
-    | '/dashboard'
     | '/features'
     | '/privacy'
     | '/product'
     | '/resources'
-    | '/rfq-comparison'
     | '/terms'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -148,12 +128,10 @@ export interface FileRouteTypes {
     | '/book-demo'
     | '/contact'
     | '/cookies'
-    | '/dashboard'
     | '/features'
     | '/privacy'
     | '/product'
     | '/resources'
-    | '/rfq-comparison'
     | '/terms'
   id:
     | '__root__'
@@ -162,12 +140,10 @@ export interface FileRouteTypes {
     | '/book-demo'
     | '/contact'
     | '/cookies'
-    | '/dashboard'
     | '/features'
     | '/privacy'
     | '/product'
     | '/resources'
-    | '/rfq-comparison'
     | '/terms'
   fileRoutesById: FileRoutesById
 }
@@ -177,12 +153,10 @@ export interface RootRouteChildren {
   BookDemoRoute: typeof BookDemoRoute
   ContactRoute: typeof ContactRoute
   CookiesRoute: typeof CookiesRoute
-  DashboardRoute: typeof DashboardRoute
   FeaturesRoute: typeof FeaturesRoute
   PrivacyRoute: typeof PrivacyRoute
   ProductRoute: typeof ProductRoute
   ResourcesRoute: typeof ResourcesRoute
-  RfqComparisonRoute: typeof RfqComparisonRoute
   TermsRoute: typeof TermsRoute
 }
 
@@ -193,13 +167,6 @@ declare module '@tanstack/react-router' {
       path: '/terms'
       fullPath: '/terms'
       preLoaderRoute: typeof TermsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/rfq-comparison': {
-      id: '/rfq-comparison'
-      path: '/rfq-comparison'
-      fullPath: '/rfq-comparison'
-      preLoaderRoute: typeof RfqComparisonRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/resources': {
@@ -228,13 +195,6 @@ declare module '@tanstack/react-router' {
       path: '/features'
       fullPath: '/features'
       preLoaderRoute: typeof FeaturesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/dashboard': {
-      id: '/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/cookies': {
@@ -281,12 +241,10 @@ const rootRouteChildren: RootRouteChildren = {
   BookDemoRoute: BookDemoRoute,
   ContactRoute: ContactRoute,
   CookiesRoute: CookiesRoute,
-  DashboardRoute: DashboardRoute,
   FeaturesRoute: FeaturesRoute,
   PrivacyRoute: PrivacyRoute,
   ProductRoute: ProductRoute,
   ResourcesRoute: ResourcesRoute,
-  RfqComparisonRoute: RfqComparisonRoute,
   TermsRoute: TermsRoute,
 }
 export const routeTree = rootRouteImport

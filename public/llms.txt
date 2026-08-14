@@ -1,10 +1,10 @@
 # Reacting
 
-> Reacting is a UK software company building operational software for independent dental practices. Dental Assist, our first product, helps dental practices manage stock, expiry dates, suppliers, requests for quotation (RFQ), purchase orders and spend in one connected workspace — developed and refined inside a real working dental practice.
+> Reacting is a UK software company building operational software for dental practices. Dental Assist, our first product, helps dental practices manage stock, expiry dates, suppliers, requests for quotation (RFQ), purchase orders and spend in one connected workspace — developed and refined inside a real working dental practice.
 
 Dental Assist is not a practice-management system (PMS) and does not replace clinical records, appointment booking or patient management. It runs alongside the PMS as the operational layer for materials, purchasing and supplier relationships.
 
-Dental Assist is built for independent and small private UK dental practices — not for hospitals, warehouses or general retail inventory. Pricing is a single practice plan (currently £59/month) with a 14-day free trial, no credit card required, unlimited products and unlimited team members.
+Dental Assist is built for UK dental practices — not for hospitals, warehouses or general retail inventory. Pricing is a single practice plan (currently £59/month) with a 14-day free trial, no credit card required, unlimited products and unlimited team members.
 
 ## Key pages
 

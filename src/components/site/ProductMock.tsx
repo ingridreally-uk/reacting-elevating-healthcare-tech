@@ -210,7 +210,7 @@ export function FramedScreen({
 
 export function TrustBar() {
   const items = [
-    { icon: ShieldCheck, title: "Built in Practice", body: "Based on real dental purchasing, inventory and RFQ workflows." },
+    { icon: ShieldCheck, title: "Built in Practice", body: "Based on real dental purchasing, inventory and supplier quote workflows." },
     { icon: RefreshCw, title: "Live Product", body: "Every screenshot on this site is from the actual Dental Assist software." },
     { icon: Clock, title: "Daily Use", body: "Designed around repeatable, practical tasks used by practice teams." },
   ];

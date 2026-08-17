@@ -183,7 +183,6 @@ export function SiteFooter() {
       title: "Company",
       links: [
         { label: "About", href: "/about" },
-        { label: "Resources", href: "/resources" },
         { label: "Contact", href: "/contact" },
       ],
     },

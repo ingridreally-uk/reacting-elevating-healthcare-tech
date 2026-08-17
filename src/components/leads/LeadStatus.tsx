@@ -20,7 +20,7 @@ export function LeadError({ code }: { code: LeadResultCode | "network" }) {
   return (
     <div className="rounded-xl border border-border bg-[#F8FAFC] px-4 py-3.5" role="alert">
       <p className="text-[14px] leading-[1.6] text-foreground">
-        We couldn&apos;t send that just now. Please try again, or email{" "}
+        We couldn't send that just now. Please try again, or email{" "}
         <a
           href={`mailto:${PUBLIC_ENQUIRY_EMAIL}`}
           className="underline underline-offset-4 hover:text-foreground"

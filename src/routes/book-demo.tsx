@@ -53,9 +53,9 @@ function BookDemoPage() {
               See Dental Assist in your practice.
             </h1>
             <p className="mt-6 max-w-xl text-[17px] leading-[1.65] text-muted-foreground sm:text-[18px]">
-              A 30-minute online walkthrough with our team. We&apos;ll show you
+              A 30-minute online walkthrough with our team. We'll show you
               the platform end-to-end, answer your questions and help you decide
-              if it&apos;s the right fit for your practice.
+              if it's the right fit for your practice.
             </p>
 
             <ul className="mt-6 space-y-4">
@@ -81,7 +81,7 @@ function BookDemoPage() {
             <div className="rounded-2xl border border-border bg-card p-6 shadow-[0_40px_80px_-40px_rgb(15_23_42/0.18)] sm:p-7">
               {status === "success" ? (
                 <LeadSuccess title="Thank you.">
-                  Your demo request has been sent. We&apos;ll be in touch.
+                  Your demo request has been sent. We'll be in touch.
                 </LeadSuccess>
               ) : (
                 <form
@@ -210,7 +210,7 @@ function BookDemoPage() {
 
                   {status === "error" && errorCode ? <LeadError code={errorCode} /> : (
                     <p className="text-center text-[12px] leading-[1.55] text-muted-foreground">
-                      We&apos;ll reply within one working day. No spam, ever. Or email{" "}
+                      We'll reply within one working day. No spam, ever. Or email{" "}
                       <a
                         href={`mailto:${PUBLIC_ENQUIRY_EMAIL}`}
                         className="text-foreground underline-offset-4 hover:underline"

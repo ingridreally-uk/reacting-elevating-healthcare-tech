@@ -6,13 +6,22 @@ import { TrustBar } from "@/components/site/ProductMock";
 import { pageMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/resources")({
-  head: () =>
-    pageMeta({
+  head: () => {
+    const base = pageMeta({
       title: "Resources for Dental Practice Operations | Reacting",
       description:
         "Learn about Reacting and book a personalised demo. Our Academy, Help Centre and training resources are currently in development.",
       path: "/resources",
-    }),
+    });
+    return {
+      ...base,
+      meta: base.meta.map((item) =>
+        "name" in item && item.name === "robots"
+          ? { name: "robots", content: "noindex, follow" }
+          : item,
+      ),
+    };
+  },
   component: ResourcesPage,
 });
 

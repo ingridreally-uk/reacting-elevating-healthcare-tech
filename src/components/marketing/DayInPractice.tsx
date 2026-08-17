@@ -39,10 +39,10 @@ const steps: Step[] = [
     id: "risk",
     short: "Risk",
     title: "What needs attention before it becomes a problem.",
-    body: "Low stock and expiry risk surface while there is still time to act — with existing RFQs and orders visible beside each item.",
+    body: "Low stock and expiry risk surface while there is still time to act — with existing supplier quotes and orders visible beside each item.",
     outcome: "The practice replenishes early — not chairside.",
     media: DIP_SCREENS.risk,
-    alt: "Dental Assist low-stock cards showing items that need action, with linked RFQs",
+    alt: "Dental Assist low-stock cards showing items that need action, with linked supplier quotes",
     path: "low stock",
   },
   {
@@ -52,24 +52,24 @@ const steps: Step[] = [
     body: "Prices sit side by side by product, with the saving and budget impact visible before the practice commits.",
     outcome: "Compare price, saving and budget impact before the practice commits.",
     media: DIP_SCREENS.decision,
-    alt: "Dental Assist RFQ comparison with selected prices and savings",
+    alt: "Dental Assist supplier-quote comparison with selected prices and savings",
     path: "rfq",
   },
   {
     id: "order",
     short: "Order",
     title: "Was it ordered? Is it still waiting?",
-    body: "Every purchase order, supplier and follow-up status stays visible in the same place — before anyone orders twice.",
+    body: "Every supplier order and follow-up status stays visible in the same place — before anyone orders twice.",
     outcome: "See what is waiting — and what still needs follow-up.",
     media: DIP_SCREENS.order,
-    alt: "Dental Assist purchase orders with suppliers and status",
+    alt: "Dental Assist orders with suppliers and status",
     path: "purchase orders",
   },
   {
     id: "control",
     short: "Control",
     title: "What is the practice spending and using?",
-    body: "Order value, stock usage and RFQ savings stay visible — without rebuilding the picture at month-end.",
+    body: "Order value, stock usage and savings from supplier quotes stay visible — without rebuilding the picture at month-end.",
     outcome: "Spend, usage and savings stay visible as the practice works.",
     media: DIP_SCREENS.control,
     alt: "Dental Assist reporting with spend, usage and savings over six months",
@@ -130,7 +130,7 @@ export function DayInPractice() {
             className="mt-1.5 text-[28px] font-semibold tracking-[-0.032em] text-foreground sm:text-[36px] lg:mt-2"
           >
             See what needs attention.
-            <span className="block">Know what&apos;s already handled.</span>
+            <span className="block">Know what's already handled.</span>
           </h2>
           <p className="mx-auto mt-1.5 max-w-[48ch] text-[15px] leading-[1.65] text-muted-foreground lg:mt-2">
             Stock, risk, supplier decisions, orders and follow-up stay connected instead of becoming

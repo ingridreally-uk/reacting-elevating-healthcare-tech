@@ -9,7 +9,7 @@ const included = [
   "Expiry tracking",
   "Supplier directory",
   "Quote comparison",
-  "Purchase orders",
+  "Orders",
   "Spend and usage reporting",
   "Unlimited products",
   "Unlimited team members",

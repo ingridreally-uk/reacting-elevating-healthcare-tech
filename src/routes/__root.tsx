@@ -133,7 +133,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: "https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700,900&display=swap",
       },
       { rel: "stylesheet", href: appCss },
+      { rel: "icon", type: "image/png", sizes: "32x32", href: "/favicon-32.png" },
+      { rel: "icon", type: "image/png", sizes: "48x48", href: "/favicon-48.png" },
       { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
+      { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
     ],
     scripts: [
       {

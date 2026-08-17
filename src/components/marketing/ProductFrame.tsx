@@ -14,12 +14,15 @@ export function ProductFrame({
   label,
   emphasis = "default",
   tone = "light",
+  fill = false,
 }: {
   children: React.ReactNode;
   className?: string;
   label?: string;
   emphasis?: "default" | "hero" | "stage" | "photograph";
   tone?: "light" | "dark";
+  /** Stretch the frame and media well to the parent height (Explorer desktop). */
+  fill?: boolean;
 }) {
   const isStage = emphasis === "stage";
   const isPhotograph = emphasis === "photograph";
@@ -27,10 +30,11 @@ export function ProductFrame({
   const dark = tone === "dark";
 
   return (
-    <div className={cn("relative", className)}>
+    <div className={cn("relative", fill && "flex h-full min-h-0 flex-col", className)}>
       <div
         className={cn(
           "overflow-hidden",
+          fill && "flex h-full min-h-0 flex-1 flex-col",
           radius.panel,
           dark ? "border border-white/10 bg-[#0F1F3D]" : "bg-card",
           !dark &&
@@ -81,7 +85,15 @@ export function ProductFrame({
             <span className="h-1.5 w-1.5 rounded-full bg-[#28C840]/65" />
           </div>
         ) : null}
-        <div className={cn("relative", dark ? "bg-[#0F1F3D]" : "bg-[#F1F5F9]")}>{children}</div>
+        <div
+          className={cn(
+            "relative",
+            fill && "h-full min-h-0 flex-1",
+            dark ? "bg-[#0F1F3D]" : "bg-[#F1F5F9]",
+          )}
+        >
+          {children}
+        </div>
       </div>
     </div>
   );

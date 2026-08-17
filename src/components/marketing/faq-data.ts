@@ -2,7 +2,7 @@
 export const faqs = [
   {
     q: "What is Dental Assist?",
-    a: "Dental Assist is operational software from Reacting for dental practices. It brings stock, suppliers, RFQs, purchase orders, expiry tracking and spend visibility into one workspace — so teams rely less on spreadsheets, messages and manual checks.",
+    a: "Dental Assist is operational software from Reacting for dental practices. It brings stock, suppliers, supplier quotes (RFQs), orders, expiry tracking and spend visibility into one workspace — so teams rely less on spreadsheets, messages and manual checks.",
   },
   {
     q: "Will the team know what is actually on the shelf?",
@@ -34,11 +34,11 @@ export const faqs = [
   },
   {
     q: "Is this a practice management system?",
-    a: "No. Dental Assist is operational software for stock, suppliers, purchasing, expiry control and reporting. It complements the practice-management system; it does not replace clinical records, appointment booking or patient-management software.",
+    a: "No. Dental Assist is dental inventory and procurement software for stock, suppliers, purchasing, expiry control and reporting. It complements the practice-management system; it does not replace clinical records, appointment booking or patient-management software.",
   },
   {
     q: "Who is Dental Assist built for?",
-    a: "UK dental practices. It is designed around how a dental surgery actually runs day to day — restocking, supplier RFQs and practice-level budgets — not generic warehouse or hospital pharmacy inventory.",
+    a: "UK dental practices. It is designed around how a dental surgery actually runs day to day — restocking, supplier quotes and practice-level budgets — not generic warehouse or hospital pharmacy inventory.",
   },
   {
     q: "Does it work for multi-site or group practices?",

@@ -72,7 +72,7 @@ function ContactPage() {
           <div className="rounded-2xl border border-border bg-card p-6 shadow-[0_40px_80px_-40px_rgb(15_23_42/0.18)] sm:p-7">
             {status === "success" ? (
               <LeadSuccess title="Thank you.">
-                Your message has been sent. We&apos;ll be in touch.
+                Your message has been sent. We'll be in touch.
               </LeadSuccess>
             ) : (
               <form

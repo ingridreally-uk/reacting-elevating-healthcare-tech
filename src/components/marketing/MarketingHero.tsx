@@ -85,7 +85,7 @@ export function MarketingHero() {
                 <div className="lg:hidden">
                   <MediaViewer
                     imageSrc={HERO_DASHBOARD.mobile}
-                    alt="Dental Assist actions required — stockouts, audits and RFQs needing attention"
+                    alt="Dental Assist actions required — stockouts, audits and supplier quotes needing attention"
                     priority
                     objectFit="contain"
                     aspectRatio={HERO_DASHBOARD.mobileAspect}

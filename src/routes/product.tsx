@@ -15,7 +15,7 @@ export const Route = createFileRoute("/product")({
     pageMeta({
       title: "Dental Stock, Purchasing & RFQ Software | Dental Assist",
       description:
-        "Dental Assist is Reacting's operational workspace for dental inventory, suppliers and purchasing — developed and refined inside a real dental practice.",
+        "Dental Assist is Reacting's operational workspace for dental inventory and procurement, suppliers and purchasing — developed and refined inside a real dental practice.",
       path: "/product",
       imageAlt: "Dental Assist dashboard — real product screen",
     }),
@@ -28,8 +28,8 @@ const architecture = [
   "Stock risk",
   "Expiry",
   "Suppliers",
-  "RFQs",
-  "Purchase orders",
+  "Supplier quotes",
+  "Orders",
   "Deliveries",
   "Reporting",
 ] as const;
@@ -54,11 +54,11 @@ type Stage = {
   objectPosition: string;
   aspectRatio: string;
   scale: number;
-  /**
-   * Expiry-only: CSS transform on the media (translateX + optional zoom)
-   * inside an overflow stage — keeps complete left cards, clips right mint.
-   */
-  frameTransform?: string;
+  desktopScale?: number;
+  desktopObjectPosition?: string;
+  desktopObjectFit?: MediaFit;
+  /** Desktop crop window. Mobile keeps the source aspect. */
+  desktopAspectRatio?: string;
 };
 
 /**
@@ -97,31 +97,33 @@ const explorerItems: ExplorerItem[] = [
     label: "Inventory",
     title: "The live stock record.",
     body: "Counts, locations and item status the practice works from.",
-    src: SCREENS.stockPage,
-    alt: "Dental Assist inventory item detail with stock status and locations",
+    src: "/product-screens/mkt-inventory-prophy.webp",
+    alt: "Dental Assist stock record for DEHP Prophy Brush — quantity 4, minimum 1, Decon Room location",
     url: "app.reacting.io / stock",
     stage: {
-      objectFit: "cover",
-      objectPosition: "60% 28%",
-      aspectRatio: "16 / 10",
-      scale: 1.2,
+      objectFit: "contain",
+      objectPosition: "center",
+      aspectRatio: "1653 / 1057",
+      scale: 1,
     },
   },
   {
     id: "suppliers",
     tab: "Suppliers",
     label: "Suppliers",
-    title: "Every vendor in one place.",
-    body: "Contacts, accounts and purchase history with the supplier record.",
-    src: SCREENS.suppliers,
-    alt: "Dental Assist supplier directory",
+    title: "Supplier details and purchase history, together.",
+    body: "Contacts, account details and order history in one supplier record.",
+    src: "/product-screens/mkt-vendor-detail.webp",
+    alt: "Dental Assist supplier record for Blackthorn — contacts, internal note and purchase history with 105 orders",
     url: "app.reacting.io / vendors",
     stage: {
-      objectFit: "cover",
-      objectPosition: "22% 6%",
-      // Shallow stage — table does not need Inventory height.
-      aspectRatio: "12 / 5",
-      scale: 1.4,
+      objectFit: "contain",
+      objectPosition: "center top",
+      aspectRatio: "1324 / 969",
+      scale: 1,
+      desktopObjectFit: "cover",
+      desktopObjectPosition: "center top",
+      desktopAspectRatio: "1324 / 800",
     },
   },
   {
@@ -130,41 +132,66 @@ const explorerItems: ExplorerItem[] = [
     label: "Expiry",
     title: "Risk you can still act on.",
     body: "Near-expiry and expired materials surface before write-off.",
-    src: SCREENS.expiring,
-    alt: "Dental Assist expiring stock follow-up",
+    src: "/product-screens/mkt-expiring-review.webp",
+    alt: "Dental Assist expiring stock — four items need review, including expired materials and one item expiring in 27 days",
     url: "app.reacting.io / expiring-stock",
     stage: {
-      objectFit: "cover",
-      objectPosition: "0% 40%",
-      aspectRatio: "12 / 5",
+      objectFit: "contain",
+      objectPosition: "center",
+      aspectRatio: "1296 / 536",
       scale: 1,
-      // Left-origin zoom + nudge: full first card, less right mint.
-      frameTransform: "translateX(5%) scale(1.18)",
+      desktopObjectPosition: "left center",
+      desktopAspectRatio: "1400 / 536",
     },
   },
   {
     id: "insights",
     tab: "Insights",
     label: "Insights",
-    title: "Spend, usage and savings in view.",
-    body: "Order value, stock usage and RFQ savings without rebuilding spreadsheets.",
-    evidence: "Savings & Usage from the live product.",
-    src: SCREENS.reporting,
-    alt: "Dental Assist Savings and Usage reporting with order value, stock usage and RFQ savings",
-    url: "app.reacting.io / savings-and-usage",
+    title: "Stock value, usage and cover at a glance.",
+    body: "See stock value, usage trends and estimated cover without rebuilding spreadsheets.",
+    evidence: "Stock Reports from the live product.",
+    src: "/product-screens/mkt-stock-reports.webp",
+    alt: "Dental Assist Stock Reports — current stock value, usage trend, highest-value items and unused stock",
+    url: "app.reacting.io / stock-reports",
     stage: {
-      objectFit: "cover",
-      objectPosition: "48% 12%",
-      aspectRatio: "16 / 10",
-      scale: 1.18,
+      objectFit: "contain",
+      objectPosition: "center top",
+      aspectRatio: "1301 / 1016",
+      scale: 1,
+      desktopObjectFit: "cover",
+      desktopObjectPosition: "center top",
+      desktopAspectRatio: "1301 / 868",
     },
   },
 ];
 
 function ProductPage() {
   const [active, setActive] = useState(0);
+  const [isDesktopFrame, setIsDesktopFrame] = useState(false);
   const activeTabRef = useRef<HTMLButtonElement | null>(null);
   const item = explorerItems[active] ?? explorerItems[0];
+  const frameScale =
+    isDesktopFrame && item.stage.desktopScale != null
+      ? item.stage.desktopScale
+      : item.stage.scale;
+  const framePosition = isDesktopFrame
+    ? (item.stage.desktopObjectPosition ?? item.stage.objectPosition)
+    : item.stage.objectPosition;
+  const frameFit = isDesktopFrame
+    ? (item.stage.desktopObjectFit ?? item.stage.objectFit)
+    : item.stage.objectFit;
+  const frameAspect = isDesktopFrame
+    ? (item.stage.desktopAspectRatio ?? item.stage.aspectRatio)
+    : item.stage.aspectRatio;
+
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const sync = () => setIsDesktopFrame(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
 
   useEffect(() => {
     activeTabRef.current?.scrollIntoView({
@@ -205,7 +232,7 @@ function ProductPage() {
             </div>
           </div>
 
-          <div className="mx-auto mt-6 w-full max-w-[820px] lg:mt-7">
+          <div className="mx-auto mt-6 w-full max-w-[720px] lg:mt-6">
             <ProductFrame
               label="app.reacting.io / dashboard"
               emphasis="hero"
@@ -267,7 +294,7 @@ function ProductPage() {
         aria-labelledby="explorer-heading"
         className="border-b border-border/60 bg-background"
       >
-        <div className="mx-auto max-w-[1280px] px-6 py-7 lg:px-10 lg:py-8">
+        <div className="mx-auto max-w-[1280px] px-6 py-6 lg:px-10 lg:py-5">
           <div className="max-w-xl">
             <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
               Product explorer
@@ -276,14 +303,14 @@ function ProductPage() {
               id="explorer-heading"
               className="mt-1.5 text-[22px] font-semibold leading-[1.15] tracking-[-0.025em] text-foreground sm:text-[26px]"
             >
-              Inspect what lives inside Dental Assist.
+              See Dental Assist in action.
             </h2>
           </div>
 
           <div
             role="tablist"
             aria-label="Dental Assist areas"
-            className="mt-4 flex gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            className="mt-3 flex gap-2 overflow-x-auto pb-1 lg:mt-2.5 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
             {explorerItems.map((entry, index) => {
               const selected = index === active;
@@ -314,54 +341,35 @@ function ProductPage() {
             id="product-explorer-panel"
             role="tabpanel"
             aria-labelledby={`explorer-tab-${item.id}`}
-            className="mt-5 grid items-center gap-5 rounded-2xl border border-border/60 bg-[#F8FAFC] p-4 sm:p-5 lg:mt-5 lg:grid-cols-[minmax(0,0.36fr)_minmax(0,0.64fr)] lg:gap-6 lg:p-5"
+            className="mt-4 grid items-start gap-5 lg:mt-3 lg:max-w-[960px] lg:grid-cols-[minmax(0,0.32fr)_minmax(0,0.68fr)] lg:gap-6"
           >
-            <div className="min-w-0">
+            <div className="min-w-0 lg:pt-1">
               <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
                 {item.label}
               </div>
-              <h3 className="mt-2.5 text-[22px] font-semibold leading-[1.15] tracking-[-0.025em] text-foreground sm:text-[26px]">
+              <h3 className="mt-2 text-[20px] font-semibold leading-[1.15] tracking-[-0.025em] text-foreground sm:text-[22px]">
                 {item.title}
               </h3>
-              <p className="mt-3 text-[15px] leading-[1.6] text-muted-foreground">
+              <p className="mt-2.5 text-[14.5px] leading-[1.55] text-muted-foreground">
                 {item.body}
               </p>
               {item.evidence ? (
-                <p className="mt-3 text-[12px] text-muted-foreground/90">
+                <p className="mt-2.5 text-[12px] text-muted-foreground/90">
                   {item.evidence}
                 </p>
               ) : null}
             </div>
 
             <div className="w-full min-w-0">
-              <ProductFrame label={item.url} emphasis="hero">
-                {item.stage.frameTransform ? (
-                  <div
-                    className="relative w-full overflow-hidden bg-[#F1F5F9]"
-                    style={{ aspectRatio: item.stage.aspectRatio }}
-                  >
-                    <img
-                      src={item.src}
-                      alt={item.alt}
-                      draggable={false}
-                      className="absolute inset-0 h-full w-full object-cover"
-                      style={{
-                        objectPosition: item.stage.objectPosition,
-                        transform: item.stage.frameTransform,
-                        transformOrigin: "left center",
-                      }}
-                    />
-                  </div>
-                ) : (
-                  <MediaViewer
-                    imageSrc={item.src}
-                    alt={item.alt}
-                    objectFit={item.stage.objectFit}
-                    objectPosition={item.stage.objectPosition}
-                    aspectRatio={item.stage.aspectRatio}
-                    scale={item.stage.scale}
-                  />
-                )}
+              <ProductFrame label={item.url} emphasis="hero" className="w-full">
+                <MediaViewer
+                  imageSrc={item.src}
+                  alt={item.alt}
+                  objectFit={frameFit}
+                  objectPosition={framePosition}
+                  aspectRatio={frameAspect}
+                  scale={frameScale}
+                />
               </ProductFrame>
             </div>
           </div>
@@ -373,7 +381,7 @@ function ProductPage() {
         aria-labelledby="roles-heading"
         className="border-b border-border/60 bg-background"
       >
-        <div className="mx-auto max-w-[1280px] px-6 py-8 lg:px-10 lg:py-9">
+        <div className="mx-auto max-w-[1280px] px-6 py-7 lg:px-10 lg:py-7">
           <h2
             id="roles-heading"
             className="text-[22px] font-semibold leading-[1.15] tracking-[-0.025em] text-foreground sm:text-[26px]"

@@ -6,7 +6,7 @@ import { SiteShell } from "@/components/site/SiteChrome";
 import { TrustBar } from "@/components/site/ProductMock";
 import { ProductFrame } from "@/components/marketing/ProductFrame";
 import { MediaViewer } from "@/components/marketing/MediaViewer";
-import { SCREENS, type MediaFit } from "@/components/marketing/content";
+import { HERO_LOOP_POSTER, HERO_LOOP_VIDEO, type MediaFit } from "@/components/marketing/content";
 import { pageMeta } from "@/lib/seo";
 import { cn } from "@/lib/utils";
 
@@ -61,17 +61,22 @@ type Stage = {
   desktopAspectRatio?: string;
 };
 
-/**
- * Contained product preview — composed, not a masked raw crop.
- * Wide stage + light scale keeps KPI / Budget / Actions coherent without
- * enlarging the window or slicing cards at the left edge.
- */
-const HERO_STAGE: Stage = {
-  objectFit: "cover",
-  objectPosition: "48% 12%",
-  aspectRatio: "21 / 10",
-  scale: 1.06,
+/** Authentic product loop — 15/8 at ~620px ≈ 330px tall. */
+const HERO_VIDEO = {
+  objectFit: "cover" as const,
+  objectPosition: "center",
+  aspectRatio: "15 / 8",
+  scale: 1,
 };
+
+/** Local copies of the currently rendered Product type classes — not shared tokens. */
+const PAGE_H1 =
+  "text-[28px] font-semibold leading-[1.1] tracking-[-0.03em] text-foreground sm:text-[36px] lg:text-[40px]";
+const SECTION_H2 =
+  "text-[22px] font-semibold leading-[1.15] tracking-[-0.028em] text-foreground sm:text-[28px] lg:text-[30px]";
+const SUB_H2 =
+  "text-[20px] font-semibold leading-[1.2] tracking-[-0.022em] text-foreground sm:text-[24px]";
+const BODY = "text-[15.5px] leading-[1.65] text-muted-foreground sm:text-[16px]";
 
 type ExplorerItem = {
   id: string;
@@ -86,10 +91,11 @@ type ExplorerItem = {
   stage: Stage;
 };
 
-/**
- * Architectural Product Explorer — inspect areas inside Dental Assist.
- * Not Home's chronological DayInPractice journey.
- */
+/** Shared proof window ~610 × 381. Crops differ per source. */
+const EXPLORER_PROOF_AR = "16 / 10";
+const HERO_MEDIA = "w-full max-w-[620px]";
+const PROOF_MEDIA = "w-full max-w-[610px]";
+
 const explorerItems: ExplorerItem[] = [
   {
     id: "inventory",
@@ -101,10 +107,13 @@ const explorerItems: ExplorerItem[] = [
     alt: "Dental Assist stock record for DEHP Prophy Brush — quantity 4, minimum 1, Decon Room location",
     url: "app.reacting.io / stock",
     stage: {
-      objectFit: "contain",
-      objectPosition: "center",
-      aspectRatio: "1653 / 1057",
+      objectFit: "cover",
+      objectPosition: "40% 22%",
+      aspectRatio: EXPLORER_PROOF_AR,
       scale: 1,
+      desktopObjectFit: "cover",
+      desktopObjectPosition: "40% 22%",
+      desktopAspectRatio: EXPLORER_PROOF_AR,
     },
   },
   {
@@ -113,17 +122,17 @@ const explorerItems: ExplorerItem[] = [
     label: "Suppliers",
     title: "Supplier details and purchase history, together.",
     body: "Contacts, account details and order history in one supplier record.",
-    src: "/product-screens/mkt-vendor-detail.webp",
-    alt: "Dental Assist supplier record for Blackthorn — contacts, internal note and purchase history with 105 orders",
+    src: "/product-screens/mkt-explorer-suppliers.webp",
+    alt: "Dental Assist supplier record for Blackthorn — contacts and purchase history with orders 646 Waiting and 636 Completed",
     url: "app.reacting.io / vendors",
     stage: {
       objectFit: "contain",
-      objectPosition: "center top",
-      aspectRatio: "1324 / 969",
+      objectPosition: "center",
+      aspectRatio: EXPLORER_PROOF_AR,
       scale: 1,
-      desktopObjectFit: "cover",
-      desktopObjectPosition: "center top",
-      desktopAspectRatio: "1324 / 800",
+      desktopObjectFit: "contain",
+      desktopObjectPosition: "center",
+      desktopAspectRatio: EXPLORER_PROOF_AR,
     },
   },
   {
@@ -132,16 +141,17 @@ const explorerItems: ExplorerItem[] = [
     label: "Expiry",
     title: "Risk you can still act on.",
     body: "Near-expiry and expired materials surface before write-off.",
-    src: "/product-screens/mkt-expiring-review.webp",
-    alt: "Dental Assist expiring stock — four items need review, including expired materials and one item expiring in 27 days",
+    src: "/product-screens/mkt-explorer-expiry.webp",
+    alt: "Dental Assist Expiring Stock — three expired items needing review, with Details and RFQ actions",
     url: "app.reacting.io / expiring-stock",
     stage: {
       objectFit: "contain",
       objectPosition: "center",
-      aspectRatio: "1296 / 536",
+      aspectRatio: EXPLORER_PROOF_AR,
       scale: 1,
-      desktopObjectPosition: "left center",
-      desktopAspectRatio: "1400 / 536",
+      desktopObjectFit: "contain",
+      desktopObjectPosition: "center",
+      desktopAspectRatio: EXPLORER_PROOF_AR,
     },
   },
   {
@@ -155,13 +165,13 @@ const explorerItems: ExplorerItem[] = [
     alt: "Dental Assist Stock Reports — current stock value, usage trend, highest-value items and unused stock",
     url: "app.reacting.io / stock-reports",
     stage: {
-      objectFit: "contain",
+      objectFit: "cover",
       objectPosition: "center top",
-      aspectRatio: "1301 / 1016",
+      aspectRatio: EXPLORER_PROOF_AR,
       scale: 1,
       desktopObjectFit: "cover",
       desktopObjectPosition: "center top",
-      desktopAspectRatio: "1301 / 868",
+      desktopAspectRatio: EXPLORER_PROOF_AR,
     },
   },
 ];
@@ -203,105 +213,90 @@ function ProductPage() {
 
   return (
     <SiteShell>
-      {/* 1. Product-first hero — contained product window */}
       <section className="border-b border-border/60 bg-background">
-        <div className="mx-auto max-w-[1280px] px-6 pb-7 pt-10 lg:px-10 lg:pb-8 lg:pt-12">
-          <div className="mx-auto max-w-2xl text-center">
-            <div className="text-[12px] font-medium uppercase tracking-[0.18em] text-accent">
-              Dental Assist
+        <div className="mx-auto max-w-[1280px] px-6 pb-10 pt-10 lg:px-10 lg:pb-10 lg:pt-12">
+          <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,0.44fr)_minmax(0,0.56fr)] lg:gap-10">
+            <div className="min-w-0 text-left">
+              <div className="text-[12px] font-medium uppercase tracking-[0.18em] text-accent">
+                Dental Assist
+              </div>
+              <h1 className={cn("mt-3", PAGE_H1)}>
+                The operational workspace for running the practice beyond the
+                surgery.
+              </h1>
+              <p className={cn("mt-4 max-w-xl", BODY)}>
+                Inventory, suppliers and purchasing in one Dental Assist product —
+                developed inside a real dental practice.
+              </p>
+              <div className="mt-5">
+                <Button
+                  asChild
+                  size="lg"
+                  className="h-11 w-full rounded-full px-6 text-[13.5px] font-medium sm:w-auto"
+                >
+                  <Link to="/book-demo">
+                    Book a Demo
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </Button>
+              </div>
             </div>
-            <h1 className="mt-3 text-[32px] font-semibold leading-[1.08] tracking-[-0.025em] text-foreground sm:text-[40px] lg:text-[44px]">
-              The operational workspace for running the practice beyond the
-              surgery.
-            </h1>
-            <p className="mx-auto mt-4 max-w-xl text-[15px] leading-[1.6] text-muted-foreground sm:text-[16px]">
-              Inventory, suppliers and purchasing in one Dental Assist product —
-              developed inside a real dental practice.
-            </p>
-            <div className="mt-6 flex justify-center">
-              <Button
-                asChild
-                size="lg"
-                className="h-11 w-full rounded-full px-6 text-[13.5px] font-medium sm:w-auto"
+
+            <div className={cn(HERO_MEDIA, "min-w-0 overflow-hidden lg:justify-self-start")}>
+              <ProductFrame
+                label="app.reacting.io / dental assist"
+                className="w-full"
               >
-                <Link to="/book-demo">
-                  Book a Demo
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-              </Button>
+                <MediaViewer
+                  videoSrc={HERO_LOOP_VIDEO}
+                  posterSrc={HERO_LOOP_POSTER}
+                  alt="Dental Assist in use — stock, purchasing and operational actions in the live workspace"
+                  priority
+                  objectFit={HERO_VIDEO.objectFit}
+                  objectPosition={HERO_VIDEO.objectPosition}
+                  aspectRatio={HERO_VIDEO.aspectRatio}
+                  scale={HERO_VIDEO.scale}
+                />
+              </ProductFrame>
             </div>
           </div>
 
-          <div className="mx-auto mt-6 w-full max-w-[720px] lg:mt-6">
-            <ProductFrame
-              label="app.reacting.io / dashboard"
-              emphasis="hero"
-              className="w-full"
-            >
-              <MediaViewer
-                imageSrc={SCREENS.dashboard}
-                alt="Dental Assist dashboard — spend, stock risk and purchasing overview"
-                priority
-                objectFit={HERO_STAGE.objectFit}
-                objectPosition={HERO_STAGE.objectPosition}
-                aspectRatio={HERO_STAGE.aspectRatio}
-                scale={HERO_STAGE.scale}
-              />
-            </ProductFrame>
-          </div>
-        </div>
-      </section>
-
-      {/* 2. Architecture breadth — distinct from explorer tabs */}
-      <section
-        id="inside-dental-assist"
-        aria-labelledby="inside-dental-assist-heading"
-        className="scroll-mt-24 border-b border-border/60 bg-[#F8FAFC]"
-      >
-        <div className="mx-auto max-w-[1280px] px-6 py-5 lg:px-10 lg:py-6">
-          <div className="max-w-xl">
-            <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
-              Inside Dental Assist
-            </div>
-            <h2
-              id="inside-dental-assist-heading"
-              className="mt-1.5 text-[20px] font-semibold leading-[1.15] tracking-[-0.025em] text-foreground sm:text-[24px]"
-            >
-              One product. Connected capabilities.
-            </h2>
-            <p className="mt-1.5 text-[13px] leading-[1.5] text-muted-foreground">
+          <div
+            id="inside-dental-assist"
+            className="mt-8 border-t border-border/60 pt-5"
+          >
+            <p className="text-[13px] leading-[1.55] text-muted-foreground">
               Parts of Dental Assist — not separate tools.
             </p>
+            <p className="mt-2 max-w-4xl text-[13px] leading-[1.65] text-foreground/80">
+              {architecture.map((label, index) => (
+                <span key={label}>
+                  {index > 0 ? (
+                    <span className="mx-2 text-border" aria-hidden>
+                      ·
+                    </span>
+                  ) : null}
+                  <span className="font-medium text-foreground/85">{label}</span>
+                </span>
+              ))}
+            </p>
           </div>
-
-          <p className="mt-3 max-w-4xl text-[13px] leading-[1.65] text-foreground/80">
-            {architecture.map((label, index) => (
-              <span key={label}>
-                {index > 0 ? (
-                  <span className="mx-2 text-border" aria-hidden>
-                    ·
-                  </span>
-                ) : null}
-                <span className="font-medium text-foreground/85">{label}</span>
-              </span>
-            ))}
-          </p>
         </div>
       </section>
 
-      {/* 3. Product Explorer — one stage, architectural inspection */}
       <section
         aria-labelledby="explorer-heading"
         className="border-b border-border/60 bg-background"
       >
-        <div className="mx-auto max-w-[1280px] px-6 py-6 lg:px-10 lg:py-5">
+        <div className="mx-auto max-w-[1200px] px-6 pb-10 pt-0 lg:px-10">
+          <div className="mx-auto w-full max-w-[962px]">
           <div className="max-w-xl">
             <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
               Product explorer
             </div>
             <h2
               id="explorer-heading"
-              className="mt-1.5 text-[22px] font-semibold leading-[1.15] tracking-[-0.025em] text-foreground sm:text-[26px]"
+              className={cn("mt-3", SECTION_H2)}
             >
               See Dental Assist in action.
             </h2>
@@ -310,7 +305,7 @@ function ProductPage() {
           <div
             role="tablist"
             aria-label="Dental Assist areas"
-            className="mt-3 flex gap-2 overflow-x-auto pb-1 lg:mt-2.5 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            className="mt-4 flex gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
             {explorerItems.map((entry, index) => {
               const selected = index === active;
@@ -341,16 +336,16 @@ function ProductPage() {
             id="product-explorer-panel"
             role="tabpanel"
             aria-labelledby={`explorer-tab-${item.id}`}
-            className="mt-4 grid items-start gap-5 lg:mt-3 lg:max-w-[960px] lg:grid-cols-[minmax(0,0.32fr)_minmax(0,0.68fr)] lg:gap-6"
+            className="mt-7 grid w-full items-start gap-8 lg:grid-cols-[20rem_minmax(0,38.125rem)] lg:gap-8"
           >
-            <div className="min-w-0 lg:pt-1">
+            <div className="min-w-0 lg:max-w-[20rem]">
               <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
                 {item.label}
               </div>
-              <h3 className="mt-2 text-[20px] font-semibold leading-[1.15] tracking-[-0.025em] text-foreground sm:text-[22px]">
+              <h3 className={cn("mt-2", SUB_H2)}>
                 {item.title}
               </h3>
-              <p className="mt-2.5 text-[14.5px] leading-[1.55] text-muted-foreground">
+              <p className={cn("mt-2.5", BODY)}>
                 {item.body}
               </p>
               {item.evidence ? (
@@ -360,8 +355,8 @@ function ProductPage() {
               ) : null}
             </div>
 
-            <div className="w-full min-w-0">
-              <ProductFrame label={item.url} emphasis="hero" className="w-full">
+            <div className={cn(PROOF_MEDIA, "min-w-0 overflow-hidden")}>
+              <ProductFrame label={item.url} className="w-full">
                 <MediaViewer
                   imageSrc={item.src}
                   alt={item.alt}
@@ -373,22 +368,22 @@ function ProductPage() {
               </ProductFrame>
             </div>
           </div>
+          </div>
         </div>
       </section>
 
-      {/* 4. Role value */}
       <section
         aria-labelledby="roles-heading"
         className="border-b border-border/60 bg-background"
       >
-        <div className="mx-auto max-w-[1280px] px-6 py-7 lg:px-10 lg:py-7">
+        <div className="mx-auto max-w-[1280px] px-6 pb-12 pt-0 lg:px-10">
           <h2
             id="roles-heading"
-            className="text-[22px] font-semibold leading-[1.15] tracking-[-0.025em] text-foreground sm:text-[26px]"
+            className={SECTION_H2}
           >
             Built for the people running the practice.
           </h2>
-          <dl className="mt-5 divide-y divide-border/60 border-y border-border/60">
+          <dl className="mt-6 divide-y divide-border/60 border-y border-border/60">
             {roles.map((role) => (
               <div
                 key={role.title}
@@ -411,7 +406,7 @@ function ProductPage() {
         aria-labelledby="boundary-heading"
         className="border-b border-border/60 bg-[#F8FAFC]"
       >
-        <div className="mx-auto max-w-[1280px] px-6 py-7 lg:px-10 lg:py-8">
+        <div className="mx-auto max-w-[1280px] px-6 py-10 lg:px-10 lg:py-10">
           <p
             id="boundary-heading"
             className="max-w-3xl text-[14.5px] leading-[1.65] text-muted-foreground"
@@ -429,11 +424,11 @@ function ProductPage() {
       <TrustBar />
 
       <section className="border-b border-border/60 bg-background">
-        <div className="mx-auto max-w-[1280px] px-6 py-9 text-center lg:px-10 lg:py-11">
-          <h2 className="mx-auto max-w-2xl text-[28px] font-semibold leading-[1.12] tracking-[-0.025em] text-foreground sm:text-[34px]">
+        <div className="mx-auto max-w-[1280px] px-6 py-12 text-center lg:px-10 lg:py-12">
+          <h2 className={cn("mx-auto max-w-2xl", SECTION_H2)}>
             See Dental Assist in your practice.
           </h2>
-          <p className="mx-auto mt-3 max-w-xl text-[15px] leading-[1.6] text-muted-foreground">
+          <p className={cn("mx-auto mt-3 max-w-xl", BODY)}>
             Walk through the workspace with your own stock, suppliers and
             purchasing in mind.
           </p>

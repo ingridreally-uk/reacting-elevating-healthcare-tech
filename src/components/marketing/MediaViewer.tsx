@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import type { MediaFit } from "./content";
 
@@ -43,6 +44,7 @@ export function MediaViewer({
   scale = 1,
   fill = false,
 }: MediaViewerProps) {
+  const reduceMotion = useReducedMotion();
   const imgRef = useRef<HTMLImageElement>(null);
   const [loaded, setLoaded] = useState(Boolean(priority));
 
@@ -92,25 +94,41 @@ export function MediaViewer({
   }
 
   if (videoSrc) {
+    const poster = posterSrc ?? imageSrc;
+    const fitClass = objectFit === "contain" ? "object-contain" : "object-cover";
     return (
       <div
         className={cn("relative w-full overflow-hidden bg-[#F1F5F9]", className)}
         style={natural ? undefined : { aspectRatio }}
       >
-        <video
-          className={cn(
-            natural ? "h-auto w-full" : "absolute inset-0 h-full w-full",
-            objectFit === "contain" ? "object-contain" : "object-cover",
-          )}
-          style={mediaStyle}
-          src={videoSrc}
-          poster={posterSrc ?? imageSrc}
-          muted
-          playsInline
-          autoPlay
-          loop
-          aria-label={alt}
-        />
+        {reduceMotion && poster ? (
+          <img
+            src={poster}
+            alt={alt}
+            className={cn(
+              natural ? "h-auto w-full" : "absolute inset-0 h-full w-full",
+              fitClass,
+            )}
+            style={mediaStyle}
+            draggable={false}
+          />
+        ) : (
+          <video
+            className={cn(
+              natural ? "h-auto w-full" : "absolute inset-0 h-full w-full",
+              fitClass,
+            )}
+            style={mediaStyle}
+            src={videoSrc}
+            poster={poster}
+            muted
+            playsInline
+            autoPlay
+            loop
+            controls={false}
+            aria-label={alt}
+          />
+        )}
       </div>
     );
   }

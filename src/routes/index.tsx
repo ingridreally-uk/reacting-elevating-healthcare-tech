@@ -121,13 +121,13 @@ function MarketingHome() {
         aria-labelledby="pricing-heading"
         className="scroll-mt-24 border-b border-border/40 bg-background"
       >
-        <div className="mx-auto max-w-[1200px] px-6 pb-10 pt-10 lg:px-10 lg:pb-10 lg:pt-10">
+        <div className="mx-auto max-w-[1200px] px-6 pb-9 pt-10 lg:px-10 lg:pb-10 lg:pt-10">
           <PricingCard />
         </div>
       </section>
 
       <section id="faq" aria-labelledby="faq-heading" className="scroll-mt-24 bg-[#F1F5F9]">
-        <div className="mx-auto max-w-[1200px] px-6 pb-12 pt-10 lg:px-10 lg:pb-14 lg:pt-10">
+        <div className="mx-auto max-w-[1200px] px-6 pb-10 pt-9 lg:px-10 lg:pb-11 lg:pt-10">
           <FAQ />
         </div>
       </section>

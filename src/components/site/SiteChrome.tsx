@@ -188,17 +188,13 @@ export function SiteFooter() {
     },
     {
       title: "Account",
-      links: [
-        { label: "Login", href: "https://app.reacting.io/login" },
-        { label: "Start Free Trial", href: "https://app.reacting.io/signup" },
-        { label: "Book a Demo", href: "/book-demo" },
-      ],
+      links: [{ label: "Login", href: "https://app.reacting.io/login" }],
     },
   ];
 
   return (
-    <footer className="border-t border-border/40 bg-[#FAFBFC]">
-      <div className="mx-auto max-w-[1200px] px-6 pb-7 pt-8 lg:px-10 lg:pb-8 lg:pt-9">
+    <footer className="border-t border-border/25 bg-[#FAFBFC]">
+      <div className="mx-auto max-w-[1200px] px-6 pb-7 pt-9 lg:px-10 lg:pb-8 lg:pt-10">
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-[minmax(0,1.2fr)_1fr_1fr_1fr] lg:gap-10">
           <div className="sm:col-span-2 lg:col-span-1">
             <ReactingLogoLink widthClassName="w-[128px]" />

@@ -24,7 +24,7 @@ export function FAQ() {
 
       <div
         className={cn(
-          "mt-10 overflow-hidden border border-border/55 bg-card",
+          "mt-8 overflow-hidden border border-border/55 bg-card",
           radius.card,
           elev.card,
         )}

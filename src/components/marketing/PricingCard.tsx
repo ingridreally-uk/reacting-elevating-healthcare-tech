@@ -1,21 +1,30 @@
-import { Check, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { APP_SIGNUP } from "./content";
 import { btn, elev, iconStroke, layout, radius } from "./design";
 import { cn } from "@/lib/utils";
 
 const included = [
-  "Live shelf quantities",
-  "Low-stock alerts",
-  "Expiry tracking",
-  "Supplier directory",
-  "Quote comparison",
-  "Orders",
-  "Spend and usage reporting",
-  "Unlimited products",
-  "Unlimited team members",
-  "Email support",
-  "Guided product import",
-];
+  {
+    title: "Stock & expiry",
+    body: "Live stock quantities, low-stock alerts and expiry tracking.",
+  },
+  {
+    title: "Suppliers & purchasing",
+    body: "Supplier directory, quote comparison and orders.",
+  },
+  {
+    title: "Spend & savings",
+    body: "Spend visibility, purchasing history and savings.",
+  },
+  {
+    title: "Team access",
+    body: "Multiple team members within the practice plan.",
+  },
+  {
+    title: "Setup & support",
+    body: "Guided product import and email support.",
+  },
+] as const;
 
 export function PricingCard() {
   return (
@@ -25,52 +34,41 @@ export function PricingCard() {
         <h2 id="pricing-heading" className={cn(layout.h2, "mt-2.5")}>
           One practice. One clear monthly cost.
         </h2>
-        <p className={cn(layout.lead, "mx-auto mt-3 max-w-[42ch]")}>
-          Everything your practice needs for stock and purchasing — shelf visibility, risk alerts, suppliers, quotes, orders and reporting — without per-seat pricing.
+        <p className={cn(layout.lead, "mx-auto mt-3 max-w-[36ch]")}>
+          One monthly practice plan. No per-seat pricing.
         </p>
       </div>
 
       <div
         className={cn(
-          "mt-9 overflow-hidden border border-border/60 bg-card",
+          "mt-8 overflow-hidden border border-border/60 bg-card",
           radius.card,
           elev.card,
         )}
       >
-        <div className="grid lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
-          <div className="flex flex-col justify-between border-b border-border/55 bg-[#F1F5F9] p-7 sm:p-8 lg:border-b-0 lg:border-r">
+        <div className="grid lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+          <div className="flex flex-col justify-between border-b border-border/55 bg-[#F1F5F9] p-6 sm:p-8 lg:justify-start lg:border-b-0 lg:border-r">
             <div>
               <div className="text-[13px] font-semibold tracking-tight text-foreground">
                 Practice plan
               </div>
-              <div className="mt-4 flex flex-wrap items-end gap-x-2 gap-y-1">
+              <div className="mt-4 flex flex-wrap items-end gap-x-2.5 gap-y-1">
                 <span className="text-[56px] font-semibold leading-none tracking-[-0.05em] text-foreground sm:text-[60px]">
                   £59
                 </span>
-                <span className="mb-2 text-[14px] leading-snug text-muted-foreground">
+                <span className="mb-1.5 text-[14px] leading-snug text-muted-foreground">
                   per practice
                   <br />
                   per month
                 </span>
               </div>
-              <ul className="mt-5 space-y-2.5 text-[13.5px] text-foreground/85">
-                {[
-                  "14-day free trial",
-                  "No credit card required",
-                  "No setup fees",
-                  "Cancel anytime",
-                ].map((t) => (
-                  <li key={t} className="flex items-center gap-2.5">
-                    <Check
-                      className="h-3.5 w-3.5 shrink-0 text-accent"
-                      strokeWidth={iconStroke}
-                    />
-                    {t}
-                  </li>
-                ))}
-              </ul>
+              <div className="mt-5 space-y-1 text-[14px] leading-[1.45] font-medium text-foreground/90">
+                <p>14-day free trial</p>
+                <p>No credit card required</p>
+                <p>Cancel anytime</p>
+              </div>
             </div>
-            <div className="mt-7">
+            <div className="mt-6 lg:mt-8">
               <a
                 href={APP_SIGNUP}
                 rel="noopener noreferrer"
@@ -79,24 +77,22 @@ export function PricingCard() {
                 Start Free Trial
                 <ArrowRight className="h-4 w-4" strokeWidth={iconStroke} />
               </a>
-              <p className="mt-3 text-center text-[12.5px] text-muted-foreground">
-                Everything included in one practice plan.
-              </p>
             </div>
           </div>
 
-          <div className="flex flex-col p-7 sm:p-8">
+          <div className="flex flex-col p-6 sm:p-8">
             <div className="text-[13px] font-semibold tracking-tight text-foreground">
               Everything included
             </div>
-            <ul className="mt-4 grid content-start gap-x-6 gap-y-2.5 sm:grid-cols-2">
+            <ul className="mt-4 space-y-3.5">
               {included.map((entry) => (
-                <li key={entry} className="flex items-start gap-2.5 text-[13.5px] text-foreground">
-                  <Check
-                    className="mt-0.5 h-3.5 w-3.5 shrink-0 text-accent"
-                    strokeWidth={iconStroke}
-                  />
-                  {entry}
+                <li key={entry.title}>
+                  <p className="text-[14px] font-semibold leading-snug text-foreground">
+                    {entry.title}
+                  </p>
+                  <p className="mt-0.5 text-[13px] leading-[1.5] text-muted-foreground">
+                    {entry.body}
+                  </p>
                 </li>
               ))}
             </ul>

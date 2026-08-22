@@ -1,6 +1,7 @@
 export { TrustSignals } from "./TrustSignals";
 export { BrowserMock } from "./BrowserMock";
 export { ProductFrame } from "./ProductFrame";
+export { ProductStoryHero } from "./ProductStoryHero";
 export { MediaViewer } from "./MediaViewer";
 export { MediaGallery, ScreenshotCard } from "./MediaGallery";
 export { FeatureSection } from "./FeatureSection";

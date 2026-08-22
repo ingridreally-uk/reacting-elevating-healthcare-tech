@@ -5,8 +5,9 @@ import { Button } from "@/components/ui/button";
 import { SiteShell } from "@/components/site/SiteChrome";
 import { TrustBar } from "@/components/site/ProductMock";
 import { ProductFrame } from "@/components/marketing/ProductFrame";
+import { ProductStoryHero } from "@/components/marketing/ProductStoryHero";
 import { MediaViewer } from "@/components/marketing/MediaViewer";
-import { HERO_LOOP_POSTER, HERO_LOOP_VIDEO, type MediaFit } from "@/components/marketing/content";
+import type { MediaFit } from "@/components/marketing/content";
 import { pageMeta } from "@/lib/seo";
 import { cn } from "@/lib/utils";
 
@@ -59,14 +60,6 @@ type Stage = {
   desktopObjectFit?: MediaFit;
   /** Desktop crop window. Mobile keeps the source aspect. */
   desktopAspectRatio?: string;
-};
-
-/** Authentic product loop — 15/8 at ~620px ≈ 330px tall. */
-const HERO_VIDEO = {
-  objectFit: "cover" as const,
-  objectPosition: "center",
-  aspectRatio: "15 / 8",
-  scale: 1,
 };
 
 /** Local copies of the currently rendered Product type classes — not shared tokens. */
@@ -203,7 +196,12 @@ function ProductPage() {
     return () => mq.removeEventListener("change", sync);
   }, []);
 
+  const didMountExplorer = useRef(false);
   useEffect(() => {
+    if (!didMountExplorer.current) {
+      didMountExplorer.current = true;
+      return;
+    }
     activeTabRef.current?.scrollIntoView({
       behavior: "smooth",
       inline: "center",
@@ -214,7 +212,7 @@ function ProductPage() {
   return (
     <SiteShell>
       <section className="border-b border-border/60 bg-background">
-        <div className="mx-auto max-w-[1280px] px-6 pb-10 pt-10 lg:px-10 lg:pb-10 lg:pt-12">
+        <div className="mx-auto max-w-[1280px] px-6 pb-10 pt-20 lg:px-10 lg:pb-10 lg:pt-20">
           <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,0.44fr)_minmax(0,0.56fr)] lg:gap-10">
             <div className="min-w-0 text-left">
               <div className="text-[12px] font-medium uppercase tracking-[0.18em] text-accent">
@@ -247,16 +245,7 @@ function ProductPage() {
                 label="app.reacting.io / dental assist"
                 className="w-full"
               >
-                <MediaViewer
-                  videoSrc={HERO_LOOP_VIDEO}
-                  posterSrc={HERO_LOOP_POSTER}
-                  alt="Dental Assist in use — stock, purchasing and operational actions in the live workspace"
-                  priority
-                  objectFit={HERO_VIDEO.objectFit}
-                  objectPosition={HERO_VIDEO.objectPosition}
-                  aspectRatio={HERO_VIDEO.aspectRatio}
-                  scale={HERO_VIDEO.scale}
-                />
+                <ProductStoryHero />
               </ProductFrame>
             </div>
           </div>

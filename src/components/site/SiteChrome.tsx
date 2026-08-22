@@ -31,10 +31,10 @@ export function SiteHeader() {
 
   return (
     <header
-      className={`sticky top-0 z-50 transition-[background-color,border-color,box-shadow,backdrop-filter] duration-300 ${
+      className={`sticky top-0 z-50 isolate bg-background transition-[border-color,box-shadow] duration-300 ${
         scrolled
-          ? "border-b border-border/70 bg-background/90 shadow-[0_1px_0_rgb(15_23_42/0.02)] backdrop-blur-xl"
-          : "border-b border-transparent bg-background/60 backdrop-blur-md"
+          ? "border-b border-border/70 shadow-[0_1px_0_rgb(15_23_42/0.02)]"
+          : "border-b border-transparent"
       }`}
     >
       <div className="mx-auto flex h-16 max-w-[1280px] items-center justify-between px-6 lg:px-10">
@@ -247,7 +247,9 @@ export function SiteShell({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <SiteHeader />
-      <main id="main-content">{children}</main>
+      <main id="main-content" className="scroll-mt-[5.5rem]">
+        {children}
+      </main>
       <SiteFooter />
     </div>
   );

@@ -2,33 +2,136 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { elev, layout, radius } from "./design";
 
-const roles = [
+/**
+ * Source crop in natural image pixels (16:10 = stage aspect).
+ * Scale is DERIVED: stageWidth / crop.w — never authored.
+ */
+type Crop = {
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+};
+
+/**
+ * Nurse — explicit scale/x/y close-up (not a 16:10 source crop).
+ * Full stage overflow clips the frame; optional thin mint tip masks
+ * hide neighbouring-row fragments only (not a letterbox band).
+ */
+type NurseFrame = {
+  scale: number;
+  x: number;
+  y: number;
+  /** Desktop tip-mask depth in CSS px (stage space). */
+  maskTop?: number;
+  maskBottom?: number;
+};
+
+type RoleProof = {
+  id: string;
+  label: string;
+  line: string;
+  src: string;
+  alt: string;
+  srcW: number;
+  srcH: number;
+  desktop: Crop | NurseFrame;
+  mobile: Crop | NurseFrame;
+};
+
+function isNurseFrame(v: Crop | NurseFrame): v is NurseFrame {
+  return "scale" in v && "x" in v && "y" in v && !("w" in v);
+}
+
+/** Locked — 560×350 at desktop (82% width, max 560, 16/10). */
+const PROOF_STAGE =
+  "relative mx-auto w-[82%] max-w-[560px] aspect-[16/10] overflow-hidden";
+
+const STAGE_W = 560;
+const STAGE_H = 350;
+/** Mobile positions authored for typical 390-viewport stage width. */
+const MOBILE_REF = 280;
+
+const roles: RoleProof[] = [
   {
     id: "owner",
     label: "Owner",
-    line: "Spend, inventory value, stock risk and purchasing activity.",
-    src: "/product-story/01-dashboard.png",
-    alt: "Dental Assist dashboard — spend, inventory value, stock risk and actions required",
-    objectPosition: "72% 20%",
+    line: "See what the practice is spending, saving and using over time.",
+    src: "/product-screens/role-owner-savings-usage.jpg",
+    alt: "Dental Assist Savings & Usage — saved this month, order value, stock usage and trend",
+    srcW: 1663,
+    srcH: 871,
+    desktop: { x: 0, y: 145, w: 1160, h: 725 },
+    mobile: { x: 0, y: 145, w: 1000, h: 625 },
   },
   {
     id: "manager",
     label: "Practice Manager",
-    line: "Supplier decisions, orders, waiting items and follow-up.",
-    // Pre-launch: replace 03-supplier-comparison.png with a professionally named RFQ capture. Source still shows title "skubiai uzsakyti". Do not edit pixels until then.
-    src: "/product-story/03-supplier-comparison.png",
-    alt: "Dental Assist supplier comparison — selected quotes, savings and order summary",
-    objectPosition: "68% 64%",
+    line: "See which orders are waiting, what needs chasing and what's already moving.",
+    src: "/product-screens/role-manager-purchase-orders.jpg",
+    alt: "Dental Assist Purchase Orders — active order value, waiting orders, suppliers and status",
+    srcW: 1920,
+    srcH: 1080,
+    // LOCKED — approved. Do not change.
+    desktop: { x: 300, y: 205, w: 1400, h: 875 },
+    mobile: { x: 400, y: 280, w: 1280, h: 800 },
   },
   {
     id: "nurse",
     label: "Nurse / Stock Lead",
-    line: "Quantities, locations, expiry, replenishment and receiving.",
-    src: "/product-story/02-low-stock-detail.png",
-    alt: "Dental Assist stock item — critically low quantity, minimum level and related RFQs",
-    objectPosition: "80% 36%",
+    line: "See what is running low, what's already being handled and what still needs action.",
+    src: "/product-screens/role-nurse-low-stock-cards.png",
+    alt: "Dental Assist Low Stock cards — linked RFQs, linked orders, and items still needing action",
+    srcW: 1920,
+    srcH: 1080,
+    // LOCKED — visually approved. Do not change source, scale, x/y, or masks.
+    // Desktop: scale 0.80, x 670, y 568, maskTop 10, maskBottom 28
+    // Mobile:  scale 0.40, x 630, y 552, maskTop 8, maskBottom 12
+    desktop: { scale: 0.8, x: 670, y: 568, maskTop: 10, maskBottom: 28 },
+    mobile: { scale: 0.4, x: 630, y: 552, maskTop: 8, maskBottom: 12 },
   },
-] as const;
+];
+
+/**
+ * Owner / Manager — scale = stageWidth / crop.w
+ */
+function cropStyle(srcW: number, srcH: number, desktop: Crop, mobile: Crop) {
+  const dScale = STAGE_W / desktop.w;
+
+  return {
+    "--pm-w": `${((srcW / mobile.w) * 100).toFixed(4)}cqi`,
+    "--pm-h": `${((srcH / mobile.w) * 100).toFixed(4)}cqi`,
+    "--pm-l": `${(((-mobile.x) / mobile.w) * 100).toFixed(4)}cqi`,
+    "--pm-t": `${(((-mobile.y) / mobile.w) * 100).toFixed(4)}cqi`,
+    "--pd-w": `${Math.round(srcW * dScale)}px`,
+    "--pd-h": `${Math.round(srcH * dScale)}px`,
+    "--pd-l": `${Math.round(-(desktop.x * dScale))}px`,
+    "--pd-t": `${Math.round(-(desktop.y * dScale))}px`,
+  } as Record<string, string>;
+}
+
+/**
+ * Nurse — explicit scale/x/y; full stage overflow (same plate as Owner/Manager).
+ * Tip masks (--nm-*) are thin mint overlays, not letterbox bands.
+ */
+function nurseStyle(srcW: number, srcH: number, desktop: NurseFrame, mobile: NurseFrame) {
+  const mTop = mobile.maskTop ?? 0;
+  const mBot = mobile.maskBottom ?? 0;
+  return {
+    "--pm-w": `${(((srcW * mobile.scale) / MOBILE_REF) * 100).toFixed(4)}cqi`,
+    "--pm-h": `${(((srcH * mobile.scale) / MOBILE_REF) * 100).toFixed(4)}cqi`,
+    "--pm-l": `${(((-mobile.x * mobile.scale) / MOBILE_REF) * 100).toFixed(4)}cqi`,
+    "--pm-t": `${(((-mobile.y * mobile.scale) / MOBILE_REF) * 100).toFixed(4)}cqi`,
+    "--pd-w": `${Math.round(srcW * desktop.scale)}px`,
+    "--pd-h": `${Math.round(srcH * desktop.scale)}px`,
+    "--pd-l": `${Math.round(-(desktop.x * desktop.scale))}px`,
+    "--pd-t": `${Math.round(-(desktop.y * desktop.scale))}px`,
+    "--nm-t": `${desktop.maskTop ?? 0}px`,
+    "--nm-b": `${desktop.maskBottom ?? 0}px`,
+    "--nm-tm": `${((mTop / MOBILE_REF) * 100).toFixed(4)}cqi`,
+    "--nm-bm": `${((mBot / MOBILE_REF) * 100).toFixed(4)}cqi`,
+  } as Record<string, string>;
+}
 
 /**
  * Same Dental Assist workspace, different operational responsibility.
@@ -86,7 +189,7 @@ export function Outcomes() {
 
           <p
             id="role-proof-line"
-            className="mx-auto mt-3 max-w-[42ch] text-center text-[14.5px] leading-[1.55] text-muted-foreground"
+            className="mx-auto mt-3.5 max-w-[36ch] text-center text-[15px] leading-[1.5] text-muted-foreground"
           >
             {role.line}
           </p>
@@ -95,34 +198,65 @@ export function Outcomes() {
             id="role-proof"
             role="tabpanel"
             aria-labelledby={`role-tab-${role.id}`}
+            data-role-proof-stage
             className={cn(
-              "relative mt-5 overflow-hidden border border-border/55 bg-[#F3F7F5]",
+              PROOF_STAGE,
+              "mt-7 border border-border/50 bg-[#F3F7F5] lg:mt-8 @container [container-type:inline-size]",
               radius.panel,
-              elev.product,
+              elev.card,
             )}
           >
-            <div className="relative aspect-[4/3] w-full lg:aspect-[16/10]">
-              {roles.map((entry, index) => {
-                const visible = index === active;
-                return (
+            {roles.map((entry, index) => {
+              const visible = index === active;
+              const nurse = isNurseFrame(entry.desktop) && isNurseFrame(entry.mobile);
+              const style = nurse
+                ? nurseStyle(
+                    entry.srcW,
+                    entry.srcH,
+                    entry.desktop as NurseFrame,
+                    entry.mobile as NurseFrame,
+                  )
+                : cropStyle(
+                    entry.srcW,
+                    entry.srcH,
+                    entry.desktop as Crop,
+                    entry.mobile as Crop,
+                  );
+
+              return (
+                <div
+                  key={entry.id}
+                  className="absolute inset-0 overflow-hidden"
+                  hidden={!visible}
+                  aria-hidden={!visible}
+                  style={style}
+                >
                   <img
-                    key={entry.id}
                     src={entry.src}
                     alt={visible ? entry.alt : ""}
-                    width={1920}
-                    height={1080}
+                    width={entry.srcW}
+                    height={entry.srcH}
                     draggable={false}
                     loading={index === 0 ? "eager" : "lazy"}
-                    className={cn(
-                      "absolute inset-0 h-full w-full object-cover",
-                      visible ? "opacity-100" : "opacity-0",
-                    )}
-                    style={{ objectPosition: entry.objectPosition }}
-                    aria-hidden={!visible}
+                    decoding="async"
+                    data-role-proof-img={entry.id}
+                    className="pointer-events-none absolute max-w-none select-none w-[var(--pm-w)] h-[var(--pm-h)] left-[var(--pm-l)] top-[var(--pm-t)] lg:h-[var(--pd-h)] lg:w-[var(--pd-w)] lg:left-[var(--pd-l)] lg:top-[var(--pd-t)]"
                   />
-                );
-              })}
-            </div>
+                  {nurse ? (
+                    <>
+                      <div
+                        aria-hidden
+                        className="pointer-events-none absolute inset-x-0 top-0 z-[1] bg-[#F3F7F5] h-[var(--nm-tm)] lg:h-[var(--nm-t)]"
+                      />
+                      <div
+                        aria-hidden
+                        className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] bg-[#F3F7F5] h-[var(--nm-bm)] lg:h-[var(--nm-b)]"
+                      />
+                    </>
+                  ) : null}
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>

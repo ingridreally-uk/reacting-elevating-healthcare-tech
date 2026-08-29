@@ -2,7 +2,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SiteShell } from "@/components/site/SiteChrome";
 import { MarketingHero } from "@/components/marketing/MarketingHero";
 import { DayInPractice } from "@/components/marketing/DayInPractice";
-import { PricingCard } from "@/components/marketing/PricingCard";
 import { FAQ } from "@/components/marketing/FAQ";
 import { faqs } from "@/components/marketing/faq-data";
 import { CTASection } from "@/components/marketing/CTASection";
@@ -105,7 +104,7 @@ export const Route = createFileRoute("/")({
 
 /**
  * Home conversion journey:
- * Hero → Trust → Problems → Connected operations → Role value → Pricing → FAQ → Trial
+ * Hero → Trust → Problems → Connected operations → Role value → FAQ → Trial
  */
 function MarketingHome() {
   return (
@@ -115,16 +114,6 @@ function MarketingHome() {
       <PracticeProblems />
       <DayInPractice />
       <Outcomes />
-
-      <section
-        id="pricing"
-        aria-labelledby="pricing-heading"
-        className="scroll-mt-24 border-b border-border/40 bg-background"
-      >
-        <div className="mx-auto max-w-[1200px] px-6 pb-9 pt-10 lg:px-10 lg:pb-10 lg:pt-10">
-          <PricingCard />
-        </div>
-      </section>
 
       <section id="faq" aria-labelledby="faq-heading" className="scroll-mt-24 bg-[#F1F5F9]">
         <div className="mx-auto max-w-[1200px] px-6 pb-10 pt-9 lg:px-10 lg:pb-11 lg:pt-10">

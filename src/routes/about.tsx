@@ -3,7 +3,9 @@ import { ArrowRight, MapPin, Building2, Stethoscope } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SiteShell, PageHero } from "@/components/site/SiteChrome";
 import { TrustBar } from "@/components/site/ProductMock";
+import { type as mktType } from "@/components/marketing/design";
 import { pageMeta } from "@/lib/seo";
+import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/about")({
   head: () =>
@@ -41,24 +43,24 @@ function AboutPage() {
       />
 
       <section className="border-b border-border/60">
-        <div className="mx-auto max-w-[1280px] px-6 py-14 lg:px-10 lg:py-20">
-          <div className="grid gap-12 lg:grid-cols-[1fr_1.15fr] lg:gap-10">
-            <div className="overflow-hidden rounded-2xl border border-border/70 shadow-[0_20px_50px_-30px_oklch(0.17_0.05_265/0.28)]">
+        <div className="mx-auto max-w-[1280px] px-6 pb-12 pt-8 lg:px-10 lg:pb-14 lg:pt-8">
+          <div className="grid items-center gap-8 lg:grid-cols-[minmax(0,28.75rem)_minmax(0,1fr)] lg:gap-12">
+            <div className="mx-auto w-full max-w-[460px] overflow-hidden rounded-2xl border border-border/70 shadow-[0_20px_50px_-30px_oklch(0.17_0.05_265/0.28)] lg:mx-0">
               <img
                 src="/practice/practice-team.webp"
                 alt="The founding team behind Reacting and Dental Assist."
-                className="aspect-[4/5] h-full w-full object-cover"
+                className="aspect-[6/5] h-auto w-full object-cover object-[center_28%] lg:aspect-auto lg:h-[388px]"
                 loading="lazy"
               />
             </div>
             <div>
-              <div className="mb-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
+              <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
                 Our story
               </div>
-              <h2 className="text-[32px] font-semibold leading-[1.1] tracking-[-0.025em] sm:text-[40px]">
+              <h2 className={mktType.sectionH2}>
                 A tool we needed ourselves.
               </h2>
-              <div className="mt-6 space-y-5 text-[16.5px] leading-[1.7] text-foreground/85">
+              <div className="mt-4 space-y-4 text-[16px] leading-[1.65] text-foreground/85 sm:text-[17px]">
                 <p>
                   Reacting started inside a dental practice that was drowning in
                   spreadsheets, order books and email threads. We built the tool
@@ -73,7 +75,7 @@ function AboutPage() {
                 </p>
               </div>
 
-              <dl className="mt-6 grid grid-cols-1 gap-6 border-t border-border/70 pt-6 sm:grid-cols-3">
+              <dl className="mt-5 grid grid-cols-1 gap-5 border-t border-border/70 pt-5 sm:grid-cols-3">
                 {[
                   { icon: MapPin, k: "Based", v: "United Kingdom" },
                   { icon: Building2, k: "Development began", v: "2021" },
@@ -93,16 +95,16 @@ function AboutPage() {
                   </div>
                 ))}
               </dl>
-            </div>
-          </div>
 
-          <div className="mt-10">
-            <Button asChild size="lg" className="h-11 rounded-full px-6 text-[13.5px] font-medium">
-              <Link to="/book-demo">
-                Book a Demo
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-            </Button>
+              <div className="mt-6">
+                <Button asChild size="lg" className="h-11 rounded-full px-6 text-[13.5px] font-medium">
+                  <Link to="/book-demo">
+                    Book a Demo
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </Button>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -110,26 +112,26 @@ function AboutPage() {
       <TrustBar />
 
       <section className="border-b border-border/60 bg-[#F8FAFC]">
-        <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10 lg:py-14">
-          <div className="mb-8 max-w-2xl">
-            <div className="mb-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
+        <div className="mx-auto max-w-7xl px-6 py-12 lg:px-10 lg:py-14">
+          <div className="mb-6 max-w-2xl">
+            <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
               Principles
             </div>
-            <h2 className="text-[32px] font-semibold leading-[1.1] tracking-[-0.025em] sm:text-[40px]">
+            <h2 className={mktType.sectionH2}>
               How we build.
             </h2>
           </div>
-          <div className="grid gap-10 lg:grid-cols-3">
+          <div className="grid gap-8 lg:grid-cols-3">
             {principles.map((p, i) => (
               <div key={i}>
                 <div className="text-[11px] font-medium uppercase tracking-[0.16em] text-muted-foreground">
                   0{i + 1}
                 </div>
                 <h3
-                  className="mt-4 text-[20px] font-semibold tracking-tight"
+                  className="mt-3 text-[20px] font-semibold tracking-tight"
                   dangerouslySetInnerHTML={{ __html: p.title }}
                 />
-                <p className="mt-3 text-[15px] leading-[1.65] text-muted-foreground">
+                <p className="mt-2.5 text-[15px] leading-[1.65] text-muted-foreground">
                   {p.body}
                 </p>
               </div>
@@ -139,11 +141,11 @@ function AboutPage() {
       </section>
 
       <section>
-        <div className="mx-auto max-w-7xl px-6 py-10 text-center lg:px-10 lg:py-14">
-          <h2 className="mx-auto max-w-2xl text-[32px] font-semibold leading-[1.1] tracking-[-0.025em] sm:text-[44px]">
+        <div className="mx-auto max-w-7xl px-6 py-12 text-center lg:px-10 lg:py-14">
+          <h2 className={cn("mx-auto max-w-2xl", mktType.sectionH2)}>
             Interested in Dental Assist?
           </h2>
-          <p className="mx-auto mt-5 max-w-lg text-[16px] leading-[1.65] text-muted-foreground">
+          <p className={cn("mx-auto mt-3.5 max-w-lg", mktType.body)}>
             Start a 14-day free trial, or get in touch to see if it is the right
             fit for your practice.
           </p>

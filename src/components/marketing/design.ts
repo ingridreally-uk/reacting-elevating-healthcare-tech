@@ -19,6 +19,26 @@ export const radius = {
   pill: "rounded-full",
 } as const;
 
+/**
+ * Type roles — not one size for every heading.
+ * marketingH1 = Home only. pageH1 = Product / About / Features / Book Demo / Contact.
+ */
+export const type = {
+  marketingH1:
+    "text-[28px] font-semibold leading-[1.12] tracking-[-0.035em] text-foreground sm:text-[40px] lg:text-[44px]",
+  pageH1:
+    "text-[28px] font-semibold leading-[1.1] tracking-[-0.03em] text-foreground sm:text-[36px] lg:text-[40px]",
+  sectionH2:
+    "text-[22px] font-semibold leading-[1.15] tracking-[-0.028em] text-foreground sm:text-[28px] lg:text-[30px]",
+  sectionH2Inverse:
+    "text-[22px] font-semibold leading-[1.15] tracking-[-0.028em] text-white sm:text-[28px] lg:text-[30px]",
+  subH2:
+    "text-[20px] font-semibold leading-[1.2] tracking-[-0.022em] text-foreground sm:text-[24px]",
+  body: "text-[15.5px] leading-[1.65] text-muted-foreground sm:text-[16px]",
+  bodyLg: "text-[16px] leading-[1.65] text-muted-foreground sm:text-[17px]",
+  meta: "text-[13px] leading-[1.55] text-muted-foreground",
+} as const;
+
 export const layout = {
   shell: "mx-auto max-w-[1200px] px-6 lg:px-10",
   sectionY: "py-12 lg:py-14",

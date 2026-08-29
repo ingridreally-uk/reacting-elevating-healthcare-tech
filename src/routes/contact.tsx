@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { Mail } from "lucide-react";
+import { ArrowRight, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SiteShell, PageHero } from "@/components/site/SiteChrome";
 import { pageMeta } from "@/lib/seo";
@@ -43,29 +43,37 @@ function ContactPage() {
       />
 
       <section>
-        <div className="mx-auto grid max-w-7xl items-start gap-10 px-6 py-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-12 lg:px-10 lg:py-16">
+        <div className="mx-auto grid max-w-7xl items-start gap-10 px-6 py-10 lg:grid-cols-[minmax(0,0.38fr)_minmax(0,0.62fr)] lg:gap-14 lg:px-10 lg:py-12">
           <div className="lg:sticky lg:top-24">
-            <div className="rounded-2xl border border-border bg-card p-7">
-              <Mail className="h-5 w-5 text-foreground" strokeWidth={1.5} />
-              <div className="mt-5 text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
-                Email
-              </div>
-              <a
-                href={`mailto:${PUBLIC_ENQUIRY_EMAIL}`}
-                className="mt-2 block text-[20px] font-semibold tracking-tight text-foreground"
+            <Mail className="h-5 w-5 text-foreground" strokeWidth={1.5} />
+            <h2 className="mt-4 text-[18px] font-semibold tracking-tight text-foreground sm:text-[20px]">
+              General enquiries
+            </h2>
+            <a
+              href={`mailto:${PUBLIC_ENQUIRY_EMAIL}`}
+              className="mt-3 inline-flex min-h-11 items-center text-[18px] font-semibold tracking-tight text-foreground underline-offset-4 hover:underline sm:text-[20px]"
+            >
+              {PUBLIC_ENQUIRY_EMAIL}
+            </a>
+            <p className="mt-2 max-w-[34ch] text-[14.5px] leading-[1.65] text-muted-foreground">
+              For questions, partnerships and existing customers. Send a note and we'll
+              reply within one working day.
+            </p>
+
+            <div className="mt-8 border-t border-border/70 pt-7">
+              <h2 className="text-[18px] font-semibold tracking-tight text-foreground sm:text-[20px]">
+                Want to see Dental Assist?
+              </h2>
+              <p className="mt-2 max-w-[34ch] text-[14.5px] leading-[1.65] text-muted-foreground">
+                Looking for a product walkthrough? Book a 30-minute demo with the team.
+              </p>
+              <Link
+                to="/book-demo"
+                className="mt-3 inline-flex min-h-11 items-center gap-1.5 text-[14px] font-medium text-foreground underline-offset-4 hover:underline"
               >
-                {PUBLIC_ENQUIRY_EMAIL}
-              </a>
-              <p className="mt-2 text-[13.5px] leading-[1.6] text-muted-foreground">
-                For questions, partnerships, demos and existing customers.
-              </p>
-              <p className="mt-5 text-[13.5px] leading-[1.6] text-muted-foreground">
-                Looking for a product walkthrough?{" "}
-                <Link to="/book-demo" className="text-foreground underline-offset-4 hover:underline">
-                  Book a Demo
-                </Link>
-                .
-              </p>
+                Book a Demo
+                <ArrowRight className="h-4 w-4" strokeWidth={1.75} />
+              </Link>
             </div>
           </div>
 

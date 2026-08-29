@@ -17,7 +17,7 @@ export const faqs = [
     a: "Yes. Unlimited team members are included with every practice plan, so owners, managers and clinical staff share the same operational view.",
   },
   {
-    q: "What support is included?",
-    a: "Email support is included with the Practice plan for questions about setup and day-to-day use.",
+    q: "Do we need a credit card to try it?",
+    a: "No. You can start with a 14-day free trial without entering card details, and you can cancel anytime.",
   },
 ] as const;

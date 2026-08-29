@@ -4,6 +4,8 @@ import { Clock, MessageSquare, ShieldCheck, Monitor } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SiteShell } from "@/components/site/SiteChrome";
 import { pageMeta } from "@/lib/seo";
+import { type as mktType } from "@/components/marketing/design";
+import { cn } from "@/lib/utils";
 import { FIELD_MAX, PUBLIC_ENQUIRY_EMAIL } from "@/lib/leads/constants";
 import { TurnstileField } from "@/components/leads/TurnstileField";
 import {
@@ -44,21 +46,21 @@ function BookDemoPage() {
   return (
     <SiteShell>
       <section className="border-b border-border/60">
-        <div className="mx-auto grid max-w-7xl gap-12 px-6 pb-14 pt-12 lg:grid-cols-[1fr_1.05fr] lg:gap-10 lg:px-10 lg:pb-16 lg:pt-20">
+        <div className="mx-auto grid max-w-7xl gap-8 px-6 pb-10 pt-8 lg:grid-cols-[1fr_1.05fr] lg:gap-10 lg:px-10 lg:pb-11 lg:pt-10">
           <div>
-            <div className="mb-5 text-[12px] font-medium uppercase tracking-[0.18em] text-accent">
+            <div className="mb-3 text-[12px] font-medium uppercase tracking-[0.18em] text-accent">
               Book a demo
             </div>
-            <h1 className="text-[40px] font-semibold leading-[1.05] tracking-[-0.025em] sm:text-[52px]">
+            <h1 className={mktType.pageH1}>
               See Dental Assist in your practice.
             </h1>
-            <p className="mt-6 max-w-xl text-[17px] leading-[1.65] text-muted-foreground sm:text-[18px]">
+            <p className={cn("mt-4 max-w-xl", mktType.bodyLg)}>
               A 30-minute online walkthrough with our team. We'll show you
               the platform end-to-end, answer your questions and help you decide
               if it's the right fit for your practice.
             </p>
 
-            <ul className="mt-6 space-y-4">
+            <ul className="mt-5 space-y-3.5">
               {highlights.map((h) => (
                 <li key={h.title} className="flex items-start gap-4">
                   <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-border bg-background">
@@ -78,7 +80,7 @@ function BookDemoPage() {
           </div>
 
           <div className="lg:sticky lg:top-24 lg:self-start">
-            <div className="rounded-2xl border border-border bg-card p-6 shadow-[0_40px_80px_-40px_rgb(15_23_42/0.18)] sm:p-7">
+            <div className="rounded-2xl border border-border bg-card p-5 shadow-[0_40px_80px_-40px_rgb(15_23_42/0.18)] sm:p-6">
               {status === "success" ? (
                 <LeadSuccess title="Thank you.">
                   Your demo request has been sent. We'll be in touch.
@@ -114,14 +116,14 @@ function BookDemoPage() {
                       honeypot: String(values.get("faxNumber") ?? ""),
                     });
                   }}
-                  className="relative space-y-5"
+                  className="relative space-y-4"
                 >
                   <HoneypotInput />
                   <div>
                     <div className="text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
                       Request your demo
                     </div>
-                    <h2 className="mt-2 text-[22px] font-semibold tracking-tight">
+                    <h2 className={cn("mt-2", mktType.subH2)}>
                       Tell us a little about you.
                     </h2>
                   </div>

@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 import {
   FileText,
   Users,
@@ -13,17 +13,21 @@ import { TrustBar } from "@/components/site/ProductMock";
 import { ProductFrame } from "@/components/marketing/ProductFrame";
 import { MediaViewer } from "@/components/marketing/MediaViewer";
 import { SCREENS, SCREEN_FOCUS, type ScreenFocus } from "@/components/marketing/content";
-import { pageMeta } from "@/lib/seo";
+import { type as mktType } from "@/components/marketing/design";
+import { cn } from "@/lib/utils";
 
+/**
+ * Retired from the public customer journey. Product is the single
+ * authoritative destination. Implementation is kept for possible reuse.
+ */
 export const Route = createFileRoute("/features")({
-  head: () =>
-    pageMeta({
-      title: "Dental Inventory, Purchasing & RFQ Features | Dental Assist",
-      description:
-        "Explore Dental Assist features for dental inventory, purchasing, supplier management, RFQ comparison and reporting, developed inside a real dental practice.",
-      path: "/features",
-    }),
-  component: FeaturesPage,
+  beforeLoad: () => {
+    throw redirect({
+      to: "/product",
+      replace: true,
+      statusCode: 301,
+    });
+  },
 });
 
 type FeatureSection = {
@@ -145,19 +149,19 @@ const sections: FeatureSection[] = [
   },
 ];
 
-function FeaturesPage() {
+export function FeaturesPage() {
   return (
     <SiteShell>
       <section className="border-b border-border/60 bg-background">
-        <div className="mx-auto max-w-[1280px] px-6 pb-9 pt-10 lg:px-10 lg:pb-12 lg:pt-12">
+        <div className="mx-auto max-w-[1280px] px-6 pb-7 pt-8 lg:px-10 lg:pb-8 lg:pt-10">
           <div className="max-w-3xl">
-            <div className="mb-4 text-[12px] font-medium uppercase tracking-[0.18em] text-accent">
+            <div className="mb-3 text-[12px] font-medium uppercase tracking-[0.18em] text-accent">
               Features
             </div>
-            <h1 className="text-[36px] font-semibold leading-[1.05] tracking-[-0.025em] text-foreground sm:text-[48px] lg:text-[52px]">
+            <h1 className={mktType.pageH1}>
               Deeper capabilities for stock, suppliers and purchasing decisions.
             </h1>
-            <p className="mt-5 max-w-2xl text-[16px] leading-[1.65] text-muted-foreground sm:text-[17px]">
+            <p className={cn("mt-4 max-w-2xl", mktType.body)}>
               A closer look at the workflows Dental Assist supports day to day —
               developed and refined inside a real dental practice. For the
               product overview, see the Product page.
@@ -221,7 +225,7 @@ function FeaturesPage() {
                     <h2 className="mt-3 max-w-md text-[28px] font-semibold leading-[1.12] tracking-[-0.02em] sm:text-[34px]">
                       {f.title}
                     </h2>
-                    <p className="mt-4 max-w-md text-[15.5px] leading-[1.65] text-muted-foreground">
+                    <p className={cn("mt-4 max-w-md", mktType.body)}>
                       {f.body}
                     </p>
                     <ul className="mt-5 space-y-2">
@@ -247,7 +251,7 @@ function FeaturesPage() {
                     <h2 className="mt-3 max-w-md text-[28px] font-semibold leading-[1.12] tracking-[-0.02em] sm:text-[34px]">
                       {f.title}
                     </h2>
-                    <p className="mt-4 max-w-md text-[15.5px] leading-[1.65] text-muted-foreground">
+                    <p className={cn("mt-4 max-w-md", mktType.body)}>
                       {f.body}
                     </p>
                     <ul className="mt-5 space-y-2">
@@ -285,7 +289,7 @@ function FeaturesPage() {
 
       <section className="border-b border-border/60 bg-background">
         <div className="mx-auto max-w-[1280px] px-6 py-9 text-center lg:px-10 lg:py-12">
-          <h2 className="mx-auto max-w-2xl text-[28px] font-semibold leading-[1.12] tracking-[-0.025em] sm:text-[36px]">
+          <h2 className="mx-auto max-w-2xl text-[28px] font-semibold leading-[1.12] tracking-[-0.025em] sm:text-[34px]">
             Ready to see it in your practice?
           </h2>
           <div className="mt-5 flex justify-center">

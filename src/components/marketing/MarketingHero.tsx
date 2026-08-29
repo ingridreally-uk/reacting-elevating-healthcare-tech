@@ -3,7 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { ProductFrame } from "./ProductFrame";
 import { MediaViewer } from "./MediaViewer";
 import { APP_SIGNUP, HERO_DASHBOARD } from "./content";
-import { btn } from "./design";
+import { btn, type as mktType } from "./design";
 import { cn } from "@/lib/utils";
 
 /**
@@ -36,16 +36,13 @@ export function MarketingHero() {
               Operational software for modern dental practices
             </span>
 
-            <h1
-              id="hero-heading"
-              className="mt-4 text-[28px] font-semibold leading-[1.12] tracking-[-0.038em] text-foreground sm:mt-5 sm:text-[40px] lg:text-[44px]"
-            >
+            <h1 id="hero-heading" className={cn("mt-4 sm:mt-5", mktType.marketingH1)}>
               <span className="block text-foreground/76">Clinical software manages the patient journey.</span>
               <span className="mt-1.5 block text-foreground sm:mt-2">
                 Dental Assist brings practice operations together.
               </span>
             </h1>
-            <p className="mx-auto mt-4 max-w-[50ch] text-[16px] leading-[1.68] text-muted-foreground sm:mt-5 sm:text-[17px] lg:mx-0">
+            <p className={cn("mx-auto mt-4 max-w-[50ch] sm:mt-5 lg:mx-0", mktType.bodyLg)}>
               Stock, purchasing, suppliers, spend and what needs attention — one shared operational
               view instead of answers scattered across spreadsheets, messages and memory.
             </p>

@@ -30,3 +30,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Temporary QA capture output
+tmp-ux-crops/
+tmp-compose-test/
+tmp-nurse-dehp-test/
+qa-screenshots/

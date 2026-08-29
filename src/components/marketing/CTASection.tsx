@@ -19,12 +19,10 @@ export function CTASection() {
             id="final-cta-heading"
             className="mx-auto mt-3 max-w-[16ch] text-[30px] font-semibold leading-[1.08] tracking-[-0.035em] sm:text-[40px]"
           >
-            One current view.
-            <span className="block">Fewer unanswered questions.</span>
+            Ready to see it with your own practice?
           </h2>
           <p className="mx-auto mt-4 max-w-[40ch] text-[15px] leading-[1.65] text-white/68">
-            Bring stock, suppliers and purchasing into one operational workspace your team can
-            actually follow.
+            Start a free trial with your own stock list, or book a short demo and we’ll walk you through it.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <a

@@ -3,10 +3,12 @@ import { Menu, X, ArrowRight } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import { ReactingLogoLink } from "./ReactingLogo";
+import { type as mktType } from "@/components/marketing/design";
+import { cn } from "@/lib/utils";
 
 const navLinks = [
   { label: "Product", href: "/product" },
-  { label: "Pricing", href: "/#pricing" },
+  { label: "Pricing", href: "/pricing" },
   { label: "About", href: "/about" },
 ];
 
@@ -31,7 +33,7 @@ export function SiteHeader() {
 
   return (
     <header
-      className={`sticky top-0 z-50 isolate bg-background transition-[border-color,box-shadow] duration-300 ${
+      className={`relative md:sticky md:top-0 z-50 isolate bg-background transition-[border-color,box-shadow] duration-300 ${
         scrolled
           ? "border-b border-border/70 shadow-[0_1px_0_rgb(15_23_42/0.02)]"
           : "border-b border-transparent"
@@ -174,8 +176,7 @@ export function SiteFooter() {
       title: "Product",
       links: [
         { label: "Product", href: "/product" },
-        { label: "Features", href: "/features" },
-        { label: "Pricing", href: "/#pricing" },
+        { label: "Pricing", href: "/pricing" },
         { label: "FAQ", href: "/#faq" },
       ],
     },
@@ -266,23 +267,23 @@ export function PageHero({
 }) {
   return (
     <section className="border-b border-border/60">
-      <div className="mx-auto max-w-[1280px] px-6 pb-10 pt-14 lg:px-10 lg:pb-12 lg:pt-16">
+      <div className="mx-auto max-w-[1280px] px-6 pb-8 pt-10 lg:px-10 lg:pb-9 lg:pt-12">
         <div className="max-w-3xl">
           {eyebrow && (
-            <div className="mb-5 text-[12px] font-medium uppercase tracking-[0.18em] text-accent">
+            <div className="mb-3 text-[12px] font-medium uppercase tracking-[0.18em] text-accent">
               {eyebrow}
             </div>
           )}
-          <h1 className="text-[40px] font-semibold leading-[1.05] tracking-[-0.025em] text-foreground sm:text-[52px] lg:text-[60px]">
+          <h1 className={mktType.pageH1}>
             {title}
           </h1>
           {body && (
-            <p className="mt-6 max-w-2xl text-[17px] leading-[1.6] text-muted-foreground sm:text-[18px]">
+            <p className={cn("mt-3.5 max-w-2xl", mktType.bodyLg)}>
               {body}
             </p>
           )}
           {(primaryCta || secondaryCta) && (
-            <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center">
               {primaryCta && (
                 <Button
                   asChild

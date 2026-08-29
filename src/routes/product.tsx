@@ -3,7 +3,6 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SiteShell } from "@/components/site/SiteChrome";
-import { TrustBar } from "@/components/site/ProductMock";
 import { ProductFrame } from "@/components/marketing/ProductFrame";
 import { ProductStoryHero } from "@/components/marketing/ProductStoryHero";
 import { MediaViewer } from "@/components/marketing/MediaViewer";
@@ -33,21 +32,6 @@ const architecture = [
   "Orders",
   "Deliveries",
   "Reporting",
-] as const;
-
-const roles = [
-  {
-    title: "Owner",
-    line: "Spend, inventory value, stock risk and purchasing visibility.",
-  },
-  {
-    title: "Practice Manager",
-    line: "Suppliers, purchasing, follow-up and operational control.",
-  },
-  {
-    title: "Nurse / Stock Lead",
-    line: "Quantities, locations, expiry, replenishment and receiving.",
-  },
 ] as const;
 
 type Stage = {
@@ -115,15 +99,15 @@ const explorerItems: ExplorerItem[] = [
     label: "Suppliers",
     title: "Supplier details and purchase history, together.",
     body: "Contacts, account details and order history in one supplier record.",
-    src: "/product-screens/mkt-explorer-suppliers.webp",
+    src: "/product-screens/mkt-explorer-suppliers-crop.webp",
     alt: "Dental Assist supplier record for Blackthorn — contacts and purchase history with orders 646 Waiting and 636 Completed",
     url: "app.reacting.io / vendors",
     stage: {
-      objectFit: "contain",
+      objectFit: "cover",
       objectPosition: "center",
       aspectRatio: EXPLORER_PROOF_AR,
       scale: 1,
-      desktopObjectFit: "contain",
+      desktopObjectFit: "cover",
       desktopObjectPosition: "center",
       desktopAspectRatio: EXPLORER_PROOF_AR,
     },
@@ -134,15 +118,15 @@ const explorerItems: ExplorerItem[] = [
     label: "Expiry",
     title: "Risk you can still act on.",
     body: "Near-expiry and expired materials surface before write-off.",
-    src: "/product-screens/mkt-explorer-expiry.webp",
+    src: "/product-screens/mkt-explorer-expiry-crop.webp",
     alt: "Dental Assist Expiring Stock — three expired items needing review, with Details and RFQ actions",
     url: "app.reacting.io / expiring-stock",
     stage: {
-      objectFit: "contain",
+      objectFit: "cover",
       objectPosition: "center",
       aspectRatio: EXPLORER_PROOF_AR,
       scale: 1,
-      desktopObjectFit: "contain",
+      desktopObjectFit: "cover",
       desktopObjectPosition: "center",
       desktopAspectRatio: EXPLORER_PROOF_AR,
     },
@@ -154,7 +138,7 @@ const explorerItems: ExplorerItem[] = [
     title: "Stock value, usage and cover at a glance.",
     body: "See stock value, usage trends and estimated cover without rebuilding spreadsheets.",
     evidence: "Stock Reports from the live product.",
-    src: "/product-screens/mkt-stock-reports.webp",
+    src: "/product-screens/mkt-stock-reports-crop.webp",
     alt: "Dental Assist Stock Reports — current stock value, usage trend, highest-value items and unused stock",
     url: "app.reacting.io / stock-reports",
     stage: {
@@ -277,7 +261,7 @@ function ProductPage() {
         aria-labelledby="explorer-heading"
         className="border-b border-border/60 bg-background"
       >
-        <div className="mx-auto max-w-[1200px] px-6 pb-10 pt-0 lg:px-10">
+        <div className="mx-auto max-w-[1200px] px-3.5 pb-10 pt-0 sm:px-6 lg:px-10">
           <div className="mx-auto w-full max-w-[962px]">
           <div className="max-w-xl">
             <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
@@ -362,59 +346,18 @@ function ProductPage() {
       </section>
 
       <section
-        aria-labelledby="roles-heading"
-        className="border-b border-border/60 bg-background"
+        aria-labelledby="product-close-heading"
+        className="bg-background"
       >
-        <div className="mx-auto max-w-[1280px] px-6 pb-12 pt-0 lg:px-10">
-          <h2
-            id="roles-heading"
-            className={SECTION_H2}
-          >
-            Built for the people running the practice.
-          </h2>
-          <dl className="mt-6 divide-y divide-border/60 border-y border-border/60">
-            {roles.map((role) => (
-              <div
-                key={role.title}
-                className="grid gap-1 py-3.5 sm:grid-cols-[minmax(0,11rem)_minmax(0,1fr)] sm:items-baseline sm:gap-8"
-              >
-                <dt className="text-[14px] font-semibold tracking-[-0.01em] text-foreground">
-                  {role.title}
-                </dt>
-                <dd className="text-[14.5px] leading-[1.5] text-muted-foreground">
-                  {role.line}
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-      </section>
-
-      {/* 5. Boundary */}
-      <section
-        aria-labelledby="boundary-heading"
-        className="border-b border-border/60 bg-[#F8FAFC]"
-      >
-        <div className="mx-auto max-w-[1280px] px-6 py-10 lg:px-10 lg:py-10">
-          <p
-            id="boundary-heading"
-            className="max-w-3xl text-[14.5px] leading-[1.65] text-muted-foreground"
-          >
-            <span className="font-semibold text-foreground">
-              Complements your clinical and booking systems.
-            </span>{" "}
-            Dental Assist is not a PMS and does not replace clinical records or
-            appointment management — it focuses on non-clinical operational
-            work: inventory, suppliers and purchasing.
+        <div className="mx-auto max-w-[962px] px-3.5 pb-11 pt-8 text-center sm:px-6 sm:pb-12 sm:pt-9 lg:px-10 lg:pb-14">
+          <p className="mx-auto max-w-[46ch] text-[13.5px] leading-[1.6] text-muted-foreground">
+            Dental Assist works alongside your clinical and booking system — it
+            focuses on inventory, suppliers and purchasing.
           </p>
-        </div>
-      </section>
-
-      <TrustBar />
-
-      <section className="border-b border-border/60 bg-background">
-        <div className="mx-auto max-w-[1280px] px-6 py-12 text-center lg:px-10 lg:py-12">
-          <h2 className={cn("mx-auto max-w-2xl", SECTION_H2)}>
+          <h2
+            id="product-close-heading"
+            className={cn("mx-auto mt-7 max-w-2xl sm:mt-8", SECTION_H2)}
+          >
             See Dental Assist in your practice.
           </h2>
           <p className={cn("mx-auto mt-3 max-w-xl", BODY)}>

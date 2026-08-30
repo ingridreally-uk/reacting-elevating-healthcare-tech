@@ -20,7 +20,7 @@ export const Route = createFileRoute("/about")({
 
 const principles = [
   {
-    title: "Built where it&apos;s used",
+    title: "Built where it's used",
     body: "Dental Assist is developed inside a working practice. Every feature is tested against real daily operations before it ships.",
   },
   {
@@ -68,10 +68,11 @@ function AboutPage() {
                   operational side of running a practice.
                 </p>
                 <p>
-                  Today Dental Assist has been developed and used in the founding
-                  dental practice for the past 2–3 years. It is now available to
-                  dental practices with a 14-day free trial. Every feature still
-                  has to earn its place in daily use.
+                  Development began in 2021, and the product has been shaped ever
+                  since by the day-to-day operational needs of the founding
+                  practice. It is now available to dental practices with a 14-day
+                  free trial. Every feature still has to earn its place in daily
+                  use.
                 </p>
               </div>
 
@@ -95,15 +96,6 @@ function AboutPage() {
                   </div>
                 ))}
               </dl>
-
-              <div className="mt-6">
-                <Button asChild size="lg" className="h-11 rounded-full px-6 text-[13.5px] font-medium">
-                  <Link to="/book-demo">
-                    Book a Demo
-                    <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </Button>
-              </div>
             </div>
           </div>
         </div>
@@ -127,10 +119,9 @@ function AboutPage() {
                 <div className="text-[11px] font-medium uppercase tracking-[0.16em] text-muted-foreground">
                   0{i + 1}
                 </div>
-                <h3
-                  className="mt-3 text-[20px] font-semibold tracking-tight"
-                  dangerouslySetInnerHTML={{ __html: p.title }}
-                />
+                <h3 className="mt-3 text-[20px] font-semibold tracking-tight">
+                  {p.title}
+                </h3>
                 <p className="mt-2.5 text-[15px] leading-[1.65] text-muted-foreground">
                   {p.body}
                 </p>
@@ -151,10 +142,10 @@ function AboutPage() {
           </p>
           <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Button asChild size="lg" className="h-11 rounded-full px-6 text-[13.5px] font-medium">
-              <Link to="/book-demo">
-                Book Your Demo
+              <a href="https://app.reacting.io/signup" rel="noopener noreferrer">
+                Start Free Trial
                 <ArrowRight className="h-4 w-4" />
-              </Link>
+              </a>
             </Button>
             <Button
               asChild
@@ -162,7 +153,7 @@ function AboutPage() {
               variant="ghost"
               className="h-11 rounded-full px-5 text-[13.5px] font-medium text-foreground hover:bg-secondary"
             >
-              <Link to="/contact">Contact Us</Link>
+              <Link to="/book-demo">Book a Demo</Link>
             </Button>
           </div>
         </div>

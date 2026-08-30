@@ -82,8 +82,9 @@ function BookDemoPage() {
           <div className="lg:sticky lg:top-24 lg:self-start">
             <div className="rounded-2xl border border-border bg-card p-5 shadow-[0_40px_80px_-40px_rgb(15_23_42/0.18)] sm:p-6">
               {status === "success" ? (
-                <LeadSuccess title="Thank you.">
-                  Your demo request has been sent. We'll be in touch.
+                <LeadSuccess title="Demo request received">
+                  Thanks — we've received your request. A member of our team will
+                  contact you within one working day to arrange your 30-minute demo.
                 </LeadSuccess>
               ) : (
                 <form
@@ -178,6 +179,7 @@ function BookDemoPage() {
                     label="Number of surgeries"
                     name="surgeries"
                     autoComplete="off"
+                    inputMode="numeric"
                     placeholder="e.g. 4"
                     maxLength={FIELD_MAX.surgeries}
                   />
@@ -240,6 +242,7 @@ function Field({
   placeholder,
   required,
   autoComplete,
+  inputMode,
   maxLength,
   error,
   onChange,
@@ -250,6 +253,7 @@ function Field({
   placeholder?: string;
   required?: boolean;
   autoComplete?: string;
+  inputMode?: "numeric";
   maxLength?: number;
   error?: string;
   onChange?: () => void;
@@ -267,6 +271,7 @@ function Field({
         required={required}
         placeholder={placeholder}
         autoComplete={autoComplete}
+        inputMode={inputMode}
         maxLength={maxLength}
         aria-invalid={error ? true : undefined}
         aria-describedby={error ? errorId : undefined}

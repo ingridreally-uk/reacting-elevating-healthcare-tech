@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
 import { Check } from "lucide-react";
 import { PUBLIC_ENQUIRY_EMAIL } from "@/lib/leads/constants";
@@ -39,8 +39,20 @@ export function LeadError({ code }: { code: LeadResultCode | "network" }) {
 }
 
 export function LeadSuccess({ title, children }: { title: string; children: ReactNode }) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  // The form collapses to this shorter card on success, so the viewport can be
+  // left below the confirmation on mobile.
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    ref.current?.scrollIntoView({
+      behavior: prefersReducedMotion ? "auto" : "smooth",
+      block: "center",
+    });
+  }, []);
+
   return (
-    <div className="py-5 sm:py-6" role="status">
+    <div ref={ref} className="py-5 sm:py-6" role="status">
       <span className="flex h-9 w-9 items-center justify-center rounded-full border border-border bg-background">
         <Check className="h-4 w-4 text-foreground" strokeWidth={1.75} />
       </span>

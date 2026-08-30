@@ -39,7 +39,7 @@ function ContactPage() {
       <PageHero
         eyebrow="Contact"
         title="Talk to the team."
-        body="Questions about Dental Assist, partnerships or a demo — send us a note and we'll reply within one working day."
+        body="Questions about Dental Assist, partnerships or a demo — send us a note and we'll get back to you."
       />
 
       <section>
@@ -79,8 +79,9 @@ function ContactPage() {
 
           <div className="rounded-2xl border border-border bg-card p-6 shadow-[0_40px_80px_-40px_rgb(15_23_42/0.18)] sm:p-7">
             {status === "success" ? (
-              <LeadSuccess title="Thank you.">
-                Your message has been sent. We'll be in touch.
+              <LeadSuccess title="Message received">
+                Thanks for getting in touch. A member of our team will respond
+                within one working day.
               </LeadSuccess>
             ) : (
               <form

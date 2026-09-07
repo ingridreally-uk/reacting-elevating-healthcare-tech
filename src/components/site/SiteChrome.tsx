@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ReactingLogoLink } from "./ReactingLogo";
 import { type as mktType } from "@/components/marketing/design";
 import { cn } from "@/lib/utils";
+import { COMPANY_LEGAL_DISCLOSURE } from "@/lib/company";
 
 const navLinks = [
   { label: "Product", href: "/product" },
@@ -219,21 +220,26 @@ export function SiteFooter() {
             </div>
           ))}
         </div>
-        <div className="mt-7 flex flex-col items-start justify-between gap-2.5 border-t border-border/55 pt-5 sm:flex-row sm:items-center">
-          <p className="text-[11.5px] text-muted-foreground">
-            © {new Date().getFullYear()} Reacting Ltd. All rights reserved.
+        <div className="mt-7 border-t border-border/55 pt-5">
+          <p className="max-w-[72ch] text-[11px] leading-[1.55] text-muted-foreground/90">
+            {COMPANY_LEGAL_DISCLOSURE}
           </p>
-          <ul className="flex flex-wrap gap-x-4 gap-y-1 text-[11.5px] text-muted-foreground">
-            <li>
-              <FooterLink label="Privacy Policy" href="/privacy" />
-            </li>
-            <li>
-              <FooterLink label="Terms" href="/terms" />
-            </li>
-            <li>
-              <FooterLink label="Cookie Policy" href="/cookies" />
-            </li>
-          </ul>
+          <div className="mt-3 flex flex-col items-start justify-between gap-2.5 sm:flex-row sm:items-center">
+            <p className="text-[11.5px] text-muted-foreground">
+              © {new Date().getFullYear()} Reacting Ltd. All rights reserved.
+            </p>
+            <ul className="flex flex-wrap gap-x-4 gap-y-1 text-[11.5px] text-muted-foreground">
+              <li>
+                <FooterLink label="Privacy Policy" href="/privacy" />
+              </li>
+              <li>
+                <FooterLink label="Terms" href="/terms" />
+              </li>
+              <li>
+                <FooterLink label="Cookie Policy" href="/cookies" />
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </footer>

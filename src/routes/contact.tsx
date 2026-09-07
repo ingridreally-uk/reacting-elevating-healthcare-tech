@@ -4,7 +4,7 @@ import { ArrowRight, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SiteShell, PageHero } from "@/components/site/SiteChrome";
 import { pageMeta } from "@/lib/seo";
-import { FIELD_MAX, PUBLIC_ENQUIRY_EMAIL } from "@/lib/leads/constants";
+import { FIELD_MAX, PUBLIC_ENQUIRY_EMAIL, whatsAppChatUrl } from "@/lib/leads/constants";
 import { TurnstileField } from "@/components/leads/TurnstileField";
 import {
   FieldError,
@@ -33,6 +33,7 @@ function ContactPage() {
   const { status, errorCode, setTurnstileToken, submit, submitting } = useLeadSubmit();
   const siteKey = turnstileSiteKey();
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
+  const whatsAppUrl = whatsAppChatUrl();
 
   return (
     <SiteShell>
@@ -75,6 +76,27 @@ function ContactPage() {
                 <ArrowRight className="h-4 w-4" strokeWidth={1.75} />
               </Link>
             </div>
+
+            {whatsAppUrl ? (
+              <div className="mt-8 border-t border-border/70 pt-7">
+                <h2 className="text-[18px] font-semibold tracking-tight text-foreground sm:text-[20px]">
+                  Quick question?
+                </h2>
+                <p className="mt-2 max-w-[34ch] text-[14.5px] leading-[1.65] text-muted-foreground">
+                  Message us on WhatsApp and we'll reply during working hours.
+                </p>
+                <a
+                  href={whatsAppUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Chat on WhatsApp (opens WhatsApp)"
+                  className="mt-3 inline-flex min-h-11 items-center gap-1.5 text-[14px] font-medium text-foreground underline-offset-4 hover:underline"
+                >
+                  Chat on WhatsApp
+                  <ArrowRight className="h-4 w-4" strokeWidth={1.75} />
+                </a>
+              </div>
+            ) : null}
           </div>
 
           <div className="rounded-2xl border border-border bg-card p-6 shadow-[0_40px_80px_-40px_rgb(15_23_42/0.18)] sm:p-7">

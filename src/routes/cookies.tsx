@@ -1,16 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteShell } from "@/components/site/SiteChrome";
-import { SITE_ORIGIN } from "@/lib/site-url";
+import { pageMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/cookies")({
-  head: () => ({
-    meta: [
-      { title: "Cookie Policy | Reacting" },
-      { name: "description", content: "How Reacting uses cookies on the website." },
-      { name: "robots", content: "index, follow" },
-    ],
-    links: [{ rel: "canonical", href: `${SITE_ORIGIN}/cookies` }],
-  }),
+  head: () =>
+    pageMeta({
+      title: "Cookie Policy | Reacting",
+      description: "How Reacting uses cookies on the website.",
+      path: "/cookies",
+    }),
   component: CookiesPage,
 });
 

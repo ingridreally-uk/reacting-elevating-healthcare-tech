@@ -1,16 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteShell } from "@/components/site/SiteChrome";
-import { SITE_ORIGIN } from "@/lib/site-url";
+import { pageMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/privacy")({
-  head: () => ({
-    meta: [
-      { title: "Privacy Policy | Reacting" },
-      { name: "description", content: "Privacy policy for Reacting and Dental Assist." },
-      { name: "robots", content: "index, follow" },
-    ],
-    links: [{ rel: "canonical", href: `${SITE_ORIGIN}/privacy` }],
-  }),
+  head: () =>
+    pageMeta({
+      title: "Privacy Policy | Reacting",
+      description: "Privacy policy for Reacting and Dental Assist.",
+      path: "/privacy",
+    }),
   component: PrivacyPage,
 });
 
@@ -33,12 +31,31 @@ function PrivacyPage() {
             operate Dental Assist, respond to enquiries and improve our services.
           </p>
           <p>
+            When you submit the Contact or Book a Demo form, Reacting processes the information you
+            provide to respond to your enquiry, arrange or follow up on a requested demonstration,
+            and communicate with you about that request where relevant.
+          </p>
+          <p>
+            We use Resend as an email delivery provider to send website enquiry and demo-form
+            submissions to Reacting so we can reply.
+          </p>
+          <p>
+            These forms also use Cloudflare Turnstile to help protect against spam and automated
+            abuse. Cloudflare may process technical information needed to complete that verification.
+          </p>
+          <p>
             We do not sell personal data. Access to practice operational data is restricted to
             authorised account users and trusted processors required to deliver the service.
           </p>
           <p>
             You may request access, correction or deletion of personal data where applicable under
             UK data protection law.
+          </p>
+          <p>
+            If you choose to contact us via WhatsApp, your phone number and message content are
+            processed through WhatsApp and Meta as an optional sales and support channel. Reacting
+            receives and uses that information only to respond to your enquiry. WhatsApp is not used
+            for clinical or patient communication.
           </p>
         </div>
       </section>

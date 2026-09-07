@@ -1,16 +1,15 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteShell } from "@/components/site/SiteChrome";
-import { SITE_ORIGIN } from "@/lib/site-url";
+import { pageMeta } from "@/lib/seo";
+import { COMPANY_LEGAL_DISCLOSURE_TERMS } from "@/lib/company";
 
 export const Route = createFileRoute("/terms")({
-  head: () => ({
-    meta: [
-      { title: "Terms of Use | Reacting" },
-      { name: "description", content: "Terms of use for the Reacting website and Dental Assist." },
-      { name: "robots", content: "index, follow" },
-    ],
-    links: [{ rel: "canonical", href: `${SITE_ORIGIN}/terms` }],
-  }),
+  head: () =>
+    pageMeta({
+      title: "Terms of Use | Reacting",
+      description: "Terms of use for the Reacting website and Dental Assist.",
+      path: "/terms",
+    }),
   component: TermsPage,
 });
 
@@ -28,6 +27,7 @@ function TermsPage() {
           .
         </p>
         <div className="mt-8 space-y-5 text-[14.5px] leading-[1.7] text-foreground/90">
+          <p>{COMPANY_LEGAL_DISCLOSURE_TERMS}</p>
           <p>
             Dental Assist is provided as a web application for authorised practice users. You are
             responsible for safeguarding account credentials and for the accuracy of information

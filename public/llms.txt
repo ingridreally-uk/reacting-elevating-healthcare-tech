@@ -8,8 +8,9 @@ Dental Assist is built for UK dental practices — not for hospitals, warehouses
 
 ## Key pages
 
-- [Home](https://www.reacting.io/): Overview of Dental Assist, the problem it solves, a walk-through of a typical practice morning, pricing and FAQ.
+- [Home](https://www.reacting.io/): Overview of Dental Assist, the problem it solves, a walk-through of a typical practice morning and FAQ.
 - [Product](https://www.reacting.io/product): What Dental Assist does day to day — inventory, purchasing, suppliers, RFQ comparison, deliveries, expiry tracking and reporting.
+- [Pricing](https://www.reacting.io/pricing): Practice plan pricing, 14-day free trial and what's included.
 - [About](https://www.reacting.io/about): Company background — Reacting builds cloud software for healthcare, starting with Dental Assist, built inside a real dental practice since 2021.
 - [Resources](https://www.reacting.io/resources): Help and learning resources (in development).
 - [Contact](https://www.reacting.io/contact): Ways to reach the Reacting team.

@@ -31,9 +31,9 @@ export function PricingCard() {
     <div className="mx-auto max-w-[920px]">
       <div className="mx-auto max-w-xl text-center">
         <div className={layout.eyebrow}>Pricing</div>
-        <h2 id="pricing-heading" className={cn(layout.h2, "mt-2.5")}>
+        <h1 id="pricing-heading" className={cn(layout.h2, "mt-2.5")}>
           One practice. One clear monthly cost.
-        </h2>
+        </h1>
         <p className={cn(layout.lead, "mx-auto mt-3 max-w-[36ch]")}>
           One monthly practice plan. No per-seat pricing.
         </p>

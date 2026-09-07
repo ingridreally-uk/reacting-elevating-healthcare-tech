@@ -117,7 +117,7 @@ const explorerItems: ExplorerItem[] = [
     tab: "Expiry",
     label: "Expiry",
     title: "Risk you can still act on.",
-    body: "Near-expiry and expired materials surface before write-off.",
+    body: "See near-expiry and expired materials clearly, so the team can act sooner and manage write-offs.",
     src: "/product-screens/mkt-explorer-expiry-crop.webp",
     alt: "Dental Assist Expiring Stock — three expired items needing review, with Details and RFQ actions",
     url: "app.reacting.io / expiring-stock",

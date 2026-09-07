@@ -10,7 +10,7 @@ export const faqs = [
   },
   {
     q: "Does it work for multi-site or group practices?",
-    a: "Dental Assist runs today as one workspace per practice. Group and multi-site owners can set up each site as its own workspace; cross-site comparison and shared permissions are on our roadmap — get in touch if this is what your group needs.",
+    a: "Dental Assist currently runs as one workspace per practice. Group and multi-site owners can set up each site as its own workspace. If you manage multiple practices, get in touch and we’ll talk you through the current setup.",
   },
   {
     q: "Can more than one team member use it?",

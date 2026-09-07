@@ -15,7 +15,7 @@ export function FAQ() {
       <div className="mx-auto max-w-lg text-center">
         <div className={layout.eyebrow}>FAQ</div>
         <h2 id="faq-heading" className={cn(layout.h2, "mt-2.5")}>
-          Still deciding for the practice?
+          Still deciding if Dental Assist is right for your practice?
         </h2>
         <p className={cn(layout.lead, "mx-auto mt-3 max-w-[40ch]")}>
           Straight answers for owners and managers evaluating Dental Assist.

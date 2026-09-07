@@ -21,7 +21,7 @@ export const Route = createFileRoute("/about")({
 const principles = [
   {
     title: "Built where it's used",
-    body: "Dental Assist is developed inside a working practice. Every feature is tested against real daily operations before it ships.",
+    body: "Dental Assist is developed inside a working practice, with features shaped and tested against real daily operations.",
   },
   {
     title: "Calm by design",

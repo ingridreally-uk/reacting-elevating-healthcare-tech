@@ -4,7 +4,17 @@ import { APP_SIGNUP } from "./content";
 import { btn, iconStroke, layout } from "./design";
 import { cn } from "@/lib/utils";
 
-export function CTASection() {
+export function CTASection({
+  heading = "Ready to see it with your own practice?",
+  body = "Start a free trial with your own stock list, or book a short demo and we’ll walk you through it.",
+  headingClassName = "mx-auto mt-3 max-w-[16ch] text-[30px] font-semibold leading-[1.08] tracking-[-0.035em] sm:text-[40px]",
+  bodyClassName = "mx-auto mt-4 max-w-[40ch] text-[15px] leading-[1.65] text-white/68",
+}: {
+  heading?: string;
+  body?: string;
+  headingClassName?: string;
+  bodyClassName?: string;
+} = {}) {
   return (
     <section
       aria-labelledby="final-cta-heading"
@@ -15,14 +25,11 @@ export function CTASection() {
           <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[oklch(0.8_0.08_210)]">
             Dental Assist
           </p>
-          <h2
-            id="final-cta-heading"
-            className="mx-auto mt-3 max-w-[16ch] text-[30px] font-semibold leading-[1.08] tracking-[-0.035em] sm:text-[40px]"
-          >
-            Ready to see it with your own practice?
+          <h2 id="final-cta-heading" className={headingClassName}>
+            {heading}
           </h2>
-          <p className="mx-auto mt-4 max-w-[40ch] text-[15px] leading-[1.65] text-white/68">
-            Start a free trial with your own stock list, or book a short demo and we’ll walk you through it.
+          <p className={bodyClassName}>
+            {body}
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <a

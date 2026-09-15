@@ -15,6 +15,7 @@ import { Route as ProductRouteImport } from './routes/product'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as FeaturesRouteImport } from './routes/features'
+import { Route as DentalStockManagementRouteImport } from './routes/dental-stock-management'
 import { Route as CookiesRouteImport } from './routes/cookies'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BookDemoRouteImport } from './routes/book-demo'
@@ -51,6 +52,11 @@ const FeaturesRoute = FeaturesRouteImport.update({
   path: '/features',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DentalStockManagementRoute = DentalStockManagementRouteImport.update({
+  id: '/dental-stock-management',
+  path: '/dental-stock-management',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CookiesRoute = CookiesRouteImport.update({
   id: '/cookies',
   path: '/cookies',
@@ -83,6 +89,7 @@ export interface FileRoutesByFullPath {
   '/book-demo': typeof BookDemoRoute
   '/contact': typeof ContactRoute
   '/cookies': typeof CookiesRoute
+  '/dental-stock-management': typeof DentalStockManagementRoute
   '/features': typeof FeaturesRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
@@ -96,6 +103,7 @@ export interface FileRoutesByTo {
   '/book-demo': typeof BookDemoRoute
   '/contact': typeof ContactRoute
   '/cookies': typeof CookiesRoute
+  '/dental-stock-management': typeof DentalStockManagementRoute
   '/features': typeof FeaturesRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
@@ -110,6 +118,7 @@ export interface FileRoutesById {
   '/book-demo': typeof BookDemoRoute
   '/contact': typeof ContactRoute
   '/cookies': typeof CookiesRoute
+  '/dental-stock-management': typeof DentalStockManagementRoute
   '/features': typeof FeaturesRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
@@ -125,6 +134,7 @@ export interface FileRouteTypes {
     | '/book-demo'
     | '/contact'
     | '/cookies'
+    | '/dental-stock-management'
     | '/features'
     | '/pricing'
     | '/privacy'
@@ -138,6 +148,7 @@ export interface FileRouteTypes {
     | '/book-demo'
     | '/contact'
     | '/cookies'
+    | '/dental-stock-management'
     | '/features'
     | '/pricing'
     | '/privacy'
@@ -151,6 +162,7 @@ export interface FileRouteTypes {
     | '/book-demo'
     | '/contact'
     | '/cookies'
+    | '/dental-stock-management'
     | '/features'
     | '/pricing'
     | '/privacy'
@@ -165,6 +177,7 @@ export interface RootRouteChildren {
   BookDemoRoute: typeof BookDemoRoute
   ContactRoute: typeof ContactRoute
   CookiesRoute: typeof CookiesRoute
+  DentalStockManagementRoute: typeof DentalStockManagementRoute
   FeaturesRoute: typeof FeaturesRoute
   PricingRoute: typeof PricingRoute
   PrivacyRoute: typeof PrivacyRoute
@@ -217,6 +230,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FeaturesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dental-stock-management': {
+      id: '/dental-stock-management'
+      path: '/dental-stock-management'
+      fullPath: '/dental-stock-management'
+      preLoaderRoute: typeof DentalStockManagementRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/cookies': {
       id: '/cookies'
       path: '/cookies'
@@ -261,6 +281,7 @@ const rootRouteChildren: RootRouteChildren = {
   BookDemoRoute: BookDemoRoute,
   ContactRoute: ContactRoute,
   CookiesRoute: CookiesRoute,
+  DentalStockManagementRoute: DentalStockManagementRoute,
   FeaturesRoute: FeaturesRoute,
   PricingRoute: PricingRoute,
   PrivacyRoute: PrivacyRoute,

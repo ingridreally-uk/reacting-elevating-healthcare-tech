@@ -2,10 +2,23 @@ import { useId, useState } from "react";
 import { Minus, Plus } from "lucide-react";
 import { useReducedMotion } from "framer-motion";
 import { elev, iconStroke, layout, radius } from "./design";
-import { faqs } from "./faq-data";
+import { faqs as defaultFaqs } from "./faq-data";
 import { cn } from "@/lib/utils";
 
-export function FAQ() {
+export type FaqItem = {
+  q: string;
+  a: string;
+};
+
+export function FAQ({
+  items = defaultFaqs,
+  heading = "Still deciding if Dental Assist is right for your practice?",
+  lead = "Straight answers for owners and managers evaluating Dental Assist.",
+}: {
+  items?: readonly FaqItem[];
+  heading?: string;
+  lead?: string;
+} = {}) {
   const [open, setOpen] = useState<number | null>(0);
   const baseId = useId();
   const reduceMotion = useReducedMotion();
@@ -15,10 +28,10 @@ export function FAQ() {
       <div className="mx-auto max-w-lg text-center">
         <div className={layout.eyebrow}>FAQ</div>
         <h2 id="faq-heading" className={cn(layout.h2, "mt-2.5")}>
-          Still deciding if Dental Assist is right for your practice?
+          {heading}
         </h2>
         <p className={cn(layout.lead, "mx-auto mt-3 max-w-[40ch]")}>
-          Straight answers for owners and managers evaluating Dental Assist.
+          {lead}
         </p>
       </div>
 
@@ -29,11 +42,11 @@ export function FAQ() {
           elev.card,
         )}
       >
-        {faqs.map((item, i) => {
+        {items.map((item, i) => {
           const isOpen = open === i;
           const panelId = `${baseId}-panel-${i}`;
           const buttonId = `${baseId}-button-${i}`;
-          const isLast = i === faqs.length - 1;
+          const isLast = i === items.length - 1;
           return (
             <div key={item.q} className={cn(!isLast && "border-b border-border/50")}>
               <h3>

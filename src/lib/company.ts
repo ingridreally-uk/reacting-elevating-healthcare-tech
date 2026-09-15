@@ -1,4 +1,7 @@
 /** Statutory company details — public record (Companies House). */
+export const COMPANY_LEGAL_NAME = "Reacting Ltd";
+export const COMPANY_NUMBER = "16587479";
+
 export const COMPANY_LEGAL_DISCLOSURE =
   "Reacting Ltd. Registered in England and Wales. Company No. 16587479.";
 

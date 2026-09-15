@@ -253,6 +253,11 @@ function ProductPage() {
                 </span>
               ))}
             </p>
+            <p className="mt-3 max-w-3xl text-[13px] leading-[1.65] text-muted-foreground">
+              Request supplier quotes, compare responses and purchase with clearer price context.
+              Then follow orders through to receiving, so the practice can see what has been
+              ordered, what has arrived and what still needs attention.
+            </p>
           </div>
         </div>
       </section>
@@ -352,7 +357,8 @@ function ProductPage() {
         <div className="mx-auto max-w-[962px] px-3.5 pb-11 pt-8 text-center sm:px-6 sm:pb-12 sm:pt-9 lg:px-10 lg:pb-14">
           <p className="mx-auto max-w-[46ch] text-[13.5px] leading-[1.6] text-muted-foreground">
             Dental Assist works alongside your clinical and booking system — it
-            focuses on inventory, suppliers and purchasing.
+            focuses on inventory, suppliers, quote comparison, purchasing and
+            deliveries.
           </p>
           <h2
             id="product-close-heading"

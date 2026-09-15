@@ -13,6 +13,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { ReactingLogo } from "@/components/site/ReactingLogo";
 import { SITE_ORIGIN } from "@/lib/site-url";
+import { COMPANY_LEGAL_NAME, COMPANY_NUMBER } from "@/lib/company";
 
 function NotFoundComponent() {
   return (
@@ -148,11 +149,21 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
               "@type": "Organization",
               "@id": `${SITE_ORIGIN}/#organization`,
               name: "Reacting",
+              legalName: COMPANY_LEGAL_NAME,
               url: SITE_ORIGIN,
+              description:
+                "Reacting Ltd is a UK software company. Dental Assist is its operational software product for dental practices.",
               logo: {
                 "@type": "ImageObject",
                 url: `${SITE_ORIGIN}/brand/reacting-logo-horizontal-transparent.png`,
               },
+              identifier: {
+                "@type": "PropertyValue",
+                name: "Companies House company number",
+                propertyID: "GB-COH",
+                value: COMPANY_NUMBER,
+              },
+              owns: { "@id": `${SITE_ORIGIN}/#dental-assist` },
               sameAs: [],
             },
             {

@@ -20,4 +20,20 @@ export const faqs = [
     q: "Do we need a credit card to try it?",
     a: "No. You can start with a 14-day free trial without entering card details, and you can cancel anytime.",
   },
+  {
+    q: "How can Dental Assist help control dental practice costs?",
+    a: "Dental Assist gives visibility over operational areas such as purchasing, supplier quotes and prices, stock, expiry and spend, so the practice can identify avoidable waste or purchasing inefficiencies. It does not guarantee savings.",
+  },
+  {
+    q: "How can a dental practice reduce expired or wasted stock?",
+    a: "Dental Assist shows what the practice holds and which materials are approaching expiry, so the team can act while there is still time — rather than discovering write-offs after items have expired.",
+  },
+  {
+    q: "How can I compare dental supplier quotes and prices?",
+    a: "In Dental Assist you can request quotes from suppliers, review responses together and compare prices before purchasing. That gives clearer price context when deciding what to order.",
+  },
+  {
+    q: "How can Dental Assist make stock and ordering easier for a practice manager or stock lead?",
+    a: "Owners, managers and stock leads share one operational view — stock that needs attention, purchasing, orders and deliveries — so the team is less dependent on scattered spreadsheets, messages and memory.",
+  },
 ] as const;

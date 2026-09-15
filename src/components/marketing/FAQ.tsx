@@ -1,6 +1,6 @@
 import { useId, useState } from "react";
 import { Minus, Plus } from "lucide-react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { useReducedMotion } from "framer-motion";
 import { elev, iconStroke, layout, radius } from "./design";
 import { faqs } from "./faq-data";
 import { cn } from "@/lib/utils";
@@ -64,24 +64,26 @@ export function FAQ() {
                   </span>
                 </button>
               </h3>
-              <AnimatePresence initial={false}>
-                {isOpen ? (
-                  <motion.div
-                    id={panelId}
-                    role="region"
-                    aria-labelledby={buttonId}
-                    initial={reduceMotion ? false : { height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={reduceMotion ? undefined : { height: 0, opacity: 0 }}
-                    transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
-                    className="overflow-hidden"
-                  >
-                    <p className="px-5 pb-5 text-[14px] leading-[1.7] text-muted-foreground sm:px-6">
-                      {item.a}
-                    </p>
-                  </motion.div>
-                ) : null}
-              </AnimatePresence>
+              <div
+                id={panelId}
+                role="region"
+                aria-labelledby={buttonId}
+                aria-hidden={!isOpen}
+                inert={!isOpen}
+                className={cn(
+                  "grid overflow-hidden",
+                  reduceMotion
+                    ? "transition-none"
+                    : "transition-[grid-template-rows,opacity] duration-[240ms] ease-[cubic-bezier(0.22,1,0.36,1)]",
+                  isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0",
+                )}
+              >
+                <div className="min-h-0 overflow-hidden">
+                  <p className="px-5 pb-5 text-[14px] leading-[1.7] text-muted-foreground sm:px-6">
+                    {item.a}
+                  </p>
+                </div>
+              </div>
             </div>
           );
         })}

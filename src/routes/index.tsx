@@ -13,7 +13,7 @@ import { SITE_ORIGIN } from "@/lib/site-url";
 
 const HOME_TITLE = "Reacting | Operational Software for Modern Dental Practices";
 const HOME_DESCRIPTION =
-  "Reacting connects the operational work behind modern dental practices. Dental Assist brings stock, suppliers, purchasing, deliveries and reporting into one clear workflow.";
+  "Dental Assist is Reacting's operational software for dental practices: stock, expiry, suppliers, quote comparison, purchasing and spend visibility, working alongside the practice-management system.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -72,6 +72,15 @@ export const Route = createFileRoute("/")({
                 "@type": "BusinessAudience",
                 audienceType: "UK dental practices",
               },
+              featureList: [
+                "Inventory and stock",
+                "Expiry tracking",
+                "Suppliers",
+                "Supplier quotes",
+                "Purchasing and orders",
+                "Deliveries",
+                "Spend visibility and reporting",
+              ],
               offers: {
                 "@type": "Offer",
                 price: "59",
@@ -80,6 +89,7 @@ export const Route = createFileRoute("/")({
                 url: "https://app.reacting.io/signup",
               },
               provider: { "@id": `${SITE_ORIGIN}/#organization` },
+              brand: { "@id": `${SITE_ORIGIN}/#organization` },
               isPartOf: { "@id": `${SITE_ORIGIN}/#website` },
             },
             {

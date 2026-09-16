@@ -16,6 +16,7 @@ import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as FeaturesRouteImport } from './routes/features'
 import { Route as DentalStockManagementRouteImport } from './routes/dental-stock-management'
+import { Route as DentalProcurementSoftwareRouteImport } from './routes/dental-procurement-software'
 import { Route as CookiesRouteImport } from './routes/cookies'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BookDemoRouteImport } from './routes/book-demo'
@@ -57,6 +58,12 @@ const DentalStockManagementRoute = DentalStockManagementRouteImport.update({
   path: '/dental-stock-management',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DentalProcurementSoftwareRoute =
+  DentalProcurementSoftwareRouteImport.update({
+    id: '/dental-procurement-software',
+    path: '/dental-procurement-software',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const CookiesRoute = CookiesRouteImport.update({
   id: '/cookies',
   path: '/cookies',
@@ -89,6 +96,7 @@ export interface FileRoutesByFullPath {
   '/book-demo': typeof BookDemoRoute
   '/contact': typeof ContactRoute
   '/cookies': typeof CookiesRoute
+  '/dental-procurement-software': typeof DentalProcurementSoftwareRoute
   '/dental-stock-management': typeof DentalStockManagementRoute
   '/features': typeof FeaturesRoute
   '/pricing': typeof PricingRoute
@@ -103,6 +111,7 @@ export interface FileRoutesByTo {
   '/book-demo': typeof BookDemoRoute
   '/contact': typeof ContactRoute
   '/cookies': typeof CookiesRoute
+  '/dental-procurement-software': typeof DentalProcurementSoftwareRoute
   '/dental-stock-management': typeof DentalStockManagementRoute
   '/features': typeof FeaturesRoute
   '/pricing': typeof PricingRoute
@@ -118,6 +127,7 @@ export interface FileRoutesById {
   '/book-demo': typeof BookDemoRoute
   '/contact': typeof ContactRoute
   '/cookies': typeof CookiesRoute
+  '/dental-procurement-software': typeof DentalProcurementSoftwareRoute
   '/dental-stock-management': typeof DentalStockManagementRoute
   '/features': typeof FeaturesRoute
   '/pricing': typeof PricingRoute
@@ -134,6 +144,7 @@ export interface FileRouteTypes {
     | '/book-demo'
     | '/contact'
     | '/cookies'
+    | '/dental-procurement-software'
     | '/dental-stock-management'
     | '/features'
     | '/pricing'
@@ -148,6 +159,7 @@ export interface FileRouteTypes {
     | '/book-demo'
     | '/contact'
     | '/cookies'
+    | '/dental-procurement-software'
     | '/dental-stock-management'
     | '/features'
     | '/pricing'
@@ -162,6 +174,7 @@ export interface FileRouteTypes {
     | '/book-demo'
     | '/contact'
     | '/cookies'
+    | '/dental-procurement-software'
     | '/dental-stock-management'
     | '/features'
     | '/pricing'
@@ -177,6 +190,7 @@ export interface RootRouteChildren {
   BookDemoRoute: typeof BookDemoRoute
   ContactRoute: typeof ContactRoute
   CookiesRoute: typeof CookiesRoute
+  DentalProcurementSoftwareRoute: typeof DentalProcurementSoftwareRoute
   DentalStockManagementRoute: typeof DentalStockManagementRoute
   FeaturesRoute: typeof FeaturesRoute
   PricingRoute: typeof PricingRoute
@@ -237,6 +251,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DentalStockManagementRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dental-procurement-software': {
+      id: '/dental-procurement-software'
+      path: '/dental-procurement-software'
+      fullPath: '/dental-procurement-software'
+      preLoaderRoute: typeof DentalProcurementSoftwareRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/cookies': {
       id: '/cookies'
       path: '/cookies'
@@ -281,6 +302,7 @@ const rootRouteChildren: RootRouteChildren = {
   BookDemoRoute: BookDemoRoute,
   ContactRoute: ContactRoute,
   CookiesRoute: CookiesRoute,
+  DentalProcurementSoftwareRoute: DentalProcurementSoftwareRoute,
   DentalStockManagementRoute: DentalStockManagementRoute,
   FeaturesRoute: FeaturesRoute,
   PricingRoute: PricingRoute,

@@ -182,6 +182,12 @@ export function SiteFooter() {
       ],
     },
     {
+      title: "Solutions",
+      links: [
+        { label: "Dental stock management", href: "/dental-stock-management" },
+      ],
+    },
+    {
       title: "Company",
       links: [
         { label: "About", href: "/about" },
@@ -197,7 +203,7 @@ export function SiteFooter() {
   return (
     <footer className="border-t border-border/25 bg-[#FAFBFC]">
       <div className="mx-auto max-w-[1200px] px-6 pb-7 pt-9 lg:px-10 lg:pb-8 lg:pt-10">
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-[minmax(0,1.2fr)_1fr_1fr_1fr] lg:gap-10">
+        <div className="grid gap-6 sm:grid-cols-2 sm:gap-8 lg:grid-cols-[minmax(14rem,18rem)_repeat(4,auto)] lg:gap-x-8 lg:gap-y-8">
           <div className="sm:col-span-2 lg:col-span-1">
             <ReactingLogoLink widthClassName="w-[128px]" />
             <p className="mt-3 max-w-[32ch] text-[12.5px] leading-[1.65] text-muted-foreground">

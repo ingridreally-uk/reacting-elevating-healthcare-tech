@@ -33,6 +33,7 @@ Dental Assist does not guarantee cost reduction or savings.
 - [Product](https://www.reacting.io/product): What Dental Assist does day to day — inventory, purchasing, suppliers, RFQ comparison, deliveries, expiry tracking and reporting.
 - [Dental stock management](https://www.reacting.io/dental-stock-management): Problem-led page on dental stock management — low-stock visibility, expiry, time spent on stock administration, owner operational visibility, and how stock connects into purchasing.
 - [Dental procurement software](https://www.reacting.io/dental-procurement-software): Problem-led page on dental purchasing and procurement — supplier quote comparison, previous purchase-price context, orders and receiving — working alongside the practice-management system.
+- [Dental supplier management](https://www.reacting.io/dental-supplier-management-software): Problem-led page on keeping existing dental suppliers organised — supplier records, contact information and purchase history connected to those suppliers — working alongside the practice-management system.
 - [Pricing](https://www.reacting.io/pricing): Practice plan pricing, 14-day free trial and what's included.
 - [About](https://www.reacting.io/about): Company background — Reacting Ltd builds cloud software for healthcare, starting with Dental Assist, built inside a real dental practice since 2021.
 - [Contact](https://www.reacting.io/contact): Ways to reach the Reacting Ltd team.

@@ -271,6 +271,16 @@ function ProductPage() {
               Request supplier quotes, compare responses and purchase with clearer price context.
               Then follow orders through to receiving, so the practice can see what has been
               ordered, what has arrived and what still needs attention.
+              {" "}
+              <Link
+                to="/dental-supplier-management-software"
+                className="text-foreground/85 underline underline-offset-2 hover:text-foreground"
+              >
+                Explore dental supplier management
+              </Link>
+              {". "}
+              Keep the suppliers the practice already uses — records, contacts and purchase
+              history — in one directory.
             </p>
           </div>
         </div>

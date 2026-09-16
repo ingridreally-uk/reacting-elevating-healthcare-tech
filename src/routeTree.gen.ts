@@ -15,6 +15,7 @@ import { Route as ProductRouteImport } from './routes/product'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as FeaturesRouteImport } from './routes/features'
+import { Route as DentalSupplierManagementSoftwareRouteImport } from './routes/dental-supplier-management-software'
 import { Route as DentalStockManagementRouteImport } from './routes/dental-stock-management'
 import { Route as DentalProcurementSoftwareRouteImport } from './routes/dental-procurement-software'
 import { Route as CookiesRouteImport } from './routes/cookies'
@@ -53,6 +54,12 @@ const FeaturesRoute = FeaturesRouteImport.update({
   path: '/features',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DentalSupplierManagementSoftwareRoute =
+  DentalSupplierManagementSoftwareRouteImport.update({
+    id: '/dental-supplier-management-software',
+    path: '/dental-supplier-management-software',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const DentalStockManagementRoute = DentalStockManagementRouteImport.update({
   id: '/dental-stock-management',
   path: '/dental-stock-management',
@@ -98,6 +105,7 @@ export interface FileRoutesByFullPath {
   '/cookies': typeof CookiesRoute
   '/dental-procurement-software': typeof DentalProcurementSoftwareRoute
   '/dental-stock-management': typeof DentalStockManagementRoute
+  '/dental-supplier-management-software': typeof DentalSupplierManagementSoftwareRoute
   '/features': typeof FeaturesRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
@@ -113,6 +121,7 @@ export interface FileRoutesByTo {
   '/cookies': typeof CookiesRoute
   '/dental-procurement-software': typeof DentalProcurementSoftwareRoute
   '/dental-stock-management': typeof DentalStockManagementRoute
+  '/dental-supplier-management-software': typeof DentalSupplierManagementSoftwareRoute
   '/features': typeof FeaturesRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
@@ -129,6 +138,7 @@ export interface FileRoutesById {
   '/cookies': typeof CookiesRoute
   '/dental-procurement-software': typeof DentalProcurementSoftwareRoute
   '/dental-stock-management': typeof DentalStockManagementRoute
+  '/dental-supplier-management-software': typeof DentalSupplierManagementSoftwareRoute
   '/features': typeof FeaturesRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
@@ -146,6 +156,7 @@ export interface FileRouteTypes {
     | '/cookies'
     | '/dental-procurement-software'
     | '/dental-stock-management'
+    | '/dental-supplier-management-software'
     | '/features'
     | '/pricing'
     | '/privacy'
@@ -161,6 +172,7 @@ export interface FileRouteTypes {
     | '/cookies'
     | '/dental-procurement-software'
     | '/dental-stock-management'
+    | '/dental-supplier-management-software'
     | '/features'
     | '/pricing'
     | '/privacy'
@@ -176,6 +188,7 @@ export interface FileRouteTypes {
     | '/cookies'
     | '/dental-procurement-software'
     | '/dental-stock-management'
+    | '/dental-supplier-management-software'
     | '/features'
     | '/pricing'
     | '/privacy'
@@ -192,6 +205,7 @@ export interface RootRouteChildren {
   CookiesRoute: typeof CookiesRoute
   DentalProcurementSoftwareRoute: typeof DentalProcurementSoftwareRoute
   DentalStockManagementRoute: typeof DentalStockManagementRoute
+  DentalSupplierManagementSoftwareRoute: typeof DentalSupplierManagementSoftwareRoute
   FeaturesRoute: typeof FeaturesRoute
   PricingRoute: typeof PricingRoute
   PrivacyRoute: typeof PrivacyRoute
@@ -242,6 +256,13 @@ declare module '@tanstack/react-router' {
       path: '/features'
       fullPath: '/features'
       preLoaderRoute: typeof FeaturesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dental-supplier-management-software': {
+      id: '/dental-supplier-management-software'
+      path: '/dental-supplier-management-software'
+      fullPath: '/dental-supplier-management-software'
+      preLoaderRoute: typeof DentalSupplierManagementSoftwareRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dental-stock-management': {
@@ -304,6 +325,7 @@ const rootRouteChildren: RootRouteChildren = {
   CookiesRoute: CookiesRoute,
   DentalProcurementSoftwareRoute: DentalProcurementSoftwareRoute,
   DentalStockManagementRoute: DentalStockManagementRoute,
+  DentalSupplierManagementSoftwareRoute: DentalSupplierManagementSoftwareRoute,
   FeaturesRoute: FeaturesRoute,
   PricingRoute: PricingRoute,
   PrivacyRoute: PrivacyRoute,

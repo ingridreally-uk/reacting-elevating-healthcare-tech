@@ -254,6 +254,13 @@ function ProductPage() {
               ))}
             </p>
             <p className="mt-3 max-w-3xl text-[13px] leading-[1.65] text-muted-foreground">
+              <Link
+                to="/dental-stock-management"
+                className="text-foreground/85 underline underline-offset-2 hover:text-foreground"
+              >
+                Explore dental stock management
+              </Link>
+              {". "}
               Request supplier quotes, compare responses and purchase with clearer price context.
               Then follow orders through to receiving, so the practice can see what has been
               ordered, what has arrived and what still needs attention.

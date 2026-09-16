@@ -261,6 +261,13 @@ function ProductPage() {
                 Explore dental stock management
               </Link>
               {". "}
+              <Link
+                to="/dental-procurement-software"
+                className="text-foreground/85 underline underline-offset-2 hover:text-foreground"
+              >
+                Explore dental procurement
+              </Link>
+              {". "}
               Request supplier quotes, compare responses and purchase with clearer price context.
               Then follow orders through to receiving, so the practice can see what has been
               ordered, what has arrived and what still needs attention.

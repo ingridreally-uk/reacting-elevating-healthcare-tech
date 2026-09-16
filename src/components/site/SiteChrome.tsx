@@ -185,6 +185,7 @@ export function SiteFooter() {
       title: "Solutions",
       links: [
         { label: "Dental stock management", href: "/dental-stock-management" },
+        { label: "Dental procurement software", href: "/dental-procurement-software" },
       ],
     },
     {

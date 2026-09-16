@@ -36,11 +36,11 @@ const recordLayers = [
   },
   {
     title: "See the relationship status",
-    body: "Active supplier status, with supplier information that can be edited when it changes.",
+    body: "Whether the supplier is still active, with details that can be updated when they change.",
   },
   {
     title: "See what has happened before",
-    body: "Purchase history and orders connected to that supplier, on the same record.",
+    body: "Previous orders stay attached, so the relationship includes more than a name and an email address.",
   },
 ] as const;
 
@@ -107,13 +107,12 @@ function DentalSupplierManagementPage() {
                 Work with the suppliers you already trust.
               </h1>
               <p className={cn("mt-4 max-w-[38ch]", mktType.bodyLg)}>
-                Keep the suppliers your practice already uses in one shared place — who they are,
-                how to reach them and what has been ordered — so supplier information does not
-                depend on one person’s inbox or memory.
+                Supplier knowledge often lives with one nurse, manager or owner. Dental Assist
+                records who the practice works with, how to reach them and what has been ordered —
+                so that information does not depend on one person’s inbox or memory.
               </p>
               <p className="mt-4 max-w-[34ch] text-[15px] font-medium leading-[1.5] tracking-tight text-foreground">
-                Existing supplier relationships stay organised. You do not have to change
-                suppliers.
+                Continue with the suppliers you already use. You do not have to change them.
               </p>
               <div className="mt-6 flex flex-col items-stretch gap-2.5 sm:flex-row sm:items-center lg:flex-col lg:items-stretch">
                 <a
@@ -160,11 +159,11 @@ function DentalSupplierManagementPage() {
           <div className="max-w-[36rem]">
             <p className={layout.eyebrow}>Your supplier network</p>
             <h2 id="network-heading" className={cn("mt-2.5 max-w-[16ch]", layout.h2)}>
-              The suppliers you already use, in one directory.
+              Find the supplier without asking around.
             </h2>
             <p className={cn("mt-3 max-w-[44ch]", mktType.body)}>
-              Names, contact people, email addresses and Active status — shared, instead of living
-              in one person’s inbox.
+              Staff should not have to search old emails, ask another team member, or rely on
+              memory to find a contact that is already recorded.
             </p>
           </div>
           <div className="mt-5 overflow-hidden rounded-2xl border border-black/[0.06] bg-[#F7FAF8] shadow-[0_18px_48px_-24px_rgba(11,43,40,0.2),0_2px_8px_-4px_rgba(11,43,40,0.08)]">
@@ -203,13 +202,13 @@ function DentalSupplierManagementPage() {
           )}
         >
           <div className="min-w-0 lg:sticky lg:top-24">
-            <p className={layout.eyebrow}>One supplier. One operational record.</p>
-            <h2 id="record-heading" className={cn("mt-2.5 max-w-[14ch]", layout.h2)}>
-              Everything about a supplier, in one place.
+            <p className={layout.eyebrow}>The supplier record</p>
+            <h2 id="record-heading" className={cn("mt-2.5 max-w-[22ch]", layout.h2)}>
+              Understand the relationship without reconstructing it.
             </h2>
             <p className={cn("mt-3.5 max-w-[40ch]", mktType.body)}>
-              The working document is the supplier record — not a separate list, spreadsheet or
-              saved email thread.
+              Contact details, status and previous orders sit on the same record, so another
+              person in the practice can follow the relationship without rebuilding it by hand.
             </p>
           </div>
           <ol className="min-w-0 divide-y divide-border/55 border-y border-border/55">
@@ -235,13 +234,13 @@ function DentalSupplierManagementPage() {
           <div className="rounded-2xl border border-border/55 bg-[#F8FAFC] px-5 py-5 sm:px-7 sm:py-6 lg:grid lg:grid-cols-[minmax(0,0.46fr)_minmax(0,0.54fr)] lg:items-center lg:gap-12">
             <div className="min-w-0">
               <p className={layout.eyebrow}>Purchase history</p>
-              <h2 id="history-heading" className={cn("mt-2.5 max-w-[16ch]", layout.h2)}>
-                The record doesn’t stop at contact details.
+              <h2 id="history-heading" className={cn("mt-2.5 max-w-[18ch]", layout.h2)}>
+                See the history behind every supplier relationship.
               </h2>
               <p className={cn("mt-3.5 max-w-[42ch]", mktType.body)}>
-                Previous purchasing activity stays connected to the supplier, so the team can
-                answer which supplier was used and what happened with earlier orders — without
-                rebuilding that picture from emails.
+                Previous purchasing activity stays connected to the supplier. The team can see
+                earlier orders and their status without piecing that picture together from old
+                emails.
               </p>
             </div>
             <ul className="mt-6 space-y-3 lg:mt-0">
@@ -303,8 +302,8 @@ function DentalSupplierManagementPage() {
       </section>
 
       <CTASection
-        heading="Bring your existing suppliers into one operational workspace."
-        body="Start a 14-day trial, or book a short demo to see how Dental Assist keeps supplier contacts and purchase history together — alongside the practice-management system you already use."
+        heading="Keep supplier knowledge with the practice."
+        body="Start a 14-day trial, or book a short demo to see how Dental Assist records the suppliers you already use — contacts and purchase history included — alongside the practice-management system you already work with."
         headingClassName="mx-auto mt-3 max-w-[20ch] text-[30px] font-semibold leading-[1.08] tracking-[-0.035em] sm:text-[40px]"
         bodyClassName="mx-auto mt-4 max-w-[46ch] text-[15px] leading-[1.65] text-white/68"
       />

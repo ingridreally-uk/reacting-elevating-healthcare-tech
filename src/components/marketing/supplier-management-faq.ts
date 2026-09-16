@@ -2,7 +2,7 @@
 export const supplierManagementFaqs = [
   {
     q: "What is dental supplier management software?",
-    a: "Dental supplier management software helps a practice keep the suppliers it already works with in one shared place — who they are, how to reach them, and what has been ordered. In Dental Assist that sits as a supplier record inside the operational workspace, used alongside stock and purchasing, and alongside the practice-management system rather than replacing it.",
+    a: "Dental supplier management software helps a practice keep a working record of the suppliers it already uses — who they are, how to reach them, and what has been ordered. In Dental Assist that sits as a supplier record inside the operational workspace, used alongside stock and purchasing, and alongside the practice-management system rather than replacing it.",
   },
   {
     q: "Can we keep using our existing dental suppliers?",

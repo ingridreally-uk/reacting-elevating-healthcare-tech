@@ -31,7 +31,7 @@ Dental Assist does not guarantee cost reduction or savings.
 
 - [Home](https://www.reacting.io/): Overview of Dental Assist, the operational problem it addresses, a walk-through of a typical practice morning and FAQ.
 - [Product](https://www.reacting.io/product): What Dental Assist does day to day — inventory, purchasing, suppliers, RFQ comparison, deliveries, expiry tracking and reporting.
-- [Dental stock management](https://www.reacting.io/dental-stock-management): Problem-led page on dental stock management — low-stock visibility, expiry, time spent on stock administration, owner operational visibility, and how stock connects into purchasing.
+- [Dental stock management](https://www.reacting.io/dental-stock-management): Problem-led page on dental stock management — low-stock visibility, expiry, time spent on stock administration, owner operational visibility, and how stock connects into purchasing. In dental software this operational job is also commonly described as inventory management.
 - [Dental procurement software](https://www.reacting.io/dental-procurement-software): Problem-led page on dental purchasing and procurement — supplier quote comparison, previous purchase-price context, orders and receiving — working alongside the practice-management system.
 - [Dental supplier management](https://www.reacting.io/dental-supplier-management-software): Problem-led page on keeping existing dental suppliers organised — supplier records, contact information and purchase history connected to those suppliers — working alongside the practice-management system.
 - [Pricing](https://www.reacting.io/pricing): Practice plan pricing, 14-day free trial and what's included.

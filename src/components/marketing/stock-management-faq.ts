@@ -2,7 +2,7 @@
 export const stockManagementFaqs = [
   {
     q: "What is dental stock management software?",
-    a: "Dental stock management software helps a practice keep a current picture of materials: what is held, where it is, what is running low, what is approaching expiry, and what has already been ordered. It is not the clinical or booking system. Dental Assist is Reacting’s operational software for this work, used alongside the practice-management system by owners, practice managers, nurses and stock leads.",
+    a: "Dental stock management software helps a practice keep a current picture of materials: what is held, where it is, what is running low, what is approaching expiry, and what has already been ordered. In dental software this is also commonly called inventory management. It is not the clinical or booking system. Dental Assist is Reacting’s operational software for this work, used alongside the practice-management system by owners, practice managers, nurses and stock leads.",
   },
   {
     q: "How can a dental practice keep track of stock?",

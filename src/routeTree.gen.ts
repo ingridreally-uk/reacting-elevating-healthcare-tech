@@ -23,6 +23,8 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BookDemoRouteImport } from './routes/book-demo'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ResourcesIndexRouteImport } from './routes/resources.index'
+import { Route as ResourcesDentalStocktakeChecklistRouteImport } from './routes/resources.dental-stocktake-checklist'
 
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
@@ -96,6 +98,17 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ResourcesIndexRoute = ResourcesIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ResourcesRoute,
+} as any)
+const ResourcesDentalStocktakeChecklistRoute =
+  ResourcesDentalStocktakeChecklistRouteImport.update({
+    id: '/dental-stocktake-checklist',
+    path: '/dental-stocktake-checklist',
+    getParentRoute: () => ResourcesRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -110,8 +123,10 @@ export interface FileRoutesByFullPath {
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
   '/product': typeof ProductRoute
-  '/resources': typeof ResourcesRoute
+  '/resources': typeof ResourcesRouteWithChildren
   '/terms': typeof TermsRoute
+  '/resources/dental-stocktake-checklist': typeof ResourcesDentalStocktakeChecklistRoute
+  '/resources/': typeof ResourcesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -126,8 +141,9 @@ export interface FileRoutesByTo {
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
   '/product': typeof ProductRoute
-  '/resources': typeof ResourcesRoute
   '/terms': typeof TermsRoute
+  '/resources/dental-stocktake-checklist': typeof ResourcesDentalStocktakeChecklistRoute
+  '/resources': typeof ResourcesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -143,8 +159,10 @@ export interface FileRoutesById {
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
   '/product': typeof ProductRoute
-  '/resources': typeof ResourcesRoute
+  '/resources': typeof ResourcesRouteWithChildren
   '/terms': typeof TermsRoute
+  '/resources/dental-stocktake-checklist': typeof ResourcesDentalStocktakeChecklistRoute
+  '/resources/': typeof ResourcesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -163,6 +181,8 @@ export interface FileRouteTypes {
     | '/product'
     | '/resources'
     | '/terms'
+    | '/resources/dental-stocktake-checklist'
+    | '/resources/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -177,8 +197,9 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/privacy'
     | '/product'
-    | '/resources'
     | '/terms'
+    | '/resources/dental-stocktake-checklist'
+    | '/resources'
   id:
     | '__root__'
     | '/'
@@ -195,6 +216,8 @@ export interface FileRouteTypes {
     | '/product'
     | '/resources'
     | '/terms'
+    | '/resources/dental-stocktake-checklist'
+    | '/resources/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -210,7 +233,7 @@ export interface RootRouteChildren {
   PricingRoute: typeof PricingRoute
   PrivacyRoute: typeof PrivacyRoute
   ProductRoute: typeof ProductRoute
-  ResourcesRoute: typeof ResourcesRoute
+  ResourcesRoute: typeof ResourcesRouteWithChildren
   TermsRoute: typeof TermsRoute
 }
 
@@ -314,8 +337,37 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/resources/': {
+      id: '/resources/'
+      path: '/'
+      fullPath: '/resources/'
+      preLoaderRoute: typeof ResourcesIndexRouteImport
+      parentRoute: typeof ResourcesRoute
+    }
+    '/resources/dental-stocktake-checklist': {
+      id: '/resources/dental-stocktake-checklist'
+      path: '/dental-stocktake-checklist'
+      fullPath: '/resources/dental-stocktake-checklist'
+      preLoaderRoute: typeof ResourcesDentalStocktakeChecklistRouteImport
+      parentRoute: typeof ResourcesRoute
+    }
   }
 }
+
+interface ResourcesRouteChildren {
+  ResourcesDentalStocktakeChecklistRoute: typeof ResourcesDentalStocktakeChecklistRoute
+  ResourcesIndexRoute: typeof ResourcesIndexRoute
+}
+
+const ResourcesRouteChildren: ResourcesRouteChildren = {
+  ResourcesDentalStocktakeChecklistRoute:
+    ResourcesDentalStocktakeChecklistRoute,
+  ResourcesIndexRoute: ResourcesIndexRoute,
+}
+
+const ResourcesRouteWithChildren = ResourcesRoute._addFileChildren(
+  ResourcesRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -330,7 +382,7 @@ const rootRouteChildren: RootRouteChildren = {
   PricingRoute: PricingRoute,
   PrivacyRoute: PrivacyRoute,
   ProductRoute: ProductRoute,
-  ResourcesRoute: ResourcesRoute,
+  ResourcesRoute: ResourcesRouteWithChildren,
   TermsRoute: TermsRoute,
 }
 export const routeTree = rootRouteImport

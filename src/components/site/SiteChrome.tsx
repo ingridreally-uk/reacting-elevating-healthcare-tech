@@ -194,6 +194,7 @@ export function SiteFooter() {
       links: [
         { label: "About", href: "/about" },
         { label: "Contact", href: "/contact" },
+        { label: "Resources", href: "/resources" },
       ],
     },
     {

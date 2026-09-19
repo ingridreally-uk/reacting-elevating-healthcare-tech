@@ -422,6 +422,16 @@ function DentalStockManagementPage() {
             heading="Still deciding how the practice should manage stock?"
             lead="Straight answers for owners, managers, nurses and stock leads."
           />
+          <p className="mx-auto mt-8 max-w-[820px] text-center text-[14px] leading-[1.65] text-muted-foreground">
+            Need a structured starting point for a one-off room-by-room count? Use our{" "}
+            <Link
+              to="/resources/dental-stocktake-checklist"
+              className="font-medium text-foreground underline-offset-4 hover:underline"
+            >
+              free manual stocktake checklist
+            </Link>
+            .
+          </p>
         </div>
       </section>
 

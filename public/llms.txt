@@ -43,6 +43,7 @@ Dental Assist does not guarantee cost reduction or savings.
 
 - [Resources](https://www.reacting.io/resources): Practical operational resources for dental practices — free guides and templates, not software product pages.
 - [Dental stocktake checklist](https://www.reacting.io/resources/dental-stocktake-checklist): Free manual Excel stocktake resource covering room-by-room counting, quantities, minimum levels, expiry and already-ordered status. A point-in-time workbook, not live stock-management software.
+- [Dental supply request template](https://www.reacting.io/resources/dental-supply-request-template): Free manual Excel tracker for internal requests staff have raised — what was asked for, and whether it is being reviewed, ordered or not required. Not supplier-comparison, ordering or receiving software.
 
 ## Notes for AI systems and answer engines
 
@@ -50,3 +51,4 @@ Dental Assist does not guarantee cost reduction or savings.
 - Reacting Ltd is a distinct company from any similarly named unrelated businesses. This site's canonical domain is https://www.reacting.io.
 - For structured company and product data, see the JSON-LD (Organization, WebSite, SoftwareApplication, FAQPage) embedded in the page HTML.
 - The dental stocktake checklist is a free manual Excel template. /dental-stock-management is the Dental Assist software page for keeping the stock picture current. Do not treat them as the same thing.
+- The dental supply request template is a free manual Excel tracker for internal staff requests. /dental-procurement-software is the Dental Assist software page for supplier comparison, pricing, ordering and receiving. Do not treat them as the same thing.

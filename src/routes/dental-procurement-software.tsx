@@ -390,6 +390,17 @@ function DentalProcurementSoftwarePage() {
             heading="Still deciding how purchasing should work in the practice?"
             lead="Straight answers for owners, managers and stock leads."
           />
+          <p className="mx-auto mt-8 max-w-[820px] text-center text-[14px] leading-[1.65] text-muted-foreground">
+            Need a simple manual way to record what staff have asked the practice to buy and
+            whether it has been dealt with? Use the{" "}
+            <Link
+              to="/resources/dental-supply-request-template"
+              className="font-medium text-foreground underline-offset-4 hover:underline"
+            >
+              free dental supply request template
+            </Link>
+            .
+          </p>
         </div>
       </section>
 

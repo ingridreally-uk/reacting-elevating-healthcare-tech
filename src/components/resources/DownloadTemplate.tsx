@@ -1,20 +1,27 @@
 import { Download } from "lucide-react";
 import { btn, iconStroke } from "@/components/marketing/design";
 import { cn } from "@/lib/utils";
-import { WORKBOOK_FILENAME, WORKBOOK_HREF } from "./stocktake";
+import {
+  WORKBOOK_FILENAME as STOCKTAKE_FILENAME,
+  WORKBOOK_HREF as STOCKTAKE_HREF,
+} from "./stocktake";
 
 export function DownloadTemplate({
+  href = STOCKTAKE_HREF,
+  filename = STOCKTAKE_FILENAME,
   className,
   align = "start",
 }: {
+  href?: string;
+  filename?: string;
   className?: string;
   align?: "start" | "center";
 }) {
   return (
     <div className={cn(align === "center" && "text-center", className)}>
       <a
-        href={WORKBOOK_HREF}
-        download={WORKBOOK_FILENAME}
+        href={href}
+        download={filename}
         className={cn(btn.base, btn.primary, "min-h-11 w-full sm:w-auto")}
       >
         Download the free Excel template

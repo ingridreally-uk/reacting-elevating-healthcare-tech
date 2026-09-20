@@ -24,6 +24,7 @@ import { Route as BookDemoRouteImport } from './routes/book-demo'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ResourcesIndexRouteImport } from './routes/resources.index'
+import { Route as ResourcesDentalSupplyRequestTemplateRouteImport } from './routes/resources.dental-supply-request-template'
 import { Route as ResourcesDentalStocktakeChecklistRouteImport } from './routes/resources.dental-stocktake-checklist'
 
 const TermsRoute = TermsRouteImport.update({
@@ -103,6 +104,12 @@ const ResourcesIndexRoute = ResourcesIndexRouteImport.update({
   path: '/',
   getParentRoute: () => ResourcesRoute,
 } as any)
+const ResourcesDentalSupplyRequestTemplateRoute =
+  ResourcesDentalSupplyRequestTemplateRouteImport.update({
+    id: '/dental-supply-request-template',
+    path: '/dental-supply-request-template',
+    getParentRoute: () => ResourcesRoute,
+  } as any)
 const ResourcesDentalStocktakeChecklistRoute =
   ResourcesDentalStocktakeChecklistRouteImport.update({
     id: '/dental-stocktake-checklist',
@@ -126,6 +133,7 @@ export interface FileRoutesByFullPath {
   '/resources': typeof ResourcesRouteWithChildren
   '/terms': typeof TermsRoute
   '/resources/dental-stocktake-checklist': typeof ResourcesDentalStocktakeChecklistRoute
+  '/resources/dental-supply-request-template': typeof ResourcesDentalSupplyRequestTemplateRoute
   '/resources/': typeof ResourcesIndexRoute
 }
 export interface FileRoutesByTo {
@@ -143,6 +151,7 @@ export interface FileRoutesByTo {
   '/product': typeof ProductRoute
   '/terms': typeof TermsRoute
   '/resources/dental-stocktake-checklist': typeof ResourcesDentalStocktakeChecklistRoute
+  '/resources/dental-supply-request-template': typeof ResourcesDentalSupplyRequestTemplateRoute
   '/resources': typeof ResourcesIndexRoute
 }
 export interface FileRoutesById {
@@ -162,6 +171,7 @@ export interface FileRoutesById {
   '/resources': typeof ResourcesRouteWithChildren
   '/terms': typeof TermsRoute
   '/resources/dental-stocktake-checklist': typeof ResourcesDentalStocktakeChecklistRoute
+  '/resources/dental-supply-request-template': typeof ResourcesDentalSupplyRequestTemplateRoute
   '/resources/': typeof ResourcesIndexRoute
 }
 export interface FileRouteTypes {
@@ -182,6 +192,7 @@ export interface FileRouteTypes {
     | '/resources'
     | '/terms'
     | '/resources/dental-stocktake-checklist'
+    | '/resources/dental-supply-request-template'
     | '/resources/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -199,6 +210,7 @@ export interface FileRouteTypes {
     | '/product'
     | '/terms'
     | '/resources/dental-stocktake-checklist'
+    | '/resources/dental-supply-request-template'
     | '/resources'
   id:
     | '__root__'
@@ -217,6 +229,7 @@ export interface FileRouteTypes {
     | '/resources'
     | '/terms'
     | '/resources/dental-stocktake-checklist'
+    | '/resources/dental-supply-request-template'
     | '/resources/'
   fileRoutesById: FileRoutesById
 }
@@ -344,6 +357,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ResourcesIndexRouteImport
       parentRoute: typeof ResourcesRoute
     }
+    '/resources/dental-supply-request-template': {
+      id: '/resources/dental-supply-request-template'
+      path: '/dental-supply-request-template'
+      fullPath: '/resources/dental-supply-request-template'
+      preLoaderRoute: typeof ResourcesDentalSupplyRequestTemplateRouteImport
+      parentRoute: typeof ResourcesRoute
+    }
     '/resources/dental-stocktake-checklist': {
       id: '/resources/dental-stocktake-checklist'
       path: '/dental-stocktake-checklist'
@@ -356,12 +376,15 @@ declare module '@tanstack/react-router' {
 
 interface ResourcesRouteChildren {
   ResourcesDentalStocktakeChecklistRoute: typeof ResourcesDentalStocktakeChecklistRoute
+  ResourcesDentalSupplyRequestTemplateRoute: typeof ResourcesDentalSupplyRequestTemplateRoute
   ResourcesIndexRoute: typeof ResourcesIndexRoute
 }
 
 const ResourcesRouteChildren: ResourcesRouteChildren = {
   ResourcesDentalStocktakeChecklistRoute:
     ResourcesDentalStocktakeChecklistRoute,
+  ResourcesDentalSupplyRequestTemplateRoute:
+    ResourcesDentalSupplyRequestTemplateRoute,
   ResourcesIndexRoute: ResourcesIndexRoute,
 }
 

@@ -17,7 +17,7 @@ export const supplyRequestFaqs = [
     a: "Yes. Staff may request 3; the person responsible for ordering may buy a pack of 5. Both facts should stay on the row. The workbook does not force the two quantities to match.",
   },
   {
-    q: "Does staff need to know the supplier before requesting something?",
+    q: "Do staff need to know the supplier before requesting something?",
     a: "No. Preferred supplier is optional. A request can be recorded before anyone decides where it will be bought.",
   },
   {

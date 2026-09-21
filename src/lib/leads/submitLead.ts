@@ -6,8 +6,9 @@ import { processLead, type LeadResult } from "./processLead.ts";
  * To/From/source routing are never taken from the visitor.
  * Env/Resend/Turnstile modules are loaded inside the handler so they stay off the client bundle.
  */
-export const submitLead = createServerFn({ method: "POST" }).handler(
-  async ({ data }): Promise<LeadResult> => {
+export const submitLead = createServerFn({ method: "POST" })
+  .validator((data: unknown) => data)
+  .handler(async ({ data }): Promise<LeadResult> => {
     try {
       const [{ readLeadConfig }, { verifyTurnstileToken }, { sendResendEmail }] = await Promise.all([
         import("./env.ts"),
@@ -23,5 +24,4 @@ export const submitLead = createServerFn({ method: "POST" }).handler(
     } catch {
       return { ok: false, code: "unavailable" };
     }
-  },
-);
+  });

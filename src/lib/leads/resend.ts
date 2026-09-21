@@ -1,3 +1,5 @@
+const RESEND_TIMEOUT_MS = 12_000;
+
 export async function sendResendEmail(args: {
   apiKey: string;
   from: string;
@@ -7,6 +9,8 @@ export async function sendResendEmail(args: {
   text: string;
   html: string;
 }): Promise<{ ok: true } | { ok: false }> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), RESEND_TIMEOUT_MS);
   try {
     const response = await fetch("https://api.resend.com/emails", {
       method: "POST",
@@ -14,6 +18,7 @@ export async function sendResendEmail(args: {
         authorization: `Bearer ${args.apiKey}`,
         "content-type": "application/json",
       },
+      signal: controller.signal,
       body: JSON.stringify({
         from: args.from,
         to: [args.to],
@@ -26,5 +31,7 @@ export async function sendResendEmail(args: {
     return response.ok ? { ok: true } : { ok: false };
   } catch {
     return { ok: false };
+  } finally {
+    clearTimeout(timer);
   }
 }

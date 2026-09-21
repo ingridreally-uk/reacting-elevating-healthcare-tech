@@ -6,7 +6,14 @@ import assert from "node:assert/strict";
 import { composeLeadEmail, sanitizeHeader } from "./compose.ts";
 import { MIN_SUBMIT_MS } from "./constants.ts";
 import { readLeadConfig, readServerSecret } from "./env.ts";
-import { isHoneypotFilled, isImplausibleSubmitTime, processLead, type LeadDeps } from "./processLead.ts";
+import {
+  isHoneypotFilled,
+  isImplausibleSubmitTime,
+  processLead,
+  type LeadDeps,
+  type LeadResult,
+  type LeadResultCode,
+} from "./processLead.ts";
 import { leadInputSchema } from "./schema.ts";
 
 const now = 1_700_000_000_000;
@@ -54,46 +61,54 @@ const contact = {
   startedAt: now - 5_000,
 };
 
+function failCode(result: LeadResult): LeadResultCode {
+  assert.equal(result.ok, false);
+  if (result.ok) throw new Error("expected failure");
+  return result.code;
+}
+
 async function run() {
   assert.equal((await processLead(bookDemo, deps())).ok, true, "valid book demo");
   assert.equal((await processLead(contact, deps())).ok, true, "valid contact");
 
   assert.equal((await processLead({ ...bookDemo, email: "not-an-email" }, deps())).ok, false);
-  assert.equal((await processLead({ ...bookDemo, firstName: "" }, deps())).code, "validation");
-  assert.equal((await processLead({ ...contact, message: "" }, deps())).code, "validation");
+  assert.equal(failCode(await processLead({ ...bookDemo, firstName: "" }, deps())), "validation");
+  assert.equal(failCode(await processLead({ ...contact, message: "" }, deps())), "validation");
   assert.equal(
-    (await processLead({ ...bookDemo, firstName: "x".repeat(200) }, deps())).code,
+    failCode(await processLead({ ...bookDemo, firstName: "x".repeat(200) }, deps())),
     "validation",
   );
 
   assert.equal(isHoneypotFilled("http://spam.test"), true);
-  assert.equal((await processLead({ ...bookDemo, honeypot: "bot" }, deps())).code, "spam");
+  assert.equal(failCode(await processLead({ ...bookDemo, honeypot: "bot" }, deps())), "spam");
 
   assert.equal(isImplausibleSubmitTime(now - 10, now), true);
   assert.equal(isImplausibleSubmitTime(now - MIN_SUBMIT_MS - 1, now), false);
-  assert.equal((await processLead({ ...bookDemo, startedAt: now }, deps())).code, "spam");
+  assert.equal(failCode(await processLead({ ...bookDemo, startedAt: now }, deps())), "spam");
 
   assert.equal(
-    (await processLead(bookDemo, deps({ verifyTurnstile: async () => false }))).code,
+    failCode(await processLead(bookDemo, deps({ verifyTurnstile: async () => false }))),
     "turnstile",
   );
   assert.equal(
-    (await processLead(bookDemo, deps({ readConfig: () => ({ ok: false, missing: ["RESEND_API_KEY"] }) }))).code,
+    failCode(await processLead(bookDemo, deps({ readConfig: () => ({ ok: false, missing: ["RESEND_API_KEY"] }) }))),
     "config",
   );
   assert.equal(
-    (await processLead(
-      bookDemo,
-      deps({
-        readConfig: () => ({
-          ok: false,
-          missing: ["TURNSTILE_SECRET_KEY"],
+    failCode(
+      await processLead(
+        bookDemo,
+        deps({
+          readConfig: () => ({
+            ok: false,
+            missing: ["TURNSTILE_SECRET_KEY"],
+          }),
         }),
-      }),
-    )).code,
+      ),
+    ),
     "config",
   );
-  assert.equal((await processLead(bookDemo, deps({ sendEmail: async () => ({ ok: false }) }))).code, "delivery");
+  assert.equal(failCode(await processLead(bookDemo, deps({ sendEmail: async () => ({ ok: false }) }))), "delivery");
 
   const names = ["RESEND_API_KEY", "LEAD_FROM", "LEAD_TO", "TURNSTILE_SECRET_KEY"] as const;
   const previousProcess = Object.fromEntries(names.map((name) => [name, process.env[name]]));
@@ -146,7 +161,7 @@ async function run() {
       },
     }),
   );
-  assert.equal(blocked.code, "config");
+  assert.equal(failCode(blocked), "config");
   assert.equal(configBlocked, false);
 
   const order: string[] = [];

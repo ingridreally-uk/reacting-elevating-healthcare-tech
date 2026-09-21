@@ -37,9 +37,40 @@ async function normalizeCatastrophicSsrResponse(response: Response): Promise<Res
   });
 }
 
+const APEX_HOST = "reacting.io";
+const CANONICAL_HOST = "www.reacting.io";
+
+function canonicalHostRedirect(request: Request): Response | null {
+  const incoming = new URL(request.url);
+  const host = (request.headers.get("host") ?? incoming.hostname)
+    .split(":")[0]
+    .toLowerCase();
+
+  const isApex = host === APEX_HOST;
+  const isLegacyDe = incoming.pathname === "/de" || incoming.pathname === "/de/";
+
+  if (!isApex && !isLegacyDe) return null;
+
+  const dest = new URL(incoming.href);
+  if (isApex) {
+    dest.protocol = "https:";
+    dest.hostname = CANONICAL_HOST;
+    dest.port = "";
+  }
+  if (isLegacyDe) {
+    dest.pathname = "/";
+  }
+
+  if (dest.href === incoming.href) return null;
+  return Response.redirect(dest.href, 301);
+}
+
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
+      const redirected = canonicalHostRedirect(request);
+      if (redirected) return redirected;
+
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
       return await normalizeCatastrophicSsrResponse(response);

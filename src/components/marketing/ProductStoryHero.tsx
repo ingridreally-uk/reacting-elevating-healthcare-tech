@@ -3,15 +3,12 @@ import { useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 /**
- * Product hero story — four authentic Dental Assist screens in one stable frame.
+ * Product hero story — four current Dental Assist screens in one stable frame.
  *
- * Each scene declares a complete content rectangle in source pixels (1920×1080).
- * That rectangle is clipped and contain-fitted into a small-gutter stage so the
- * product UI occupies the media frame. Images are never stretched.
+ * Each scene image is already the prepared crop. Desktop shows that full crop.
+ * The comparison scene uses a tighter mobile rectangle so the price rows stay readable.
+ * Images are never stretched.
  */
-const SRC_W = 1920;
-const SRC_H = 1080;
-
 const SCENE_MS = 3600;
 const FADE_MS = 700;
 
@@ -21,52 +18,58 @@ type Scene = {
   id: string;
   src: string;
   alt: string;
+  srcW: number;
+  srcH: number;
   desktop: Rect;
   mobile: Rect;
   /** Presentation only. `weight` uses a tighter well so a wide plate sits larger. */
   well?: "default" | "weight";
 };
 
+function full(w: number, h: number): Rect {
+  return { x: 0, y: 0, w, h };
+}
+
 export const PRODUCT_STORY_SCENES: Scene[] = [
   {
     id: "overview",
     src: "/product-story/01-dashboard.png",
-    alt: "Dental Assist overview — inventory value, stock risk, needs action and actions required",
-    // Inventory / Stock risk / Needs action + complete Actions required.
-    // Ends in the gap before Low stock / About to expire. Budget stays out.
-    desktop: { x: 939, y: 108, w: 949, h: 586 },
-    mobile: { x: 939, y: 108, w: 949, h: 586 },
+    alt: "Dental Assist dashboard — saved this month, spend, inventory value, stock attention, budget and spend trend",
+    srcW: 1610,
+    srcH: 548,
+    desktop: full(1610, 548),
+    mobile: full(1610, 548),
   },
   {
-    id: "stock-risk",
-    src: "/product-story/02-low-stock-detail.png",
-    alt: "DEHP Gloves stock item — critically low, current stock 0, min level 1 and RFQ 700",
-    // Inside the drawer. Name through Stock Status and complete RFQ #700.
-    // #437 stays below this rectangle.
-    desktop: { x: 704, y: 12, w: 1216, h: 778 },
-    // Name + Critically Low + Current Stock 0 + Min Level 1 + complete #700.
-    mobile: { x: 704, y: 12, w: 980, h: 770 },
+    id: "attention",
+    src: "/product-story/02-attention.png",
+    alt: "Dental Assist Attention — Expiring materials with Add to request",
+    srcW: 1632,
+    srcH: 900,
+    desktop: full(1632, 900),
+    mobile: full(1632, 900),
   },
   {
     id: "decision",
-    src: "/product-story/03-supplier-comparison.png",
-    alt: "Supplier comparison — selected quotes, savings badges, order selection and order summary",
-    // Table from the main panel edge. RFQ title stays above.
-    // Order selection complete. Summary through Saved vs last purchase;
-    // source itself clips Order total, so that row is excluded.
-    desktop: { x: 291, y: 268, w: 1597, h: 768 },
-    // Three comparison rows, both suppliers, savings. Ends in the gap before Order cards.
-    mobile: { x: 291, y: 268, w: 1020, h: 468 },
+    src: "/product-story/03-purchasing-compare.png",
+    alt: "Purchasing comparison — selected supplier quotes, money saved, order summary and budget impact",
+    srcW: 1648,
+    srcH: 1408,
+    // Story frame is 16/10. This rectangle keeps the price rows, selected quotes,
+    // money saved and order total inside that frame. Budget impact is shown in full
+    // on the procurement comparison.
+    desktop: { x: 0, y: 0, w: 1648, h: 860 },
+    mobile: { x: 0, y: 0, w: 1648, h: 520 },
     well: "weight",
   },
   {
     id: "receive",
-    src: "/product-story/04-order-523.png",
-    alt: "Receive order 523 — arriving quantities, closed stock locations and delivery confirmation",
-    // Closed-dropdown modal. Thin dim only — white receive UI fills the frame.
-    desktop: { x: 206, y: 148, w: 1506, h: 764 },
-    // Heading, arriving-row badges, receiving fields, complete checkbox.
-    mobile: { x: 210, y: 150, w: 1280, h: 780 },
+    src: "/product-story/04-receive-order.png",
+    alt: "Receive order 543 — arriving quantity, follow-up quantity, stock location and expiry",
+    srcW: 1490,
+    srcH: 655,
+    desktop: full(1490, 655),
+    mobile: full(1490, 655),
     well: "weight",
   },
 ];
@@ -76,11 +79,11 @@ const WELL_DEFAULT =
 const WELL_WEIGHT =
   "@container absolute inset-x-1.5 top-2 bottom-4 overflow-hidden lg:inset-x-2 lg:top-2.5 lg:bottom-5";
 
-function plateVars(rect: Rect, prefix: "d" | "m"): Record<string, string> {
+function plateVars(rect: Rect, prefix: "d" | "m", srcW: number, srcH: number): Record<string, string> {
   return {
     [`--story-${prefix}-ar`]: `${rect.w} / ${rect.h}`,
     [`--story-${prefix}-fitw`]: `min(100%, calc(${rect.w / rect.h} * 100cqh))`,
-    [`--story-${prefix}-iw`]: `${(SRC_W / rect.w) * 100}%`,
+    [`--story-${prefix}-iw`]: `${(srcW / rect.w) * 100}%`,
     [`--story-${prefix}-il`]: `${(-rect.x / rect.w) * 100}%`,
     [`--story-${prefix}-it`]: `${(-rect.y / rect.h) * 100}%`,
   };
@@ -151,8 +154,8 @@ export function ProductStoryHero() {
                 animate && "motion-safe:transition-opacity motion-reduce:transition-none",
               )}
               style={{
-                ...plateVars(scene.desktop, "d"),
-                ...plateVars(scene.mobile, "m"),
+                ...plateVars(scene.desktop, "d", scene.srcW, scene.srcH),
+                ...plateVars(scene.mobile, "m", scene.srcW, scene.srcH),
                 opacity: visible ? 1 : 0,
                 transitionDuration: animate ? `${FADE_MS}ms` : "0ms",
                 transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
@@ -161,8 +164,8 @@ export function ProductStoryHero() {
               <img
                 src={scene.src}
                 alt={visible ? scene.alt : ""}
-                width={SRC_W}
-                height={SRC_H}
+                width={scene.srcW}
+                height={scene.srcH}
                 draggable={false}
                 loading="eager"
                 decoding="async"

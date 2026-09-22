@@ -24,17 +24,17 @@ const STOCK_MATCHES = {
 } as const;
 
 const OWNER_OVERVIEW = {
-  desktop: "/product-screens/mkt-owner-overview.webp",
-  mobile: "/product-screens/mkt-owner-overview-mobile.webp",
-  desktopAspect: "1648 / 986",
-  mobileAspect: "1008 / 508",
+  desktop: "/product-screens/mkt-dash-current.webp",
+  mobile: "/product-screens/mkt-dash-current-mobile.webp",
+  desktopAspect: "1588 / 562",
+  mobileAspect: "1588 / 562",
 } as const;
 
-const RFQ_COMPARISON = {
-  desktop: "/product-screens/mkt-rfq-comparison.webp",
-  mobile: "/product-screens/mkt-rfq-comparison-mobile.webp",
-  desktopAspect: "1640 / 548",
-  mobileAspect: "1240 / 276",
+const PURCHASING_RESPONSES = {
+  desktop: "/product-screens/mkt-purchasing-responses.webp",
+  mobile: "/product-screens/mkt-purchasing-responses.webp",
+  desktopAspect: "1636 / 790",
+  mobileAspect: "1636 / 790",
 } as const;
 
 type Stage = {
@@ -359,22 +359,22 @@ function DentalStockManagementPage() {
             </h3>
 
             <div className="[grid-area:proof] mx-auto w-full max-w-[1000px] overflow-hidden">
-              <ProductFrame label="app.reacting.io / rfqs" className="w-full">
+              <ProductFrame label="Purchasing" className="w-full">
                 <div className="lg:hidden">
                   <MediaViewer
-                    imageSrc={RFQ_COMPARISON.mobile}
-                    alt="Dental Assist supplier-quote comparison with itemised quotes and budget impact"
+                    imageSrc={PURCHASING_RESPONSES.mobile}
+                    alt="Dental Assist purchasing responses before selection — supplier prices and no items selected"
                     objectFit="contain"
-                    aspectRatio={RFQ_COMPARISON.mobileAspect}
+                    aspectRatio={PURCHASING_RESPONSES.mobileAspect}
                     priority
                   />
                 </div>
                 <div className="hidden lg:block">
                   <MediaViewer
-                    imageSrc={RFQ_COMPARISON.desktop}
-                    alt="Dental Assist supplier-quote comparison with itemised quotes and budget impact"
+                    imageSrc={PURCHASING_RESPONSES.desktop}
+                    alt="Dental Assist purchasing responses before selection — supplier prices and no items selected"
                     objectFit="contain"
-                    aspectRatio={RFQ_COMPARISON.desktopAspect}
+                    aspectRatio={PURCHASING_RESPONSES.desktopAspect}
                     priority
                   />
                 </div>

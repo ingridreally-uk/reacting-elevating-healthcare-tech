@@ -10,15 +10,15 @@ export const PRODUCT_TOUR_VIDEO = "/product-screens/product-tour.mp4";
 export const PRODUCT_TOUR_POSTER = "/product-screens/product-tour-poster.jpg";
 
 /**
- * Homepage hero only — tight, identity-safe crops of the cleaned dashboard.
- * Edge-filled (no letterbox slate). Not used by Product / Features / DayInPractice.
+ * Homepage hero only — newest dashboard crop.
+ * Stock solution keeps mkt-dash-current. Not used by Product / Features / DayInPractice.
  */
 export const HERO_DASHBOARD = {
-  desktop: "/product-screens/mkt-hero-dashboard.webp",
-  mobile: "/product-screens/mkt-hero-dashboard-mobile.webp",
+  desktop: "/product-screens/mkt-dash-newest.webp",
+  mobile: "/product-screens/mkt-dash-newest.webp",
   /** Native prepared ratios — MediaViewer contain, no runtime scale. */
-  desktopAspect: "1683 / 831",
-  mobileAspect: "1010 / 582",
+  desktopAspect: "1610 / 882",
+  mobileAspect: "1610 / 882",
 } as const;
 
 /**

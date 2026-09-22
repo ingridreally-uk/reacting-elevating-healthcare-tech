@@ -16,22 +16,32 @@ const PAGE_TITLE = "Dental Procurement Software for Dental Practices | Dental As
 const PAGE_DESCRIPTION =
   "Compare dental supplier quotes, see previous price context and manage purchasing, orders and receiving in one workflow. Dental Assist works alongside your practice-management system.";
 
-const DECISION_PROOF = {
-  desktop: "/product-screens/mkt-dip-decision.png",
-  mobile: "/product-screens/mkt-dip-decision-mobile.webp",
-  desktopAspect: "1284 / 834",
-  mobileAspect: "1098 / 987",
+const REQUEST_PROOF = {
+  desktop: "/product-screens/mkt-purchasing-request.webp",
+  mobile: "/product-screens/mkt-purchasing-request.webp",
+  desktopAspect: "1648 / 744",
+  mobileAspect: "1648 / 744",
 } as const;
 
-/** Desktop hero: keep the 1.32 width, clip after the Order Total panel. */
-const HERO_PROOF_WIDTH_SCALE = 1.32;
-const HERO_PROOF_CROP_ASPECT = `${Math.round(1284 / HERO_PROOF_WIDTH_SCALE)} / 742`;
+const COMPARE_PROOF = {
+  desktop: "/product-screens/mkt-purchasing-compare.webp",
+  mobile: "/product-screens/mkt-purchasing-compare.webp",
+  desktopAspect: "1648 / 1408",
+  mobileAspect: "1648 / 1408",
+} as const;
 
 const ORDER_PROOF = {
-  desktop: "/product-screens/mkt-dip-order.png",
-  mobile: "/product-screens/mkt-dip-order-mobile.webp",
-  desktopAspect: "1350 / 632",
-  mobileAspect: "1128 / 632",
+  desktop: "/product-screens/mkt-order-543.webp",
+  mobile: "/product-screens/mkt-order-543.webp",
+  desktopAspect: "1640 / 744",
+  mobileAspect: "1640 / 744",
+} as const;
+
+const RECEIVE_PROOF = {
+  desktop: "/product-screens/mkt-receive-543.webp",
+  mobile: "/product-screens/mkt-receive-543.webp",
+  desktopAspect: "1490 / 655",
+  mobileAspect: "1490 / 655",
 } as const;
 
 const SHELL = "mx-auto max-w-[1200px] px-6 lg:px-10";
@@ -148,39 +158,24 @@ function DentalProcurementSoftwarePage() {
             </div>
 
             <div className="min-w-0 xl:w-[calc(100%+1.25rem)]">
-              <ProductFrame label="app.reacting.io / rfqs" emphasis="hero" className="w-full">
+              <ProductFrame label="Purchasing" emphasis="hero" className="w-full">
                 <div className="lg:hidden">
                   <MediaViewer
-                    imageSrc={DECISION_PROOF.mobile}
-                    alt="Dental Assist supplier comparison showing Ashcombe and Blackthorn quotes, selected Blackthorn prices and visible savings"
-                    objectFit="cover"
-                    objectPosition="left top"
-                    aspectRatio="16 / 10"
-                    scale={1.08}
+                    imageSrc={REQUEST_PROOF.mobile}
+                    alt="Dental Assist purchasing request 748 — items being requested, previous prices and Send for quote"
+                    objectFit="contain"
+                    aspectRatio={REQUEST_PROOF.mobileAspect}
                     priority
                   />
                 </div>
                 <div className="hidden lg:block">
-                  <div
-                    className="relative w-full overflow-hidden bg-[#F1F5F9]"
-                    style={{ aspectRatio: HERO_PROOF_CROP_ASPECT }}
-                  >
-                    <img
-                      src={DECISION_PROOF.desktop}
-                      alt="Dental Assist supplier comparison showing Ashcombe and Blackthorn quotes, selected Blackthorn prices and visible savings"
-                      width={1284}
-                      height={834}
-                      loading="eager"
-                      decoding="async"
-                      fetchPriority="high"
-                      draggable={false}
-                      className="block h-auto max-w-none"
-                      style={{
-                        width: `${HERO_PROOF_WIDTH_SCALE * 100}%`,
-                        aspectRatio: DECISION_PROOF.desktopAspect,
-                      }}
-                    />
-                  </div>
+                  <MediaViewer
+                    imageSrc={REQUEST_PROOF.desktop}
+                    alt="Dental Assist purchasing request 748 — items being requested, previous prices and Send for quote"
+                    objectFit="contain"
+                    aspectRatio={REQUEST_PROOF.desktopAspect}
+                    priority
+                  />
                 </div>
               </ProductFrame>
             </div>
@@ -225,21 +220,21 @@ function DentalProcurementSoftwarePage() {
           </div>
 
           <div className="min-w-0 overflow-hidden">
-            <ProductFrame label="app.reacting.io / rfqs" className="w-full">
+            <ProductFrame label="Purchasing" className="w-full">
               <div className="md:hidden">
                 <MediaViewer
-                  imageSrc={DECISION_PROOF.mobile}
-                  alt="Dental Assist supplier comparison showing Ashcombe and Blackthorn quotes side by side, selected Blackthorn lines, order summary and budget impact"
+                  imageSrc={COMPARE_PROOF.mobile}
+                  alt="Dental Assist purchasing comparison — selected supplier quotes, money saved, order summary and budget impact"
                   objectFit="contain"
-                  aspectRatio={DECISION_PROOF.mobileAspect}
+                  aspectRatio={COMPARE_PROOF.mobileAspect}
                 />
               </div>
               <div className="hidden md:block">
                 <MediaViewer
-                  imageSrc={DECISION_PROOF.desktop}
-                  alt="Dental Assist supplier comparison showing Ashcombe and Blackthorn quotes side by side, selected Blackthorn lines, order summary and budget impact"
+                  imageSrc={COMPARE_PROOF.desktop}
+                  alt="Dental Assist purchasing comparison — selected supplier quotes, money saved, order summary and budget impact"
                   objectFit="contain"
-                  aspectRatio={DECISION_PROOF.desktopAspect}
+                  aspectRatio={COMPARE_PROOF.desktopAspect}
                 />
               </div>
             </ProductFrame>
@@ -328,20 +323,19 @@ function DentalProcurementSoftwarePage() {
             </p>
           </div>
           <div className="min-w-0 overflow-hidden">
-            <ProductFrame label="app.reacting.io / orders" className="w-full">
+            <ProductFrame label="Orders" className="w-full">
               <div className="md:hidden">
                 <MediaViewer
                   imageSrc={ORDER_PROOF.mobile}
-                  alt="Dental Assist Purchase Orders showing spend this month, active order value, Waiting orders from Blackthorn and Ashcombe, and Create Order"
-                  objectFit="cover"
-                  objectPosition="center top"
-                  aspectRatio="16 / 10"
+                  alt="Dental Assist order 543 — Waiting, Reacting Dental Supplies, items and total"
+                  objectFit="contain"
+                  aspectRatio={ORDER_PROOF.mobileAspect}
                 />
               </div>
               <div className="hidden md:block">
                 <MediaViewer
                   imageSrc={ORDER_PROOF.desktop}
-                  alt="Dental Assist Purchase Orders showing spend this month, active order value, Waiting orders from Blackthorn and Ashcombe, and Create Order"
+                  alt="Dental Assist order 543 — Waiting, Reacting Dental Supplies, items and total"
                   objectFit="contain"
                   aspectRatio={ORDER_PROOF.desktopAspect}
                 />
@@ -363,19 +357,16 @@ function DentalProcurementSoftwarePage() {
               information and keep visibility of quantities that still need follow-up.
             </p>
           </div>
-          <aside className="min-w-0 border-l-2 border-accent bg-[#F4F7FA] px-4 py-4 sm:px-5">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[oklch(0.4_0.08_260)]">
-              Purchasing visibility
-            </p>
-            <p className="mt-2 text-[18px] font-semibold leading-[1.2] tracking-[-0.02em] text-foreground sm:text-[20px]">
-              See where purchasing is going without reconstructing it later.
-            </p>
-            <p className={cn("mt-3", mktType.body)}>
-              Requests, supplier decisions, orders and spend create an operational history. That
-              gives owners and managers a clearer view of purchasing activity without waiting for
-              someone to manually rebuild the picture.
-            </p>
-          </aside>
+          <div className="min-w-0">
+            <ProductFrame label="Orders" className="w-full">
+              <MediaViewer
+                imageSrc={RECEIVE_PROOF.desktop}
+                alt="Receive order 543 — arriving quantity, follow-up quantity, stock location and expiry"
+                objectFit="contain"
+                aspectRatio={RECEIVE_PROOF.desktopAspect}
+              />
+            </ProductFrame>
+          </div>
         </div>
       </section>
 

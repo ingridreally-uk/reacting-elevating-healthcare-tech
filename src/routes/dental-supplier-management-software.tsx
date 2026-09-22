@@ -16,15 +16,16 @@ const PAGE_TITLE = "Dental Supplier Management Software | Dental Assist";
 const PAGE_DESCRIPTION =
   "Keep the dental suppliers your practice already uses in one directory — contacts and purchase history together. Dental Assist works alongside your practice-management system.";
 
-const VENDOR_RECORD = {
-  src: "/product-screens/mkt-vendor-detail.webp",
-  aspect: "1324 / 969",
-  alt: "Dental Assist supplier record for Blackthorn — contact details, Active status, and purchase history with waiting and completed orders",
+const SUPPLIER_RECORD = {
+  src: "/product-screens/mkt-supplier-detail.webp",
+  aspect: "1600 / 956",
+  alt: "Dental Assist supplier record for Ashcombe Dental Supply Co. — contact details, Active status and purchase history",
 } as const;
 
-const VENDOR_DIRECTORY = {
-  src: "/product-screens/mkt-suppliers.webp",
-  alt: "Dental Assist Vendors directory showing existing suppliers with contact names, email addresses and Active status",
+const SUPPLIER_DIRECTORY = {
+  src: "/product-screens/mkt-suppliers-current.webp",
+  aspect: "1620 / 800",
+  alt: "Dental Assist Suppliers directory — supplier names, contacts, email and Active status",
 } as const;
 
 const SHELL = "mx-auto max-w-[1180px] px-6 lg:px-10";
@@ -57,7 +58,7 @@ export const Route = createFileRoute("/dental-supplier-management-software")({
       title: PAGE_TITLE,
       description: PAGE_DESCRIPTION,
       path: "/dental-supplier-management-software",
-      imageAlt: VENDOR_RECORD.alt,
+      imageAlt: SUPPLIER_RECORD.alt,
     });
     return {
       ...base,
@@ -66,7 +67,7 @@ export const Route = createFileRoute("/dental-supplier-management-software")({
         {
           rel: "preload",
           as: "image",
-          href: VENDOR_RECORD.src,
+          href: SUPPLIER_RECORD.src,
           type: "image/webp",
         },
       ],
@@ -139,15 +140,15 @@ function DentalSupplierManagementPage() {
             <div className="min-w-0">
               <ProductFrame emphasis="photograph" className="w-full">
                 <MediaViewer
-                  imageSrc={VENDOR_RECORD.src}
-                  alt={VENDOR_RECORD.alt}
+                  imageSrc={SUPPLIER_RECORD.src}
+                  alt={SUPPLIER_RECORD.alt}
                   objectFit="contain"
-                  aspectRatio={VENDOR_RECORD.aspect}
+                  aspectRatio={SUPPLIER_RECORD.aspect}
                   priority
                 />
               </ProductFrame>
               <p className="mt-2.5 text-[12px] leading-[1.45] text-muted-foreground">
-                app.reacting.io / vendors — supplier record and purchase history
+                app.reacting.io / suppliers — supplier record and purchase history
               </p>
             </div>
           </div>
@@ -167,26 +168,13 @@ function DentalSupplierManagementPage() {
             </p>
           </div>
           <div className="mt-5 overflow-hidden rounded-2xl border border-black/[0.06] bg-[#F7FAF8] shadow-[0_18px_48px_-24px_rgba(11,43,40,0.2),0_2px_8px_-4px_rgba(11,43,40,0.08)]">
-            <div className="lg:hidden">
-              <MediaViewer
-                imageSrc={VENDOR_DIRECTORY.src}
-                alt={VENDOR_DIRECTORY.alt}
-                objectFit="cover"
-                objectPosition="14% 7%"
-                aspectRatio="1.38 / 1"
-                scale={1.3}
-              />
-            </div>
-            <div className="hidden lg:block">
-              <MediaViewer
-                imageSrc={VENDOR_DIRECTORY.src}
-                alt={VENDOR_DIRECTORY.alt}
-                objectFit="cover"
-                objectPosition="36% 4%"
-                aspectRatio="2.9 / 1"
-                scale={1.16}
-              />
-            </div>
+            <MediaViewer
+              imageSrc={SUPPLIER_DIRECTORY.src}
+              alt={SUPPLIER_DIRECTORY.alt}
+              objectFit="contain"
+              objectPosition="center"
+              aspectRatio={SUPPLIER_DIRECTORY.aspect}
+            />
           </div>
         </div>
       </section>

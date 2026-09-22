@@ -82,7 +82,7 @@ export function MarketingHero() {
                 <div className="lg:hidden">
                   <MediaViewer
                     imageSrc={HERO_DASHBOARD.mobile}
-                    alt="Dental Assist actions required — stockouts, audits and supplier quotes needing attention"
+                    alt="Dental Assist dashboard — saved this month, spend, inventory value, stock attention, budget and purchasing workload"
                     priority
                     objectFit="contain"
                     aspectRatio={HERO_DASHBOARD.mobileAspect}
@@ -91,7 +91,7 @@ export function MarketingHero() {
                 <div className="hidden lg:block">
                   <MediaViewer
                     imageSrc={HERO_DASHBOARD.desktop}
-                    alt="Dental Assist dashboard showing stock risk, purchasing queue, spend and actions required"
+                    alt="Dental Assist dashboard — saved this month, spend, inventory value, stock attention, budget and purchasing workload"
                     priority
                     objectFit="contain"
                     aspectRatio={HERO_DASHBOARD.desktopAspect}

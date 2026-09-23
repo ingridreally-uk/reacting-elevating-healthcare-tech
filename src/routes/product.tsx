@@ -63,15 +63,15 @@ type ExplorerItem = {
   body: string;
   evidence?: string;
   src: string;
+  mobileSrc: string;
   alt: string;
   url: string;
   stage: Stage;
+  /** Proof width follows the crop. Portrait drawers stay narrow. */
+  mediaClass: string;
 };
 
-/** Shared proof window ~610 × 381. Crops differ per source. */
-const EXPLORER_PROOF_AR = "16 / 10";
-const HERO_MEDIA = "w-full max-w-[620px]";
-const PROOF_MEDIA = "w-full max-w-[610px]";
+const HERO_MEDIA = "mx-auto w-full max-w-[62.5rem]";
 
 const explorerItems: ExplorerItem[] = [
   {
@@ -80,17 +80,19 @@ const explorerItems: ExplorerItem[] = [
     label: "Inventory",
     title: "Know what needs attention.",
     body: "See low stock, expiry and purchasing status in one operational view.",
-    src: "/product-screens/mkt-stock-attention-drawer.webp",
+    src: "/product-screens/proof-explorer-inventory.png",
+    mobileSrc: "/product-screens/proof-explorer-inventory.png",
     alt: "Dental Assist stock attention — 111 items, out of stock, below reorder, expiry and purchasing status",
     url: "Attention",
+    mediaClass: "mx-auto w-full max-w-[23.625rem] lg:ml-0",
     stage: {
       objectFit: "contain",
       objectPosition: "center",
-      aspectRatio: "680 / 1080",
+      aspectRatio: "680 / 800",
       scale: 1,
       desktopObjectFit: "contain",
       desktopObjectPosition: "center",
-      desktopAspectRatio: "680 / 1080",
+      desktopAspectRatio: "680 / 800",
     },
   },
   {
@@ -99,9 +101,11 @@ const explorerItems: ExplorerItem[] = [
     label: "Suppliers",
     title: "Supplier details and purchase history, together.",
     body: "Contacts, account details and order history in one supplier record.",
-    src: "/product-screens/mkt-supplier-detail.webp",
+    src: "/product-screens/proof-explorer-suppliers.png",
+    mobileSrc: "/product-screens/proof-explorer-suppliers.png",
     alt: "Dental Assist supplier record for Ashcombe Dental Supply Co. — contact details, Active status and purchase history",
     url: "Suppliers",
+    mediaClass: "mx-auto w-full max-w-[44rem] lg:ml-0",
     stage: {
       objectFit: "contain",
       objectPosition: "center",
@@ -118,17 +122,19 @@ const explorerItems: ExplorerItem[] = [
     label: "Expiry",
     title: "Risk you can still act on.",
     body: "See near-expiry and expired materials clearly, so the team can act sooner and manage write-offs.",
-    src: "/product-screens/mkt-attention-expiring.webp",
+    src: "/product-story/proof-attention.png",
+    mobileSrc: "/product-story/proof-attention-m.png",
     alt: "Dental Assist Attention — Expiring materials with Add to request",
     url: "Attention",
+    mediaClass: "mx-auto w-full max-w-[24.375rem] lg:ml-0 lg:max-w-[41.25rem]",
     stage: {
       objectFit: "contain",
       objectPosition: "center",
-      aspectRatio: "1632 / 900",
+      aspectRatio: "780 / 668",
       scale: 1,
       desktopObjectFit: "contain",
       desktopObjectPosition: "center",
-      desktopAspectRatio: "1632 / 900",
+      desktopAspectRatio: "1320 / 668",
     },
   },
   {
@@ -138,47 +144,27 @@ const explorerItems: ExplorerItem[] = [
     title: "Stock value, usage and cover at a glance.",
     body: "See stock value, usage trends and estimated cover without rebuilding spreadsheets.",
     evidence: "Stock Reports from the live product.",
-    src: "/product-screens/mkt-stock-reports-crop.webp",
-    alt: "Dental Assist Stock Reports — current stock value, usage trend, highest-value items and unused stock",
+    src: "/product-screens/proof-explorer-insights.png",
+    mobileSrc: "/product-screens/proof-explorer-insights.png",
+    alt: "Dental Assist Stock Reports — current stock value, recent usage, average usage, estimated cover and usage trend",
     url: "app.reacting.io / stock-reports",
+    mediaClass: "mx-auto w-full max-w-[39.5rem] lg:ml-0",
     stage: {
-      objectFit: "cover",
-      objectPosition: "center top",
-      aspectRatio: EXPLORER_PROOF_AR,
+      objectFit: "contain",
+      objectPosition: "center",
+      aspectRatio: "1301 / 820",
       scale: 1,
-      desktopObjectFit: "cover",
-      desktopObjectPosition: "center top",
-      desktopAspectRatio: EXPLORER_PROOF_AR,
+      desktopObjectFit: "contain",
+      desktopObjectPosition: "center",
+      desktopAspectRatio: "1301 / 820",
     },
   },
 ];
 
 function ProductPage() {
   const [active, setActive] = useState(0);
-  const [isDesktopFrame, setIsDesktopFrame] = useState(false);
   const activeTabRef = useRef<HTMLButtonElement | null>(null);
   const item = explorerItems[active] ?? explorerItems[0];
-  const frameScale =
-    isDesktopFrame && item.stage.desktopScale != null
-      ? item.stage.desktopScale
-      : item.stage.scale;
-  const framePosition = isDesktopFrame
-    ? (item.stage.desktopObjectPosition ?? item.stage.objectPosition)
-    : item.stage.objectPosition;
-  const frameFit = isDesktopFrame
-    ? (item.stage.desktopObjectFit ?? item.stage.objectFit)
-    : item.stage.objectFit;
-  const frameAspect = isDesktopFrame
-    ? (item.stage.desktopAspectRatio ?? item.stage.aspectRatio)
-    : item.stage.aspectRatio;
-
-  useEffect(() => {
-    const mq = window.matchMedia("(min-width: 1024px)");
-    const sync = () => setIsDesktopFrame(mq.matches);
-    sync();
-    mq.addEventListener("change", sync);
-    return () => mq.removeEventListener("change", sync);
-  }, []);
 
   const didMountExplorer = useRef(false);
   useEffect(() => {
@@ -197,7 +183,7 @@ function ProductPage() {
     <SiteShell>
       <section className="border-b border-border/60 bg-background">
         <div className="mx-auto max-w-[1280px] px-6 pb-10 pt-20 lg:px-10 lg:pb-10 lg:pt-20">
-          <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,0.44fr)_minmax(0,0.56fr)] lg:gap-10">
+          <div className="max-w-xl">
             <div className="min-w-0 text-left">
               <div className="text-[12px] font-medium uppercase tracking-[0.18em] text-accent">
                 Dental Assist
@@ -224,14 +210,15 @@ function ProductPage() {
               </div>
             </div>
 
-            <div className={cn(HERO_MEDIA, "min-w-0 overflow-hidden lg:justify-self-start")}>
-              <ProductFrame
-                label="app.reacting.io / dental assist"
-                className="w-full"
-              >
-                <ProductStoryHero />
-              </ProductFrame>
-            </div>
+          </div>
+
+          <div className={cn(HERO_MEDIA, "mt-8 min-w-0")}>
+            <ProductFrame
+              label="app.reacting.io / dental assist"
+              className="w-full"
+            >
+              <ProductStoryHero />
+            </ProductFrame>
           </div>
 
           <div
@@ -291,7 +278,7 @@ function ProductPage() {
         className="border-b border-border/60 bg-background"
       >
         <div className="mx-auto max-w-[1200px] px-3.5 pb-10 pt-0 sm:px-6 lg:px-10">
-          <div className="mx-auto w-full max-w-[962px]">
+          <div className="mx-auto w-full">
           <div className="max-w-xl">
             <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
               Product explorer
@@ -338,9 +325,9 @@ function ProductPage() {
             id="product-explorer-panel"
             role="tabpanel"
             aria-labelledby={`explorer-tab-${item.id}`}
-            className="mt-7 grid w-full items-start gap-8 lg:grid-cols-[20rem_minmax(0,38.125rem)] lg:gap-8"
+            className="mt-7 grid w-full items-start gap-8 lg:min-h-[30rem] lg:grid-cols-[minmax(0,20rem)_minmax(0,1fr)] lg:gap-10"
           >
-            <div className="min-w-0 lg:max-w-[20rem]">
+            <div className="min-w-0 max-w-xl lg:max-w-none">
               <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
                 {item.label}
               </div>
@@ -357,16 +344,28 @@ function ProductPage() {
               ) : null}
             </div>
 
-            <div className={cn(PROOF_MEDIA, "min-w-0 overflow-hidden")}>
+            <div className={cn(item.mediaClass, "min-w-0")}>
               <ProductFrame label={item.url} className="w-full">
-                <MediaViewer
-                  imageSrc={item.src}
-                  alt={item.alt}
-                  objectFit={frameFit}
-                  objectPosition={framePosition}
-                  aspectRatio={frameAspect}
-                  scale={frameScale}
-                />
+                <div className="lg:hidden">
+                  <MediaViewer
+                    imageSrc={item.mobileSrc}
+                    alt={item.alt}
+                    objectFit={item.stage.objectFit}
+                    objectPosition={item.stage.objectPosition}
+                    aspectRatio={item.stage.aspectRatio}
+                    scale={item.stage.scale}
+                  />
+                </div>
+                <div className="hidden lg:block">
+                  <MediaViewer
+                    imageSrc={item.src}
+                    alt={item.alt}
+                    objectFit={item.stage.desktopObjectFit ?? item.stage.objectFit}
+                    objectPosition={item.stage.desktopObjectPosition ?? item.stage.objectPosition}
+                    aspectRatio={item.stage.desktopAspectRatio ?? item.stage.aspectRatio}
+                    scale={item.stage.desktopScale ?? item.stage.scale}
+                  />
+                </div>
               </ProductFrame>
             </div>
           </div>

@@ -24,17 +24,17 @@ const REQUEST_PROOF = {
 } as const;
 
 const COMPARE_PROOF = {
-  desktop: "/product-screens/mkt-purchasing-compare.webp",
-  mobile: "/product-screens/mkt-purchasing-compare.webp",
-  desktopAspect: "1648 / 1408",
-  mobileAspect: "1648 / 1408",
+  desktop: "/product-story/art-compare-rows.png",
+  mobile: "/product-story/art-compare-prices.png",
+  desktopAspect: "1248 / 384",
+  mobileAspect: "628 / 392",
 } as const;
 
 const ORDER_PROOF = {
-  desktop: "/product-screens/mkt-order-543.webp",
-  mobile: "/product-screens/mkt-order-543.webp",
-  desktopAspect: "1640 / 744",
-  mobileAspect: "1640 / 744",
+  desktop: "/product-screens/art-manager-order.png",
+  mobile: "/product-screens/art-manager-order-m.png",
+  desktopAspect: "1640 / 712",
+  mobileAspect: "1000 / 712",
 } as const;
 
 const RECEIVE_PROOF = {
@@ -191,13 +191,8 @@ function DentalProcurementSoftwarePage() {
         aria-labelledby="compare-heading"
         className="border-t border-border/40 bg-[#F4F7FA]"
       >
-        <div
-          className={cn(
-            SHELL,
-            "grid items-start gap-6 py-8 lg:grid-cols-[minmax(0,0.38fr)_minmax(0,0.62fr)] lg:items-center lg:gap-10 lg:py-9 xl:gap-12",
-          )}
-        >
-          <div className="min-w-0">
+        <div className={cn(SHELL, "py-8 lg:py-9")}>
+          <div className="min-w-0 max-w-xl">
             <p className={layout.eyebrow}>Compare before you commit</p>
             <h2 id="compare-heading" className={cn("mt-2.5 max-w-[16ch]", layout.h2)}>
               See the difference before you place the order.
@@ -219,12 +214,12 @@ function DentalProcurementSoftwarePage() {
             </div>
           </div>
 
-          <div className="min-w-0 overflow-hidden">
+          <div className="mt-6 min-w-0">
             <ProductFrame label="Purchasing" className="w-full">
               <div className="md:hidden">
                 <MediaViewer
                   imageSrc={COMPARE_PROOF.mobile}
-                  alt="Dental Assist purchasing comparison — selected supplier quotes, money saved, order summary and budget impact"
+                  alt="Purchasing comparison — Reacting Dental Supplies and Kent Express prices, with the selected quote on each row"
                   objectFit="contain"
                   aspectRatio={COMPARE_PROOF.mobileAspect}
                 />
@@ -232,7 +227,7 @@ function DentalProcurementSoftwarePage() {
               <div className="hidden md:block">
                 <MediaViewer
                   imageSrc={COMPARE_PROOF.desktop}
-                  alt="Dental Assist purchasing comparison — selected supplier quotes, money saved, order summary and budget impact"
+                  alt="Purchasing comparison — product rows, Reacting Dental Supplies and Kent Express prices, selected quotes and savings"
                   objectFit="contain"
                   aspectRatio={COMPARE_PROOF.desktopAspect}
                 />
@@ -346,8 +341,8 @@ function DentalProcurementSoftwarePage() {
       </section>
 
       <section aria-labelledby="control-heading" className="bg-background">
-        <div className={cn(SHELL, "grid items-center gap-6 py-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-8 lg:py-7")}>
-          <div className="min-w-0 max-w-[40rem]">
+        <div className={cn(SHELL, "py-6 lg:py-7")}>
+          <div className="min-w-0 max-w-xl">
             <p className={layout.eyebrow}>Control after the order</p>
             <h2 id="control-heading" className={cn("mt-2.5 max-w-[22ch]", layout.h2)}>
               Know what arrived — and what still needs attention.
@@ -357,14 +352,24 @@ function DentalProcurementSoftwarePage() {
               information and keep visibility of quantities that still need follow-up.
             </p>
           </div>
-          <div className="min-w-0">
+          <div className="mt-6 min-w-0">
             <ProductFrame label="Orders" className="w-full">
-              <MediaViewer
-                imageSrc={RECEIVE_PROOF.desktop}
-                alt="Receive order 543 — arriving quantity, follow-up quantity, stock location and expiry"
-                objectFit="contain"
-                aspectRatio={RECEIVE_PROOF.desktopAspect}
-              />
+              <div className="md:hidden">
+                <MediaViewer
+                  imageSrc="/product-story/art-receive-focus.png"
+                  alt="Receive order 543 — arriving quantity, follow-up quantity, stock location and expiry"
+                  objectFit="contain"
+                  aspectRatio="1024 / 648"
+                />
+              </div>
+              <div className="hidden md:block">
+                <MediaViewer
+                  imageSrc={RECEIVE_PROOF.desktop}
+                  alt="Receive order 543 — arriving quantity, follow-up quantity, stock location and expiry"
+                  objectFit="contain"
+                  aspectRatio={RECEIVE_PROOF.desktopAspect}
+                />
+              </div>
             </ProductFrame>
           </div>
         </div>

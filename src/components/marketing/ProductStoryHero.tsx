@@ -8,7 +8,6 @@ import { cn } from "@/lib/utils";
  * Mobile uses a narrower crop where the desktop UI would become unreadably small.
  */
 const SCENE_MS = 3600;
-const FADE_MS = 700;
 
 type Scene = {
   id: string;
@@ -109,14 +108,10 @@ export function ProductStoryHero() {
             aria-hidden={!visible}
           >
             <picture
-              className={cn(
-                "block w-full",
-                animate && "motion-safe:transition-opacity motion-reduce:transition-none",
-              )}
+              className="block w-full"
               style={{
                 opacity: visible ? 1 : 0,
-                transitionDuration: animate ? `${FADE_MS}ms` : "0ms",
-                transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
+                visibility: visible ? "visible" : "hidden",
               }}
             >
               <source media="(max-width: 767px)" srcSet={scene.mobile} />

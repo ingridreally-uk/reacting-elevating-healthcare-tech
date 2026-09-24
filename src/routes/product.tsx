@@ -325,7 +325,12 @@ function ProductPage() {
             id="product-explorer-panel"
             role="tabpanel"
             aria-labelledby={`explorer-tab-${item.id}`}
-            className="mt-7 grid w-full items-start gap-8 lg:min-h-[30rem] lg:grid-cols-[minmax(0,20rem)_minmax(0,1fr)] lg:gap-10"
+            className={cn(
+              "mt-7 grid w-full items-start gap-8 lg:min-h-[30rem] lg:gap-10",
+              item.id === "inventory"
+                ? "lg:mx-auto lg:w-fit lg:grid-cols-[minmax(16rem,20rem)_23.625rem]"
+                : "lg:grid-cols-[minmax(0,20rem)_minmax(0,1fr)]",
+            )}
           >
             <div className="min-w-0 max-w-xl lg:max-w-none">
               <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
